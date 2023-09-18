@@ -104,10 +104,10 @@ $product = \App\Models\products::all();
 <script>
     Swal.fire({
         icon: 'warning',
-        @foreach ($errors->all() as $error)
+        @foreach($errors - > all() as $error)
 
         title: "{{ $error }}",
-@endforeach
+        @endforeach
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
@@ -617,7 +617,7 @@ text-align: center;
                                 </div>
                             </div>
                             <div class="col-md">
-                            <div class="form-group">
+                                <div class="form-group">
                                     <label>Warehouse</label>
                                     <select class="form-control" name="warehouse" id="warehouse">
                                         <option></option>
