@@ -399,7 +399,7 @@ class product extends Controller
 
 
         if ($image != '') {
-            $imagePath = $request->file('image')->store('product_img');
+            $imagePath = $request->file('image')->store('product_img', 'public');
             if ($old_img != '' && $image != '') {
                 unlink($old_img);
             }
