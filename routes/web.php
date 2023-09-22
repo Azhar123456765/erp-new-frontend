@@ -5,14 +5,11 @@ use App\Http\Controllers\invoicecontroller;
 use App\Http\Controllers\maincontroller;
 use App\Http\Controllers\pdfController;
 use App\Http\Controllers\product;
-use App\Http\Controllers\search;
-use App\Http\Controllers\voucherController;
 use App\Http\Controllers\ReceiptVoucherController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentVoucherController;
 use App\Http\Controllers\PurchaseInvoiceController;
 use App\Http\Controllers\SaleInvoiceController;
-use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -141,6 +138,7 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
     Route::get('/gen-led', [pdfController::class, 'gen_led']);
     Route::get('/cus-led', [pdfController::class, 'cus_led']);
+    Route::get('/supplier-led', [pdfController::class, 'supplier_led']);
     Route::get('/profit-led', [pdfController::class, 'profit_rep']);
     Route::get('/stock-report', [pdfController::class, 'stock_rep']);
 });

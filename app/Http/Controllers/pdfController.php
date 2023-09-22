@@ -145,7 +145,7 @@ class pdfController extends Controller
                         session()->forget('gen-led-rc');
                         session()->forget('otherData');
 
-                        return $pdf->stream($views . '-' . rand() . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
                 }
         }
 
@@ -260,7 +260,78 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                        return $pdf->stream($views . '-' . rand() . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                }
+        }
+
+
+        public function supplier_led(Request $request)
+        {
+
+                if (!session()->exists('Data')) {
+                        $type = $request->input('type');
+
+                        $startDate = $request->input('start_date');
+                                $endDate = $request->input('end_date');
+
+                                // Retrieve form data
+                                $supplier = $request->input('supplier');
+
+                                // Start building the query
+                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                                        ->where('company', $supplier)
+                                        ->whereIn('purchase_invoice.id', function ($subQuery) {
+                                                $subQuery->select(DB::raw('MIN(id)'))
+                                                        ->from('purchase_invoice')
+                                                        ->groupBy('unique_id');
+                                        });
+
+                                $ledgerDatasi = $query->get();
+                                $supplierData = seller::where('seller_id', $supplier)->get();
+                                foreach ($supplierData as $key => $value) {
+                                        $supplierName = $value->company_name;
+                                        $debit = $value->debit;
+                                }
+                                $data = [
+                                        'invoice' => $ledgerDatasi,
+                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'debit' =>  $debit,
+                                        'balance_amount' => $ledgerDatasi->sum('balance_amount'),
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'supplierName' => $supplierName,
+                                        'type' => $type,
+
+                                ];
+
+                                session()->put('Data', $data);
+                
+                }
+
+
+                if (session()->has('Data')) {
+
+                        $views = 'Supplier Ledger';
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.supplier_led')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'landscape');
+                        } else {
+                                $pdf->setPaper('A4', 'landscape');
+                        }
+                        $pdf->render();;
+                        session()->forget('Data');
+
+                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
                 }
         }
 
@@ -341,7 +412,7 @@ class pdfController extends Controller
 
                         session()->forget("pdf_data");
                         session()->forget("pdf_title");
-                        return $pdf->stream($views . '-' . rand());
+                        return $pdf->stream($views . '-' . rand(1111,9999));
                 }
         }
 
@@ -419,7 +490,7 @@ class pdfController extends Controller
 
                         session()->forget("pdf_data");
                         session()->forget("pdf_title");
-                        return $pdf->stream($views . '-' . rand() . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
                 }
         }
 
@@ -500,7 +571,7 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand() . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
                 }
         }
 
@@ -594,7 +665,7 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand() . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
                 }
         }
 
@@ -622,7 +693,7 @@ class pdfController extends Controller
 
                         $pdf->render();
 
-                        return $pdf->stream("P" . '-' . rand() . '.pdf');
+                        return $pdf->stream("P" . '-' . rand(1111,9999) . '.pdf');
                         session()->forget('pdf_data');
                 }
         }
@@ -667,7 +738,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return $pdf->stream(rand() . '.pdf');
+                return $pdf->stream(rand(1111,9999) . '.pdf');
         }
 
 
@@ -710,6 +781,6 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return $pdf->stream(rand() . '.pdf');
+                return $pdf->stream(rand(1111,9999) . '.pdf');
         }
 }

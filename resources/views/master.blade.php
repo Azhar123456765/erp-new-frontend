@@ -12,6 +12,7 @@ $warehouse = \App\Models\warehouse::all();
 $sales_officer = \App\Models\sales_officer::all();
 
 $customer = \App\Models\buyer::all();
+$supplier = \App\Models\seller::all();
 
 $warehouse = \App\Models\warehouse::all();
 $product = \App\Models\products::all();
@@ -104,10 +105,9 @@ $product = \App\Models\products::all();
 <script>
     Swal.fire({
         icon: 'warning',
-        @foreach ($errors->all() as $error)
-
+        @foreach($errors-> all() as $error)
         title: "{{ $error }}",
-@endforeach
+        @endforeach
         toast: true,
         position: 'top-end',
         showConfirmButton: false,
@@ -499,9 +499,8 @@ text-align: center;
                                     <label for="">Type</label>
 
                                     <select name="type" id="type">
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
+                                        <option value="1">Invoice Wise</option>
+                                        <option value="2">Voucher Wise</option>
                                     </select>
                                 </div>
 
@@ -544,6 +543,70 @@ text-align: center;
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div>
+
+
+
+<div class="modal fade" id="supplier-led">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Supplier Ledger</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/supplier-led">
+                        @csrf
+                        <div class="row" style="justify-content: space-between;">
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Supplier</label>
+                                    <select class="form-control " name="supplier" id="supplier">
+                                        <option></option>
+                                        @foreach ($supplier as $row)
+                                        <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+
+                            <br>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" name="start_date" id="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" name="end_date" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
 
 
 
@@ -617,7 +680,7 @@ text-align: center;
                                 </div>
                             </div>
                             <div class="col-md">
-                            <div class="form-group">
+                                <div class="form-group">
                                     <label>Warehouse</label>
                                     <select class="form-control" name="warehouse" id="warehouse">
                                         <option></option>

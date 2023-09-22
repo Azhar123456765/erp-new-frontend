@@ -200,6 +200,10 @@ foreach ($theme_colors as $key => $value2) {
                                         <a style="text-align: start" href="" data-toggle="modal" data-target="#cus-led">
                                             Customer Ledger</a>
                                     </li>
+                                    <li>
+                                    <a style="text-align: start" href="" data-toggle="modal" data-target="#supplier-led">
+                                        Supplier Ledger</a>
+                                </li>
                                 </ul>
                             </li>
                             <li class="has-sub">
@@ -473,6 +477,10 @@ foreach ($theme_colors as $key => $value2) {
                                 <li>
                                     <a style="text-align: start" href="" data-toggle="modal" data-target="#cus-led">
                                         Customer Ledger</a>
+                                </li>
+                                <li>
+                                    <a style="text-align: start" href="" data-toggle="modal" data-target="#supplier-led">
+                                        Supplier Ledger</a>
                                 </li>
                             </ul>
                         </li>
