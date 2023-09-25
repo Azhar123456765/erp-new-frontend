@@ -615,12 +615,12 @@ class maincontroller extends Controller
 
 
 
-            // $chartData2 = [];
-            // foreach ($expense_y2 as $item) {
-            //     $chartData2[] = [
-            //         $chartData2[$item->month] = $item->total_earning
-            //     ];
-            // }
+            $chartData2 = [];
+            foreach ($expense_y2 as $item) {
+                $chartData2[] = [
+                    $chartData2[$item->month] = $item->total_earning
+                ];
+            }
 
             foreach ($combinedResults as $item) {
                 $chartData2[] = [
@@ -670,7 +670,7 @@ class maincontroller extends Controller
 
 
 
-            $data = compact('sell_invoice_qty', 'earning', 'expense', 'chartData', 'onlineUsersCount');
+            $data = compact('sell_invoice_qty', 'earning', 'expense', 'chartData', 'chartData2', 'onlineUsersCount');
             return view('dashboard')->with($data);
         } else {
             return view('login');

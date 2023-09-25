@@ -145,7 +145,7 @@ class pdfController extends Controller
                         session()->forget('gen-led-rc');
                         session()->forget('otherData');
 
-                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
                 }
         }
 
@@ -211,7 +211,7 @@ class pdfController extends Controller
                                 $query = ReceiptVoucher::query()
                                         ->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
                                         ->where('receipt_vouchers.company', $customer)  // Specify 'receipt_vouchers.company'
-                                        ;
+                                ;
 
                                 $ledgerDatasi = $query->leftJoin('buyer', 'buyer.buyer_id', '=', DB::raw('LEFT(receipt_vouchers.company, LENGTH(receipt_vouchers.company) - 1)'))
                                         ->get();
@@ -260,7 +260,7 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
                 }
         }
 
@@ -272,41 +272,40 @@ class pdfController extends Controller
                         $type = $request->input('type');
 
                         $startDate = $request->input('start_date');
-                                $endDate = $request->input('end_date');
+                        $endDate = $request->input('end_date');
 
-                                // Retrieve form data
-                                $supplier = $request->input('supplier');
+                        // Retrieve form data
+                        $supplier = $request->input('supplier');
 
-                                // Start building the query
-                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
-                                        ->where('company', $supplier)
-                                        ->whereIn('purchase_invoice.id', function ($subQuery) {
-                                                $subQuery->select(DB::raw('MIN(id)'))
-                                                        ->from('purchase_invoice')
-                                                        ->groupBy('unique_id');
-                                        });
+                        // Start building the query
+                        $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                                ->where('company', $supplier)
+                                ->whereIn('purchase_invoice.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('purchase_invoice')
+                                                ->groupBy('unique_id');
+                                });
 
-                                $ledgerDatasi = $query->get();
-                                $supplierData = seller::where('seller_id', $supplier)->get();
-                                foreach ($supplierData as $key => $value) {
-                                        $supplierName = $value->company_name;
-                                        $debit = $value->debit;
-                                }
-                                $data = [
-                                        'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                        'debit' =>  $debit,
-                                        'balance_amount' => $ledgerDatasi->sum('balance_amount'),
-                                        'startDate' => $startDate,
-                                        'endDate' => $endDate,
-                                        'supplierName' => $supplierName,
-                                        'type' => $type,
+                        $ledgerDatasi = $query->get();
+                        $supplierData = seller::where('seller_id', $supplier)->get();
+                        foreach ($supplierData as $key => $value) {
+                                $supplierName = $value->company_name;
+                                $debit = $value->debit;
+                        }
+                        $data = [
+                                'invoice' => $ledgerDatasi,
+                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'debit' =>  $debit,
+                                'balance_amount' => $ledgerDatasi->sum('balance_amount'),
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'supplierName' => $supplierName,
+                                'type' => $type,
 
-                                ];
+                        ];
 
-                                session()->put('Data', $data);
-                
+                        session()->put('Data', $data);
                 }
 
 
@@ -331,7 +330,7 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
                 }
         }
 
@@ -412,7 +411,7 @@ class pdfController extends Controller
 
                         session()->forget("pdf_data");
                         session()->forget("pdf_title");
-                        return $pdf->stream($views . '-' . rand(1111,9999));
+                        return $pdf->stream($views . '-' . rand(1111, 9999));
                 }
         }
 
@@ -490,7 +489,7 @@ class pdfController extends Controller
 
                         session()->forget("pdf_data");
                         session()->forget("pdf_title");
-                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
                 }
         }
 
@@ -540,7 +539,7 @@ class pdfController extends Controller
                                 'query2' => $query2,
                                 'query3' => $query3,
                                 'query4' => $query4,
-                                'debit' => $query1->sum('amount_paid'),
+                                'debit' => $query3->sum('amount_total'),
                                 'credit' => $query2->sum('amount_total') + $query4->sum('amount_total'),
                                 '' => $query4,
                                 'startDate' => $startDate,
@@ -571,7 +570,7 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
                 }
         }
 
@@ -665,9 +664,66 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
                 }
         }
+
+
+
+        public function warehouse_rep(Request $request)
+        {
+
+
+                if (!session()->exists('Data')) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+                        $warehouse = $request->input('warehouse');
+
+                        $query = purchase_invoice::query();
+                        $query->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                        $data1 = $query->get();
+
+                        $warehouses = warehouse::where('warehouse_id', $warehouse)->get();
+                        foreach ($warehouses as $key => $value) {
+                                $warehouse_name = $value->warehouse_name;
+                        }
+                        $data = [
+                                'query' => $data1,
+                                'qty' => $data1->sum('pur_qty'),
+                                'warehouse' => $warehouse_name ?? '',
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                        ];
+                        session()->put('Data', $data);
+                }
+
+
+                if (session()->has('Data')) {
+
+                        $views = 'Warehouse Report';
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.warehouse_rep')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'landscape');
+                        } else {
+                                $pdf->setPaper('A4', 'landscape');
+                        }
+                        $pdf->render();
+
+                        session()->forget('Data');
+                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                }
+        }
+
 
         public function pdf_check(Request $request)
         {
@@ -693,7 +749,7 @@ class pdfController extends Controller
 
                         $pdf->render();
 
-                        return $pdf->stream("P" . '-' . rand(1111,9999) . '.pdf');
+                        return $pdf->stream("P" . '-' . rand(1111, 9999) . '.pdf');
                         session()->forget('pdf_data');
                 }
         }
@@ -738,7 +794,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return $pdf->stream(rand(1111,9999) . '.pdf');
+                return $pdf->stream(rand(1111, 9999) . '.pdf');
         }
 
 
@@ -781,6 +837,6 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return $pdf->stream(rand(1111,9999) . '.pdf');
+                return $pdf->stream(rand(1111, 9999) . '.pdf');
         }
 }

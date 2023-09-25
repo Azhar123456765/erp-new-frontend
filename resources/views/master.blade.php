@@ -728,6 +728,65 @@ text-align: center;
 </div>
 
 
+
+<div class="modal fade" id="warehouse-report">
+    <div class="modal-dialog">
+        <div class="modal-content warehouse-report">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Stock Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/warehouse-report">
+                        @csrf
+                        <div class="row" style="justify-content: space-between;">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Warehouse</label>
+                                    <select class="form-control" name="warehouse" id="warehouse">
+                                        <option></option>
+                                        @foreach ($warehouse as $row)
+                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row" style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+                            <br>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" name="start_date" id="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" name="end_date" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
 <script>
     // if ($('#gen-led').hasClass('show')) {
 

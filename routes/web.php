@@ -141,6 +141,7 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/supplier-led', [pdfController::class, 'supplier_led']);
     Route::get('/profit-led', [pdfController::class, 'profit_rep']);
     Route::get('/stock-report', [pdfController::class, 'stock_rep']);
+    Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);
 });
 
 

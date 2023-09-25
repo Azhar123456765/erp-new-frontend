@@ -156,20 +156,20 @@
     //Team chart
     var ctx = document.getElementById("team-chart2").getContext('2d');
     if (ctx) {
-        <?php
-        //  echo json_encode($chartData); 
-        ?>
-        <?php
-        //  echo json_encode($chartData2); 
-         ?>
-        var chartData =  ;
-        var chartData2 = ;
+       
+       
+        var chartData =  <?php
+         echo json_encode($chartData); 
+        ?> ;
+        var chartData2 =  <?php
+         echo json_encode($chartData2); 
+         ?> ;
 
         ctx.height = 150;
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: Object.keys(chartData).map(month => getMonthName(month)),
+                labels: Object.keys(chartData+chartData2).map(month => getMonthName(month)),
                 type: 'line',
                 defaultFontFamily: 'Poppins',
                 datasets: [{
