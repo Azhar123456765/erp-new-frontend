@@ -1,23 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
+@php
+$organization = \App\Models\Organization::all();
+foreach($organization as $value){
+    $logo = $value->logo;
+}
+@endphp
 <head>
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-
-
-
+    <link rel="icon" href="{{$logo}}" type="image/png">
 
     <!-- Required meta tags-->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="au theme template">
-    <meta name="author" content="Hau Nguyen">
-    <meta name="keywords" content="au theme template">
 
     <!-- Title Page-->
-    <title>Dashboard</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-mD7nXNl5aXE7g4pdQECzP5tAkN2P6Jw2hShD23zRy0BegVzF7XsVoC4Q3rl5kkM7" crossorigin="anonymous">
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
