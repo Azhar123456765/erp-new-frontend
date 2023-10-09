@@ -7,7 +7,7 @@
     }
 </style>
 <br><br><br>
-<div class="container" style="width: 39%;">
+<div class="container" style="width: 50%;">
     <h3>Manage Right</h3>
     <div class="card-body card-block">
         @foreach ($user as $row)

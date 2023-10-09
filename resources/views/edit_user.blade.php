@@ -1,9 +1,12 @@
 @extends('master') @section('content')
 
 
-<br><br><br>
-<div class="container" style="width: 39%; margin-top:5%;">
-    <h3>Edit user</h3>
+<br>
+<div class="container">
+<div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Edit User</h3>
+        </div>
     <div class="card-body card-block">
 
 
@@ -17,7 +20,7 @@
                 <div class="input-group">
                     <input type="text" id="username2" name="username" placeholder="Username" class="form-control " required value="{{$row->username}}">
                     <div class="input-group-addon">
-                        <i class="fa fa-user"></i>
+                        <i class=" -user"></i>
                     </div>
                 </div>
             </div>
@@ -26,7 +29,7 @@
                 <div class="input-group">
                     <input type="email" id="email2" name="email" placeholder="Email" class="form-control " required value="{{$row->email}}">
                     <div class="input-group-addon">
-                        <i class="fa fa-envelope"></i>
+                        <i class=" -envelope"></i>
                     </div>
                 </div>
             </div>
@@ -34,7 +37,7 @@
                 <div class="input-group">
                     <input type="number" id="" name="phone_number" placeholder="phone number" class="form-control " required value="{{$row->phone_number}}">
                     <div class="input-group-addon">
-                        <i class="fa fa-asterisk"></i>
+                        <i class=" -asterisk"></i>
                     </div>
                 </div>
             </div>
@@ -42,7 +45,7 @@
                 <div class="input-group">
                     <input type="text" id="password2" name="password" placeholder="Password" class="form-control " required value="{{$row->password}}">
                     <div class="input-group-addon">
-                        <i class="fa fa-asterisk"></i>
+                        <i class=" -asterisk"></i>
                     </div>
                 </div>
             </div>
@@ -108,5 +111,6 @@
         </form>
     </div>
 
+</div>
 </div>
 @endsection

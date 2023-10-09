@@ -28,7 +28,7 @@
                 </div>
                 <div class="table-data__tool-right">
                     <a href="" data-toggle="modal" data-target="#login-modal" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                        <i class="zmdi zmdi-plus"></i>add type</a>
+                        <i class="fa fa-plus"></i>add type</a>
                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                                                   <button href="" data-toggle="modal" data-target="#p-seller" class="btn btn-primary" role="button" style="background-color: #666;border:1px solid gray; outline:1px solid gray;">Export</button>
 
@@ -60,7 +60,7 @@
                             <td>
                                 <div class="table-data-feature">
                                     <a href="#" data-toggle="modal" data-target="#edit_modal{{$row->product_type_id}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <i class="zmdi zmdi-edit"></i>
+                                        <i class="fa fa-edit"></i>
                                     </a>
                                     <a href="/product_type_delete{{ $row->product_type_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fa fa-trash"></i>

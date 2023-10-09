@@ -1,25 +1,26 @@
 @extends('master') @section('content')
 
-<br><br><br><br><br>
+<br>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <!-- DATA TABLE -->
+    <div class="card">
+        <div class="card-header">
             @foreach ($users as $row)
             <h3 class="title-5 m-b-35">{{$row->username}} Records</h3>
-@endforeach           
-            <div class="table-responsive table-responsive-data2">
-                <table class="table table-data2">
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>title</th>
-                            <th>Invoice No</th>
-                            <th>Amount</th>
-                            <th>Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+            @endforeach
+        </div>
+
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>title</th>
+                        <th>Invoice No</th>
+                        <th>Amount</th>
+                        <th>Created At</th>
+                    </tr>
+                </thead>
+                <tbody>
                         @php
                         $serial = 1;
                         @endphp
@@ -39,7 +40,7 @@
                             <td>
                                 <div class="table-data-feature">
                                     <a href="/es_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                        <i class="zmdi zmdi-edit"></i>
+                                        <i class="fa fa-edit"></i>
                                     </a>
                                     <a href="/sale_invoice_pdf_{{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                                         <i class="fa fa-solid fa-file-pdf"></i>
@@ -62,7 +63,7 @@
                             <td>
                                 <div class="table-data-feature">
                                     <a href="/ep_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                        <i class="zmdi zmdi-edit"></i>
+                                        <i class="fa fa-edit"></i>
                                     </a>
                                     <a href="/purchase_invoice_pdf_{{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                                         <i class="fa fa-solid fa-file-pdf"></i>
@@ -75,10 +76,27 @@
                         @endphp
                         @endforeach
                     </tbody>
-                </table>
-            </div>
-            <!-- END DATA TABLE -->
+            </table>
         </div>
     </div>
 </div>
+
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 @endsection

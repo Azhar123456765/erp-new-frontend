@@ -8,6 +8,7 @@ use App\Models\accounts;
 use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use App\Models\buyer;
+use App\Models\Income;
 use App\Models\sell_invoice;
 use App\Models\seller;
 use App\Models\sales_officer;
@@ -138,6 +139,11 @@ class SaleInvoiceController extends Controller
             ]);
         }
 
+        $income =  new Income;
+        $income->category_id = $invoiceData['unique_id'];
+        $income->category = 'Sale Invoice';
+        $income->amount = $request['amount_paid'];
+        $income->save();
         $arrayLength = count(array_filter($invoiceData['item']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -299,11 +305,11 @@ class SaleInvoiceController extends Controller
                 'debit' => DB::raw("debit - " . abs($amount)),
             ]);
         }
-
-
-
-
         $invoiceData = $request->all();
+
+        $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
+            'amount' =>$request['amount_paid']
+        ]);
 
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));

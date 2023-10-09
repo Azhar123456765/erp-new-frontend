@@ -8,11 +8,11 @@
 
         }
 
+        body {
+            font-family: sans-serif;
+            background-color: #eeeeee;
+        }
 
-    }
-
-    .container {
-        width: 50%;
     }
 </style>
 <div class="container">
@@ -46,66 +46,38 @@
         </div>
         <div class="form-group">
             <label for="">Organization Logo </label>
-            <div class="img" style="    border: 1px solid lightgray;">
+                <!-- <input style="    border: none;" type="file" name="logo" id="email" class="form-control" placeholder="" aria-describedby="helpId">
+                <input style="    border: none;" type="hidden" name="old_logo" id="email" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->logo}}"> -->
+                <div class="file-upload">
+                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add </button>
 
-                <input style="    border: none;" type="file" name="logo" id="email" class="form-control" placeholder="" aria-describedby="helpId">
-                <input style="    border: none;" type="hidden" name="old_logo" id="email" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->logo}}">
+                    <div class="image-upload-wrap" style="display: none;">
+                        <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" />
+                        <input name="old_logo" type='hidden' value="{{$row->logo}}" />
+                        <div class="drag-text">
+                            <h3>Drag and drop a file or select add Image</h3>
+                        </div>
+                    </div>
 
-                @error('logo')
-                <h5 id="emailHelpId" style="color:red;">
-                    {{ $message }}!
-                </h5>
-                @enderror
-                <div class="right" style="    margin-left: 74%;
-    margin-top: -5%;">
-                    <a href="{{$row->logo}}" target="__blank" style="display: flex;">
-                        <img src="{{$row->logo}}" alt="Logo" class="float-end" width="190px" height="180px">
-                    </a>
+                    <div class="file-upload-content" style="display: block;">
+                        <img class="file-upload-image" src="{{$row->logo ?? '#'}}" alt="your image" />
+                        <div class="image-title-wrap">
+                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded </span></button>
+                        </div>
+                    </div>
                 </div>
             </div>
+            <br>
+            
+                <button type="submit" class="btn btn-success btn-sm">
+                                    Submit
+                                </button>
+            
 
-        </div>
-        <!-- <div class="form-group">
-            <label for="">Choose text color</label>
-            <input type="color" name="theme_color" id="text_color" class="form-control" placeholder="" aria-describedby="helpId" style="width: 25%;" value="{{$row->theme_color}}" required>
-
-        </div> -->
-
-        <br>
-
-        <button type="submit" class="btn btn-success btn-sm">
-            Submit
-        </button>
 
         @endforeach
     </form>
 
 </div>
 
-
-
-
-<script>
-    //     $('#text_color').on('change',function(){
-
-
-    //         $.ajax({
-    //     url: '/customize-form',
-    //     type: 'POST',
-    //     data: {
-    //         theme_color: $("#text_color").val()
-    //     },  
-    //     success: function(response) {
-
-
-
-    //     },
-    //     error: function(xhr, status, error) {
-    //       console.log(error);
-    //     }
-    //   });
-
-
-    //     })
-</script>
 @endsection

@@ -16,7 +16,7 @@
                 </div>
                 <div class="table-data__tool-right">
                     <a href="/p_med_invoice" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                        <i class="zmdi zmdi-plus"></i>add Invoice</a>
+                        <i class="fa fa-plus"></i>add Invoice</a>
                     <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                         <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
                             <button href="" data-toggle="modal" data-target="#p-Invoice" class="btn btn-primary" role="button" style="background-color: #666;border:1px solid gray; outline:1px solid gray;">Export</button>
@@ -54,7 +54,7 @@
                             <td>
                                 <div class="table-data-feature">
                                     <a href="/ep_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                        <i class="zmdi zmdi-edit"></i>
+                                        <i class="fa fa-edit"></i>
                                     </a>
                                     <a href="/purchase_invoice_pdf_{{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                                         <i class="fa fa-solid fa-file-pdf"></i>

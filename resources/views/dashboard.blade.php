@@ -37,7 +37,7 @@
                 <div class="overview__inner">
                     <div class="overview-box clearfix">
                         <div class="icon">
-                            <i class="zmdi zmdi-truck"></i>
+                            <i class="fa fa-truck"></i>
                         </div>
                         <div class="text">
                             <h2>{{$sell_invoice_qty}}</h2>
@@ -76,7 +76,7 @@
                 <div class="overview__inner">
                     <div class="overview-box clearfix">
                         <div class="icon">
-                            <i class="zmdi zmdi-money"></i>
+                            <i class="fa fa-money"></i>
                         </div>
                         <div class="text">
                             <h2>{{$earning}}&nbsp;Rs</h2>

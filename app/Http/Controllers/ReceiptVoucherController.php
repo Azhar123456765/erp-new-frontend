@@ -9,6 +9,7 @@ use App\Models\accounts;
 use Illuminate\Support\Facades\DB;
 
 use App\Models\buyer;
+use App\Models\Income;
 use App\Models\sell_invoice;
 use App\Models\seller;
 use App\Models\sales_officer;
@@ -80,7 +81,11 @@ class ReceiptVoucherController extends Controller
         $lastChar = substr($request['company'], -1);
 
         // Check if the last character is a letter using ctype_alpha
-
+        $income =  new Income;
+        $income->category_id = $invoiceData['unique_id'];
+        $income->category = 'Receipt Voucher';
+        $income->amount = $request['amount_total'];
+        $income->save();
 
 
 
@@ -89,7 +94,7 @@ class ReceiptVoucherController extends Controller
         for ($i = 0; $i < $arrayLength; $i++) {
 
             $invoice = new ReceiptVoucher;
-
+           
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
             $company = substr($invoiceData['company'], 0, -1);
             $invoice->company = $company;

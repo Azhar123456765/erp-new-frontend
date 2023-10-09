@@ -130,7 +130,7 @@ Route::middleware(['userAuth', 'productPermission'])->group(function () {
 });
 
 Route::middleware(['userAuth', 'reportPermission'])->group(function () {
-    //    T    PDF
+    // PDF
     Route::get('/pdf_field={view}', [pdfController::class, 'pdf']);
     Route::get('/pdf_limit{view}', [pdfController::class, 'pdf_limit']);
     Route::get('/pdf', [pdfController::class, 'test_pdf']);

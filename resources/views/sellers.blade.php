@@ -1,85 +1,64 @@
 @extends('master') @section('content')
-<br><br><br><br><br>
 
+<br>
 <div class="container">
-    <div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Supplier table</h3>
+            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp; Supplier Customer</a>
+        </div>
 
-        <div class="col-md-12">
-            <!-- DATA TABLE -->
-            <h3 class="title-5 m-b-35">Supplier table</h3>
-            <div class="table-data__tool">
-                <div class="table-data__tool-left">
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>Supplier name</th>
+                        <th>Contact Person</th>
+                        <th>Debit</th>
+                        <th>Credit</th>
+                        <th>no.records</th>
+                        <th>Supplier Type</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $serial = 1
+                    @endphp
+                    @foreach ($seller as $row)
+                    <tr class="tr-shadow table">
+                        <td>{{$serial}}</td>
+                        <td><a href="" data-toggle="modal" data-target="#view_modal{{$row->seller_id}}"><span class="block-email">{{$row->company_name}}</span></a></td>
+                        <td><span>{{$row->contact_person ?? 'NULL'}}</span></td>
+                        <td><span class="status--process">{{$row->debit}}</span></td>
+                        <td><span class="status--process" style="color: red;">{{$row->credit}}</span></td>
+                        <td class="">{{$row->total_records}}</td>
+                        <td>{{$row->seller_type}}</td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a href="" data-toggle="modal" data-target="#edit_modal{{$row->seller_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="" data-toggle="modal" data-target="#view_modal{{$row->seller_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+                                    <i class="fa fa-light fa-eye"></i>
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                    @php
+                    $serial++;
+                    @endphp
+                    @endforeach
+                </tbody>
 
-                    <form class="form-inline d-flex justify-content-center md-form form-sm mt-0">
-                        <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
-                        <input class="form-control  form-control-sm ml-3 w-75" type="search" name="search" id="search" placeholder="Search" aria-label="Search" value="{{$search}}">
-                    </form>
-
-                </div>
-                <div class="table-data__tool-right">
-                    <a href="" data-toggle="modal" data-target="#add-modal" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                        <i class="zmdi zmdi-plus"></i>add Supplier</a>
-                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                            <button href="" data-toggle="modal" data-target="#p-supplier" class="btn btn-primary" role="button" style="background-color: #666;border:1px solid gray; outline:1px solid gray;">Export</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive table-responsive-data2 ">
-                <table class="table table-data2">
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>Supplier name</th>
-                            <th>Contact Person</th>
-                            <th>Debit</th>
-                            <th>Credit</th>
-                            <th>no.records</th>
-                            <th>Supplier Type</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $serial = ($seller->currentPage() - 1) * $seller->perPage() + 1;
-                        @endphp
-                        @foreach ($seller as $row)
-                        <tr class="tr-shadow table">
-                            <td>{{$serial}}</td>
-                            <td><a href="" data-toggle="modal" data-target="#view_modal{{$row->seller_id}}"><span class="block-email">{{$row->company_name}}</span></a></td>
-                            <td><span>{{$row->contact_person ?? 'NULL'}}</span></td>
-                            <td><span class="status--process">{{$row->debit}}</span></td>
-                            <td><span class="status--process" style="color: red;">{{$row->credit}}</span></td>
-                            <td class="">{{$row->total_records}}</td>
-                            <td>{{$row->seller_type}}</td>
-                            <td>
-                                <div class="table-data-feature">
-                                    <a href="" data-toggle="modal" data-target="#edit_modal{{$row->seller_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
-                                        <i class="zmdi zmdi-edit"></i>
-                                    </a>
-                                    <a href="" data-toggle="modal" data-target="#view_modal{{$row->seller_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
-                                        <i class="fa fa-light fa-eye"></i>
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                        @php
-                        $serial++;
-                        @endphp
-                        @endforeach
-                    </tbody>
-                </table>
-
-            </div>
-            <br>
-            <div class="container">
-                {{$seller->appends(['search' => $search])->links()}}
-            </div>
-
-            <!-- END DATA TABLE -->
-
+            </table>
         </div>
     </div>
+</div>
+
+
 </div>
 
 
@@ -463,7 +442,7 @@
                             </div>
                         </div>
                         <div class="form-group">
-                        <label for="">Supplier Phone number</label>
+                            <label for="">Supplier Phone number</label>
                             <div class="input-group">
                                 <p type="email" id="email2" name="company_email" placeholder="Supplier Email" class="form-control " value="{{$row->company_email}}">
                                     {{$row->company_phone_number}}
@@ -600,17 +579,4 @@
 </div>
 @endforeach
 
-
-
 @endsection
-
-
-<script>
-    document.getElementById('generate_pdf').addEventListener('click', function() {
-
-
-        var data2 = <?php echo session()->put('pdf_data', $pdf);  ?>
-
-        window.location.href = '/pdfseller'
-    })
-</script>
