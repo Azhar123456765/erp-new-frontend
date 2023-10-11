@@ -1,6 +1,4 @@
 @extends('master') @section('content')
-
-<br><br><br><br><br>
 <style>
     @media (max-width: 755px) {
         .modal-dialog {
@@ -13,45 +11,21 @@
         }
     }
 </style>
+<br>
 <div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <!-- DATA TABLE -->
-            <h3 class="title-5 m-b-35">Product Table</h3>
-            <div class="table-data__tool">
-                <div class="table-data__tool-left">
-                    <div class="rs-select2--light rs-select2--md">
-                        <select class="js-select2" name="property">
-                            <option selected="selected">All Properties</option>
-                            <option value="">Option 1</option>
-                            <option value="">Option 2</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                    </div>
-                    <div class="rs-select2--light rs-select2--sm">
-                        <select class="js-select2" name="time">
-                            <option selected="selected">Today</option>
-                            <option value="">3 Days</option>
-                            <option value="">1 Week</option>
-                        </select>
-                        <div class="dropDownSelect2"></div>
-                    </div>
-                </div>
-                <div class="table-data__tool-right">
-                    <a href="" data-toggle="modal" data-target="#login-modal" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                        <i class="fa fa-plus"></i>add product</a>
-                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                        <button href="" data-toggle="modal" data-target="#p-seller" class="btn btn-primary" role="button" style="background-color: #666;border:1px solid gray; outline:1px solid gray;">Export</button>
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Products Table</h3>
+            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Product</a>
+        </div>
 
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
 
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive table-responsive-data2">
-                <table class="table table-data2">
-                    <thead>
-                        <tr>
-                            <th>S.NO</th>
+                    <th>S.NO</th>
                             <th>product Name</th>
                             <th>product company</th>
                             <th>product type</th>
@@ -59,14 +33,14 @@
                             <th>purchase Price</th>
                             <th>Created At</th>
                             <th>Updated At</th>
-                            <th></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $serial = 1;
-                        @endphp
-                        @foreach ($users as $row)
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $serial = 1
+                    @endphp
+                    @foreach ($users as $row)
                         <tr class="tr-shadow">
                             <td>{{ $serial }}</td>
                             <td>{{ $row->product_name }}</td>
@@ -98,21 +72,19 @@
                         $serial++;
                         @endphp
                         @endforeach
-                    </tbody>
-                </table>
-            </div>
-            <br>
-            <div class="container">
-                {{$users->links()}}
-            </div>
-            <!-- END DATA TABLE -->
+                </tbody>
+
+            </table>
         </div>
     </div>
 </div>
 
 
+</div>
 
-<div class="modal fade" id="login-modal">
+
+
+<div class="modal fade" id="add-modal">
     <div class="modal-dialog" style="margin-right: 42%;">
         <div class="modal-content" style="width: 150%; ">
             <div class="modal-body">
@@ -587,37 +559,5 @@
 </div>
 
 @endforeach
-
-
-
-
-<!-- <script>
-
-$("#btn").click(function(){
-
-
-        var productName = document.getElementById("product-name").value;
-        var data = { product: productName };
-
-        fetch("/add_product_product", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(data)
-        })
-        .then(response => {
-            // Handle response here
-        })
-        .catch(error => {
-            console.error("Error:", error);
-        });
-
-    })
-</script> -->
-
-
-
-
 
 @endsection

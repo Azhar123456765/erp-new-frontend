@@ -1,19 +1,14 @@
 @extends('master') @section('content')
 
-<head>
 
     <head>
         <!-- Include other necessary scripts and stylesheets -->
         <!-- Include Select2 CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-        <!-- Include jQuery library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <link href="select2/select2.min.css" rel="stylesheet" media="all">
 
-        <!-- Include Select2 JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
     </head>
-</head>
 <style>
     @media (max-width: 755px) {
         body {
@@ -143,11 +138,11 @@
     }
 
     .select2-container .select2-selection--single .select2-selection__arrow {
-        width: 91 !important;
+        width: 121px !important;
         height: 27px !important;
     }
 
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
+    ,select2 select2-container select2-container--default {
         width: 131px;
         height: 27px !important;
 
@@ -1257,4 +1252,10 @@ display: flex;
     })
 </script>
 
+
+        <!-- Include jQuery library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Include Select2 JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @endsection

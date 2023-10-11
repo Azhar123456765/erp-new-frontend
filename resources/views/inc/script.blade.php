@@ -19,6 +19,13 @@
 
 <script src="{{ asset('../../dist/js/demo.js') }}"></script>
 
+
+
+
+
+<script src="   select2/select2.min.js"></script>
+
+
 <script>
   $(function () {
     $("#example1")
@@ -293,3 +300,4 @@ $('.image-upload-wrap').bind('dragover', function () {
 });
 
 </script>
+

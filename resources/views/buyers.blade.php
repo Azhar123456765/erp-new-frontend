@@ -87,139 +87,144 @@
                 <div class="modal-body">
                     <form action="add_buyer_form" method="post">
                         @csrf
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" id="username2" name="company_name" placeholder="Customer" class="form-control " required>
-                                <div class="input-group-addon">
-                                    <i class="fa fa-building"></i>
+                        <div class="row">
+                            <div class="col-md-6"></div>
+                            <div class="col-md-6"></div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="username2" name="company_name" placeholder="Customer" class="form-control " required>
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-building"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control ">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-envelope"></i>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control ">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" name="company_phone_number" placeholder="Customer Phone Number" class="form-control">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-phone"></i>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" name="company_phone_number" placeholder="Customer Phone Number" class="form-control">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-phone"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control ">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-user"></i>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control ">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-user"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="input-group">
-                                <input type="text" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control ">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-envelope"></i>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <input type="text" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control ">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-envelope"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
 
-                        <div class="form-group">
-                            <label for="">City</label>
-                            <select name="city" id="" style="text-transform: capitalize;" class="form-control ">
-                                @foreach($zone as $row)
-                                <option value=""></option>
-                                <option value="{{$row->zone_id}}">{{$row->zone_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="">City</label>
+                                <select name="city" id="" style="text-transform: capitalize;" class="form-control ">
+                                    @foreach($zone as $row)
+                                    <option value=""></option>
+                                    <option value="{{$row->zone_id}}">{{$row->zone_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="">buyer Type</label>
-                            <select name="buyer_type" id="" style="text-transform: capitalize;" class="form-control ">
-                                <option value="Customer">Customer</option>
-                                <option value="medical">medical</option>
-                                <option value="layer farm">layer farm</option>
-                                <option value="control">control</option>
-                                <option value="farmer">farmer</option>
-                                <option value="doctor">doctor</option>
-                                <option value="vaccinator">vaccinator</option>
-                                <option value="customer">customer</option>
-                                <option value="corporate">corporate</option>
-                                <option value="institution">institution</option>
-                            </select>
-                        </div>
+                            <div class="form-group">
+                                <label for="">buyer Type</label>
+                                <select name="buyer_type" id="" style="text-transform: capitalize;" class="form-control ">
+                                    <option value="Customer">Customer</option>
+                                    <option value="medical">medical</option>
+                                    <option value="layer farm">layer farm</option>
+                                    <option value="control">control</option>
+                                    <option value="farmer">farmer</option>
+                                    <option value="doctor">doctor</option>
+                                    <option value="vaccinator">vaccinator</option>
+                                    <option value="customer">customer</option>
+                                    <option value="corporate">corporate</option>
+                                    <option value="institution">institution</option>
+                                </select>
+                            </div>
 
-                        <div class="form-group">
-                            <label for="">Debit</label>
-                            <div class="input-group">
-                                <input type="number" id="username2" name="debit" placeholder="debit" class="form-control " value="0.00">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-building"></i>
+                            <div class="form-group">
+                                <label for="">Debit</label>
+                                <div class="input-group">
+                                    <input type="number" id="username2" name="debit" placeholder="debit" class="form-control " value="0.00">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-building"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="">Credit</label>
-                            <div class="input-group">
-                                <input type="number" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
-                                <div class="input-group-addon">
-                                    <i class="fa fa-building"></i>
+                            <div class="form-group">
+                                <label for="">Credit</label>
+                                <div class="input-group">
+                                    <input type="number" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-building"></i>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                        <div class="form-group">
-                            <label for="">Address</label>
-                            <div class="input-group">
-                                <textarea name="address" id="" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="Customer Address"></textarea>
+                            <div class="form-group">
+                                <label for="">Address</label>
+                                <div class="input-group">
+                                    <textarea name="address" id="" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="Customer Address"></textarea>
 
+                                </div>
+                            </div>
+
+
+
+
+
+
+                            @error('company_name')
+
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+
+
+
+                            </div>
+                            @enderror
+
+                            @error('company_email')
+
+                            <div class="alert alert-danger" role="alert">
+                                {{$message}}
+
+
+
+                            </div>
+                            @enderror
+
+
+
+
+                            <div class="form-actions form-group">
+                                <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
                             </div>
                         </div>
 
-
-
-
-
-
-                        @error('company_name')
-
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-
-
-
-                        </div>
-                        @enderror
-
-                        @error('company_email')
-
-                        <div class="alert alert-danger" role="alert">
-                            {{$message}}
-
-
-
-                        </div>
-                        @enderror
-
-
-
-
-                        <div class="form-actions form-group">
-                            <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
-                        </div>
                     </form>
                 </div>
             </div>

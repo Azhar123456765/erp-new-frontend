@@ -1,48 +1,33 @@
 @extends('master') @section('content')
-<br><br><br><br><br>
 
+<br>
 <div class="container">
-    <div class="row">
+    <div class="card">
+        <div class="card-header">
+            <h3 class="card-title">Purchase Invoice Table</h3>
+            <a href="/p_med_invoice" class="btn btn-success float-right">
+                <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Purchase Invoice</a>
+        </div>
 
-        <div class="col-md-12">
-            <!-- DATA TABLE -->
-            <h3 class="title-5 m-b-35">Invoice table</h3>
-            <div class="table-data__tool">
-                <div class="table-data__tool-left">
-
-                    <button data-toggle="modal" data-target="#search-modal" class="btn btn-primary" role="button" style="background-color: black;">Filter</button>
-
-
-                </div>
-                <div class="table-data__tool-right">
-                    <a href="/p_med_invoice" class="au-btn au-btn-icon au-btn--green au-btn--small">
-                        <i class="fa fa-plus"></i>add Invoice</a>
-                    <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                        <div class="rs-select2--dark rs-select2--sm rs-select2--dark2">
-                            <button href="" data-toggle="modal" data-target="#p-Invoice" class="btn btn-primary" role="button" style="background-color: #666;border:1px solid gray; outline:1px solid gray;">Export</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="table-responsive table-responsive-data2 ">
-                <table class="table table-data2">
-                    <thead>
-                        <tr>
-                            <th>S.No</th>
-                            <th>GR No</th>
-                            <th>Invoice No</th>
-                            <th>company</th>
-                            <th>Qty</th>
-                            <th>Amount</th>
-                            <th>Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @php
-                        $serial = ($purchase_invoice->currentPage() - 1) * $purchase_invoice->perPage() + 1;
-                        @endphp
-
-                        @foreach ($purchase_invoice as $row)
+        <div class="card-body">
+            <table id="example1" class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>S.No</th>
+                        <th>GR No</th>
+                        <th>Invoice No</th>
+                        <th>company</th>
+                        <th>Qty</th>
+                        <th>Amount</th>
+                        <th>Created At</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @php
+                    $serial = 1
+                    @endphp
+                    @foreach ($purchase_invoice as $row)
                         <tr class="tr-shadow table">
                             <td>{{$serial}}</td>
                             <td><a href="/ep_med_invoice_id={{$row->unique_id}}"><span class="block-email">{{$row->unique_id}}</span></a></td>
@@ -66,77 +51,14 @@
                         $serial++;
                         @endphp
                         @endforeach
-                    </tbody>
-                </table>
+                </tbody>
 
-            </div>
-            <br>
-            <div class="container">
-
-            </div>
-
-            <!-- END DATA TABLE -->
-
+            </table>
         </div>
     </div>
 </div>
 
 
-
-
-
-
-
+</div>
 
 @endsection
-
-<div class="modal fade" id="search-modal" >
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Search Invoice</h4>
-                <div class="modal-body">
-
-                    <form method="GET" action="/purchase-invoice">
-                        @csrf
-                        <div class="form-group">
-                            <label for="username">GR No</label>
-                            <input type="text" class="form-control " name="invoice_no" value="{{$invoice_no ?? ''}}">
-                        </div>
-                        <div class="form-group">
-                            <label for="username">Company</label>
-                            <select name="company" id="s" class="form-control" data-live-search="true">
-                                <option></option>
-                                @foreach ($seller as $row2)
-                                <option value="{{$row2->seller_id}}" {{$row2->seller_id == $company ? 'selected' : ''}}>{{$row2->company_name}}</option>
-                                @endforeach
-                            </select>
-
-                        </div>
-                        <div class="form-group">
-                            <label for="sales_officer">Sales Officer</label>
-                            <select name="sales_officer" class="form-control " id="sales_officer" data-live-search="true">
-                                <option></option>
-                                @foreach ($sales_officer as $row)
-                                <option value="{{ $row->sales_officer_id }}" {{$row->sales_officer_id == $sales_officer2 ? 'selected' : ''}}>{{ $row->sales_officer_name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="username">Date</label>
-                            <input type="date" class="form-control " name="date" value="{{$date ?? ''}}">
-                            <input type="hidden" name="check" value="1">
-                        </div>
-
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-
-                    </form>
-
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
