@@ -32,58 +32,32 @@
             </div>
         </div>
         @elseif(session()->get('user_id')['role'] == 'admin')
-        <div class="col-sm-6 col-lg-4">
-            <div class="overview-item overview-item--c2">
-                <div class="overview__inner">
-                    <div class="overview-box clearfix">
-                        <div class="icon">
-                            <i class="fa fa-truck"></i>
-                        </div>
-                        <div class="text">
-                            <h2>{{$sell_invoice_qty}}</h2>
-                            <span>items sale</span>
-                        </div>
-                    </div>
-
+        <div class="col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-truck"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">items Sale</span>
+                    <span class="info-box-number">{{$sell_invoice_qty}}</span>
                 </div>
             </div>
         </div>
 
-
-
-
-        <div class="col-sm-6 col-lg-4">
-            <div class="overview-item overview-item--c3">
-                <div class="overview__inner">
-                    <div class="overview-box clearfix">
-                        <div class="icon">
-                            <i class="fas fa-exclamation-circle"></i>
-                        </div>
-                        <div class="text">
-                            <h2>{{$expense}}&nbsp;Rs</h2>
-                            <span>Total Expense</span>
-                        </div>
-                    </div>
-
+        <div class="col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-exclamation-circle"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Expense</span>
+                    <span class="info-box-number">{{$expense}}&nbsp;Rs</span>
                 </div>
             </div>
         </div>
 
-
-
-        <div class="col-sm-6 col-lg-4">
-            <div class="overview-item overview-item--c4">
-                <div class="overview__inner">
-                    <div class="overview-box clearfix">
-                        <div class="icon">
-                            <i class="fa fa-money"></i>
-                        </div>
-                        <div class="text">
-                            <h2>{{$earning}}&nbsp;Rs</h2>
-                            <span>Total Earning</span>
-                        </div>
-                    </div>
-
+        <div class="col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Earning</span>
+                    <span class="info-box-number">{{$earning}}&nbsp;Rs</span>
                 </div>
             </div>
         </div>
@@ -156,20 +130,20 @@
     //Team chart
     var ctx = document.getElementById("team-chart2").getContext('2d');
     if (ctx) {
-       
-       
-        var chartData =  <?php
-         echo json_encode($chartData); 
-        ?> ;
-        var chartData2 =  <?php
-         echo json_encode($chartData2); 
-         ?> ;
+
+
+        var chartData = <?php
+                        echo json_encode($chartData);
+                        ?>;
+        var chartData2 = <?php
+                            echo json_encode($chartData2);
+                            ?>;
 
         ctx.height = 150;
         var myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: Object.keys(chartData+chartData2).map(month => getMonthName(month)),
+                labels: Object.keys(chartData + chartData2).map(month => getMonthName(month)),
                 type: 'line',
                 defaultFontFamily: 'Poppins',
                 datasets: [{

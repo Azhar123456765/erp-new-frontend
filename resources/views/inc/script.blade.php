@@ -299,5 +299,14 @@ $('.image-upload-wrap').bind('dragover', function () {
 		$('.image-upload-wrap').removeClass('image-dropping');
 });
 
+
+$(document).on('keydown', function ( e ) {
+    // You may replace `m` with whatever key you want
+    if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'm') ) {
+		$("#add-modal").modal('show');
+		$("#login-modal").modal('show');
+    }
+});
+
 </script>
 

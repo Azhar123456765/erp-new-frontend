@@ -322,6 +322,16 @@ foreach ($theme_colors as $key => $value2) {
           </ul>
         </li>
       </ul>
+      <br>
+      <div class="bg-blue" style="
+    height: 6vh;
+    padding: 6px;
+">
+        <a href="/logout" class="active text-center">
+          <i class="fas fa-login"></i>
+          <p>Logout</p>
+        </a>
+      </div>
     </nav>
   </div>
 </aside>
