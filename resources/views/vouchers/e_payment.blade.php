@@ -125,7 +125,9 @@
         text-align: center;
     }
 
-    .invoice {
+        .invoice {
+ background-color: #f8f9fa;
+        border: none;
 
         height: 167.5px;
         overflow-y: scroll;
@@ -148,17 +150,17 @@
     }
 
     input {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
     .invoice input {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
     select {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
@@ -168,7 +170,7 @@
     }
 
     .select2-container--default .select2-selection--single .select2-selection__rendered {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
 
         line-height: 25px !important;
@@ -186,6 +188,7 @@
     }
 
     .fields {
+
         width: 19%;
         justify-content: space-around;
         flex-direction: column;
@@ -528,7 +531,10 @@ display: flex;
         total_amount();
         addInvoice();
         addInvoice2(` + counter + `);
-        $("select").select2({});
+         $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
         5
     })
 

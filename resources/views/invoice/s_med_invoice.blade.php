@@ -1,14 +1,18 @@
 @extends('master') @section('content')
 
 
-    <head>
-        <!-- Include other necessary scripts and stylesheets -->
-        <!-- Include Select2 CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+<head>
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-        <link href="select2/select2.min.css" rel="stylesheet" media="all">
+    <link href="select2/select2.min.css" rel="stylesheet" media="all">
+    <!-- Include jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-    </head>
+    <!-- Include Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
+</head>
 <style>
     @media (max-width: 755px) {
         body {
@@ -101,8 +105,10 @@
         text-align: center;
     }
 
-    .invoice {
-
+        .invoice {
+ background-color: #f8f9fa;
+        border: none;
+       
         height: 167.5px;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -131,48 +137,21 @@
         width: 131px !important;
         height: 27px !important;
     }
+    .select2-container--classic {
+        width: 191px !important;
+        height: 27px !important;
+
+        line-height: 25px !important;
+        height: 25px !important;
+    }
 
     #form {
         width: 140%;
         margin-left: -22%;
     }
 
-    .select2-container .select2-selection--single .select2-selection__arrow {
-        width: 121px !important;
-        height: 27px !important;
-    }
-
-    ,select2 select2-container select2-container--default {
-        width: 131px;
-        height: 27px !important;
-
-        line-height: 25px !important;
-        height: 25px !important;
-        padding-top: 2px;
-    }
-
-    .items .select2-container--default .select2-selection--single .select2-selection__rendered {
-        width: 191px !important;
-        height: 27px !important;
-
-        line-height: 25px !important;
-        height: 25px !important;
-        padding-top: 2px;
-    }
-
-    .select2-container .select2-selection--single .select2-selection__arrow {
-        margin-right: -3%;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        margin: 3px;
-        width: 91% !important;
-    }
-
-
-
-
     .fields {
+
         width: 19%;
         justify-content: space-around;
         flex-direction: column;
@@ -196,12 +175,12 @@
         color: black;
         /* Change this to your desired text color */
         outline: none;
-        /* Remove the default focus outline */
+        /* Remove the classic focus outline */
     }
 
 
 
-    .remark .select2-container--default .select2-selection--single .select2-selection__rendered {
+    .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
         width: 219px !important;
         height: 27px !important;
 
@@ -210,7 +189,7 @@
         padding-top: 2px;
     }
 
-    .cash .select2-container--default .select2-selection--single .select2-selection__rendered {
+    .cash .select2-container--classic .select2-selection--single .select2-selection__rendered {
         width: 159px !important;
     }
 
@@ -221,7 +200,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -85px; padding-top: 5px;        overflow-x: visible;
+<div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Sale Invoice</h3>
@@ -571,7 +550,8 @@ display: flex;
     top: 77%;
     left: 19.5%;
     width: 217px;
-    height: 191px;">
+    height: 191px;
+    ">
     <a href="" target="_blank" class="p-img">
         <img src="g" alt="Product  does not have any img or an error occur" style="
     width: 100%;
@@ -653,7 +633,7 @@ display: flex;
 
     function handleKeyPress(event) {
         if (event.key === "Enter") {
-            event.preventDefault(); // Prevent the default behavior (e.g., form submission)
+            event.preventclassic(); // Prevent the classic behavior (e.g., form submission)
             const currentElement = event.target;
             const focusableElements = getFocusableElements();
             const currentIndex = focusableElements.indexOf(currentElement);
@@ -758,7 +738,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $("select").select2({});
+            $('select').select2({
+                theme: 'classic',
+                width: 'resolve',
+            });
 
             var selectedOption = $("#item").find('option:selected');
             var unitInput = $('#unit');
@@ -893,7 +876,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $("select").select2({});
+            $('select').select2({
+                theme: 'classic',
+                width: 'resolve',
+            });
 
             var selectedOption = $("#item").find('option:selected');
             var unitInput = $('#unit');
@@ -1198,7 +1184,10 @@ display: flex;
     $("#item option").click(function() {
         // Initialize Select2 for the desired select elements
         $("select").select2();
-        $("select").select2({});
+        $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
         // Initialize other select elements if necessary
     });
 
@@ -1221,7 +1210,7 @@ display: flex;
 
 
     $('#form').submit(function(event) {
-        event.preventDefault();
+        event.preventclassic();
 
         // Get the form data
         var formData = $("#form").serialize();
@@ -1253,9 +1242,5 @@ display: flex;
 </script>
 
 
-        <!-- Include jQuery library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <!-- Include Select2 JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 @endsection

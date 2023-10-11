@@ -24,18 +24,18 @@ foreach ($theme_colors as $key => $value2) {
 
 
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-  <a href="index3.html" class="brand-link">
-    <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8" />
-    <span class="brand-text font-weight-light">AdminLTE 3</span>
+  <a href="/" class="brand-link">
+    <img src="{{$logo}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8" />
+    <span class="brand-text font-weight-light">{{$organization}}</span>
   </a>
 
   <div class="sidebar">
     <div class="user-panel mt-3 pb-3 mb-3 d-flex">
       <div class="image">
-        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image" />
+        <img src="images/avatar011.png" class="img-circle elevation-2" alt="User Image" />
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">{{session()->get('user_id')['username']}}&nbsp;&nbsp;({{session()->get('user_id')['user_id'] == 1 ? 'Super Admin' : session()->get('user_id')['role']}})</a>
       </div>
     </div>
 
@@ -52,8 +52,8 @@ foreach ($theme_colors as $key => $value2) {
 
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        <li class="nav-item {{ request()->is('organization*', 'account_account=1*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'menu-open' : '' }}">
-          <a href="#" class="nav-link {{ request()->is('organization*', 'account_account=1*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'active' : '' }}">
+        <li class="nav-item {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Setup
@@ -71,6 +71,12 @@ foreach ($theme_colors as $key => $value2) {
               <a href="/account_account=1" class="nav-link{{ request()->is('account_account=1*') ? ' active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Accounts</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/users" class="nav-link{{ request()->is('users*') ? ' active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Users</p>
               </a>
             </li>
             <li class="nav-item">
@@ -105,6 +111,54 @@ foreach ($theme_colors as $key => $value2) {
             </li>
           </ul>
 
+        </li>
+
+        <li class="nav-item {{ request()->is('sale-invoice*', 'purchase-invoice*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ request()->is('sale-invoice*', 'purchase-invoice*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-file-invoice"></i>
+            <p>
+              Invoice
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/sale-invoice" class="nav-link{{ request()->is('sale-invoice*') ? ' active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Manage Sale Invoice</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/purchase-invoice" class="nav-link{{ request()->is('purchase-invoice*') ? ' active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Manage Purchase Invoice</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
+        <li class="nav-item {{ request()->is('p_voucher*', 'r_voucher*') ? 'menu-open' : '' }}">
+          <a href="#" class="nav-link {{ request()->is('p_voucher*', 'r_voucher*') ? 'active' : '' }}">
+            <i class="nav-icon fas fa-credit-card"></i>
+            <p>
+              Voucher
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="/p_voucher" class="nav-link{{ request()->is('p_voucher*') ? ' active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Payment Voucher</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="/r_voucher" class="nav-link{{ request()->is('r_voucher*') ? ' active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Reciept Voucher</p>
+              </a>
+            </li>
+          </ul>
         </li>
 
 
@@ -149,6 +203,123 @@ foreach ($theme_colors as $key => $value2) {
             </li>
           </ul>
 
+        </li>
+
+
+
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-file-invoice"></i>
+            <p>
+              Reports
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
+                  Standard Reports
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p-user" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Users</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p-supplier" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>supplier</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p-buyer" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Buyer</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p-zone" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>zone</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p-warehouse" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>warehouse</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p-sales_officer" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>sales officer</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
+                  Legder Reports
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>General Ledger</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#cus-led" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Customer Ledger</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#supplier-led" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Supllier Ledger</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
+                  Other Reports
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#profit-led" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Profit Report</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#stock-report" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Stock Report</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+          </ul>
         </li>
       </ul>
     </nav>

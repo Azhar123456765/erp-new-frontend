@@ -126,7 +126,9 @@
         text-align: center;
     }
 
-    .invoice {
+        .invoice {
+ background-color: #f8f9fa;
+        border: none;
 
         height: 167.5px;
         overflow-y: scroll;
@@ -187,6 +189,7 @@
     }
 
     .fields {
+
         width: 19%;
         justify-content: space-around;
         flex-direction: column;
@@ -874,7 +877,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $("select").select2({});
+             $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
 
             let count = <?php echo $counter; ?> - 1
             for (let i = 1; i <= count; i++) {
@@ -1150,7 +1156,10 @@ display: flex;
 
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
-        $("select").select2({});
+         $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
 
 
         // Initialize other select elements if necessary

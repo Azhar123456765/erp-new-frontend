@@ -126,7 +126,9 @@
         text-align: center;
     }
 
-    .invoice {
+        .invoice {
+ background-color: #f8f9fa;
+        border: none;
 
         height: 167.5px;
         overflow-y: scroll;
@@ -149,44 +151,30 @@
     }
 
     input {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
     .invoice input {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
     select {
-        width: 151px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
-    .select2-container .select2-selection--single .select2-selection__arrow {
-        width: 91 !important;
-        height: 27px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        width: 151px !important;
+    .select2-container--classic {
+        width: 191px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
-        padding-top: 2px;
-    }
-
-    .select2-container .select2-selection--single .select2-selection__arrow {
-        margin-right: -3%;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        margin: 3px;
-        width: 91% !important;
     }
 
     .fields {
+
         width: 19%;
         justify-content: space-around;
         flex-direction: column;
@@ -911,7 +899,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $("select").select2({});
+             $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
 
             let count = <?php echo $counter; ?> - 1
             for (let i = 1; i <= count; i++) {
@@ -1081,7 +1072,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $("select").select2({});
+             $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
 
             let count = <?php echo $counter; ?> - 1
             for (let i = 1; i <= count; i++) {
@@ -1390,7 +1384,10 @@ $("#dis_total").val(totalb)
 
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
-        $("select").select2({});
+         $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
 
 
         // Initialize other select elements if necessary

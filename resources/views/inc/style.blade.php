@@ -173,7 +173,6 @@
 <style>
     /* FILE UPLOAD STYLES */
     .file-upload {
-  background-color: #ffffff;
   width: 600px;
   margin: 0 auto;
   padding: 20px;
@@ -251,8 +250,8 @@
 }
 
 .file-upload-image {
-  max-height: 500px;
-  max-width: 200px;
+  max-height: 100px;
+  max-width: 100px;
   margin: auto;
   padding: 20px;
 }

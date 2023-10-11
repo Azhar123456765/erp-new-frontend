@@ -72,6 +72,7 @@
 
   .fields {
 
+
     justify-content: space-around;
   }
 

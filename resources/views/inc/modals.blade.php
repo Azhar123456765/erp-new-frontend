@@ -667,7 +667,7 @@ text-align: center;
 
     $(document).ready(function() {
         $('select').select2({
-            theme: 'default',
+            theme: 'classic',
             width: 'resolve',
         });
     });

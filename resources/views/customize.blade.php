@@ -15,7 +15,7 @@
 
     }
 </style>
-<div class="container">
+<div class="content">
 
     <form action="/organization" method="POST" enctype="multipart/form-data">
         @csrf
@@ -45,36 +45,30 @@
             </div>
         </div>
         <div class="form-group">
-            <label for="">Organization Logo </label>
-                <!-- <input style="    border: none;" type="file" name="logo" id="email" class="form-control" placeholder="" aria-describedby="helpId">
+            <!-- <input style="    border: none;" type="file" name="logo" id="email" class="form-control" placeholder="" aria-describedby="helpId">
                 <input style="    border: none;" type="hidden" name="old_logo" id="email" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->logo}}"> -->
-                <div class="file-upload">
-                    <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add </button>
+            <div class="file-upload">
+                <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Organization Logo</button>
 
-                    <div class="image-upload-wrap" style="display: none;">
-                        <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" />
-                        <input name="old_logo" type='hidden' value="{{$row->logo}}" />
-                        <div class="drag-text">
-                            <h3>Drag and drop a file or select add Image</h3>
-                        </div>
+                <div class="image-upload-wrap" style="display: none;">
+                    <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" required/>
+                    <input name="old_logo" type='hidden' value="{{$row->logo}}" />
+                    <div class="drag-text">
+                        <h3>Drag and drop a file or select add Image</h3>
                     </div>
-
-                    <div class="file-upload-content" style="display: block;">
-                        <img class="file-upload-image" src="{{$row->logo ?? '#'}}" alt="your image" />
-                        <div class="image-title-wrap">
-                            <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded </span></button>
-                        </div>
+                </div>
+                <div class="file-upload-content" style="display: block;">
+                    <img class="file-upload-image" src="{{$row->logo ?? '#'}}" alt="your image" />
+                    <div class="image-title-wrap">
+                        <button type="button" onclick="removeUpload()" class="remove-image">Remove <span class="image-title">Uploaded </span></button>
                     </div>
                 </div>
             </div>
-            <br>
-            
-                <button type="submit" class="btn btn-success btn-sm">
-                                    Submit
-                                </button>
-            
+        </div>
 
-
+        <button type="submit" class="btn btn-success btn-sm">
+            Submit
+        </button>
         @endforeach
     </form>
 
