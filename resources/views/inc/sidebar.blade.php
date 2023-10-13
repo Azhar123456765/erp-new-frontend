@@ -23,7 +23,7 @@ foreach ($theme_colors as $key => $value2) {
 
 
 
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<aside class="main-sidebar sidebar-light-teal elevation-4">
   <a href="/" class="brand-link">
     <img src="{{$logo}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: 0.8" />
     <span class="brand-text font-weight-light">{{$organization}}</span>
@@ -115,7 +115,7 @@ foreach ($theme_colors as $key => $value2) {
 
         <li class="nav-item {{ request()->is('sale-invoice*', 'purchase-invoice*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ request()->is('sale-invoice*', 'purchase-invoice*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-file-invoice"></i>
+            <i class="nav-icon fas fa-file-invoice-dollar"></i>
             <p>
               Invoice
               <i class="right fas fa-angle-left"></i>
@@ -139,7 +139,7 @@ foreach ($theme_colors as $key => $value2) {
 
         <li class="nav-item {{ request()->is('p_voucher*', 'r_voucher*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ request()->is('p_voucher*', 'r_voucher*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-credit-card"></i>
+            <i class="nav-icon fas fa-money-check"></i>
             <p>
               Voucher
               <i class="right fas fa-angle-left"></i>
@@ -164,7 +164,7 @@ foreach ($theme_colors as $key => $value2) {
 
         <li class="nav-item {{ request()->is('product_category*', 'product_sub_category*', 'product_company*', 'products*', 'product_type*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ request()->is('product_category*', 'product_sub_category*', 'product_company*', 'products*', 'product_type*') ? 'active' : '' }}">
-            <i class="nav-icon fas fa-box"></i>
+            <i class="nav-icon fas fa-prescription-bottle"></i>
             <p>
               Products
               <i class="right fas fa-angle-left"></i>
@@ -210,7 +210,7 @@ foreach ($theme_colors as $key => $value2) {
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-file-invoice"></i>
+            <i class="nav-icon fas fa-chart-line"></i>
             <p>
               Reports
               <i class="right fas fa-angle-left"></i>

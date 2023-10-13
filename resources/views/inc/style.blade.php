@@ -175,8 +175,8 @@
 <style>
     /* FILE UPLOAD STYLES */
     .file-upload {
-  width: 600px;
-  margin: 0 auto;
+      max-width: 600px;
+    margin: 0px auto 0 0px;o;
   padding: 20px;
 }
 

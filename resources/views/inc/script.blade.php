@@ -308,5 +308,13 @@ $(document).on('keydown', function ( e ) {
     }
 });
 
+$(document).on('keydown', function ( e ) {
+    // You may replace `m` with whatever key you want
+    if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'l') ) {
+        window.location.href = '/logout'
+    }
+});
+
+
 </script>
 

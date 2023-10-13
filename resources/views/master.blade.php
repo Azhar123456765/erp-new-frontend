@@ -12,8 +12,8 @@
             <strong>Copyright &copy; 2023-2023
                 <a href="https://www.psofts.online" class="text-success">Psoft</a>.</strong>
             All rights reserved.
+            <aside class="control-sidebar control-sidebar-dark"></aside>
         </footer>
-        <aside class="control-sidebar control-sidebar-dark"></aside>
     </div>
 </body>
 @include('inc.modals')

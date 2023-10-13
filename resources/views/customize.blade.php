@@ -23,7 +23,7 @@
 
         <div class="form-group">
             <label for="">Organization Name</label>
-            <input type="text" name="name" id="company" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->organization_name}}" required>
+            <input type="text" name="name" id="company" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->organization_name}}" >
         </div>
 
         <div class="form-group">
@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="col">
                     <label for="">Phone Number</label>
-                    <input type="number" name="phone_number" id="email" class="form-control" value="{{$row->phone_number}}" required>
+                    <input type="number" name="phone_number" id="email" class="form-control" value="{{$row->phone_number}}" >
                 </div>
                 <div class="col">
                     <label for="">Email address</label>
@@ -51,7 +51,7 @@
                 <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Organization Logo</button>
 
                 <div class="image-upload-wrap" style="display: none;">
-                    <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" required/>
+                    <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" />
                     <input name="old_logo" type='hidden' value="{{$row->logo}}" />
                     <div class="drag-text">
                         <h3>Drag and drop a file or select add Image</h3>

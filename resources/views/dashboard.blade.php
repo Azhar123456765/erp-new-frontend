@@ -13,21 +13,13 @@
 
     <div class="row m-t-25" style="text-transform: capitalize;">
 
-
         @if(session()->get('user_id')['role'] == 'user')
-        <div class="col-sm-6 col-lg-12">
-            <div class="overview-item overview-item--c2">
-                <div class="overview__inner">
-                    <div class="overview-box clearfix">
-                        <div class="icon">
-                            <i class="fa fa-book" aria-hidden="true"></i>
-                        </div>
-                        <div class="text">
-                            <h2>{{session()->get('user_id')['no_records']}}</h2>
-                            <span>Total No of records you input</span>
-                        </div>
-                    </div>
-
+        <div class="col-md-12">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-primary elevation-1"><i class="fa fa-book"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total No of records you input</span>
+                    <span class="info-box-number">{{session()->get('user_id')['no_records']}}</span>
                 </div>
             </div>
         </div>

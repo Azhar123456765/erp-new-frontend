@@ -50,6 +50,12 @@ class OrganizationController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
+        $request->validate([
+
+            'organization_name' => 'required',
+            'phone_number' => 'required',
+
+        ]);
         $image = $request->file('logo');
 
 

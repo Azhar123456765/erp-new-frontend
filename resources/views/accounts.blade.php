@@ -7,14 +7,13 @@
             <h3 class="card-title">Accounts</h3>
             <a href="" data-toggle="modal" data-target="#login-modal" class="btn btn-success float-right">
                 <i class="fa fa-plus"></i> &nbsp; Add Account</a>
-                
-            </div>
-            
-            <select class="form-control float-right ml-4 mt-3" style="width: 21%;" id="account" name="property" onchange="accounts()">
-                <option value="1" {{ $id == 1 ? 'selected' : '' }}>Cash</option>
-                <option value="2" {{ $id == 2 ? 'selected' : '' }}>Accounts Receivable</option>
-                <option value="3" {{ $id == 3 ? 'selected' : '' }}>Accounts Payable</option>
-            </select>
+        </div>
+
+        <select class="form-control float-right ml-4 mt-3" style="width: 21%;" id="account" name="property" onchange="accounts()">
+            <option value="1" {{ $id == 1 ? 'selected' : '' }}>Cash</option>
+            <option value="2" {{ $id == 2 ? 'selected' : '' }}>Accounts Receivable</option>
+            <option value="3" {{ $id == 3 ? 'selected' : '' }}>Accounts Payable</option>
+        </select>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
@@ -65,7 +64,6 @@
 </div>
 
 
-</div>
 
 
 <div class="modal fade" id="login-modal">
@@ -158,4 +156,5 @@
 
     }
 </script>
+
 @endsection
