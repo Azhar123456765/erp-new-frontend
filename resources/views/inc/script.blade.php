@@ -202,16 +202,7 @@
         }
     }
 </style>
-<div class="loader-wrapper" id="loader">
-    <div class="loader"></div>
-</div>
-<script>
-    // script.js
-    window.onload = function() {
-        const loader = document.getElementById("loader");
-        loader.style.display = "none";
-    };
-</script>
+
 <script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js') }}" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js') }}"></script>
