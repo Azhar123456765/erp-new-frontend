@@ -1210,7 +1210,7 @@ display: flex;
 
 
     $('#form').submit(function(event) {
-        event.preventclassic();
+        event.preventDefault();
 
         // Get the form data
         var formData = $("#form").serialize();
