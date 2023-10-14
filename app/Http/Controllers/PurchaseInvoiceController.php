@@ -133,10 +133,10 @@ class PurchaseInvoiceController extends Controller
         users::where("user_id", $user_id)->update([
             'no_records' => DB::raw("no_records + " . 1)
         ]);
-        $pr_amount = $request['previous_balance_amount'];
+        $pr_amount = $request['previous_balance'];
         if ($pr_amount >= 1) {
             seller::where("seller_id", $request['company'])->update([
-                'debit' => DB::raw("debit + " . $pr_amount),
+                'credit' => DB::raw("credit + " . $pr_amount),
             ]);
         }
 
@@ -144,7 +144,7 @@ class PurchaseInvoiceController extends Controller
 
         if ($amount >= 1) {
             seller::where("seller_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . $amount),
+                'credit' => DB::raw("credit + " . $amount),
             ]);
         }
 
@@ -170,7 +170,7 @@ class PurchaseInvoiceController extends Controller
             $invoice->transporter = $invoiceData['transporter'] ?? null;
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
 
-            $invoice->previous_balance = $invoiceData['previous_balance'] ?? null;
+            $invoice->previous_balance = $invoiceData['amount_total'] ?? null;
             $invoice->cartage = $invoiceData['cartage'] ?? null;
             $invoice->grand_total = $invoiceData['grand_total'] ?? null;
             $invoice->amount_paid = $invoiceData['amount_paid'] ?? null;
@@ -302,10 +302,10 @@ class PurchaseInvoiceController extends Controller
 
         purchase_invoice::where('unique_id', $id)->delete();
 
-        $pr_amount = $request['previous_balance_amount'];
+        $pr_amount = $request['previous_balance'];
         if ($pr_amount >= 1) {
             seller::where("seller_id", $request['company'])->update([
-                'debit' => DB::raw("debit + " . $pr_amount),
+                'credit' => DB::raw("credit - " . $pr_amount),
             ]);
         }
 
@@ -313,7 +313,7 @@ class PurchaseInvoiceController extends Controller
 
         if ($amount >= 1) {
             seller::where("seller_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . $amount),
+                'credit' => DB::raw("credit + " . $amount),
             ]);
         }
 
@@ -481,10 +481,10 @@ class PurchaseInvoiceController extends Controller
 
         purchase_invoice::where('unique_id', $id)->delete();
 
-        $pr_amount = $request['previous_balance_amount'];
+        $pr_amount = $request['previous_balance'];
         if ($pr_amount >= 1) {
             seller::where("seller_id", $request['company'])->update([
-                'debit' => DB::raw("debit + " . $pr_amount),
+                'credit' => DB::raw("credit - " . $pr_amount),
             ]);
         }
 
@@ -492,7 +492,7 @@ class PurchaseInvoiceController extends Controller
 
         if ($amount >= 1) {
             seller::where("seller_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . $amount),
+                'credit' => DB::raw("credit + " . $amount),
             ]);
         }
 
@@ -523,7 +523,7 @@ class PurchaseInvoiceController extends Controller
             $invoice->transporter = $invoiceData['transporter'] ?? null;
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
 
-            $invoice->previous_balance = $invoiceData['previous_balance'] ?? null;
+            $invoice->previous_balance = $invoiceData['amount_total'] ?? null;
             $invoice->cartage = $invoiceData['cartage'] ?? null;
             $invoice->grand_total = $invoiceData['grand_total'] ?? null;
             $invoice->amount_paid = $invoiceData['amount_paid'] ?? null;

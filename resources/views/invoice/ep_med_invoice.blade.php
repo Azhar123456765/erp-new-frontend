@@ -607,7 +607,7 @@
 
 
                 </div>
-                <input type="hidden" value="{{$sinvoice_row->previous_balance_amount ?? 0}}" name="previous_balance_amount">
+                <input type="hidden" value="{{$sinvoice_row->previous_balance}}" name="previous_balance">
 
                 <br>
                 <div class="one">
