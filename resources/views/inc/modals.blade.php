@@ -10,7 +10,17 @@ $warehouse = \App\Models\warehouse::all();
 $product = \App\Models\products::all();
 @endphp
 
+<head>
+        <!-- Include other necessary scripts and stylesheets -->
+        <!-- Include Select2 CSS -->
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
+        <!-- Include jQuery library -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+        <!-- Include Select2 JS -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    </head>
 <div class="modal fade" id="p-user">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -668,7 +678,7 @@ text-align: center;
     $(document).ready(function() {
         $('select').select2({
             theme: 'classic',
-            width: 'resolve',
+            width: '100%',
         });
     });
 </script>

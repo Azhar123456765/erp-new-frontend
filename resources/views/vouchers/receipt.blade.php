@@ -512,7 +512,6 @@ display: flex;
             theme: 'classic',
             width: 'resolve',
         });
-        companyInvoice();
     })
 
 
@@ -851,17 +850,16 @@ display: flex;
             let invoiceText2 = $("#invoice_no2").find('option:selected').text('');
         })
 
-        console.log('it is id ' + id);
-        $(document).ready(function() {
+
             $('#invoice_no').select2({
                 ajax: {
-                    url: '/get-data',
+                    url: '/get-data/r_voucher',
                     dataType: 'json',
                     data: {
                         'id': id
                     },
-                    delay: 250,
                     processResults: function(data) {
+                        console.log(1212);
 
                         // console.log(data.data);          
                         return {
@@ -876,6 +874,7 @@ display: flex;
                     },
                     cache: true
                 },
+                theme: 'classic',
             });
 
 
@@ -903,10 +902,10 @@ display: flex;
                     },
                     cache: true
                 },
+                theme: 'classic',
             });
 
 
-        });
 
     }
 </script>

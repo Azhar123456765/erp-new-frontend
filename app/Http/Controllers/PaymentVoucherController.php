@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use App\Models\customization;
 use App\Models\buyer;
+use App\Models\Expense;
 use App\Models\p_voucher;
 use App\Models\sell_invoice;
 use App\Models\seller;
@@ -61,6 +62,12 @@ class PaymentVoucherController extends Controller
     public function store(Request $request)
     {
         $invoiceData = $request->all();
+
+        $expense =  new Expense;
+        $expense->category_id = $invoiceData['unique_id'];
+        $expense->category = 'Payment Voucher';
+        $expense->amount = $request['amount_total'];
+        $expense->save();
 
         $lastChar = substr($request['company'], -1);
         $company = substr($invoiceData['company'], 0, -1);
@@ -193,7 +200,7 @@ class PaymentVoucherController extends Controller
      */
     public function update(Request $request, $id)
     {
-
+die();
         p_voucher::where('unique_id', $id)->delete();
 
         $invoiceData = $request->all();

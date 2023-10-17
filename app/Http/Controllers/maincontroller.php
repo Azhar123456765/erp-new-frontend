@@ -26,6 +26,8 @@ use App\Models\sales_officer;
 
 
 use App\Models\accounts;
+use App\Models\Expense;
+use App\Models\Income;
 use App\Models\p_voucher;
 use App\Models\sell_invoice;
 use App\Models\purchase_invoice;
@@ -563,8 +565,6 @@ class maincontroller extends Controller
     {
 
         if (session()->has("user_id")) {
-            # code...
-
 
             $today = Carbon::now()->format('Y-m-d');
             $sell_invoice_qty = sell_invoice::whereDate(DB::raw('DATE(sell_invoice.created_at)'), $today)->whereIn('sell_invoice.id', function ($subQuery) {
@@ -573,11 +573,9 @@ class maincontroller extends Controller
                     ->groupBy('unique_id');
             })->sum("qty_total");
 
-
-            $earning_y = sell_invoice::whereRaw('sell_invoice.id IN (SELECT MIN(id) FROM sell_invoice GROUP BY unique_id)')
-                ->select(
+            $earning_y = Income::select(
                     DB::raw('MONTH(updated_at) as month'),
-                    DB::raw('SUM(amount_paid) as total_earning')
+                    DB::raw('SUM(amount) as total_earning')
                 )
                 ->whereYear('updated_at', 2023)
                 ->groupBy(DB::raw('MONTH(updated_at)'))
@@ -593,41 +591,57 @@ class maincontroller extends Controller
             }
 
 
-            $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
-                ->select(
-                    DB::raw('MONTH(created_at) as month'),
-                    DB::raw('SUM(amount_total) as total_earning')
-                )
-                ->whereYear('created_at', 2023)
-                ->groupBy(DB::raw('MONTH(created_at)'))
-                ->orderBy(DB::raw('MONTH(created_at)'));
+            $expense_y = Expense::select(
+                DB::raw('MONTH(updated_at) as month'),
+                DB::raw('SUM(amount) as total_earning')
+            )
+            ->whereYear('updated_at', 2023)
+            ->groupBy(DB::raw('MONTH(updated_at)'))
+            ->orderBy(DB::raw('MONTH(updated_at)'))
+            ->get();
 
-            $expense_y2 = p_voucher::whereRaw('payment_voucher.id IN (SELECT MIN(id) FROM payment_voucher GROUP BY unique_id)')
-                ->select(
-                    DB::raw('MONTH(created_at) as month'),
-                    DB::raw('SUM(amount_total) as total_earning')
-                )
-                ->whereYear('created_at', 2023)
-                ->groupBy(DB::raw('MONTH(created_at)'))
-                ->orderBy(DB::raw('MONTH(created_at)'));
+        $chartData2 = [];
+        foreach ($expense_y as $item) {
+            $chartData2[] = [
 
-            $combinedResults = $expense_y1->union($expense_y2)->get();
+                $chartData2[$item->month] = $item->total_earning
+            ];
+        }
+            // $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
+            //     ->select(
+            //         DB::raw('MONTH(created_at) as month'),
+            //         DB::raw('SUM(amount_total) as total_earning')
+            //     )
+            //     ->whereYear('created_at', 2023)
+            //     ->groupBy(DB::raw('MONTH(created_at)'))
+            //     ->orderBy(DB::raw('MONTH(created_at)'));
+
+            // $expense_y2 = p_voucher::whereRaw('payment_voucher.id IN (SELECT MIN(id) FROM payment_voucher GROUP BY unique_id)')
+            //     ->select(
+            //         DB::raw('MONTH(created_at) as month'),
+            //         DB::raw('SUM(amount_total) as total_earning')
+            //     )
+            //     ->whereYear('created_at', 2023)
+            //     ->groupBy(DB::raw('MONTH(created_at)'))
+            //     ->orderBy(DB::raw('MONTH(created_at)'));
+
+            // $combinedResults = $expense_y1->union($expense_y2)->get();
 
 
 
-            $chartData2 = [];
-            foreach ($expense_y2 as $item) {
-                $chartData2[] = [
-                    $chartData2[$item->month] = $item->total_earning
-                ];
-            }
+            // $chartData2 = [];
+            // foreach ($expense_y2 as $item) {
+            //     $chartData2[] = [
+            //         $chartData2[$item->month] = $item->total_earning
+            //     ];
+            // }
 
-            foreach ($combinedResults as $item) {
-                $chartData2[] = [
+            // foreach ($combinedResults as $item) {
+            //     $chartData2[] = [
 
-                    $chartData2[$item->month] = $item->total_earning
-                ];
-            }
+            //         $chartData2[$item->month] = $item->total_earning
+            //     ];
+            // }
 
             // $re = ReceiptVoucher::whereDate('created_at', $today)
             // ->whereIn('receipt_vouchers.id', function ($subQuery) {
@@ -636,27 +650,12 @@ class maincontroller extends Controller
             //         ->groupBy('unique_id');
             // })
             // ->sum('amount_total');
-            $si = sell_invoice::whereDate('updated_at', $today)
-                ->whereIn('sell_invoice.id', function ($subQuery) {
-                    $subQuery->select(DB::raw('MIN(id)'))
-                        ->from('sell_invoice')
-                        ->groupBy('unique_id');
-                })
-                ->sum('amount_paid');
 
+
+            $si = Income::whereDate('updated_at', $today)->sum('amount');
             $earning = $si;
 
-            $p =  purchase_invoice::whereDate('created_at', $today)
-                ->whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
-                ->sum('amount_total');
-
-            $r =  p_voucher::whereDate('created_at', $today)
-                ->whereRaw('id IN (SELECT MIN(id) FROM payment_voucher GROUP BY unique_id)')
-                ->sum('amount_total');
-
-            $expense = $p + $r;
-
-            // 
+            $expense =  Expense::whereDate('updated_at', $today)->sum('amount');
 
 
             $onlineUsersCount = Cache::get('user_last_seen', []);
@@ -1059,12 +1058,12 @@ class maincontroller extends Controller
             $pdf = seller::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
 
 
-            $data = compact('seller', 'search', 'pdf','zone');
+            $data = compact('seller', 'search', 'pdf', 'zone');
             return view('sellers')->with($data);
         }
 
         $seller = seller::simplepaginate(15);
-        $data = compact('seller', 'search', 'pdf','zone');
+        $data = compact('seller', 'search', 'pdf', 'zone');
 
         return view('sellers')->with($data);
     }

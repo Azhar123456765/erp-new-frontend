@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\accounts;
 use App\Models\users;
 use App\Models\customization;
+use App\Models\Expense;
 use App\Models\seller;
 use App\Models\purchase_invoice;
 use App\Models\sales_officer;
@@ -128,6 +129,11 @@ class PurchaseInvoiceController extends Controller
         $invoiceData = $request->all();
         $user_id = session()->get('user_id')['user_id'];
 
+        $expense =  new Expense;
+        $expense->category_id = $invoiceData['unique_id'];
+        $expense->category = 'Purchase Invoice';
+        $expense->amount = $request['amount_total'];
+        $expense->save();
         // Assuming all array fields have the same lengthbdnbbh
 
         users::where("user_id", $user_id)->update([
@@ -299,8 +305,8 @@ class PurchaseInvoiceController extends Controller
     public function update(Request $request, $id)
     {
 
-
         purchase_invoice::where('unique_id', $id)->delete();
+
 
         $pr_amount = $request['previous_balance'];
         if ($pr_amount >= 1) {
@@ -322,6 +328,9 @@ class PurchaseInvoiceController extends Controller
 
         $invoiceData = $request->all();
 
+        $expense =  Expense::where('category_id', $invoiceData['unique_id'])->update([
+            'amount' => $request['amount_total']
+        ]);
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));
 

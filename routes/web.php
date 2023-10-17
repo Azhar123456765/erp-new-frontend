@@ -90,7 +90,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::post('/ep_voucher_form_id={id}', [PaymentVoucherController::class, 'update']);
     Route::get('/r_voucher', [ReceiptVoucherController::class, 'index']);
     Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
-    Route::get('/get-data', [ReceiptVoucherController::class, 'get_data']);
+    Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
     Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
     Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update']);
 
