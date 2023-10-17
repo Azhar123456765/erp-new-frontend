@@ -52,7 +52,7 @@ class OrganizationController extends Controller
 
         $request->validate([
 
-            'organization_name' => 'required',
+            'name' => 'required',
             'phone_number' => 'required',
 
         ]);
