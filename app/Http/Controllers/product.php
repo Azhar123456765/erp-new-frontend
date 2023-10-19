@@ -152,8 +152,10 @@ class product extends Controller
     }
     function add_product_company(Request $request)
     {
-
-
+        $request->validate([
+            'company' => 'required|unique:product_company,company_name',
+        ]);
+     
         $add = new product_company();
         $add->company_name = $request['company'];
         $add->save();
@@ -167,7 +169,9 @@ class product extends Controller
 
     function edit_product_company(Request $request, $id)
     {
-
+        $request->validate([
+            'company' => 'required|unique:product_company,company_name',
+        ]);
         $query = product_company::where('product_company_id', $id)->update([
 
             'company_name' => $request['company'],
