@@ -99,6 +99,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
     Route::get('/s_med_invoice', [SaleInvoiceController::class, 'create']);
     Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
+    Route::post('/s_med_invoice_mail', [SaleInvoiceController::class, 'mail']);
     Route::get('/es_med_invoice_id={id}', [SaleInvoiceController::class, 'edit']);
     Route::post('/es_med_invoice_form_id={id}', [SaleInvoiceController::class, 'update']);
     Route::get('/rs_med_invoice_id={id}', [SaleInvoiceController::class, 'r_edit']);

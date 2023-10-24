@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\invoiceMail;
 use Illuminate\Http\Request;
 
 use App\Models\accounts;
@@ -14,9 +15,21 @@ use App\Models\seller;
 use App\Models\sales_officer;
 use App\Models\products;
 use App\Models\warehouse;
+use Illuminate\Support\Facades\Mail;
 
 class SaleInvoiceController extends Controller
 {
+    public function mail(Request $request)
+    {
+        $company_id = $request->input('company');
+        $company = buyer::where('buyer_id', $company_id)->get();
+        foreach ($company as $key => $value) {
+            $email = $value['company_email'];
+        }
+
+        Mail::to('m.azharalamjawaid@gmail.com')->send(new invoiceMail());
+        return $email;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -308,7 +321,7 @@ class SaleInvoiceController extends Controller
         $invoiceData = $request->all();
 
         $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
-            'amount' =>$request['amount_paid']
+            'amount' => $request['amount_paid']
         ]);
 
         // Assuming all array fields have the same length

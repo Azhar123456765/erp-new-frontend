@@ -574,9 +574,9 @@ class maincontroller extends Controller
             })->sum("qty_total");
 
             $earning_y = Income::select(
-                    DB::raw('MONTH(updated_at) as month'),
-                    DB::raw('SUM(amount) as total_earning')
-                )
+                DB::raw('MONTH(updated_at) as month'),
+                DB::raw('SUM(amount) as total_earning')
+            )
                 ->whereYear('updated_at', 2023)
                 ->groupBy(DB::raw('MONTH(updated_at)'))
                 ->orderBy(DB::raw('MONTH(updated_at)'))
@@ -595,18 +595,18 @@ class maincontroller extends Controller
                 DB::raw('MONTH(updated_at) as month'),
                 DB::raw('SUM(amount) as total_earning')
             )
-            ->whereYear('updated_at', 2023)
-            ->groupBy(DB::raw('MONTH(updated_at)'))
-            ->orderBy(DB::raw('MONTH(updated_at)'))
-            ->get();
+                ->whereYear('updated_at', 2023)
+                ->groupBy(DB::raw('MONTH(updated_at)'))
+                ->orderBy(DB::raw('MONTH(updated_at)'))
+                ->get();
 
-        $chartData2 = [];
-        foreach ($expense_y as $item) {
-            $chartData2[] = [
+            $chartData2 = [];
+            foreach ($expense_y as $item) {
+                $chartData2[] = [
 
-                $chartData2[$item->month] = $item->total_earning
-            ];
-        }
+                    $chartData2[$item->month] = $item->total_earning
+                ];
+            }
             // $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
             //     ->select(
             //         DB::raw('MONTH(created_at) as month'),
