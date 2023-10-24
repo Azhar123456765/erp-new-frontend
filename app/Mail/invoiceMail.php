@@ -27,9 +27,9 @@ class invoiceMail extends Mailable
      *
      * @return $this
      */
-    public function build($data)
+    public function build($company_id)
     {
-        $id = $data;
+        $id = $company_id;
 
         $sell_invoice = sell_invoice::where("unique_id", $id)
                         ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
