@@ -30,7 +30,7 @@ class invoiceMail extends Mailable
     {
         
         return $this->view('pdf.sale_pdf')
-        ->attach('pdf/'.$this->id .'.pdf', ['as' => 'your-pdf-filename.pdf', 'mime' => 'application/pdf'])
+        ->attach(public_path('pdf/'.$this->id .'.pdf'), ['as' => 'your-pdf-filename.pdf', 'mime' => 'application/pdf'])
         ->subject('Sample Subject');
 
     }
