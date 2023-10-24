@@ -1511,6 +1511,8 @@ display: flex;
                     title: response,
                     timer: 1900 // Automatically close after 3 seconds
                 });
+
+                
                 $(".submit").css("display", "none")
                 $(".edit").css("display", "block")
 

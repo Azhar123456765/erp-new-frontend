@@ -1224,10 +1224,25 @@ display: flex;
                 // Handle the response
 
                 Swal.fire({
-                    icon: 'success',
-                    title: response,
-                    timer: 1900 // Automatically close after 3 seconds
-                });
+      title: 'SweetAlert with two buttons',
+      text: 'Choose an action',
+      icon: 'info',
+      showCancelButton: false,
+      showConfirmButton: false,
+      showDenyButton: true,
+      confirmButtonText: 'Button 1 Text',
+      denyButtonText: 'Button 2 Text'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Action to perform if the user clicks the 'Button 1 Text'
+        alert('Button 1 Clicked');
+        // Add your request logic for the first button here
+      } else if (result.isDenied) {
+        // Action to perform if the user clicks the 'Button 2 Text'
+        console.log('Button 2 Clicked');
+        // Add your request logic for the second button here
+      }
+    });
                 $("#btn").css("display", "none")
                 $(".edit").css("display", "block")
 
