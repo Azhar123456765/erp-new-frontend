@@ -11,15 +11,14 @@ use Illuminate\Queue\SerializesModels;
 class invoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
-
+    public $company_id;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($company_id)
     {
-        //
     }
 
     /**
@@ -29,7 +28,7 @@ class invoiceMail extends Mailable
      */
     public function build($company_id)
     {
-        $id = $company_id;
+        $id = $this->company_id;
 
         $sell_invoice = sell_invoice::where("unique_id", $id)
                         ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
