@@ -15,6 +15,7 @@ use App\Models\seller;
 use App\Models\sales_officer;
 use App\Models\products;
 use App\Models\warehouse;
+use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Mail;
 
 class SaleInvoiceController extends Controller
@@ -39,13 +40,35 @@ class SaleInvoiceController extends Controller
                 session()->put("sale_invoice_pdf_data", $sell_invoice);
                 session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
                 
+                $views = $id;
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.sale_pdf')->render();
+            
+                $pdf->loadHtml($html);
+            
+                // Set paper size based on content length
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                    $pdf->setPaper('A3', 'landscape');
+                } else {
+                    $pdf->setPaper('A4', 'landscape');
+                }
+            
+                $pdf->render();
+                
+                // Save the PDF to a file
+                $output = $pdf->output();
+                file_put_contents(storage_path('pdf/'.$id.'pdf'), $output);
+               
         $company_id = $request->input('company');
         $company = buyer::where('buyer_id', $company_id)->get();
         foreach ($company as $key => $value) {
             $email = $value['company_email'];
         }
 
-        Mail::to('m.azharalamjawaid@gmail.com')->send(new invoiceMail($company_id));
+        Mail::to('m.azharalamjawaid@gmail.com')->send(new invoiceMail($id));
         return $email;
     }
     /**

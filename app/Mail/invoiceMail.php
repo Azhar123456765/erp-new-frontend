@@ -11,6 +11,7 @@ use Illuminate\Queue\SerializesModels;
 class invoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
+    public $id;
     /**
      * Create a new message instance.
      *
@@ -29,6 +30,7 @@ class invoiceMail extends Mailable
     {
         
         return $this->view('pdf.sale_pdf')
+        ->attach($this->id, ['as' => 'your-pdf-filename.pdf', 'mime' => 'application/pdf'])
         ->subject('Sample Subject');
 
     }
