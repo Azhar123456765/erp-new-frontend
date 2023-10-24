@@ -105,10 +105,10 @@
         text-align: center;
     }
 
-        .invoice {
- background-color: #f8f9fa;
+    .invoice {
+        background-color: #f8f9fa;
         border: none;
-       
+
         height: 167.5px;
         overflow-y: scroll;
         overflow-x: hidden;
@@ -137,6 +137,7 @@
         width: 131px !important;
         height: 27px !important;
     }
+
     .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
@@ -1224,28 +1225,24 @@ display: flex;
                 // Handle the response
 
                 Swal.fire({
-      title: 'SweetAlert with two buttons',
-      text: 'Choose an action',
-      icon: 'info',
-      showCancelButton: false,
-      showConfirmButton: true,
-      showDenyButton: true,
-      confirmButtonText: 'Button 1 Text',
-      denyButtonText: 'Button 2 Text'
-    }).then((result) => {
-      if (result.isConfirmed) {
-        $.ajax({
-            url: '/s_med_invoice_mail', // Replace with your Laravel route or endpoint
-            method: 'POST',
-            data: formData,
-        })
-      } else if (result.isDenied) {
-        // Action to perform if the user clicks the 'Button 2 Text'
-        alert('Button 2 Clicked');
-        // Add your request logic for the second button here
-      }
-    });
-                $("#btn").css("display", "none")
+                    title: 'Send invoice to company email',
+                    text: 'Choose an action',
+                    icon: 'success',
+                    showCancelButton: false,
+                    showConfirmButton: true,
+                    showDenyButton: true,
+                    confirmButtonText: 'Send',
+                    denyButtonText: 'Cancel'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: '/s_med_invoice_mail', // Replace with your Laravel route or endpoint
+                            method: 'POST',
+                            data: formData,
+                        })
+                    }
+                });
+                // $("#btn").css("display", "none")
                 $(".edit").css("display", "block")
 
 
