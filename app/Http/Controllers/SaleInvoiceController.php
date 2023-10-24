@@ -21,6 +21,24 @@ class SaleInvoiceController extends Controller
 {
     public function mail(Request $request)
     {
+
+        $id = $request->input('unique_id');
+
+        $sell_invoice = sell_invoice::where("unique_id", $id)
+                        ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+                        ->get();
+
+                $s_sell_invoice = sell_invoice::where("unique_id", $id)
+                        ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+                        ->limit(1)->get();
+
+                session()->put("sale_invoice_pdf_data", $sell_invoice);
+                session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
+                
         $company_id = $request->input('company');
         $company = buyer::where('buyer_id', $company_id)->get();
         foreach ($company as $key => $value) {
