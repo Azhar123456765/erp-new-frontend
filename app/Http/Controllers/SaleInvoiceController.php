@@ -60,7 +60,7 @@ class SaleInvoiceController extends Controller
                 
                 // Save the PDF to a file
                 $output = $pdf->output();
-                file_put_contents(public_path('pdf/'.'temp'.'.pdf'), $output);
+                file_put_contents(public_path('pdf/'.$id.'.pdf'), $output);
                
         $company_id = $request->input('company');
         $company = buyer::where('buyer_id', $company_id)->get();

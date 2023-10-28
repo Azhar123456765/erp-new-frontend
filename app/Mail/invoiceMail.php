@@ -10,14 +10,17 @@ use Illuminate\Queue\SerializesModels;
 class invoiceMail extends Mailable
 {
     use Queueable, SerializesModels;
-    public $path;
+
+    public $id;
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($id)
     {
+        $this->id = $id; // Set the value of the id property
     }
 
     /**
@@ -27,10 +30,11 @@ class invoiceMail extends Mailable
      */
     public function build()
     {
-        
         return $this->view('pdf.sale_pdf')
-        ->attach(public_path('pdf/'.'temp' .'.pdf'), ['as' => 'your-pdf-filename.pdf', 'mime' => 'application/pdf'])
-        ->subject('Sample Subject');
-
+            ->attach(public_path('pdf/' . $this->id . '.pdf'), [
+                'as' => 'your-pdf-filename.pdf',
+                'mime' => 'application/pdf'
+            ])
+            ->subject('Sample Subject');
     }
 }
