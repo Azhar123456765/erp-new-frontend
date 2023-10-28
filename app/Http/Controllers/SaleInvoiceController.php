@@ -68,7 +68,7 @@ class SaleInvoiceController extends Controller
             $email = $value['company_email'];
         }
 
-        Mail::to('m.azharalamjawaid@gmail.com')->send(new invoiceMail($id));
+        Mail::to($email)->send(new invoiceMail($id));
         return $email;
     }
     /**
