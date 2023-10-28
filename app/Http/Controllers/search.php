@@ -29,7 +29,7 @@ class search extends Controller
 
     if ($search != '') {
 
-        $buyer = buyer::where('company_name','LIKE',"%$search%")->simplepaginate(15);
+        $buyer = buyer::where('company_name','LIKE',"%$search%")->all();
 
         if (count($buyer) > 0) {
             session()->put('pdf_data', $buyer);
@@ -71,7 +71,7 @@ class search extends Controller
     }elseif($search == ''){
 
 
-        $buyer = buyer::simplepaginate(15);
+        $buyer = buyer::all();
 
         if (count($buyer) > 0) {
             session()->put('pdf_data', $buyer);

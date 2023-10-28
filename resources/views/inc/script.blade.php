@@ -219,8 +219,11 @@
     $('.select').select2({
         theme: 'default',
         width: 'resolve',
+        searching: 'true'
     });
-
+$('#mySelect2').on('select2:open', function () {
+      $('.select2-search__field').focus();
+    });
     // Swal.fire({
     //     icon: 'success',
     //     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'

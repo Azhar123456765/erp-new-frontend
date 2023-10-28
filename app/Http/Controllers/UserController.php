@@ -21,7 +21,7 @@ class UserController extends Controller
         $id = session()->get('user_id')['user_id'];
 
         if ($search != '') {
-            $users = users::where('user_id', '!=', $id)->where('username', 'LIKE', "%$search%")->simplepaginate(15);
+            $users = users::where('user_id', '!=', $id)->where('username', 'LIKE', "%$search%")->all();
             $data = compact('users', 'search');
             return view('users')->with($data);
         }

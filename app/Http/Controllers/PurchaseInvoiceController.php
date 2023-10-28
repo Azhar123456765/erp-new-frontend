@@ -69,7 +69,7 @@ class PurchaseInvoiceController extends Controller
                 })
                 ->orderBy("purchase_invoice.id");
 
-            $purchase_invoice = $query->simplePaginate(15);
+            $purchase_invoice = $query->all();
 
 
             $account = accounts::all();
@@ -85,7 +85,7 @@ class PurchaseInvoiceController extends Controller
             ->leftJoin('sales_officer', 'purchase_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
             ->whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
             ->orderby("purchase_invoice.id")
-            ->simplepaginate(15);
+            ->all();
 
 
 

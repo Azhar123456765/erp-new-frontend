@@ -169,7 +169,7 @@ class maincontroller extends Controller
         $search = $request->input('search');
 
         if ($search != '') {
-            $users = warehouse::where('warehouse_name', 'LIKE', "%$search%")->simplepaginate(15);
+            $users = warehouse::where('warehouse_name', 'LIKE', "%$search%")->all();
             $category = zone::all();
             $data = compact('users', 'category', 'search');
             return view('warehouse')->with($data);
@@ -243,7 +243,7 @@ class maincontroller extends Controller
         $search = $request->input('search');
 
         if ($search != '') {
-            $users = zone::where('zone_name', 'LIKE', "%$search%")->simplepaginate(15);
+            $users = zone::where('zone_name', 'LIKE', "%$search%")->all();
             $data = compact('users', 'search');
             return view('zone')->with($data);
         }
@@ -319,7 +319,7 @@ class maincontroller extends Controller
         $search = $request->input('search');
 
         if ($search != '') {
-            $users = sales_officer::where('sales_officer_name', 'LIKE', "%$search%")->simplepaginate(15);
+            $users = sales_officer::where('sales_officer_name', 'LIKE', "%$search%")->all();
             $data = compact('users', 'search');
             return view('sales_officer')->with($data);
         }
@@ -406,7 +406,7 @@ class maincontroller extends Controller
         $classcheck =  $post->input('data');
         if ($classcheck == 'buyer') {
 
-            $weekData = buyer::simplepaginate(15);
+            $weekData = buyer::all();
         }
 
         // Query the database to fetch data for the week
@@ -1054,7 +1054,7 @@ class maincontroller extends Controller
         $zone = zone::all();
 
         if ($search != '') {
-            $seller = seller::where('company_name', 'LIKE', "%$search%")->simplepaginate(15);
+            $seller = seller::where('company_name', 'LIKE', "%$search%")->all();
             $pdf = seller::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
 
 
@@ -1062,7 +1062,7 @@ class maincontroller extends Controller
             return view('sellers')->with($data);
         }
 
-        $seller = seller::simplepaginate(15);
+        $seller = seller::all();
         $data = compact('seller', 'search', 'pdf', 'zone');
 
         return view('sellers')->with($data);
@@ -1272,14 +1272,14 @@ class maincontroller extends Controller
         $zone = zone::all();
 
         if ($search != '') {
-            $buyer = buyer::where('company_name', 'LIKE', "%$search%")->simplepaginate(15);
+            $buyer = buyer::where('company_name', 'LIKE', "%$search%")->all();
             $pdf = buyer::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
 
             $data = compact('buyer', 'search', 'pdf', 'zone');
             return view('buyers')->with($data);
         }
 
-        $buyer = buyer::simplepaginate(15);
+        $buyer = buyer::all();
         $data = compact('buyer', 'search', 'pdf', 'zone');
         return view('buyers')->with($data);
     }
