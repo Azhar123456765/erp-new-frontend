@@ -44,36 +44,32 @@ class SaleInvoiceController extends Controller
 
                 $pdf = new Dompdf();
 
-               $html = view('pdf.sale_pdf')->render();
+                $html = view('pdf.sale_pdf')->render();
+            
+                $pdf->loadHtml($html);
+            
+                // Set paper size based on content length
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                    $pdf->setPaper('A3', 'landscape');
+                } else {
+                    $pdf->setPaper('A4', 'landscape');
+                }
+            
+                $pdf->render();
+                
+                // Save the PDF to a file
+                $output = $pdf->output();
+                file_put_contents(public_path('pdf/'.'temp'.'.pdf'), $output);
+               
+        $company_id = $request->input('company');
+        $company = buyer::where('buyer_id', $company_id)->get();
+        foreach ($company as $key => $value) {
+            $email = $value['company_email'];
+        }
 
- $pdf->loadHtml($html);
-
-// Set paper size based on content length
-$contentLength = strlen($html);
-if ($contentLength > 5000) {
-    $pdf->setPaper('A3', 'landscape');
-} else {
-    $pdf->setPaper('A4', 'landscape');
-}
-
-$pdf->output();
-$pdfOutput = $pdf->output();
-
-$filePath = public_path('pdf/' . 'temp' . '.pdf');
-
-file_put_contents($filePath, $pdfOutput); // Save the PDF to a file
-
-// Assuming the PDF is saved successfully, retrieve the path
-$path = 'pdf/' . 'temp' . '.pdf';
-
-$company_id = $request->input('company');
-$company = buyer::where('buyer_id', $company_id)->get();
-foreach ($company as $key => $value) {
-    $email = $value['company_email'];
-}
-
-Mail::to('m.azharalamjawaid@gmail.com')->send(new invoiceMail($path));
-return $email;
+        Mail::to('m.azharalamjawaid@gmail.com')->send(new invoiceMail($id));
+        return $email;
     }
     /**
      * Display a listing of the resource.
