@@ -47,9 +47,7 @@
                             </div>
                         </td>
                     </tr>
-                    <div>
-                        {{ $sell_invoice->links() }}
-                    </div>
+
                     @php
                     $serial++;
                     @endphp

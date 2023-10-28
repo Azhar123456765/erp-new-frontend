@@ -21,7 +21,7 @@ class UserController extends Controller
         $id = session()->get('user_id')['user_id'];
 
         if ($search != '') {
-            $users = users::where('user_id', '!=', $id)->where('username', 'LIKE', "%$search%")->all();
+            $users = users::where('user_id', '!=', $id)->where('username', 'LIKE', "%$search%")->get();
             $data = compact('users', 'search');
             return view('users')->with($data);
         }
@@ -158,7 +158,7 @@ class UserController extends Controller
             $query->select(DB::raw('MIN(id)'))
                 ->from('sell_invoice')
                 ->groupBy('unique_id');
-        })->simplepaginate();
+        })->get();
 
         $purchase_invoice = purchase_invoice::where('user_id', $id)->whereIn('purchase_invoice.id', function ($query) {
             $query->select(DB::raw('MIN(id)'))

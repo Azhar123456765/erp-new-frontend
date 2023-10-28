@@ -280,7 +280,7 @@ class product extends Controller
         $users = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
         ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
         ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-        ->simplepaginate();
+        ->get();
 
 
         $data = compact('users', 'category', 'sub_category', 'company', 'type');

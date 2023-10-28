@@ -61,7 +61,7 @@ class PaymentVoucherController extends Controller
      */
     public function store(Request $request)
     {
-        $invoiceData = $request->all();
+        $invoiceData = $request->get();
 
         $expense =  new Expense;
         $expense->category_id = $invoiceData['unique_id'];
@@ -203,7 +203,7 @@ class PaymentVoucherController extends Controller
 die();
         p_voucher::where('unique_id', $id)->delete();
 
-        $invoiceData = $request->all();
+        $invoiceData = $request->get();
 
         // Assuming all array fields have the same lengthbdnbbh
 

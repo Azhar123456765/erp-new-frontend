@@ -169,7 +169,7 @@ class maincontroller extends Controller
         $search = $request->input('search');
 
         if ($search != '') {
-            $users = warehouse::where('warehouse_name', 'LIKE', "%$search%")->all();
+            $users = warehouse::where('warehouse_name', 'LIKE', "%$search%")->get();
             $category = zone::all();
             $data = compact('users', 'category', 'search');
             return view('warehouse')->with($data);
@@ -243,7 +243,7 @@ class maincontroller extends Controller
         $search = $request->input('search');
 
         if ($search != '') {
-            $users = zone::where('zone_name', 'LIKE', "%$search%")->all();
+            $users = zone::where('zone_name', 'LIKE', "%$search%")->get();
             $data = compact('users', 'search');
             return view('zone')->with($data);
         }
@@ -319,7 +319,7 @@ class maincontroller extends Controller
         $search = $request->input('search');
 
         if ($search != '') {
-            $users = sales_officer::where('sales_officer_name', 'LIKE', "%$search%")->all();
+            $users = sales_officer::where('sales_officer_name', 'LIKE', "%$search%")->get();
             $data = compact('users', 'search');
             return view('sales_officer')->with($data);
         }
@@ -757,7 +757,7 @@ class maincontroller extends Controller
 
     public function viewusers()
     {
-        $users = users::orderBy('user_id', 'desc')->simplepaginate();
+        $users = users::orderBy('user_id', 'desc')->get();
         $data = compact('users');
         return view('users')->with($data);
     }
@@ -1054,7 +1054,7 @@ class maincontroller extends Controller
         $zone = zone::all();
 
         if ($search != '') {
-            $seller = seller::where('company_name', 'LIKE', "%$search%")->all();
+            $seller = seller::where('company_name', 'LIKE', "%$search%")->get();
             $pdf = seller::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
 
 
@@ -1272,7 +1272,7 @@ class maincontroller extends Controller
         $zone = zone::all();
 
         if ($search != '') {
-            $buyer = buyer::where('company_name', 'LIKE', "%$search%")->all();
+            $buyer = buyer::where('company_name', 'LIKE', "%$search%")->get();
             $pdf = buyer::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
 
             $data = compact('buyer', 'search', 'pdf', 'zone');

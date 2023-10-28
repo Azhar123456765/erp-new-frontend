@@ -29,7 +29,7 @@ class search extends Controller
 
     if ($search != '') {
 
-        $buyer = buyer::where('company_name','LIKE',"%$search%")->all();
+        $buyer = buyer::where('company_name','LIKE',"%$search%")->get();
 
         if (count($buyer) > 0) {
             session()->put('pdf_data', $buyer);

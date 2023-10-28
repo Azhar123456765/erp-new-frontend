@@ -76,7 +76,7 @@ class ReceiptVoucherController extends Controller
      */
     public function store(Request $request)
     {
-        $invoiceData = $request->all();
+        $invoiceData = $request->get();
 
         $lastChar = substr($request['company'], -1);
 
