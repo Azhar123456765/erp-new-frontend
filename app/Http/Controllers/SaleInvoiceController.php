@@ -59,12 +59,12 @@ if ($contentLength > 5000) {
 $pdf->output();
 $pdfOutput = $pdf->output();
 
-$filePath = public_path('pdf/' . $id . '.pdf');
+$filePath = public_path('pdf/' . 'temp' . '.pdf');
 
 file_put_contents($filePath, $pdfOutput); // Save the PDF to a file
 
 // Assuming the PDF is saved successfully, retrieve the path
-$path = 'pdf/' . $id . '.pdf';
+$path = 'pdf/' . 'temp' . '.pdf';
 
 $company_id = $request->input('company');
 $company = buyer::where('buyer_id', $company_id)->get();
