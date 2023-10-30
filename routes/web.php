@@ -134,7 +134,6 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     // PDF
     Route::get('/pdf_field={view}', [pdfController::class, 'pdf']);
     Route::get('/pdf_limit{view}', [pdfController::class, 'pdf_limit']);
-    Route::get('/pdf', [pdfController::class, 'test_pdf']);
     Route::get('/sale_invoice_pdf_{id}', [pdfController::class, 'sale_invoice_pdf']);
     Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
     Route::get('/gen-led', [pdfController::class, 'gen_led']);
@@ -146,6 +145,7 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
 });
 
 
+Route::get('/pdf2', [pdfController::class, 'test_pdf']);
 
 // GENERAL
 Route::post('/customize-form', [maincontroller::class, 'customize_form']);

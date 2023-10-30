@@ -558,7 +558,7 @@ display: flex;
         submit
     </button>
 
-    <a href="/ep_med_invoice_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/ep_med_invoice_id={{ $rand }}" class="edit edit-btn btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
     </a>
 
@@ -566,11 +566,11 @@ display: flex;
 
 
 
-    <a href="/p_med_invoice" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/p_med_invoice" class="edit add-more  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Add More
     </a>
 
-    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         PDF
     </a>
 
@@ -1314,6 +1314,24 @@ display: flex;
             },
         });
     })
-</script>
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+            var link = document.querySelector('.add-more');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+            var link = document.querySelector('.pdf');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
+            var link = document.querySelector('.edit-btn');
+            window.location.href = link.href;
+        }
+    });
+    </script>
 
 @endsection

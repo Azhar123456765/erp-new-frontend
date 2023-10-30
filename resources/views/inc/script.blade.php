@@ -1,4 +1,5 @@
-<script src="{{ asset('../../plugins/jquery/jquery.min.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
 
 <script src="{{ asset('../../plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
@@ -23,7 +24,7 @@
 
 
 
-<script src="   select2/select2.min.js"></script>
+<script src="select2/select2.min.js"></script>
 
 
 <script>
@@ -295,7 +296,6 @@ $('.image-upload-wrap').bind('dragover', function () {
 
 
 $(document).on('keydown', function ( e ) {
-    // You may replace `m` with whatever key you want
     if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'm') ) {
 		$("#add-modal").modal('show');
 		$("#login-modal").modal('show');
@@ -303,7 +303,6 @@ $(document).on('keydown', function ( e ) {
 });
 
 $(document).on('keydown', function ( e ) {
-    // You may replace `m` with whatever key you want
     if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'l') ) {
         window.location.href = '/logout'
     }

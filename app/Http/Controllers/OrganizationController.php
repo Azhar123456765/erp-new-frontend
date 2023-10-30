@@ -42,7 +42,7 @@ class OrganizationController extends Controller
 
         $organization = organization::find(1);
 
-        $validator = Validator::make($request->get(), [
+        $validator = Validator::make($request->all(), [
             'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the file types and size limit as needed
         ]);
 

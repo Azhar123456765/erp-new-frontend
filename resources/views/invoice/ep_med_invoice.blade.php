@@ -751,11 +751,11 @@ display: flex;
     </button>
 
 
-    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; ">
+    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
         PDF
     </a>
 
-    <a href="/p_med_invoice" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; ">
+    <a href="/p_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
         Add More
     </a>
 
@@ -1527,6 +1527,17 @@ display: flex;
             },
         });
     })
-</script>
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+            var link = document.querySelector('.add-more');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+            var link = document.querySelector('.pdf');
+            window.location.href = link.href;
+        }
+    });</script>
 
 @endsection

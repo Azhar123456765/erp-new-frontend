@@ -76,7 +76,7 @@ class ReceiptVoucherController extends Controller
      */
     public function store(Request $request)
     {
-        $invoiceData = $request->get();
+        $invoiceData = $request->all();
 
         $lastChar = substr($request['company'], -1);
 
@@ -117,7 +117,7 @@ class ReceiptVoucherController extends Controller
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
-            $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
+            $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ? ? null;
             $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;

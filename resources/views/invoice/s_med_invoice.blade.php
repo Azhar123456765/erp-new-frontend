@@ -519,15 +519,15 @@ display: flex;
         submit
     </button>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
     </a>
 
-    <a href="/s_med_invoice" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/s_med_invoice" class="edit add-more  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Add More
     </a>
 
-    <a href="/sale_invoice_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         PDF
     </a>
 
@@ -742,6 +742,7 @@ display: flex;
                 theme: 'classic',
                 width: 'resolve',
             });
+            $(".select2-container--open .select2-search__field").focus();
 
             var selectedOption = $("#item").find('option:selected');
             var unitInput = $('#unit');
@@ -1243,6 +1244,7 @@ display: flex;
                 });
                 // $("#btn").css("display", "none")
                 $(".edit").css("display", "block")
+                $("#btn").css("display", "none")
 
 
 
@@ -1252,6 +1254,24 @@ display: flex;
             },
         });
     })
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+            var link = document.querySelector('.add-more');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+            var link = document.querySelector('.pdf');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
+            var link = document.querySelector('.edit-btn');
+            window.location.href = link.href;
+        }
+    });
 </script>
 
 

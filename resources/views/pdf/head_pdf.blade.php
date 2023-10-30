@@ -47,7 +47,7 @@ $address = $value->address;
             <img src="{{ 'data:image/png;base64,' . base64_encode(file_get_contents(public_path($logo))) }}" alt="Organization Logo" class="logo">
 
         </div>
-        <div class="address">
+        <u><div class="address"></u>
 
             <p>Head Office Address:</p>
             <br>

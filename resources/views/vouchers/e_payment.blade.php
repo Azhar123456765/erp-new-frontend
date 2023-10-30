@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+ @section('content')
 
 <head>
 
@@ -852,6 +852,17 @@ display: flex;
             },
         });
     })
-</script>
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+            var link = document.querySelector('.add-more');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+            var link = document.querySelector('.pdf');
+            window.location.href = link.href;
+        }
+    });</script>
 
 @endsection

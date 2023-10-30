@@ -126,7 +126,7 @@ class PurchaseInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        $invoiceData = $request->get();
+        $invoiceData = $request->all();
         $user_id = session()->get('user_id')['user_id'];
 
         $expense =  new Expense;
@@ -326,7 +326,7 @@ class PurchaseInvoiceController extends Controller
 
 
 
-        $invoiceData = $request->get();
+        $invoiceData = $request->all();
 
         $expense =  Expense::where('category_id', $invoiceData['unique_id'])->update([
             'amount' => $request['amount_total']
@@ -508,7 +508,7 @@ class PurchaseInvoiceController extends Controller
 
 
 
-        $invoiceData = $request->get();
+        $invoiceData = $request->all();
 
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));

@@ -126,8 +126,8 @@
         text-align: center;
     }
 
-        .invoice {
- background-color: #f8f9fa;
+    .invoice {
+        background-color: #f8f9fa;
         border: none;
 
         height: 167.5px;
@@ -675,7 +675,7 @@ display: flex;
         Update
     </button>
     <br>
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+    <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
     
     window.location.reload()
     ">
@@ -683,11 +683,11 @@ display: flex;
     </button>
 
 
-    <a href="/sale_invoice_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; ">
+    <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
         PDF
     </a>
 
-    <a href="/s_med_invoice" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; ">
+    <a href="/s_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
         Add More
     </a>
 
@@ -899,10 +899,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-             $('select').select2({
-            theme: 'classic',
-            width: 'resolve',
-        });
+            $('select').select2({
+                theme: 'classic',
+                width: 'resolve',
+            });
 
             let count = <?php echo $counter; ?> - 1
             for (let i = 1; i <= count; i++) {
@@ -1072,10 +1072,10 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-             $('select').select2({
-            theme: 'classic',
-            width: 'resolve',
-        });
+            $('select').select2({
+                theme: 'classic',
+                width: 'resolve',
+            });
 
             let count = <?php echo $counter; ?> - 1
             for (let i = 1; i <= count; i++) {
@@ -1292,10 +1292,10 @@ display: flex;
         }
 
         $("#amount_total").val(atotal);
-        
+
         let p = parseFloat($("#debit").val())
         let c = parseFloat($("#cartage").val())
-        $("#grand_total").val(p + atotal+c);
+        $("#grand_total").val(p + atotal + c);
 
         let g = $("#grand_total").val()
 
@@ -1306,17 +1306,17 @@ display: flex;
 
         var totalb = 0;
 
-for (let i = 1; i <= count; i++) {
-    let amount1 = parseInt($("." + i + "dis_amount").val());
-    totalb += amount1;
-}
+        for (let i = 1; i <= count; i++) {
+            let amount1 = parseInt($("." + i + "dis_amount").val());
+            totalb += amount1;
+        }
 
-for (let i = 1; i <= countera; i++) {
-    let amount1 = parseInt($("#dis_amount" + i).val());
-    totalb += amount1;
-}
-console.log('dis' + totalb);
-$("#dis_total").val(totalb)
+        for (let i = 1; i <= countera; i++) {
+            let amount1 = parseInt($("#dis_amount" + i).val());
+            totalb += amount1;
+        }
+        console.log('dis' + totalb);
+        $("#dis_total").val(totalb)
     }
 
 
@@ -1384,7 +1384,7 @@ $("#dis_total").val(totalb)
 
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
-         $('select').select2({
+        $('select').select2({
             theme: 'classic',
             width: 'resolve',
         });
@@ -1445,6 +1445,19 @@ $("#dis_total").val(totalb)
             },
         });
     })
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+            var link = document.querySelector('.add-more');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+            var link = document.querySelector('.pdf');
+            window.location.href = link.href;
+        }
+    });
+
 </script>
 
 @endsection
