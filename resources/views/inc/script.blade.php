@@ -309,5 +309,17 @@ $(document).on('keydown', function ( e ) {
 });
 
 
+
+const elements = document.querySelectorAll('input, select');
+
+let currentIndex = 0;
+
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Control') {
+        e.preventDefault();
+        currentIndex = (currentIndex + 1) % elements.length;
+        elements[currentIndex].focus();
+    }
+});
 </script>
 
