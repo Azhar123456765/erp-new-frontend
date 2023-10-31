@@ -122,12 +122,24 @@ foreach ($theme_colors as $key => $value2) {
             </p>
           </a>
           <ul class="nav nav-treeview">
+          <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#si-search" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Sale Invoice</p>
+                  </a>
+                </li>
             <li class="nav-item">
               <a href="/sale-invoice" class="nav-link{{ request()->is('sale-invoice*') ? ' active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Manage Sale Invoice</p>
               </a>
             </li>
+            <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#pi-search" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Purchase Invoice</p>
+                  </a>
+                </li>
             <li class="nav-item">
               <a href="/purchase-invoice" class="nav-link{{ request()->is('purchase-invoice*') ? ' active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>

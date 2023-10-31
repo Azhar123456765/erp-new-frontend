@@ -1458,6 +1458,12 @@ display: flex;
         }
     });
 
+
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
+            $("#si-search").modal('show');
+        }
+    });
 </script>
 
 @endsection

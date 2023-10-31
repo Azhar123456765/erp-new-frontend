@@ -10,6 +10,9 @@ use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentVoucherController;
 use App\Http\Controllers\PurchaseInvoiceController;
 use App\Http\Controllers\SaleInvoiceController;
+use App\Models\purchase_invoice;
+use App\Models\sell_invoice;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -101,12 +104,36 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
     Route::post('/s_med_invoice_mail', [SaleInvoiceController::class, 'mail']);
     Route::get('/es_med_invoice_id={id}', [SaleInvoiceController::class, 'edit']);
+    Route::get('/saleInvoice-search', function (Request $request) {
+        $invoice_no = $request->input('invoice_no'); // Access the input using the input method
+        $sale_invoice = sell_invoice::where('unique_id', $invoice_no)->first(); // Use first() instead of get() to get a single instance
+        if ($sale_invoice) {
+            $id = $sale_invoice->unique_id;
+            if ($id === $invoice_no) {
+                return redirect('/es_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
+            }
+        }
+        session()->flash('something_error', 'Invoice not found');
+        return redirect()->back();
+    });
     Route::post('/es_med_invoice_form_id={id}', [SaleInvoiceController::class, 'update']);
     Route::get('/rs_med_invoice_id={id}', [SaleInvoiceController::class, 'r_edit']);
     Route::post('/rs_med_invoice_form_id={id}', [SaleInvoiceController::class, 'r_update']);
     Route::get('/p_med_invoice', [PurchaseInvoiceController::class, 'create']);
     Route::post('/p_med_invoice_form', [PurchaseInvoiceController::class, 'store']);
     Route::get('/ep_med_invoice_id={id}', [PurchaseInvoiceController::class, 'edit']);
+    Route::get('/purchaseInvoice-search', function (Request $request) {
+        $invoice_no = $request->input('invoice_no'); // Access the input using the input method
+        $purchase_invoice = purchase_invoice::where('unique_id', $invoice_no)->first(); // Use first() instead of get() to get a single instance
+        if ($purchase_invoice) {
+            $id = $purchase_invoice->unique_id;
+            if ($id === $invoice_no) {
+                return redirect('/ep_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
+            }
+        }
+        session()->flash('something_error', 'Invoice not found');
+        return redirect()->back();
+    });
     Route::post('/ep_med_invoice_form_id={id}', [PurchaseInvoiceController::class, 'update']);
     Route::get('/rp_med_invoice_id={id}', [PurchaseInvoiceController::class, 'r_edit']);
     Route::post('/rp_med_invoice_form_id={id}', [PurchaseInvoiceController::class, 'r_update']);

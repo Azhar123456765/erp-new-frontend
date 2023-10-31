@@ -712,3 +712,53 @@ text-align: center;
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
+
+
+<div class="modal fade" id="si-search">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Search Sale Invoice</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/saleInvoice-search">
+                        @csrf
+                        <div class="form-group">
+                            <label for="">Invoice No</label>
+                            <input type="text" class="form-control"name="invoice_no" required>
+                        </div>
+
+                        <button type="submit" target class="btn btn-primary" id="btn">Search</button>
+
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+<div class="modal fade" id="pi-search">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Search Purchase Invoice</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/purchaseInvoice-search">
+                        @csrf
+                        <div class="form-group">
+                            <label for="">Invoice No</label>
+                            <input type="text" class="form-control"name="invoice_no" required>
+                        </div>
+
+                        <button type="submit" target class="btn btn-primary" id="btn">Search</button>
+
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>

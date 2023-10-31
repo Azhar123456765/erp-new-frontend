@@ -135,9 +135,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
 
@@ -253,9 +253,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();;
                         session()->forget('Data');
@@ -323,9 +323,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();;
                         session()->forget('Data');
@@ -403,9 +403,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
 
@@ -481,9 +481,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
 
@@ -563,9 +563,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
 
@@ -657,9 +657,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
 
@@ -713,9 +713,9 @@ class pdfController extends Controller
 
                         $contentLength = strlen($html);
                         if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'landscape');
+                                $pdf->setPaper('A3', 'portrait');
                         } else {
-                                $pdf->setPaper('A4', 'landscape');
+                                $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
 
@@ -745,7 +745,7 @@ class pdfController extends Controller
                         $html = view('pdf.main')->render();
 
                         $pdf->loadHtml($html);
-                        $pdf->setPaper('A4', 'landscape');
+                        $pdf->setPaper('A4', 'portrait');
 
                         $pdf->render();
 
@@ -787,9 +787,9 @@ class pdfController extends Controller
 
                 $contentLength = strlen($html);
                 if ($contentLength > 5000) {
-                        $pdf->setPaper('A3', 'landscape');
+                        $pdf->setPaper('A3', 'portrait');
                 } else {
-                        $pdf->setPaper('A4', 'landscape');
+                        $pdf->setPaper('A4', 'portrait');
                 }
 
                 $pdf->render();
@@ -830,9 +830,9 @@ class pdfController extends Controller
 
                 $contentLength = strlen($html);
                 if ($contentLength > 5000) {
-                        $pdf->setPaper('A3', 'landscape');
+                        $pdf->setPaper('A3', 'portrait');
                 } else {
-                        $pdf->setPaper('A4', 'landscape');
+                        $pdf->setPaper('A4', 'portrait');
                 }
 
                 $pdf->render();

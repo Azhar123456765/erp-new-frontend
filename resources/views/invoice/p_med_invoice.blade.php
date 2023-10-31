@@ -1332,6 +1332,12 @@ display: flex;
             window.location.href = link.href;
         }
     });
+
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
+            $("#pi-search").modal('show');
+        }
+    });
     </script>
 
 @endsection

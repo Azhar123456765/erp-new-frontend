@@ -1538,6 +1538,14 @@ display: flex;
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
-    });</script>
+    });
+    
+    
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
+            $("#pi-search").modal('show');
+        }
+    });
+    </script>
 
 @endsection
