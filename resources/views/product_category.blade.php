@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Product Category')  @section('content')
 
 <br>
 <div class="container">

@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Sale Invoice')  @section('content')
 
 
 <head>
@@ -177,7 +177,15 @@
         outline: none;
         /* Remove the classic focus outline */
     }
-
+    .select2:focus {
+        border: 100px solid;
+        background-color: lightgray;
+        /* Change this to your desired dark background color */
+        color: black;
+        /* Change this to your desired text color */
+        outline: 50px;
+        /* Remove the classic focus outline */
+    }
 
 
     .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {

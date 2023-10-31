@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Sale Invoice (EDIT)')  @section('content')
 
 <head>
 

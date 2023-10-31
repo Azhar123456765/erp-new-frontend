@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Products')  @section('content')
 <style>
     @media (max-width: 755px) {
         .modal-dialog {

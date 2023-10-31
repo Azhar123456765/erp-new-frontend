@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Panel')  @section('content')
 <style>
   * input {
     border: 1px solid;

@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Panel')  @section('content')
 <div class="container">
     <br>
     @if(session()->get('user_id')['role'] == 'user')

@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Sales Officer Table')  @section('content')
 
 <br>
 <div class="container">

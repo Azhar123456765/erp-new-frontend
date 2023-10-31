@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Panel')  @section('content')
 
 <br>
 <h3 style="text-align: center;">Product Management</h3>

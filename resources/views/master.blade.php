@@ -8,7 +8,11 @@ $logo = $value->logo;
 
 @endphp
 @include('inc.style')
-
+<head>
+    <title>
+        @yield('title')
+    </title>
+</head>
 <body class="{{ request()->is('s_med_invoice*', 'es_med_invoice*','p_med_invoice*','ep_med_invoice*','r_voucher*','p_voucher*') ? 'sidebar-collapse' : '' }}">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">

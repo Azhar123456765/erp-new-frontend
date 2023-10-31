@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master')  @section('title','Organization')  @section('content')
 <br>
 <style>
     @media (max-width: 755px) {
