@@ -285,11 +285,16 @@ class PurchaseInvoiceController extends Controller
 
         ])->limit(1)->get();
 
+        $count = purchase_invoice::whereIn('purchase_invoice.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('purchase_invoice')
+                ->groupBy('unique_id');
+        })->count();
 
 
         $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
 
-        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'single_invoice', 'account');
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'single_invoice', 'account','count');
         return view('invoice.ep_med_invoice')->with($data);
     }
 

@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Sale Invoice')  @section('content')
+@extends('master') @section('title','Sale Invoice') @section('content')
 
 
 <head>
@@ -177,6 +177,7 @@
         outline: none;
         /* Remove the classic focus outline */
     }
+
     .select2:focus {
         border: 100px solid;
         background-color: lightgray;
@@ -218,7 +219,9 @@
             <div class="fields">
                 <div class="one">
                     <label for="Invoice">Invoice#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php echo $rand = 'SI' . '-' . random_int(1, 9999); ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
+                                                                                                                                                            $lastTwoWords = substr($year, -2);
+                                                                                                                                                            echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
                     <label for="book">Book#</label>

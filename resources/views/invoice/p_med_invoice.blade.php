@@ -243,7 +243,9 @@
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php echo $rand = 'PI' . '-' . random_int(1, 9999); ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
+                                                                                                                                                            $lastTwoWords = substr($year, -2);
+                                                                                                                                                            echo $rand = 'PI' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
                     <label for="Invoice">Invoice No</label>

@@ -26,42 +26,42 @@ class SaleInvoiceController extends Controller
         $id = $request->input('unique_id');
 
         $sell_invoice = sell_invoice::where("unique_id", $id)
-                        ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
-                        ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
-                        ->get();
+            ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+            ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+            ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+            ->get();
 
-                $s_sell_invoice = sell_invoice::where("unique_id", $id)
-                        ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
-                        ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
-                        ->limit(1)->get();
+        $s_sell_invoice = sell_invoice::where("unique_id", $id)
+            ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+            ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+            ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+            ->limit(1)->get();
 
-                session()->put("sale_invoice_pdf_data", $sell_invoice);
-                session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
-                
-                $views = $id;
+        session()->put("sale_invoice_pdf_data", $sell_invoice);
+        session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
 
-                $pdf = new Dompdf();
+        $views = $id;
 
-                $html = view('pdf.sale_pdf')->render();
-            
-                $pdf->loadHtml($html);
-            
-                // Set paper size based on content length
-                $contentLength = strlen($html);
-                if ($contentLength > 5000) {
-                    $pdf->setPaper('A3', 'landscape');
-                } else {
-                    $pdf->setPaper('A4', 'landscape');
-                }
-            
-                $pdf->render();
-                
-                // Save the PDF to a file
-                $output = $pdf->output();
-                file_put_contents(public_path('pdf/'.$id.'.pdf'), $output);
-               
+        $pdf = new Dompdf();
+
+        $html = view('pdf.sale_pdf')->render();
+
+        $pdf->loadHtml($html);
+
+        // Set paper size based on content length
+        $contentLength = strlen($html);
+        if ($contentLength > 5000) {
+            $pdf->setPaper('A3', 'landscape');
+        } else {
+            $pdf->setPaper('A4', 'landscape');
+        }
+
+        $pdf->render();
+
+        // Save the PDF to a file
+        $output = $pdf->output();
+        file_put_contents(public_path('pdf/' . $id . '.pdf'), $output);
+
         $company_id = $request->input('company');
         $company = buyer::where('buyer_id', $company_id)->get();
         foreach ($company as $key => $value) {
@@ -157,10 +157,15 @@ class SaleInvoiceController extends Controller
         $sales_officer  = sales_officer::limit(1000)->get();
 
         $sell_invoice  = sell_invoice::all();
-
+        $count = sell_invoice::whereIn('sell_invoice.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('sell_invoice')
+                ->groupBy('unique_id');
+        })->count();
+        
         $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
 
-        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account');
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account','count');
         return view('invoice.s_med_invoice')->with($data);
     }
 

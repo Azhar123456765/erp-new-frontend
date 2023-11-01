@@ -48,8 +48,13 @@ class PaymentVoucherController extends Controller
         $sales_officer  = sales_officer::limit(1000)->get();
 
         $account = accounts::all();
+        $count = p_voucher::whereIn('p_voucher.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('p_voucher')
+                ->groupBy('unique_id');
+        })->count();
 
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer');
+        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'count');
         return view('vouchers.payment')->with($data);
     }
 
