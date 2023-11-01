@@ -315,7 +315,7 @@ const elements = document.querySelectorAll('input, select');
 let currentIndex = 2;
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Control') {
+    if (e.key === 'Shift') {
         e.preventDefault();
         currentIndex = (currentIndex + 1) % elements.length;
         elements[currentIndex].focus();

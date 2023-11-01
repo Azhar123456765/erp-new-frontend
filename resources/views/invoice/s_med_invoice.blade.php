@@ -276,9 +276,10 @@
                     <select name="sales_officer" id="sales_officer" data-live-search="true">
                         <option></option>
                         @foreach ($sales_officer as $row)
-                        <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == 1 ? 'select' : ''}}>{{ $row->sales_officer_name }}</option>
+                        <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == 1 ? 'selected' : ''}}>{{ $row->sales_officer_name }}</option>
                         @endforeach
                     </select>
+
                 </div>
 
                 <input onkeydown="handleKeyPress(event)" type="hidden" name="unique_id" value="<?php echo $rand; ?>">
@@ -289,7 +290,7 @@
                     <select name="warehouse" id="warehouse" required>
                         <option></option>
                         @foreach ($warehouse as $row)
-                        <option value="{{ $row->warehouse_id }}">
+                        <option value="{{ $row->warehouse_id }}" {{ $row->warehouse_id == 1 ? 'selected' : ''}}>
                             {{ $row->warehouse_name }}
                         </option>
                         @endforeach
