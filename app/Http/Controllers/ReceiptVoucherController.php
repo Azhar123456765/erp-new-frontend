@@ -53,9 +53,9 @@ class ReceiptVoucherController extends Controller
         $sell_invoice  = sell_invoice::all();
 
         $account = accounts::all();
-        $count = ReceiptVoucher::whereIn('ReceiptVoucher.id', function ($query2) {
+        $count = ReceiptVoucher::whereIn('receipt_vouchers.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
-                ->from('ReceiptVoucher')
+                ->from('receipt_vouchers')
                 ->groupBy('unique_id');
         })->count();
 
