@@ -145,7 +145,8 @@ class pdfController extends Controller
                         session()->forget('gen-led-rc');
                         session()->forget('otherData');
 
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -260,7 +261,8 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -330,7 +332,8 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -489,7 +492,8 @@ class pdfController extends Controller
 
                         session()->forget("pdf_data");
                         session()->forget("pdf_title");
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -570,7 +574,8 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -585,6 +590,7 @@ class pdfController extends Controller
                         $product = $request->input('product');
                         $warehouse = $request->input('warehouse');
 
+                        if ($product != null) {
                         $query = sell_invoice::query();
 
                         if ($product) {
@@ -638,8 +644,58 @@ class pdfController extends Controller
                                 'product' => $product_name,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
+                                'type' => 1,
                         ];
                         session()->put('Data', $data);
+                        }else{
+
+                                $query = sell_invoice::query();
+
+                                if ($product) {
+                                        $query->where('item', $product);
+                                }
+                                if ($warehouse) {
+                                        $query->where('warehouse', $warehouse);
+                                }
+        
+                                $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);        
+        
+                                $query2 = purchase_invoice::query();
+        
+                                if ($product) {
+                                        $query2->where('item', $product);
+                                }
+                                if ($warehouse) {
+                                        $query2->where('warehouse', $warehouse);
+                                }
+        
+                                $query2->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                                
+                                $data1 = $query->get();
+                                $data2 = $query2->get();
+        
+                                $products = products::where('product_id', $product)->get();
+                                foreach ($products as $key => $value) {
+                                        $product_name = $value->product_name;
+                                }
+                                $warehouses = warehouse::where('warehouse_id', $warehouse)->get();
+                                foreach ($warehouses as $key => $value) {
+                                        $warehouse_name = $value->warehouse_name;
+                                }
+                                $data = [
+                                        'query' => $data1,
+                                        'query2' => $data2,
+                                        'sale_qty' => $data1->sum('qty_total'),
+                                        'pur_qty' => $data2->sum('qty_total'),
+                                        'avail_qty' => $data2->sum('qty_total') - $data1->sum('qty_total'),
+                                        'warehouse' => $warehouse_name ?? 'All',
+                                        'product' => $product_name ?? 'All',
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'type' => 2,
+                                ];
+                                session()->put('Data', $data);
+                        }
                 }
 
 
@@ -664,7 +720,8 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -720,7 +777,8 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                        return $pdf->stream($views . '-' . rand(1111, 9999) . '.pdf');
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
                 }
         }
 
@@ -770,7 +828,7 @@ class pdfController extends Controller
                         ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
                         ->limit(1)->get();
-
+  
                 session()->put("sale_invoice_pdf_data", $sell_invoice);
                 session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
 
@@ -794,7 +852,8 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return $pdf->stream(rand(1111, 9999) . '.pdf');
+                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
         }
 
 
@@ -837,6 +896,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return $pdf->stream(rand(1111, 9999) . '.pdf');
+                                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
         }
 }

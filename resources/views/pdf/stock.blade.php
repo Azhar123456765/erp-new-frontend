@@ -60,13 +60,15 @@ $avail_qty = session()->get('Data')['avail_qty'] ?? null;
 $warehouse = session()->get('Data')['warehouse'] ?? null;
 $product = session()->get('Data')['product'] ?? null;
 
+$type = session()->get('Data')['type'] ?? null;
+
 
 ?>
 @include('pdf.head_pdf')
 
 <h2 style="text-align: center;">Stock Report</h2>
 <div class="col-md-3"></div>
-
+@if($type == 1)
 <div class="row">
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
     <h3 style="text-align: left;">Product:<span style="color:green;">&nbsp;{{$product ?? ''}}</span></h3>
@@ -153,7 +155,96 @@ $product = session()->get('Data')['product'] ?? null;
     </h3>
 
 </table>
+@elseif($type == 2)
 
+
+<div class="row">
+    <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
+    <h3 style="text-align: left;">Product:<span style="color:green;">&nbsp;{{$product ?? 'All'}}</span></h3>
+    <br>
+    <h3 style="text-align: left;">Warehouse:<span style="color:blue;">&nbsp;{{$warehouse ?? 'All'}}</span></h3>
+    <h3 style="text-align: right;"><?php echo date("l"); ?>,<?php echo '  ' . date('Y m d'); ?></h3>
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Reference</th>
+            <th>Company</th>
+            <th>Product</th>
+            <th>Qty</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $query = session()->get('Data')['query'];
+        foreach ($query as $row) {
+        ?>
+            <tr style="text-align: center;">
+                <td>
+                    <span><?php echo $row->date; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->unique_id; ?></span>
+                </td>
+                <td>
+                    <span>{{$row->customer->company_name}}</span>
+                </td>
+                <td>
+                    <span>{{$row->product->product_name}}</span>
+                </td>
+                <td style="text-align:right;">
+                    <span>-  <?php echo $row->sale_qty; ?></span>
+                </td>
+            </tr>
+        <?php
+        }
+        ?>
+        <?php
+        $query2 = session()->get('Data')['query2'];
+        foreach ($query2 as $row) {
+        ?>
+            <tr style="text-align: center;">
+                <td>
+                    <span><?php echo $row->date; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->unique_id; ?></span>
+                </td>
+                <td>
+                    <span>{{$row->supplier->company_name}}</span>
+                </td>
+                <td style="text-align: left
+        ;">
+                    <span><?php echo $row->product->product_name; ?></span>
+                </td>
+                <td style="text-align:right;">
+                    <span>+  <?php echo $row->pur_qty; ?></span>
+                </td>
+            </tr>
+        <?php
+        }
+        ?>
+    </tbody>
+    <tfoot style="color: darkblue; text-align:right;">
+        <td colspan="4" style="text-align:right; border:none;"><b>Purchase Qty:</b></td>
+        <td style="border:none;"><b>{{$pur_qty}}</b></td>
+    </tfoot>
+    <tfoot style="color: darkblue; text-align:right;">
+        <td colspan="4" style="text-align:right; border:none;"><b>Sale Qty:</b></td>
+        <td style="border:none;"><b>{{$sale_qty}}</b></td>
+    </tfoot>
+    <tfoot style="color: darkblue; text-align:right;">
+        <td colspan="4" style="text-align:right; border:none;"><b>Available Qty:</b></td>
+        <td style="border:none;"><b>{{$avail_qty}}</b></td>
+    </tfoot>
+
+    </h3>
+
+</table>
+
+
+@endif
 <div class="pdf-time">
     Generated on: <?php echo date('Y-m-d H:i:s'); ?>
 </div>
