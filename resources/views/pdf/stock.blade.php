@@ -190,7 +190,7 @@ $type = session()->get('Data')['type'] ?? null;
                 <td>
                     <span>{{$row->customer->company_name}}</span>
                 </td>
-                <td>
+                <td style="text-align: left">
                     <span>{{$row->product->product_name}}</span>
                 </td>
                 <td style="text-align:right;">
