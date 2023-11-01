@@ -292,7 +292,7 @@ class pdfController extends Controller
                         $supplierData = seller::where('seller_id', $supplier)->get();
                         foreach ($supplierData as $key => $value) {
                                 $supplierName = $value->company_name;
-                                $debit = $value->debit;
+                                $debit = $value->credit;
                         }
                         $data = [
                                 'invoice' => $ledgerDatasi,
