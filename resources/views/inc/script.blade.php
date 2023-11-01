@@ -220,7 +220,7 @@
     $('.select').select2({
         theme: 'default',
         width: 'resolve',
-        searching: 'true'
+         
     });
 $('#mySelect2').on('select2:open', function () {
       $('.select2-search__field').focus();
@@ -315,11 +315,17 @@ const elements = document.querySelectorAll('input, select');
 let currentIndex = 2;
 
 document.addEventListener('keydown', function(e) {
-    if (e.key === 'Shift') {
+    if (e.key === 'Alt') {
         e.preventDefault();
         currentIndex = (currentIndex + 1) % elements.length;
         elements[currentIndex].focus();
     }
 });
+
+
+
+
+
+
 </script>
 

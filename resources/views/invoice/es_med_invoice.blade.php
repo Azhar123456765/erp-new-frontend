@@ -1053,7 +1053,7 @@ display: flex;
         if (!$("#amount" + counter).hasClass('check')) {
 
 
-            if (amount2 > 0 && narration2 > 0) {
+            if (narration2 > 0) {
 
                 $("#amount" + countera).addClass("check")
 
@@ -1446,13 +1446,13 @@ display: flex;
         });
     })
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
             var link = document.querySelector('.add-more');
             window.location.href = link.href;
         }
     });
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
@@ -1460,7 +1460,7 @@ display: flex;
 
 
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
             $("#si-search").modal('show');
         }
     });

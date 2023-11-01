@@ -306,7 +306,7 @@
         <br />
 
         <div class="invoice">
-            @csrf
+            @csrf   
             <div class="dup_invoice" onchange="addInvoice()">
                 <div class="div   items">
                     <label for="item">Item</label>
@@ -872,7 +872,7 @@ display: flex;
         if (!$("#amount" + counter).hasClass('check')) {
 
 
-            if (amount2 > 0 && narration2 > 0) {
+            if (narration2 > 0) {
 
                 $("#amount" + countera).addClass("check")
 
@@ -894,6 +894,7 @@ display: flex;
             // Initialize Select2 for the desired select elements
             $('select').select2({
                 theme: 'classic',
+         
                 width: 'resolve',
             });
 
@@ -1270,26 +1271,26 @@ display: flex;
         });
     })
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
             var link = document.querySelector('.add-more');
             window.location.href = link.href;
         }
     });
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
     });
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
             var link = document.querySelector('.edit-btn');
             window.location.href = link.href;
         }
     });
 
     $(document).on('keydown', function(e) {
-        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
             $("#si-search").modal('show');
         }
     });
