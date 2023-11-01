@@ -49,7 +49,8 @@
 
     label {
         margin: 3px;
-        font-weight: bolder;
+        font-weight: 900;
+        font-size: medium;
     }
 
     .top label {
@@ -219,43 +220,17 @@
             <div class="fields">
                 <div class="one">
                     <label for="Invoice">Invoice#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important; width: 219px !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
                                                                                                                                                             $lastTwoWords = substr($year, -2);
                                                                                                                                                             echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
-                    <label for="book">Book#</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="book" name="book" />
-                </div>
-                <div class="one">
-                    <label for="transporter">Transporter</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="transporter" name="transporter" />
-                </div>
-                <div class="one  avail_stock" style="display: none">
-                    <label for="transporter">Available Stock</label>
-                    <input type="text" style="border: none !important; width:max-content !important;" id="avail_stock" name="avail_stock" />
-                </div>
-            </div>
-
-            <div class="fields">
-                <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date" id="date" name="date" value="<?php
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important; width: 219px !important; text-align:center;        " type="date" id="date" name="date" value="<?php
                                                                                                                                         $currentDate = date('Y-m-d');
                                                                                                                                         echo $currentDate;
                                                                                                                                         ?>" />
                 </div>
-                <div class="one">
-                    <label for="due_date">Due Date</label>
-                    <input onkeydown="handleKeyPress(event)" type="date" id="due_date" name="due_date" />
-                </div>
-                <div class="one">
-                    <label for="bilty_no">Bilty No.</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="bilty_no" name="bilty_no" />
-                </div>
-            </div>
-
-            <div class="fields">
                 <div class="one  remark">
                     <label for="seller">Company</label>
                     <select name="company" id="seller" class="company" onchange="seller123()" required>
@@ -266,14 +241,42 @@
                         </option>
                         @endforeach
                     </select>
+                </div>  
+                <div class="one  avail_stock" style="display: none">
+                    <label for="transporter">Available Stock</label>
+                    <input type="text" style="border: none !important; width:max-content !important;" id="avail_stock" name="avail_stock" />
                 </div>
-
+            </div>
+            
+            <div class="fields">
+                <div class="one">
+                    <label for="book">Book#</label>
+                    <input onkeydown="handleKeyPress(event)" type="text" id="book" name="book" />
+                </div>
+                <div class="one">
+                    <label for="transporter">Transporter</label>
+                    <input onkeydown="handleKeyPress(event)" type="text" id="transporter" name="transporter" />
+                </div>
+                
+                <div class="one">
+                    <label for="due_date">Due Date</label>
+                    <input onkeydown="handleKeyPress(event)" type="date" id="due_date" name="due_date" />
+                </div>
+            </div>
+            
+            <div class="fields">
+                
+                
+                <div class="one  remark">
+                    <label for="bilty_no">Bilty No.</label>
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="bilty_no" name="bilty_no" />
+                </div>
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" data-live-search="true">
                         <option></option>
                         @foreach ($sales_officer as $row)
-                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
+                        <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == 1 ? 'select' : ''}}>{{ $row->sales_officer_name }}</option>
                         @endforeach
                     </select>
                 </div>

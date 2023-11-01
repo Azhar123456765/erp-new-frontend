@@ -312,7 +312,7 @@ $(document).on('keydown', function ( e ) {
 
 const elements = document.querySelectorAll('input, select');
 
-let currentIndex = 0;
+let currentIndex = 2;
 
 document.addEventListener('keydown', function(e) {
     if (e.key === 'Control') {
