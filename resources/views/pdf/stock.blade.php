@@ -107,7 +107,7 @@ $type = session()->get('Data')['type'] ?? null;
                 </td>
 
                 <td style="text-align:right;">
-                    <span>-  <?php echo $row->qty_total; ?></span>
+                    <span>-  <?php echo $row->sale_qty; ?></span>
                 </td>
             </tr>
         <?php
@@ -132,7 +132,7 @@ $type = session()->get('Data')['type'] ?? null;
                     <span><?php echo $row->remark; ?></span>
                 </td>
                 <td style="text-align:right;">
-                    <span>+  <?php echo $row->qty_total; ?></span>
+                    <span>+  <?php echo $row->pur_qty; ?></span>
                 </td>
             </tr>
         <?php

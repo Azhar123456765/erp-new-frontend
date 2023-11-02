@@ -550,7 +550,7 @@ text-align: center;
                             <div class="col-md">
                                 <!-- <div class="form-group">
                                     <label>Product</label>
-                                    <select class="form-control " name="product" id="product" .mu>
+                                    <select class="form-control " name="product" id="product">
                                         <option></option>
                                         @foreach ($product as $row)
                                         <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
