@@ -290,6 +290,10 @@ class product extends Controller
 
     function add_product(Request $request)
     {
+
+        $request->validate([
+            'product_name' => 'required|unique:products,product_name,' .  $request['product_name'] . ',product_id',
+        ]);
         // Retrieve the form data
         $productName = $request->input('product_name');
         $desc = $request->input('desc');
