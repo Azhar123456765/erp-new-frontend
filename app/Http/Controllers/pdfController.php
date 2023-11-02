@@ -601,11 +601,7 @@ class pdfController extends Controller
                         }
 
                         $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
-                                ->whereIn('sell_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('sell_invoice')
-                                                ->groupBy('unique_id');
-                                });
+                                ;
 
 
                         $query2 = purchase_invoice::query();
@@ -618,11 +614,7 @@ class pdfController extends Controller
                         }
 
                         $query2->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
-                                ->whereIn('purchase_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('purchase_invoice')
-                                                ->groupBy('unique_id');
-                                });
+                               ;
                         $data1 = $query->get();
                         $data2 = $query2->get();
 

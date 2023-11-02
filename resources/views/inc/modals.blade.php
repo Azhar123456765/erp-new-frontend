@@ -548,7 +548,7 @@ text-align: center;
                         <div class="row" style="justify-content: space-between;">
 
                             <div class="col-md">
-                                <div class="form-group">
+                                <!-- <div class="form-group">
                                     <label>Product</label>
                                     <select class="form-control " name="product" id="product" .mu>
                                         <option></option>
@@ -557,7 +557,7 @@ text-align: center;
                                         @endforeach
 
                                     </select>
-                                </div>
+                                </div> -->
                             </div>
                             <div class="col-md">
                                 <div class="form-group">
