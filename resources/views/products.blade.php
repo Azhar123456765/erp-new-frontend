@@ -164,7 +164,7 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="opening_quantity">Opening Quantity</label>
-                                        <input type="number" id="opening_quantity" name="opening_quantity" class="form-control ">
+                                        <input type="number" id="opening_quantity" name="opening_quantity" class="form-control" value="0.00">
                                     </div>
                                     <div class="col">
                                         <label for="avg_pur_price">Average Purchase Price</label>
@@ -325,7 +325,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="opening_quantity">Opening Quantity</label>
-                                            <input type="number" id="opening_quantity" name="opening_quantity" class="form-control " value="{{ $row->opening_quantity ?? '' }}">
+                                            <input type="number" id="opening_quantity" name="opening_quantity" class="form-control " value="{{ $row->opening_quantity ?? 0 }}">
                                         </div>
                                         <div class="col">
                                             <label for="avg_pur_price">Average Purchase Price</label>
@@ -486,7 +486,7 @@
                                     <div class="row">
                                         <div class="col">
                                             <label for="opening_quantity">Opening Quantity</label>
-                                            <input readonly type="number" id="opening_quantity" name="opening_quantity" class="form-control " value="{{ $row->opening_quantity ?? '' }}">
+                                            <input readonly type="number" id="opening_quantity" name="opening_quantity" class="form-control " value="{{ $row->opening_quantity ?? 0 }}">
                                         </div>
                                         <div class="col">
                                             <label for="avg_pur_price">Average Purchase Price</label>

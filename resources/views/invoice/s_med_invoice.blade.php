@@ -1281,7 +1281,7 @@ display: flex;
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
-    });
+    }); 
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
             var link = document.querySelector('.edit-btn');
