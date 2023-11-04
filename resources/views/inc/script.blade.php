@@ -322,7 +322,11 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
+$(document).ready(function() {
 
+    $('input[name="date"]').focus();
+
+})
 
 
 
