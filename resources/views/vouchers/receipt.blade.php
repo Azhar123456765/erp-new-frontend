@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Reciept Voucher')  @section('content')
+@extends('master') @section('content')
 
 <head>
 
@@ -260,9 +260,7 @@
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
-                                                                                                                                                            $lastTwoWords = substr($year, -2);
-                                                                                                                                                            echo $rand = 'RV' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php echo $rand = 'RV' . random_int(1, 9999); ?>" />
                 </div>
                 <div class="one">
                     <label for="Invoice">Ref No</label>
@@ -338,7 +336,7 @@
                 <div class="div">
                     <label for="dis">Invoice</label>
                     <select class="invoice_no" id="invoice_no" name="invoice_no[]" style="height: 28px">
-                        <option></option>
+                        <option data-unit="1" data-expiry="1"></option>
                     </select>
                 </div>
 
@@ -461,16 +459,16 @@ display: flex;
         submit
     </button>
 
-    <!-- <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
-    </a> -->
+    </a>
 
 
-    <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/p_voucher" c lass="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Add More
     </a>
 
-    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         PDF
     </a>
 
@@ -513,6 +511,30 @@ display: flex;
          $('select').select2({
             theme: 'classic',
             width: 'resolve',
+        });
+    
+        var company = $("#company").find('option:selected');
+        var id = company.data('id')
+        $.ajax({
+            url: '/get-data/r_voucher', // Replace with your Laravel route or endpoint
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                'id': id // Replace with the appropriate data you want to send
+            },
+            success: function(data) {
+                let select = document.getElementById('invoice_no2');
+                data.forEach(item => {
+                    let option = document.createElement('option');
+                    option.value = item.id; // Assuming 'id' is the identifier in your data
+                    option.text = item.unique_id; // Assuming 'name' is the value you want to display
+                    select.appendChild(option);
+                });
+            },
+            error: function(error) {
+                // Handle the error here, if necessary
+                console.error('Error:', error);
+            },
         });
     })
 
@@ -622,7 +644,7 @@ display: flex;
         // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
 
 
-        //     if (narration2 != '') {
+        //     if (amount2 > 0 && narration2 != '') {
 
         //         $("#narration" + counter).addClass("check")
 
@@ -838,85 +860,99 @@ display: flex;
             },
         });
     })
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
-            var link = document.querySelector('.add-more');
-            window.location.href = link.href;
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
-            var link = document.querySelector('.pdf');
-            window.location.href = link.href;
-        }
-    });
+
     function companyInvoice() {
         var company = $("#company").find('option:selected');
         var id = company.data('id')
 
         $("#company").on('change', function() {
 
-            let invoice = $("#invoice_no").find('option:selected').val('');
-            let invoiceText = $("#invoice_no").find('option:selected').text('');
+            let invoice = $("#invoice_no").val('');
+            let invoiceText = $("#invoice_no").text('');
 
-            let invoice2 = $("#invoice_no2").find('option:selected').val('');
-            let invoiceText2 = $("#invoice_no2").find('option:selected').text('');
+            let invoice2 = $("#invoice_no2").val('');
+            let invoiceText2 = $("#invoice_no2").text('');
         })
 
+        $.ajax({
+            url: '/get-data/r_voucher', // Replace with your Laravel route or endpoint
+            method: 'GET',
+            dataType: 'json',
+            data: {
+                'id': id // Replace with the appropriate data you want to send
+            },
+            success: function(data) {
+                let select = document.getElementById('invoice_no');
+                data.forEach(item => {
+                    let option = document.createElement('option');
+                    option.value = item.id; // Assuming 'id' is the identifier in your data
+                    option.text = item.unique_id; // Assuming 'name' is the value you want to display
+                    select.appendChild(option);
+                });
 
-            $('#invoice_no').select2({
-                ajax: {
-                    url: '/get-data/r_voucher',
-                    dataType: 'json',
-                    data: {
-                        'id': id
-                    },
-                    processResults: function(data) {
-                        console.log(1212);
+                
+            },
+            error: function(error) {
+                // Handle the error here, if necessary
+                console.error('Error:', error);
+            },
+        });
+           
+      
+        // $('#invoice_no').select2({
+                //     ajax: {
+                //         url: '/get-data/r_voucher',
+                //         dataType: 'json',
+                //         data: {
+                //             'id': id
+                //         },
+                //     delay: 250,
+                //         processResults: function(data) {
+                //             console.log(1212);
 
-                        // console.log(data.data);          
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    id: item.id,
-                                    text: item.unique_id
-                                };
-                            })
-                        }
+                //             // console.log(data.data);          
+                //             return {
+                //                 results: $.map(data, function(item) {
+                //                     return {
+                //                         id: item.id,
+                //                         text: item.unique_id
+                //                     };
+                //                 })
+                //             }
 
-                    },
-                    cache: true
-                },
-                theme: 'classic',
-            });
+                //         },
+                //         cache: true
+                //     },
+                //     theme: 'classic',
+                // });
 
 
 
-            $('#invoice_no2').select2({
-                ajax: {
-                    url: '/get-data',
-                    dataType: 'json',
-                    data: {
-                        'id': id
-                    },
-                    delay: 250,
-                    processResults: function(data) {
+            // $('#invoice_no2').select2({
+            //     ajax: {
+            //         url: '/get-data',
+            //         dataType: 'json',
+            //         data: {
+            //             'id': id
+            //         },
+            //         delay: 250,
+            //         processResults: function(data) {
 
-                        // console.log(data.data);          
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    id: item.id,
-                                    text: item.unique_id
-                                };
-                            })
-                        }
+            //             // console.log(data.data);          
+            //             return {
+            //                 results: $.map(data, function(item) {
+            //                     return {
+            //                         id: item.id,
+            //                         text: item.unique_id
+            //                     };
+            //                 })
+            //             }
 
-                    },
-                    cache: true
-                },
-                theme: 'classic',
-            });
+            //         },
+            //         cache: true
+            //     },
+            //     theme: 'classic',
+            // });
 
 
 
