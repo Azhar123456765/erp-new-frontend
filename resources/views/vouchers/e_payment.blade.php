@@ -1,9 +1,10 @@
- @section('content')
+@extends('master')  @section('title','Payment Voucher (EDIT)')  @section('content')
 
 <head>
 
     <head>
         <!-- Include other necessary scripts and stylesheets -->
+
         <!-- Include Select2 CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
@@ -125,8 +126,8 @@
         text-align: center;
     }
 
-        .invoice {
- background-color: #f8f9fa;
+    .invoice {
+        background-color: #f8f9fa;
         border: none;
 
         height: 167.5px;
@@ -164,27 +165,12 @@
         height: 27px !important;
     }
 
-    .select2-container .select2-selection--single .select2-selection__arrow {
-        width: 91 !important;
-        height: 27px !important;
-    }
-
-    .select2-container--default .select2-selection--single .select2-selection__rendered {
-        width: 131px !important;
+    .select2-container--classic {
+        width: 191px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
-        padding-top: 2px;
-    }
-
-    .select2-container .select2-selection--single .select2-selection__arrow {
-        margin-right: -3%;
-    }
-
-    .select2-container--default .select2-search--dropdown .select2-search__field {
-        margin: 3px;
-        width: 91% !important;
     }
 
     .fields {
@@ -211,12 +197,11 @@
     .label {
         text-align: center;
         height: 55px;
-        width: 49%;
         padding: 15px auto 15px 15px;
         border: 1px solid none;
         display: flex;
         justify-content: space-evenly;
-        margin-left: 475px;
+        margin-left: 44px;
     }
 
     .label label {
@@ -274,10 +259,9 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
-">
+<div class="container" style="margin-top: -85px; padding-top: 5px; overflow-x: visible;">
     <form id="form">
-        <h3 style="text-align: center;">Payment Voucher</h3>
+    <h3 style="text-align: center;">Payment Voucher</h3>
         @foreach ($sp_voucher as $sinvoice_row)
 
         <h5 style="text-align: end;">Medician</h5>
@@ -391,7 +375,6 @@
 
         </div>
 
-
         <style>
             .total {
                 justify-content: center;
@@ -428,38 +411,24 @@
                 margin-top: -7%;
             }
         </style>
-        @foreach ($sp_voucher as $sinvoice_row)
 
-        <div class="total" style="margin-top: 2.25%;">
-            <div class="first">
-                <div class="one" style="
-            margin-left: 0%;
-        ">
+@foreach ($sp_voucher as $sinvoice_row)
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total" id="amount_total" style="
-            margin-left: 220%;
-            text-align:end;
-        " readonly value="{{$sinvoice_row->amount_total}}">
+<div class="total" style="margin-top: 2.25%;">
+    <div class="first">
+        <div class="one" style="
+    margin-left: 0%;
+">
 
-
-                </div>
-                @endforeach
-                <br>
-
-
-
-
-
-
-
-
-
-
-            </div>
+            <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total" id="amount_total" style="
+    margin-left: 220%;
+    text-align:end;
+" readonly value="{{$sinvoice_row->amount_total}}">
 
 
         </div>
-</div>
+        @endforeach
+
 
 </div>
 <style>
@@ -474,38 +443,60 @@
 <div class="options" style="
 display: flex;
     /* justify-content: center; */
-    margin-top: -5.5%;
+    margin-top: -21.5%;
     flex-direction: column;
     position:absolute;
     width: 8%;
     margin-right: 85%;
     ">
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;">
-        submit
+        Update
     </button>
-
-
-    <a href="/p_voucher" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px;">
-        Add More
-    </a>
-
-    <a href="p_voucher_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px;">
-        PDF
-    </a>
-
-
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+    <br>
+    <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
     
     window.location.reload()
     ">
         Revert
     </button>
 
+
+    <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
+        PDF
+    </a>
+
+    <a href="/s_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
+        Add More
+    </a>
+
 </div>
 
 
 </form>
 </div>
+
+
+
+
+<div class="img" style="
+    position: absolute;
+    top: 70%;
+    left: 19.5%;
+    width: 217px;
+    height: 191px;">
+    <a href="" target="_blank" class="p-img">
+        <img src="" alt="Product  does not have any img or an error occur" style="
+    width: 100%;
+    display:none;
+    height:100%;
+" id="p-img">
+
+    </a>
+</div>
+
+
+
+
 
 
 
@@ -525,7 +516,6 @@ display: flex;
         </button>
     </div>
 </div>
-
 <script>
     $(document).change(function() {
         total_amount();
@@ -535,7 +525,7 @@ display: flex;
             theme: 'classic',
             width: 'resolve',
         });
-        5
+        
     })
 
 
@@ -578,7 +568,7 @@ display: flex;
 
 
 <div class="div">
-    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
@@ -675,7 +665,7 @@ display: flex;
 
 
 <div class="div">
-<input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+<input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 

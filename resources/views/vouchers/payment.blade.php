@@ -301,7 +301,7 @@
                     <select name="sales_officer" id="sales_officer" class="sales_officer" required>
                         <option></option>
                         @foreach ($sales_officer as $row)
-                        <option value="{{ $row->sales_officer_id }}">
+                        <option value="{{ $row->sales_officer_id }}" {{$row->sales_officer_id == 1 ? 'selected' : ''}}>
                             {{ $row->sales_officer_name }}
                         </option>
                         @endforeach
@@ -453,18 +453,18 @@ display: flex;
         submit
     </button>
 
-    <!-- <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
-    </a> -->
+    </a>
 
 
-    <a href="/p_voucher" c lass="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Add More
     </a>
 
-    <!-- <a href="/purchase_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/payment_voucher_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         PDF
-    </a> -->
+    </a>
 
 
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
@@ -549,7 +549,7 @@ display: flex;
 
 
 <div class="div">
-    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
@@ -646,7 +646,7 @@ display: flex;
 
 
 <div class="div">
-<input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+<input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
@@ -806,6 +806,8 @@ display: flex;
                 });
                 $(".submit").css("display", "none")
                 $(".edit").css("display", "block")
+                $(".add-more").css("display", "block")
+                $(".pdf").css("display", "block")
 
 
 

@@ -577,7 +577,7 @@ display: flex;
 
 
 <div class="div">
-    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 <div class="div">
@@ -681,7 +681,7 @@ display: flex;
 
 
 <div class="div">
-<input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+<input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
