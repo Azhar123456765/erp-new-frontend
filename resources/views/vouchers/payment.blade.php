@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Payment Voucher')  @section('content')
+@extends('master') @section('title','Payment Voucher') @section('content')
 
 <head>
 
@@ -266,25 +266,19 @@
                                                                                                                                                             echo $rand = 'PV' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
-                    <label for="Invoice">Ref No</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
-                </div>
-
-
-            </div>
-
-            <div class="fields">
-                <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)" style="width: 219px !important; border: none !important;" type="date" id="date" name="date" value="<?php
-                                                                                                                                                                $currentDate = date('Y-m-d');
-                                                                                                                                                                echo $currentDate;
-                                                                                                                                                                ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date" id="date" name="date" value="<?php
+                                                                                                                                        $currentDate = date('Y-m-d');
+                                                                                                                                        echo $currentDate;
+                                                                                                                                        ?>" />
                 </div>
+
+
 
             </div>
 
             <div class="fields">
+
                 <div class="one  remark">
                     <label for="seller">Company</label>
                     <select name="company" id="seller" class="company" required>
@@ -302,7 +296,26 @@
                     </select>
                 </div>
 
+                <div class="one  remark">
+                    <label for="seller">Sales Ofiicer</label>
+                    <select name="sales_officer" id="sales_officer" class="sales_officer" required>
+                        <option></option>
+                        @foreach ($sales_officer as $row)
+                        <option value="{{ $row->sales_officer_id }}">
+                            {{ $row->sales_officer_name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
 
+            <div class="fields">
+
+
+                <div class="one">
+                    <label for="Invoice">Ref No</label>
+                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
+                </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark" name="remark" />
@@ -319,7 +332,7 @@
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
                 </div>
 
 
@@ -431,8 +444,6 @@
 </style>
 <div class="options" style="
 display: flex;
-    /* justify-content: center; */
-    margin-top: -5.5%;
     flex-direction: column;
     position:absolute;
     width: 8%;
@@ -815,6 +826,7 @@ display: flex;
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
-    });</script>
+    });
+</script>
 
 @endsection

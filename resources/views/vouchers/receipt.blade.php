@@ -1,4 +1,4 @@
-@extends('master') @section('content')
+@extends('master') @section('title','Reciept Voucher') @section('content')
 
 <head>
 
@@ -265,26 +265,20 @@
                                                                                                                                                             echo $rand = 'RV' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
-                    <label for="Invoice">Ref No</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
-                </div>
-
-
-            </div>
-
-            <div class="fields">
-                <div class="one">
                     <label for="date">Date</label>
                     <input onkeydown="handleKeyPress(event)" style="width: 219px !important; border: none !important;" type="date" id="date" name="date" value="<?php
                                                                                                                                                                 $currentDate = date('Y-m-d');
                                                                                                                                                                 echo $currentDate;
                                                                                                                                                                 ?>" />
                 </div>
+                
+
 
             </div>
 
             <div class="fields">
-                <div class="one  remark">
+
+            <div class="one  remark">
                     <label for="seller">Company</label>
                     <select name="company" id="company" class="company" required onchange="companyInvoice()">
                         <option></option>
@@ -300,8 +294,6 @@
                         @endforeach
                     </select>
                 </div>
-
-
                 <div class="one  remark">
                     <label for="">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="sales_officer" required>
@@ -314,7 +306,14 @@
                     </select>
                 </div>
 
+            </div>
 
+            <div class="fields">
+
+            <div class="one">
+                    <label for="Invoice">Ref No</label>
+                    <input  style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
+                </div>
 
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
@@ -332,7 +331,7 @@
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
                 </div>
 
                 <div class="div">
@@ -450,8 +449,6 @@
 </style>
 <div class="options" style="
 display: flex;
-    /* justify-content: center; */
-    margin-top: -5.5%;
     flex-direction: column;
     position:absolute;
     width: 8%;
