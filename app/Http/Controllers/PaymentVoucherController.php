@@ -77,35 +77,10 @@ class PaymentVoucherController extends Controller
         $lastChar = substr($request['company'], -1);
         $company = substr($invoiceData['company'], 0, -1);
 
-        // Check if the last character is a letter using ctype_alpha
 
         $amount = $request['amount_total'];
 
-        if ($lastChar === 'S') {
-            if ($amount >= 1) {
-                seller::where("seller_id", $request['company'])->update([
-                    'debit' => DB::raw("debit + " . $amount),
-                ]);
-            } elseif ($amount <= 1) {
-                seller::where("seller_id", $request['company'])->update([
-                    'debit' => DB::raw("debit - " . $amount),
-                ]);
-            }
-        } elseif ($lastChar === 'B') {
-
-            if ($amount >= 1) {
-                buyer::where("buyer_id", $request['company'])->update([
-                    'debit' => DB::raw("debit + " . $amount),
-                ]);
-            } elseif ($amount <= 1) {
-                buyer::where("buyer_id", $request['company'])->update([
-                    'debit' => DB::raw("debit - " . $amount),
-                ]);
-            }
-        }
-
-
-
+    
         $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -205,12 +180,13 @@ class PaymentVoucherController extends Controller
      */
     public function update(Request $request, $id)
     {
-die();
         p_voucher::where('unique_id', $id)->delete();
 
+        Expense::where('category_id', $id)->update([
+            'amount' => $request['amount_total']
+        ]);
+      
         $invoiceData = $request->all();
-
-        // Assuming all array fields have the same lengthbdnbbh
 
         $arrayLength = count(array_filter($invoiceData['narration']));
 
@@ -218,34 +194,11 @@ die();
 
             $invoice = new p_voucher;
 
+            $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
             $invoice->company = $invoiceData['company'] ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
-            $invoice->pkr_amount = $invoiceData['pkr_amount'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
-            $invoice->bilty_no = $invoiceData['bilty_no'] ?? null;
-            $invoice->warehouse = $invoiceData['warehouse'] ?? null;
-
-
-            $invoice->book = $invoiceData['book'] ?? null;
-            $invoice->due_date = $invoiceData['due_date'] ?? null;
-            $invoice->transporter = $invoiceData['transporter'] ?? null;
-            $invoice->unique_id = $invoiceData['unique_id'] ?? null;
-
-            $invoice->previous_balance = $invoiceData['previous_balance'] ?? null;
-            $invoice->cartage = $invoiceData['cartage'] ?? null;
-            $invoice->grand_total = $invoiceData['grand_total'] ?? null;
-            $invoice->amount_paid = $invoiceData['amount_paid'] ?? null;
-            $invoice->balance_amount = $invoiceData['balance_amount'] ?? null;
-
-            $invoice->qty_total = $invoiceData['qty_total'] ?? null;
-            $invoice->dis_total = $invoiceData['dis_total'] ?? null;
-            $invoice->amount_total = $invoiceData['amount_total'] ?? null;
-
-
-
-
-
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
@@ -253,12 +206,13 @@ die();
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
 
+            $invoice->amount_total = $invoiceData['amount_total'] ?? null;
 
 
             $invoice->save();
         }
 
-        $data = 'Invoices added successfully!';
+        $data = 'Voucher added successfully!';
         return response()->json($data);
     }
 

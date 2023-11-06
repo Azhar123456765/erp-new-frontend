@@ -59,7 +59,7 @@ class ReceiptVoucherController extends Controller
                 ->groupBy('unique_id');
         })->count();
 
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'sell_invoice','count');
+        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'sell_invoice', 'count');
         return view('vouchers.receipt')->with($data);
     }
 
@@ -99,7 +99,7 @@ class ReceiptVoucherController extends Controller
         for ($i = 0; $i < $arrayLength; $i++) {
 
             $invoice = new ReceiptVoucher;
-           
+
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
             $company = substr($invoiceData['company'], 0, -1);
             $invoice->company = $company;
@@ -136,20 +136,6 @@ class ReceiptVoucherController extends Controller
                 ]);
             }
 
-            if ($lastChar === 'S') {
-                if ($amount >= 1) {
-                    seller::where("seller_id", $request['company'])->update([
-                        'debit' => DB::raw("debit - " . $amount),
-                    ]);
-                }
-            } elseif ($lastChar === 'B') {
-
-                if ($amount >= 1) {
-                    buyer::where("buyer_id", $request['company'])->update([
-                        'debit' => DB::raw("debit - " . $amount),
-                    ]);
-                }
-            }
 
             $invoice->save();
         }
@@ -175,9 +161,29 @@ class ReceiptVoucherController extends Controller
      * @param  \App\Models\ReceiptVoucher  $receiptVoucher
      * @return \Illuminate\Http\Response
      */
-    public function edit(ReceiptVoucher $receiptVoucher)
+    public function edit(Request $request, $id)
     {
-        //
+        $seller = seller::limit(1000)->get();
+        $buyer = buyer::limit(1000)->get();
+
+        $warehouse = warehouse::limit(1000)->get();
+
+        $sales_officer  = sales_officer::limit(1000)->get();
+
+        $ReceiptVoucher = ReceiptVoucher::where("unique_id", $id)->get();
+
+        $sReceiptVoucher = ReceiptVoucher::where([
+            "unique_id" => $id
+        ])->limit(1)->get();
+
+        foreach ($ReceiptVoucher as $key => $value) {
+            $company = $value->company;
+        }
+
+        $account = accounts::all();
+        $invoices = sell_invoice::where('company', $company)->get();
+        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'ReceiptVoucher', 'sReceiptVoucher','invoices');
+        return view('vouchers.e_reciept')->with($data);
     }
 
     /**
@@ -187,9 +193,43 @@ class ReceiptVoucherController extends Controller
      * @param  \App\Models\ReceiptVoucher  $receiptVoucher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ReceiptVoucher $receiptVoucher)
+    public function update(Request $request, $id)
     {
-        //
+        ReceiptVoucher::where('unique_id', $id)->delete();
+
+        Income::where('category_id', $id)->update([
+            'amount' => $request['amount_total']
+        ]);
+      
+        $invoiceData = $request->all();
+
+        $arrayLength = count(array_filter($invoiceData['narration']));
+
+        for ($i = 0; $i < $arrayLength; $i++) {
+
+            $invoice = new ReceiptVoucher;
+
+            $invoice->unique_id = $invoiceData['unique_id'] ?? null;
+            $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->company = $invoiceData['company'] ?? null;
+            $invoice->remark = $invoiceData['remark'] ?? null;
+            $invoice->date = $invoiceData['date'] ?? null;
+            $invoice->narration = $invoiceData['narration']["$i"] ?? null;
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
+            $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
+            $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
+            $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
+            $invoice->amount = $invoiceData['amount']["$i"] ?? null;
+            $invoice->ref_no = $invoiceData['ref_no'] ?? null;
+
+            $invoice->amount_total = $invoiceData['amount_total'] ?? null;
+
+
+            $invoice->save();
+        }
+
+        $data = 'Voucher added successfully!';
+        return response()->json($data);
     }
 
     /**

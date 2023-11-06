@@ -917,8 +917,6 @@ display: flex;
 
 
 
-
-
                 $('#p-img').css("display", "block")
                 var imgInput = $('#p-img');
                 var imgSrc1 = selectedOption.data('img');

@@ -93,6 +93,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::post('/ep_voucher_form_id={id}', [PaymentVoucherController::class, 'update']);
     Route::get('/r_voucher', [ReceiptVoucherController::class, 'index']);
     Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
+    Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
     Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
     Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
     Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update']);
@@ -163,6 +164,8 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/pdf_limit{view}', [pdfController::class, 'pdf_limit']);
     Route::get('/sale_invoice_pdf_{id}', [pdfController::class, 'sale_invoice_pdf']);
     Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
+    Route::get('/pv_pdf_{id}', [pdfController::class, 'pv_pdf']);
+    Route::get('/rv_pdf_{id}', [pdfController::class, 'rv_pdf']);
     Route::get('/gen-led', [pdfController::class, 'gen_led']);
     Route::get('/cus-led', [pdfController::class, 'cus_led']);
     Route::get('/supplier-led', [pdfController::class, 'supplier_led']);

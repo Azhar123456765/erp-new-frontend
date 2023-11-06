@@ -337,7 +337,7 @@
                 <div class="div">
                     <label for="dis">Invoice</label>
                     <select class="invoice_no" id="invoice_no" name="invoice_no[]" style="height: 28px">
-                        <option data-unit="1" data-expiry="1"></option>
+                        <option></option>
                     </select>
                 </div>
 
@@ -525,7 +525,7 @@ display: flex;
                 let select = document.getElementById('invoice_no2');
                 data.forEach(item => {
                     let option = document.createElement('option');
-                    option.value = item.id; // Assuming 'id' is the identifier in your data
+                    option.value = item.unique_id; // Assuming 'id' is the identifier in your data
                     option.text = item.unique_id; // Assuming 'name' is the value you want to display
                     select.appendChild(option);
                 });
@@ -884,7 +884,7 @@ display: flex;
                 let select = document.getElementById('invoice_no');
                 data.forEach(item => {
                     let option = document.createElement('option');
-                    option.value = item.id; // Assuming 'id' is the identifier in your data
+                    option.value = item.unique_id; // Assuming 'id' is the identifier in your data
                     option.text = item.unique_id; // Assuming 'name' is the value you want to display
                     select.appendChild(option);
                 });

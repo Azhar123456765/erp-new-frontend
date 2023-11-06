@@ -891,4 +891,100 @@ class pdfController extends Controller
                                 return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
 
         }
+
+
+
+
+
+
+
+
+        function pv_pdf(Request $post, $id)
+        {
+
+
+                $p_voucher = p_voucher::where("unique_id", $id)
+                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->get();
+
+                $s_p_voucher = p_voucher::where("unique_id", $id)
+                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->limit(1)->get();
+
+                session()->put("p_voucher_pdf_data", $p_voucher);
+                session()->put("s_p_voucher_pdf_data", $s_p_voucher);
+
+
+
+
+                $views = $id;
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.p_voucher')->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
+        }
+
+
+
+        function rv_pdf(Request $post, $id)
+        {
+
+
+                $receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
+                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->get();
+
+                $s_receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
+                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->limit(1)->get();
+
+                session()->put("receipt_vouchers_pdf_data", $receipt_vouchers);
+                session()->put("s_receipt_vouchers_pdf_data", $s_receipt_vouchers);
+
+
+
+
+                $views = $id;
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.r_voucher')->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+
+        }
+
 }

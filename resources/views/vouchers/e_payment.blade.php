@@ -1,10 +1,9 @@
-@extends('master')  @section('title','Payment Voucher (EDIT)')  @section('content')
+@extends('master') @section('title','Payment Voucher (EDIT)') @section('content')
 
 <head>
 
     <head>
         <!-- Include other necessary scripts and stylesheets -->
-
         <!-- Include Select2 CSS -->
         <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
@@ -16,6 +15,28 @@
     </head>
 </head>
 <style>
+    @media (max-width: 755px) {
+        body {
+            overflow: scroll !important;
+            width: max-content;
+
+        }
+
+        .img {
+            position: absolute;
+            top: 70% !important;
+            left: 80.5% !important;
+            width: 217px;
+            height: 191px;
+        }
+
+        .options {
+            width: 23% !important;
+        }
+
+    }
+
+
     @media (max-width: 755px) {
         body {
             overflow: scroll !important;
@@ -122,6 +143,7 @@
     }
 
 
+
     .invoice label {
         text-align: center;
     }
@@ -133,7 +155,6 @@
         height: 167.5px;
         overflow-y: scroll;
         overflow-x: hidden;
-        width: 100%;
 
     }
 
@@ -151,18 +172,18 @@
     }
 
     input {
-        width: 131px !important;
-        height: 27px !important;
-    }
-
-    .invoice input {
-        width: 131px !important;
+        width: 181px !important;
         height: 27px !important;
     }
 
     select {
-        width: 131px !important;
+        width: 181px !important;
         height: 27px !important;
+    }
+
+    #form {
+        width: 140%;
+        margin-left: -22%;
     }
 
     .select2-container--classic {
@@ -172,6 +193,7 @@
         line-height: 25px !important;
         height: 25px !important;
     }
+
 
     .fields {
 
@@ -191,27 +213,7 @@
         justify-content: end;
     }
 
-
-
-
-    .label {
-        text-align: center;
-        height: 55px;
-        padding: 15px auto 15px 15px;
-        border: 1px solid none;
-        display: flex;
-        justify-content: space-evenly;
-        margin-left: 44px;
-    }
-
-    .label label {
-        width: 71px;
-
-    }
-
-
     input:focus {
-
         border: 3px solid;
         background-color: lightgray;
         /* Change this to your desired dark background color */
@@ -219,23 +221,8 @@
         /* Change this to your desired text color */
         outline: none;
         /* Remove the default focus outline */
-
     }
 
-
-    #form {
-        width: 140%;
-        margin-left: -22%;
-    }
-
-    .items .select2-container--default .select2-selection--single .select2-selection__rendered {
-        width: 191px !important;
-        height: 27px !important;
-
-        line-height: 25px !important;
-        height: 25px !important;
-        padding-top: 2px;
-    }
 
 
     .remark .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -248,8 +235,21 @@
     }
 
 
-    .cash .select2-container--default .select2-selection--single .select2-selection__rendered {
-        width: 159px !important;
+
+    .label {
+        text-align: center;
+        height: 50px;
+        padding: 15px auto 15px 15px;
+        border: 1px solid none;
+        display: flex;
+        width: 67%;
+        justify-content: space-evenly;
+        margin-left: 300px;
+    }
+
+    .label label {
+        width: 71px;
+
     }
 
     /* .fields input{
@@ -259,58 +259,67 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -85px; padding-top: 5px; overflow-x: visible;">
+<div class="container" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+">
     <form id="form">
-    <h3 style="text-align: center;">Payment Voucher</h3>
-        @foreach ($sp_voucher as $sinvoice_row)
+        <h3 style="text-align: center;">Payment Voucher (EDIT)</h3>
 
         <h5 style="text-align: end;">Medician</h5>
+        @foreach ($sp_voucher as $sinvoice_row)
+
         <div class="top">
             <div class="fields">
-                <div class="one">
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" style="border: none !important;" readonly type="date" id="date" name="date" value="<?php
-                                                                                                                                                                                    $currentDate = date('Y-m-d');
-                                                                                                                                                                                    echo $currentDate;
-                                                                                                                                                                                    ?>" />
-                </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
                     <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="{{$sinvoice_row->unique_id}}" />
                 </div>
                 <div class="one">
-                    <label for="Invoice">Ref No</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" value="{{$sinvoice_row->ref_no}}" />
-                </div>
-
-
-            </div>
-
-            <div class="fields">
-                <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)" style="width: 219px !important; border: none !important;" type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
                 </div>
+
+
 
             </div>
 
             <div class="fields">
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company" required>
+                    <select name="company" class="company" required>
                         <option></option>
                         @foreach ($seller as $row)
-                        <option value="{{ $row->seller_id }}S" {{ $row->seller_id == $sinvoice_row->company . 'S' ? 'selected' : '' }} data-debit="{{ $row->debit }}">{{ $row->company_name }}</option>
+                        <option value="{{ $row->seller_id }}S" data-debit="{{ $row->debit }}" {{ $row->seller_id .'S' == $sinvoice_row->company  ? 'selected' : '' }}>
+                            {{ $row->company_name }} (Supplier)
+                        </option>
                         @endforeach
                         @foreach ($buyer as $row)
-                        @if ($row->buyer_id == $sinvoice_row->company)
-                        <option value="{{ $row->buyer_id }}B" {{ $row->buyer_id == $sinvoice_row->company . 'B' ? 'selected' : '' }} data-debit="{{ $row->debit }}">{{ $row->company_name }}</option>
-                        @endif
+                        <option value="{{ $row->buyer_id }}B" data-debit="{{ $row->debit }}" {{ $row->buyer_id .'B' == $sinvoice_row->company ? 'selected' : '' }}>
+                            {{ $row->company_name }} (Customer)
+                        </option>
                         @endforeach
                     </select>
-
                 </div>
 
+                <div class="one  remark">
+                    <label for="seller">Sales Ofiicer</label>
+                    <select name="sales_officer" id="sales_officer" class="sales_officer" required>
+                        <option></option>
+                        @foreach ($sales_officer as $row)
+                        <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == $sinvoice_row->sales_officer ? 'selected' : '' }}>
+                            {{ $row->sales_officer_name }}
+                        </option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
 
+            <div class="fields">
+
+
+                <div class="one">
+                    <label for="Invoice">Ref No</label>
+                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" value="{{$sinvoice_row->ref_no}}" />
+                </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark" name="remark" value="{{$sinvoice_row->remark}}" />
@@ -318,16 +327,20 @@
             </div>
         </div>
         @endforeach
+
         <br />
 
         <div class="invoice">
             @csrf
             <div class="label">
                 <label for="item" style="padding-right: 91px;">Narration</label>
-                <label for="unit">Cheque No (s)</label>
+                <label for="unit">Cheque No</label>
                 <label for="batch_no">Cheque Date</label>
-                <label for="expiry">Cash/Bank Account</label>
-                <label for="price">Amount</label>
+                <label>Cash/Bank Account</label>
+                <label for="amount">Amount</label>
+
+
+
             </div>
             @php
             $counter = 1;
@@ -337,35 +350,37 @@
             @php
             $rand = $invoice_row->unique_id;
             @endphp
+
             <div class="dup_invoice" onchange="addInvoice()">
 
 
                 <div class="div">
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="<?php echo $counter; ?>narration" name="narration[]" value="{{$invoice_row->narration}}" />
+                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" value="{{$invoice_row->narration}}" />
                 </div>
 
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="<?php echo $counter; ?>cheque_no" name="cheque_no[]" value="{{$invoice_row->cheque_no}}" />
+                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" value="{{$invoice_row->cheque_no}}" />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" id="<?php echo $counter; ?>cheque_date" name="cheque_date[]" value="{{$invoice_row->cheque_date}}" />
+                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="{{$invoice_row->cheque_date}}" id="cheque_date" name="cheque_date[]" onchange='total_amount()' />
                 </div>
                 <div class="div">
                     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
                         <option></option>
 
                         @foreach ($account as $row)
-                        <option value="{{ $row->account_id }}" {{ $row->account_id == $invoice_row->cash_bank ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
                         @endforeach
 
                     </select>
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" onchange='total_amount()' id="<?php echo $counter; ?>amount" name="amount[]" value="{{$invoice_row->amount}}" />
+                    <input class="<?php echo $counter; ?>amount" onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" value="{{$invoice_row->amount}}" onchange='total_amount()' id="amount" name="amount[]" />
                 </div>
             </div>
+
 
 
             @php
@@ -373,62 +388,95 @@
             @endphp
             @endforeach
 
+            <div class="dup_invoice" onchange="addInvoice2()">
+
+
+                <div class="div">
+                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
+                </div>
+
+
+                <div class="div">
+                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
+                </div>
+                <div class="div">
+                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
+                </div>
+                <div class="div">
+                    <select class="cash_bank" name="cash_bank[]" style="height: 28px">
+                        <option></option>
+
+                        @foreach ($account as $row)
+                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                        @endforeach
+
+                    </select>
+                </div>
+
+                <div class="div">
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount1" name="amount[]" />
+                </div>
+            </div>
+
+
+            <style>
+                .total {
+                    justify-content: center;
+                    /* width: 50%; */
+                    /* align-items: flex-end; */
+                    display: flex;
+                }
+
+                .total .last input {
+                    margin-top: 9px !important;
+
+                }
+
+                .one {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    flex-direction: row;
+                }
+
+                .last {
+                    display: flex;
+
+                    flex-direction: column;
+                }
+
+                .last .one input {
+                    margin-top: 5px;
+                }
+
+                .options {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: -7%;
+                }
+            </style>
+
         </div>
+        @foreach ($sp_voucher as $sinvoice_row)
 
-        <style>
-            .total {
-                justify-content: center;
-                /* width: 50%; */
-                /* align-items: flex-end; */
-                display: flex;
-            }
-
-            .total .last input {
-                margin-top: 9px !important;
-
-            }
-
-            .one {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 5px;
-                flex-direction: row;
-            }
-
-            .last {
-                display: flex;
-
-                flex-direction: column;
-            }
-
-            .last .one input {
-                margin-top: 5px;
-            }
-
-            .options {
-                display: flex;
-                justify-content: center;
-                margin-top: -7%;
-            }
-        </style>
-
-@foreach ($sp_voucher as $sinvoice_row)
-
-<div class="total" style="margin-top: 2.25%;">
-    <div class="first">
-        <div class="one" style="
-    margin-left: 0%;
+        <div class="total" style="margin-top: 2.25%;">
+            <div class="first">
+                <div class="one" style="
+margin-left: 0%;
 ">
 
-            <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total" id="amount_total" style="
-    margin-left: 220%;
-    text-align:end;
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total" id="amount_total" style="
+margin-left: 185%;
+text-align:end;
 " readonly value="{{$sinvoice_row->amount_total}}">
 
+                </div>
+
+                <br>
+            </div>
+            @endforeach
 
         </div>
-        @endforeach
-
 
 </div>
 <style>
@@ -442,8 +490,6 @@
 </style>
 <div class="options" style="
 display: flex;
-    /* justify-content: center; */
-    margin-top: -21.5%;
     flex-direction: column;
     position:absolute;
     width: 8%;
@@ -452,51 +498,29 @@ display: flex;
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;">
         Update
     </button>
-    <br>
-    <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+
+
+    <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px;">
+        Add More
+    </a>
+
+    <a href="/pv_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px;">
+        PDF
+    </a>
+
+
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
     
     window.location.reload()
     ">
         Revert
     </button>
 
-
-    <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
-        PDF
-    </a>
-
-    <a href="/s_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
-        Add More
-    </a>
-
 </div>
 
 
 </form>
 </div>
-
-
-
-
-<div class="img" style="
-    position: absolute;
-    top: 70%;
-    left: 19.5%;
-    width: 217px;
-    height: 191px;">
-    <a href="" target="_blank" class="p-img">
-        <img src="" alt="Product  does not have any img or an error occur" style="
-    width: 100%;
-    display:none;
-    height:100%;
-" id="p-img">
-
-    </a>
-</div>
-
-
-
-
 
 
 
@@ -516,16 +540,15 @@ display: flex;
         </button>
     </div>
 </div>
+
 <script>
     $(document).change(function() {
         total_amount();
-        addInvoice();
-        addInvoice2(` + counter + `);
-         $('select').select2({
+        $('select').select2({
             theme: 'classic',
             width: 'resolve',
         });
-        
+        5
     })
 
 
@@ -554,8 +577,8 @@ display: flex;
 
 
 
-    var counter = 1
-    var countera = 0
+    var counter = 2
+    var countera = 1
     var stop = 0
 
     function addInvoice(one) {
@@ -694,12 +717,7 @@ display: flex;
 
 `;
 
-
-
         }
-
-
-
 
         counter = counter - 1
         let amount2 = $("#cheque_no" + counter).val()
@@ -725,29 +743,6 @@ display: flex;
         }
 
         counter = counter + 1
-        // let amount2 = $("#amount" + counter).val()
-        // let narration2 = $("#narration" + counter).val()
-
-        // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
-
-
-        //     if (narration2 != '') {
-
-        //         $("#narration" + counter).addClass("check")
-
-
-
-        //         counter++
-        //         countera++
-
-
-        //         $(".invoice").append(clonedFields);
-
-        //     }
-
-        // }
-
-
     }
 
 
@@ -768,17 +763,15 @@ display: flex;
 
     function total_amount() {
         let count = <?php echo $counter; ?> - 1;
-
-        var atotal = 0; // Initialize atotal outside the loops.
-
+        var atotal = 0;
         for (let i = 1; i <= count; i++) {
-            let amount1 = parseFloat($("#" + i + "amount").val());
-            atotal += amount1; // Add amount1 to atotal in each iteration.
+            let amount1 = parseInt($("." + i + "amount").val());
+            atotal += amount1;
         }
 
         for (let i = 1; i <= countera; i++) {
             let amount1 = parseFloat($("#amount" + i).val());
-            atotal += amount1; // Add amount1 to atotal in each iteration.
+            atotal += amount1;
         }
 
         $("#amount_total").val(atotal);
@@ -809,6 +802,7 @@ display: flex;
     });
 
 
+
     $('#form').submit(function(event) {
         event.preventDefault();
 
@@ -816,11 +810,10 @@ display: flex;
         var formData = $("#form").serialize();
 
         // Send an AJAX request
-
         $.ajax({
-            url: "/ep_voucher_form_id=<?php foreach ($sp_voucher as $key => $row) {
-                                            echo $row->unique_id;
-                                        } ?>",
+            url: '/ep_voucher_form_id=<?php foreach ($sp_voucher as $key => $row) {
+                                                echo $row->unique_id;
+                                            } ?>', // Replace with your Laravel route or endpoint
             method: 'POST',
             data: formData,
             success: function(response) {
@@ -831,10 +824,6 @@ display: flex;
                     title: response,
                     timer: 1900 // Automatically close after 3 seconds
                 });
-                $(".submit").css("display", "none")
-                $(".edit").css("display", "block")
-
-
 
             },
             error: function(error) {
@@ -853,6 +842,7 @@ display: flex;
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
-    });</script>
+    });
+</script>
 
 @endsection
