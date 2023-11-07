@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Sale Invoice (EDIT)')  @section('content')
+@extends('master') @section('title','Sale Invoice (EDIT)') @section('content')
 
 <head>
 
@@ -313,6 +313,7 @@
                         </option>
                         @endforeach
                     </select>
+                    <input type="hidden" id="get_previous_balance" value="{{$sinvoice_row->company}}">
                 </div>
 
                 <div class="one  remark">
@@ -682,7 +683,6 @@ display: flex;
         Revert
     </button>
 
-
     <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
         PDF
     </a>
@@ -793,25 +793,30 @@ display: flex;
 
     }
 
-
-
-
-
-
     function seller123() {
 
         $(document).ready(function() {
 
-            // var selectedOption = $("#seller").find('option:selected');
-            // var debit = $('#debit');
-            // var credit = $('#credit');
-
-            // debit.val(selectedOption.data('debit')); // Set the value of the unit input field to the data-unit value of the selected option
-            //  // Set the value of the unit input field to the data-unit value of the selected option
-
-
-
-
+            var selectedOption = $("#seller").find('option:selected');
+            var debit = $('#debit');
+            var company = $('#get_previous_balance').val();
+            var id = selectedOption.val()
+            $.ajax({
+                url: '/get-previous-balance', // Replace with your Laravel route or endpoint
+                method: 'GET',
+                dataType: 'json',   
+                data: {
+                    'id': id,// Replace with the appropriate data you want to send
+                },
+                success: function(data) {
+                    if (data.balance_amount >= 0 && company != id) {
+                    debit.val(data.balance_amount)
+                }                },
+                error: function(error) {
+                    // Handle the error here, if necessary
+                    console.error('Error:', error);
+                },
+            });
             count();
             count2();
             per_unit();
@@ -1460,6 +1465,28 @@ display: flex;
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
             $("#si-search").modal('show');
+        }
+    });
+
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+            var str = $('[name=\'unique_id\']').val();
+            var parts = str.split('-');
+            var firstPart = parts.slice(0, -1).join('-');
+            var lastPart = parts[parts.length - 1];
+            var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+            window.location.href = newUrl;
+        }
+    });
+
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+            var str = $('[name=\'unique_id\']').val();
+            var parts = str.split('-');
+            var firstPart = parts.slice(0, -1).join('-');
+            var lastPart = parts[parts.length - 1];
+            var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+            window.location.href = newUrl;
         }
     });
 </script>

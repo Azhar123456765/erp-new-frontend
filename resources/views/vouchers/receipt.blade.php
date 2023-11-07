@@ -458,7 +458,7 @@ display: flex;
         submit
     </button>
 
-    <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/er_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
     </a>
 
@@ -898,62 +898,28 @@ display: flex;
         });
            
       
-        // $('#invoice_no').select2({
-                //     ajax: {
-                //         url: '/get-data/r_voucher',
-                //         dataType: 'json',
-                //         data: {
-                //             'id': id
-                //         },
-                //     delay: 250,
-                //         processResults: function(data) {
-                //             console.log(1212);
+  
+        $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+            var str = $('[name=\'unique_id\']').val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+    window.location.href = newUrl;
+        }
+    });
 
-                //             // console.log(data.data);          
-                //             return {
-                //                 results: $.map(data, function(item) {
-                //                     return {
-                //                         id: item.id,
-                //                         text: item.unique_id
-                //                     };
-                //                 })
-                //             }
-
-                //         },
-                //         cache: true
-                //     },
-                //     theme: 'classic',
-                // });
-
-
-
-            // $('#invoice_no2').select2({
-            //     ajax: {
-            //         url: '/get-data',
-            //         dataType: 'json',
-            //         data: {
-            //             'id': id
-            //         },
-            //         delay: 250,
-            //         processResults: function(data) {
-
-            //             // console.log(data.data);          
-            //             return {
-            //                 results: $.map(data, function(item) {
-            //                     return {
-            //                         id: item.id,
-            //                         text: item.unique_id
-            //                     };
-            //                 })
-            //             }
-
-            //         },
-            //         cache: true
-            //     },
-            //     theme: 'classic',
-            // });
-
-
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+            var str = $('[name=\'unique_id\']').val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+    window.location.href = newUrl;
+        }
+    });
 
     }
 </script>

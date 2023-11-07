@@ -966,6 +966,30 @@ display: flex;
         }
     });
     }
+
+
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+            var str = $('[name=\'unique_id\']').val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+    window.location.href = newUrl;
+        }
+    });
+
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+            var str = $('[name=\'unique_id\']').val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+    window.location.href = newUrl;
+        }
+    });
+
 </script>
 
 @endsection

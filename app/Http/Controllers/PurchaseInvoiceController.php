@@ -145,19 +145,11 @@ class PurchaseInvoiceController extends Controller
             'no_records' => DB::raw("no_records + " . 1)
         ]);
         $pr_amount = $request['previous_balance'];
-        if ($pr_amount >= 1) {
-            seller::where("seller_id", $request['company'])->update([
-                'credit' => DB::raw("credit + " . $pr_amount),
-            ]);
-        }
+       
 
         $amount = $request['amount_total'];
 
-        if ($amount >= 1) {
-            seller::where("seller_id", $request['company'])->update([
-                'credit' => DB::raw("credit + " . $amount),
-            ]);
-        }
+        
 
         $arrayLength = count(array_filter($invoiceData['item']));
 
@@ -314,19 +306,11 @@ class PurchaseInvoiceController extends Controller
 
 
         $pr_amount = $request['previous_balance'];
-        if ($pr_amount >= 1) {
-            seller::where("seller_id", $request['company'])->update([
-                'credit' => DB::raw("credit - " . $pr_amount),
-            ]);
-        }
+        
 
         $amount = $request['amount_total'];
 
-        if ($amount >= 1) {
-            seller::where("seller_id", $request['company'])->update([
-                'credit' => DB::raw("credit + " . $amount),
-            ]);
-        }
+        
 
 
 
@@ -496,19 +480,11 @@ class PurchaseInvoiceController extends Controller
         purchase_invoice::where('unique_id', $id)->delete();
 
         $pr_amount = $request['previous_balance'];
-        if ($pr_amount >= 1) {
-            seller::where("seller_id", $request['company'])->update([
-                'credit' => DB::raw("credit - " . $pr_amount),
-            ]);
-        }
+        
 
         $amount = $request['amount_total'];
 
-        if ($amount >= 1) {
-            seller::where("seller_id", $request['company'])->update([
-                'credit' => DB::raw("credit + " . $amount),
-            ]);
-        }
+        
 
 
 

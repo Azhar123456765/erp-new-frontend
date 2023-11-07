@@ -102,6 +102,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
     Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
     Route::get('/s_med_invoice', [SaleInvoiceController::class, 'create']);
+    Route::get('/get-previous-balance', [SaleInvoiceController::class, 'get_previous_balance']);
     Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
     Route::post('/s_med_invoice_mail', [SaleInvoiceController::class, 'mail']);
     Route::get('/es_med_invoice_id={id}', [SaleInvoiceController::class, 'edit']);

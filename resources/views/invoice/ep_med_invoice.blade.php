@@ -311,7 +311,7 @@
             <div class="fields">
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select id="seller" class="company" onchange="seller123()">
+                    <select id="seller" class="company" onchange="seller123()" name="company">
                         <option></option>
                         @foreach ($seller as $row)
                         <option value="{{ $row->seller_id }}" {{ $row->seller_id == $sinvoice_row->company ? 'selected' : '' }} data-debit="{{ $row->debit }}">{{ $row->company_name }}
@@ -1544,6 +1544,30 @@ display: flex;
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
             $("#pi-search").modal('show');
+        }
+    });
+
+
+
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+            var str = $('[name=\'unique_id\']').val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/ep_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+    window.location.href = newUrl;
+        }
+    });
+
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+            var str = $('[name=\'unique_id\']').val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/ep_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) -     1);
+    window.location.href = newUrl;
         }
     });
     </script>

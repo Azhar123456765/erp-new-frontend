@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use App\Models\buyer;
 use App\Models\Income;
+use App\Models\p_voucher;
 use App\Models\sell_invoice;
 use App\Models\seller;
 use App\Models\sales_officer;
@@ -20,6 +21,16 @@ use Illuminate\Support\Facades\Mail;
 
 class SaleInvoiceController extends Controller
 {
+
+    public function get_previous_balance(Request $request){
+        $id = $request['id'];
+        $debit = sell_invoice::where('company', $id)->first('balance_amount');
+        $credit = p_voucher::where('company', $id)->first('amount_total');
+
+        $balance = $debit??0-$credit??0;
+        return response()->json($balance??0);
+    }
+
     public function mail(Request $request)
     {
 
@@ -188,15 +199,6 @@ class SaleInvoiceController extends Controller
 
         $amount = $request['balance_amount'];
 
-        if ($amount >= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => $amount,
-            ]);
-        } elseif ($amount <= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => $amount,
-            ]);
-        }
 
         $income =  new Income;
         $income->category_id = $invoiceData['unique_id'];
@@ -343,27 +345,10 @@ class SaleInvoiceController extends Controller
 
         sell_invoice::where('unique_id', $id)->delete();
 
-        $pr_amount = $request['previous_balance_amount'];
-        if ($pr_amount >= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . $pr_amount),
-            ]);
-        }
-
-
-
 
         $amount = $request['balance_amount'];
 
-        if ($amount >= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit + " . $amount),
-            ]);
-        } elseif ($amount <= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . abs($amount)),
-            ]);
-        }
+        
         $invoiceData = $request->all();
 
         $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
@@ -518,40 +503,8 @@ class SaleInvoiceController extends Controller
 
     function r_update(Request $request, $id)
     {
-
-
         sell_invoice::where('unique_id', $id)->delete();
-
-
-        $pr_amount = $request['previous_balance_amount'];
-        if ($pr_amount >= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . $pr_amount),
-            ]);
-        } elseif ($pr_amount <= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit + " . abs($pr_amount)),
-            ]);
-        }
-
-
-        $amount = $request['balance_amount'];
-
-        if ($amount >= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit + " . $amount),
-            ]);
-        } elseif ($amount <= 1) {
-            buyer::where("buyer_id", $request['company'])->update([
-                'debit' => DB::raw("debit - " . abs($amount)),
-            ]);
-        }
-
-
-
-
         $invoiceData = $request->all();
-
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));
 
