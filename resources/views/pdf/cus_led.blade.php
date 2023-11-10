@@ -58,6 +58,7 @@ $endDate = session()->get('Data')['endDate'];
 $total_amount = session()->get('Data')['total_amount'];
 $balance_amount = session()->get('Data')['balance_amount'];
 $credit = session()->get('Data')['credit'];
+$grand_total = session()->get('Data')['grand_total'] ?? null;
 $debit = session()->get('Data')['debit'];
 $customerName = session()->get('Data')['customerName'];
 $type = session()->get('Data')['type'];
@@ -86,7 +87,7 @@ $type = session()->get('Data')['type'];
 <div class="row">
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
     <h3 style="text-align: left; color: darkblue;">Customer:&nbsp;{{$customerName}}</h3>
-    <h3 style="text-align: right; "><?php echo date("l"); ?>,<?php echo '  ' . date('Y m d'); ?></h3>
+    <h3 style="text-align: right; "><?php echo date("l"); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
 @if($type == 1)
 
@@ -156,6 +157,8 @@ $type = session()->get('Data')['type'];
 
     </tfoot>
 </table>
+<h3 style="text-align:right; border:none;"><b>Total Customer Debit:&nbsp;&nbsp;</b><span style="color: green;"><b>{{$grand_total->balance_amount}}</b></span>
+</h3>
 @elseif($type == 2)
 
 <table>
@@ -206,14 +209,14 @@ $type = session()->get('Data')['type'];
     </tfoot>
     <tfoot style="color: purple; text-align:right;">
         <td colspan="3" style="text-align:right; border:none;"><b>Remaining Total:</b></td>
-        <td><b>{{$debit}}</b></td>
+        <td><b>{{$debit->balance_amount-$total_amount}}</b></td>
     </tfoot>
 </table>
 
 @endif
 
 <div class="pdf-time">
-    Generated on: <?php echo date('Y-m-d H:i:s'); ?>
+    Generated on: <?php echo date('Y-m-d  H:i:s'); ?>
 </div>
 
 </div>

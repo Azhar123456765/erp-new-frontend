@@ -184,9 +184,29 @@ class pdfController extends Controller
                                 foreach ($customerData as $key => $value) {
                                         $customerName = $value->company_name;
                                 }
+
+
+                                $debit = sell_invoice::where('company', $customer)
+                                ->whereIn('id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('sell_invoice')
+                                        ->groupBy('unique_id');
+                                })->latest('balance_amount')->first('balance_amount');
+                            
+                        
+                                $credit = p_voucher::where('company', $customer)
+                                ->whereIn('payment_voucher.id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('payment_voucher')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_total');
+                        
+                                $balance = $debit??0-$credit??0;
+
                                 $data = [
                                         'invoice' => $ledgerDatasi,
                                         'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                        'grand_total' =>  $balance,
                                         'total_amount' =>  $ledgerDatasi->sum('amount_total'),
                                         'debit' =>  $ledgerDatasi->sum('previous_balance'),
                                         'balance_amount' => $ledgerDatasi->sum('balance_amount'),
@@ -222,11 +242,29 @@ class pdfController extends Controller
                                         $customerName = $value->company_name;
                                         $customerDebit = $value->debit;
                                 }
+
+                                $debit = sell_invoice::where('company', $customer)
+                                ->whereIn('id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('sell_invoice')
+                                        ->groupBy('unique_id');
+                                })->latest('balance_amount')->first('balance_amount');
+                            
+                        
+                                $credit = p_voucher::where('company', $customer)
+                                ->whereIn('payment_voucher.id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('payment_voucher')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_total');
+                        
+                                $balance = $debit??0-$credit??0;
+
                                 $data = [
                                         'invoice' => $ledgerDatasi,
                                         'credit' =>  $ledgerDatasi->sum('invoice.balance_amount') - $ledgerDatasi->sum('amount'),
                                         'total_amount' =>  $ledgerDatasi->sum('amount'),
-                                        'debit' =>  $customerDebit,
+                                        'debit' =>  $balance,
                                         'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -289,11 +327,26 @@ class pdfController extends Controller
                                 });
 
                         $ledgerDatasi = $query->get();
-                        $supplierData = seller::where('seller_id', $supplier)->get();
-                        foreach ($supplierData as $key => $value) {
-                                $supplierName = $value->company_name;
-                                $debit = $value->credit;
-                        }
+                
+
+                        $debit = sell_invoice::where('company', $supplier)
+                        ->whereIn('id', function ($query2) {
+                            $query2->select(DB::raw('MIN(id)'))
+                                ->from('sell_invoice')
+                                ->groupBy('unique_id');
+                        })->latest('balance_amount')->first('balance_amount');
+                    
+                
+                        $credit = p_voucher::where('company', $supplier)
+                        ->whereIn('payment_voucher.id', function ($query2) {
+                            $query2->select(DB::raw('MIN(id)'))
+                                ->from('payment_voucher')
+                                ->groupBy('unique_id');
+                        })->sum('amount_total');
+                
+                        $balance = $debit??0-$credit??0;
+
+
                         $data = [
                                 'invoice' => $ledgerDatasi,
                                 'credit' =>  $ledgerDatasi->sum('amount_paid'),

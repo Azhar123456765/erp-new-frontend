@@ -809,8 +809,8 @@ display: flex;
                     'id': id,// Replace with the appropriate data you want to send
                 },
                 success: function(data) {
-                    if (data.balance_amount >= 0) {
-                    debit.val(data.balance_amount)
+                    if (data >= 0) {
+                    debit.val(data)
                 }                },
                 error: function(error) {
                     // Handle the error here, if necessary

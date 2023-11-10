@@ -12,7 +12,7 @@ class ReceiptVoucher extends Model
 
     function Invoice()
     {
-        return $this->belongsTo(sell_invoice::class, "invoice_no" ,'id');
+        return $this->belongsTo(sell_invoice::class, "invoice_no", 'unique_id');
     }
     function supplier()
     {

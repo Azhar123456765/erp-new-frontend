@@ -74,7 +74,7 @@ $type = session()->get('Data')['type'] ?? null;
     <h3 style="text-align: left;">Product:<span style="color:green;">&nbsp;{{$product ?? ''}}</span></h3>
     <br>
     <h3 style="text-align: left;">Warehouse:<span style="color:blue;">&nbsp;{{$warehouse ?? 'All'}}</span></h3>
-    <h3 style="text-align: right;"><?php echo date("l"); ?>,<?php echo '  ' . date('Y m d'); ?></h3>
+    <h3 style="text-align: right;"><?php echo date("l"); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
 <table>
     <thead>
@@ -163,7 +163,7 @@ $type = session()->get('Data')['type'] ?? null;
     <h3 style="text-align: left;">Product:<span style="color:green;">&nbsp;{{$product ?? 'All'}}</span></h3>
     <br>
     <h3 style="text-align: left;">Warehouse:<span style="color:blue;">&nbsp;{{$warehouse ?? 'All'}}</span></h3>
-    <h3 style="text-align: right;"><?php echo date("l"); ?>,<?php echo '  ' . date('Y m d'); ?></h3>
+    <h3 style="text-align: right;"><?php echo date("l"); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
 <table>
     <thead>

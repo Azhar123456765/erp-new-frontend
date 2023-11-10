@@ -86,7 +86,7 @@ $type = session()->get('Data')['type'];
 <div class="row">
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
     <h3 style="text-align: left; color: darkblue;">Supplier:&nbsp;{{$supplierName}}</h3>
-    <h3 style="text-align: right; "><?php echo date("l"); ?>,<?php echo '  ' . date('Y m d'); ?></h3>
+    <h3 style="text-align: right; "><?php echo date("l"); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
 <table>
     <thead>

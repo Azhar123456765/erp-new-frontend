@@ -127,16 +127,6 @@ class ReceiptVoucherController extends Controller
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
 
-
-            if ($invoice_no != null) {
-                sell_invoice::where("id", $invoice_no)->update([
-                    'amount_paid' => DB::raw("amount_paid + " . $amount),
-                    'previous_balance_amount' => DB::raw("previous_balance_amount - " . $amount),
-                    'balance_amount' => DB::raw("balance_amount - " . $amount),
-                ]);
-            }
-
-
             $invoice->save();
         }
 
@@ -209,11 +199,25 @@ class ReceiptVoucherController extends Controller
 
             $invoice = new ReceiptVoucher;
 
-            $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $invoice->company = $invoiceData['company'] ?? null;
+            $company = substr($invoiceData['company'], 0, -1);
+            $invoice->company = $company;
+
+            $lastChar = substr($request['company'], -1);
+
+            $invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
+            $amount = $request['amount']["$i"];
+            $amount_total = $request['amount_total'];
+            if ($lastChar === 'S') {
+                $invoice->company_ref = "S";
+            } elseif ($lastChar === 'B') {
+                $invoice->company_ref = "B";
+            }
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
+            $invoice->unique_id = $invoiceData['unique_id'] ?? null;
+            $invoice->amount_total = $invoiceData['amount_total'] ?? null;
+
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
@@ -221,8 +225,6 @@ class ReceiptVoucherController extends Controller
             $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
-
-            $invoice->amount_total = $invoiceData['amount_total'] ?? null;
 
 
             $invoice->save();

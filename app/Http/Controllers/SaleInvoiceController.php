@@ -15,6 +15,7 @@ use App\Models\sell_invoice;
 use App\Models\seller;
 use App\Models\sales_officer;
 use App\Models\products;
+use App\Models\ReceiptVoucher;
 use App\Models\warehouse;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Mail;
@@ -22,27 +23,36 @@ use Illuminate\Support\Facades\Mail;
 class SaleInvoiceController extends Controller
 {
 
-    public function get_previous_balance(Request $request){
+    public function get_previous_balance(Request $request)
+    {
 
         $id = $request['id'];
-        
-        $debit = sell_invoice::where('company', $id)
-        ->whereIn('id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('sell_invoice')
-                ->groupBy('unique_id');
-        })->latest('balance_amount')->first('balance_amount');
-    
+
+        $debit1 = sell_invoice::where('company', $id)
+            ->whereIn('id', function ($query2) {
+                $query2->select(DB::raw('MIN(id)'))
+                    ->from('sell_invoice')
+                    ->groupBy('unique_id');
+            })->latest('balance_amount')->first('balance_amount');
+
+        $debit2 = ReceiptVoucher::where('company', $id)
+            ->whereIn('id', function ($query2) {
+                $query2->select(DB::raw('MIN(id)'))
+                    ->from('receipt_vouchers')
+                    ->groupBy('unique_id');
+            })->sum('amount_total');
+
+        $debit = $debit1->balance_amount ?? 0 - $debit2 ?? 0;
 
         $credit = p_voucher::where('company', $id)
-        ->whereIn('payment_voucher.id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('payment_voucher')
-                ->groupBy('unique_id');
-        })->sum('amount_total');
+            ->whereIn('payment_voucher.id', function ($query2) {
+                $query2->select(DB::raw('MIN(id)'))
+                    ->from('payment_voucher')
+                    ->groupBy('unique_id');
+            })->sum('amount_total');
 
-        $balance = $debit??0-$credit??0;
-        return response()->json($balance??0);
+        $balance = $debit ?? 0 - $credit ?? 0;
+        return response()->json($balance);
     }
 
     public function mail(Request $request)
@@ -187,10 +197,10 @@ class SaleInvoiceController extends Controller
                 ->from('sell_invoice')
                 ->groupBy('unique_id');
         })->count();
-        
+
         $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
 
-        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account','count');
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
         return view('invoice.s_med_invoice')->with($data);
     }
 
@@ -362,7 +372,7 @@ class SaleInvoiceController extends Controller
 
         $amount = $request['balance_amount'];
 
-        
+
         $invoiceData = $request->all();
 
         $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
