@@ -23,9 +23,23 @@ class SaleInvoiceController extends Controller
 {
 
     public function get_previous_balance(Request $request){
+
         $id = $request['id'];
-        $debit = sell_invoice::where('company', $id)->first('balance_amount');
-        $credit = p_voucher::where('company', $id)->first('amount_total');
+        
+        $debit = sell_invoice::where('company', $id)
+        ->whereIn('id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('sell_invoice')
+                ->groupBy('unique_id');
+        })->latest('balance_amount')->first('balance_amount');
+    
+
+        $credit = p_voucher::where('company', $id)
+        ->whereIn('payment_voucher.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('payment_voucher')
+                ->groupBy('unique_id');
+        })->sum('amount_total');
 
         $balance = $debit??0-$credit??0;
         return response()->json($balance??0);

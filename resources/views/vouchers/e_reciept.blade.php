@@ -952,7 +952,8 @@ display: flex;
                 console.error('Error:', error);
             },
         });
-
+    }
+        
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
             var link = document.querySelector('.add-more');
@@ -965,7 +966,6 @@ display: flex;
             window.location.href = link.href;
         }
     });
-    }
 
 
     $(document).on('keydown', function(e) {

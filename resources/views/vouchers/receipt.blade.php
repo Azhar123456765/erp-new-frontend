@@ -463,11 +463,11 @@ display: flex;
     </a>
 
 
-    <a href="/p_voucher" c lass="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/r_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px;">
         Add More
     </a>
 
-    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/rv_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         PDF
     </a>
 
@@ -896,32 +896,45 @@ display: flex;
                 console.error('Error:', error);
             },
         });
-           
-      
-  
-        $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
-            var str = $('[name=\'unique_id\']').val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-    window.location.href = newUrl;
-        }
-    });
+    }
+
 
     $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
-            var str = $('[name=\'unique_id\']').val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-    window.location.href = newUrl;
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+            var link = document.querySelector('.add-more');
+            window.location.href = link.href;
+        }
+    });
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+            var link = document.querySelector('.pdf');
+            window.location.href = link.href;
         }
     });
 
+
+
+    $(document).on('keydown', function(e) {
+    if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+        var str = $('[name=\'unique_id\']').val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+window.location.href = newUrl;
     }
+});
+
+$(document).on('keydown', function(e) {
+    if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+        var str = $('[name=\'unique_id\']').val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+window.location.href = newUrl;
+    }
+});
 </script>
 
 @endsection

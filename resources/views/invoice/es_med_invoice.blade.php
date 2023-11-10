@@ -809,7 +809,7 @@ display: flex;
                     'id': id,// Replace with the appropriate data you want to send
                 },
                 success: function(data) {
-                    if (data.balance_amount >= 0 && company != id) {
+                    if (data.balance_amount >= 0) {
                     debit.val(data.balance_amount)
                 }                },
                 error: function(error) {
