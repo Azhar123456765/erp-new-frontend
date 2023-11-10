@@ -286,12 +286,12 @@
                     <select name="company" class="company" id="company" required onchange="companyInvoice()">
                         <option></option>
                         @foreach ($seller as $row)
-                        <option value="{{ $row->seller_id }}" data-debit="{{ $row->debit }}" {{ $row->seller_id == $sinvoice_row->company  ? 'selected' : '' }}>
+                        <option value="{{ $row->seller_id }}S" data-debit="{{ $row->debit }}" {{ $row->seller_id .'S' == $sinvoice_row->company  ? 'selected' : '' }}>
                             {{ $row->company_name }} (Supplier)
                         </option>
                         @endforeach
                         @foreach ($buyer as $row)
-                        <option value="{{ $row->buyer_id }}" data-debit="{{ $row->debit }}" data-id="{{ $row->buyer_id }}" {{ $row->buyer_id == $sinvoice_row->company ? 'selected' : '' }}>
+                        <option value="{{ $row->buyer_id }}B" data-debit="{{ $row->debit }}" data-id="{{ $row->buyer_id }}" {{ $row->buyer_id .'B' == $sinvoice_row->company ? 'selected' : '' }}>
                             {{ $row->company_name }} (Customer)
                         </option>
                         @endforeach

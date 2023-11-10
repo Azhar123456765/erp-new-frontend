@@ -145,8 +145,7 @@ class pdfController extends Controller
                         session()->forget('gen-led-rc');
                         session()->forget('otherData');
 
-                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
 
@@ -187,21 +186,21 @@ class pdfController extends Controller
 
 
                                 $debit = sell_invoice::where('company', $customer)
-                                ->whereIn('id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('sell_invoice')
-                                        ->groupBy('unique_id');
-                                })->latest('balance_amount')->first('balance_amount');
-                            
-                        
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        })->latest('balance_amount')->first('balance_amount');
+
+
                                 $credit = p_voucher::where('company', $customer)
-                                ->whereIn('payment_voucher.id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('payment_voucher')
-                                        ->groupBy('unique_id');
-                                })->sum('amount_total');
-                        
-                                $balance = $debit??0-$credit??0;
+                                        ->whereIn('payment_voucher.id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('payment_voucher')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_total');
+
+                                $balance = $debit->balance_amount - $credit;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
@@ -244,21 +243,21 @@ class pdfController extends Controller
                                 }
 
                                 $debit = sell_invoice::where('company', $customer)
-                                ->whereIn('id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('sell_invoice')
-                                        ->groupBy('unique_id');
-                                })->latest('balance_amount')->first('balance_amount');
-                            
-                        
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        })->latest('balance_amount')->first('balance_amount');
+
+
                                 $credit = p_voucher::where('company', $customer)
-                                ->whereIn('payment_voucher.id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('payment_voucher')
-                                        ->groupBy('unique_id');
-                                })->sum('amount_total');
-                        
-                                $balance = $debit??0-$credit??0;
+                                        ->whereIn('payment_voucher.id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('payment_voucher')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_total');
+
+                                $balance = $debit ?? 0 - $credit ?? 0;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
@@ -299,8 +298,7 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
 
@@ -327,31 +325,40 @@ class pdfController extends Controller
                                 });
 
                         $ledgerDatasi = $query->get();
-                
+                        $supplierData = seller::where('seller_id', $supplier)->get();
+                        foreach ($supplierData as $key => $value) {
+                                $supplierName = $value->company_name;
+                        }
 
-                        $debit = sell_invoice::where('company', $supplier)
-                        ->whereIn('id', function ($query2) {
-                            $query2->select(DB::raw('MIN(id)'))
-                                ->from('sell_invoice')
-                                ->groupBy('unique_id');
-                        })->latest('balance_amount')->first('balance_amount');
-                    
-                
-                        $credit = p_voucher::where('company', $supplier)
-                        ->whereIn('payment_voucher.id', function ($query2) {
-                            $query2->select(DB::raw('MIN(id)'))
-                                ->from('payment_voucher')
-                                ->groupBy('unique_id');
-                        })->sum('amount_total');
-                
-                        $balance = $debit??0-$credit??0;
+                        $credit1 = purchase_invoice::where('company', $supplier)
+                                ->whereIn('id', function ($query2) {
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('purchase_invoice')
+                                                ->groupBy('unique_id');
+                                })->sum('amount_total');
 
+
+                        $credit2 = p_voucher::where('company', $supplier)
+                                ->whereIn('payment_voucher.id', function ($query2) {
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('payment_voucher')
+                                                ->groupBy('unique_id');
+                                })->sum('amount_total');
+
+                        $debit = ReceiptVoucher::where('company', $supplier)
+                                ->whereIn('receipt_vouchers.id', function ($query2) {
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('receipt_vouchers')
+                                                ->groupBy('unique_id');
+                                })->sum('amount_total');
+
+                        $balance = $credit1 + $credit2 - $debit;
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
                                 'credit' =>  $ledgerDatasi->sum('amount_paid'),
                                 'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                'debit' =>  $debit,
+                                'debit' =>  $balance,
                                 'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
@@ -385,8 +392,7 @@ class pdfController extends Controller
                         $pdf->render();;
                         session()->forget('Data');
 
-                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
 
@@ -545,8 +551,7 @@ class pdfController extends Controller
 
                         session()->forget("pdf_data");
                         session()->forget("pdf_title");
-                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
 
@@ -627,8 +632,7 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
 
@@ -644,55 +648,53 @@ class pdfController extends Controller
                         $warehouse = $request->input('warehouse');
 
                         if ($product != null) {
-                        $query = sell_invoice::query();
+                                $query = sell_invoice::query();
 
-                        if ($product) {
-                                $query->where('item', $product);
-                        }
-                        if ($warehouse) {
-                                $query->where('warehouse', $warehouse);
-                        }
+                                if ($product) {
+                                        $query->where('item', $product);
+                                }
+                                if ($warehouse) {
+                                        $query->where('warehouse', $warehouse);
+                                }
 
-                        $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
-                                ;
+                                $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
 
 
-                        $query2 = purchase_invoice::query();
+                                $query2 = purchase_invoice::query();
 
-                        if ($product) {
-                                $query2->where('item', $product);
-                        }
-                        if ($warehouse) {
-                                $query2->where('warehouse', $warehouse);
-                        }
+                                if ($product) {
+                                        $query2->where('item', $product);
+                                }
+                                if ($warehouse) {
+                                        $query2->where('warehouse', $warehouse);
+                                }
 
-                        $query2->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
-                               ;
-                        $data1 = $query->get();
-                        $data2 = $query2->get();
+                                $query2->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                                $data1 = $query->get();
+                                $data2 = $query2->get();
 
-                        $products = products::where('product_id', $product)->get();
-                        foreach ($products as $key => $value) {
-                                $product_name = $value->product_name;
-                        }
-                        $warehouses = warehouse::where('warehouse_id', $warehouse)->get();
-                        foreach ($warehouses as $key => $value) {
-                                $warehouse_name = $value->warehouse_name;
-                        }
-                        $data = [
-                                'query' => $data1,
-                                'query2' => $data2,
-                                'sale_qty' => $data1->sum('sale_qty'),
-                                'pur_qty' => $data2->sum('pur_qty'),
-                                'avail_qty' => $data2->sum('pur_qty') - $data1->sum('sale_qty'),
-                                'warehouse' => $warehouse_name ?? 'All',
-                                'product' => $product_name,
-                                'startDate' => $startDate,
-                                'endDate' => $endDate,
-                                'type' => 1,
-                        ];
-                        session()->put('Data', $data);
-                        }else{
+                                $products = products::where('product_id', $product)->get();
+                                foreach ($products as $key => $value) {
+                                        $product_name = $value->product_name;
+                                }
+                                $warehouses = warehouse::where('warehouse_id', $warehouse)->get();
+                                foreach ($warehouses as $key => $value) {
+                                        $warehouse_name = $value->warehouse_name;
+                                }
+                                $data = [
+                                        'query' => $data1,
+                                        'query2' => $data2,
+                                        'sale_qty' => $data1->sum('sale_qty'),
+                                        'pur_qty' => $data2->sum('pur_qty'),
+                                        'avail_qty' => $data2->sum('pur_qty') - $data1->sum('sale_qty'),
+                                        'warehouse' => $warehouse_name ?? 'All',
+                                        'product' => $product_name,
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'type' => 1,
+                                ];
+                                session()->put('Data', $data);
+                        } else {
 
                                 $query = sell_invoice::query();
 
@@ -702,23 +704,23 @@ class pdfController extends Controller
                                 if ($warehouse) {
                                         $query->where('warehouse', $warehouse);
                                 }
-        
-                                $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);        
-        
+
+                                $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
+
                                 $query2 = purchase_invoice::query();
-        
+
                                 if ($product) {
                                         $query2->where('item', $product);
                                 }
                                 if ($warehouse) {
                                         $query2->where('warehouse', $warehouse);
                                 }
-        
+
                                 $query2->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
-                                
+
                                 $data1 = $query->get();
                                 $data2 = $query2->get();
-        
+
                                 $products = products::where('product_id', $product)->get();
                                 foreach ($products as $key => $value) {
                                         $product_name = $value->product_name;
@@ -765,8 +767,7 @@ class pdfController extends Controller
                         $pdf->render();
 
                         session()->forget('Data');
-                                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
 
@@ -823,7 +824,6 @@ class pdfController extends Controller
 
                         session()->forget('Data');
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
                 }
         }
 
@@ -873,7 +873,7 @@ class pdfController extends Controller
                         ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
                         ->limit(1)->get();
-  
+
                 session()->put("sale_invoice_pdf_data", $sell_invoice);
                 session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
 
@@ -898,7 +898,6 @@ class pdfController extends Controller
                 $pdf->render();
 
                 return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
         }
 
 
@@ -941,8 +940,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
         }
 
 
@@ -991,8 +989,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
         }
 
 
@@ -1036,8 +1033,6 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
-
+                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
         }
-
 }

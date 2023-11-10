@@ -134,7 +134,7 @@ $type = session()->get('Data')['type'];
         ?>
     </tbody>
     <tfoot style="color: darkblue; text-align:right;">
-        <td colspan="4" style="text-align:right; border:none;"><b>Total:</b></td>
+        <td colspan="4" style="text-align:right; border:none;"><b>Total Supplier Credit:</b></td>
         <td><b>{{$debit}}</b></td>
     </tfoot>
 </table>

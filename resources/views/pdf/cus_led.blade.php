@@ -157,7 +157,7 @@ $type = session()->get('Data')['type'];
 
     </tfoot>
 </table>
-<h3 style="text-align:right; border:none;"><b>Total Customer Debit:&nbsp;&nbsp;</b><span style="color: green;"><b>{{$grand_total->balance_amount}}</b></span>
+<h3 style="text-align:right; border:none;"><b>Total Customer Debit:&nbsp;&nbsp;</b><span style="color: green;"><b>{{$grand_total}}</b></span>
 </h3>
 @elseif($type == 2)
 

@@ -101,14 +101,14 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $company = substr($invoiceData['company'], 0, -1);
+            $company = $invoiceData['company'];
             $invoice->company = $company;
 
-            $lastChar = substr($request['company'], -1);
-
+            
             $invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
             $amount = $request['amount']["$i"];
             $amount_total = $request['amount_total'];
+            $lastChar = substr($request['company'], -1);
             if ($lastChar === 'S') {
                 $invoice->company_ref = "S";
             } elseif ($lastChar === 'B') {
@@ -200,7 +200,7 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $company = substr($invoiceData['company'], 0, -1);
+            $company = $invoiceData['company'];
             $invoice->company = $company;
 
             $lastChar = substr($request['company'], -1);

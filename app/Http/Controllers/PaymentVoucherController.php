@@ -75,7 +75,7 @@ class PaymentVoucherController extends Controller
         $expense->save();
 
         $lastChar = substr($request['company'], -1);
-        $company = substr($invoiceData['company'], 0, -1);
+        $company = $invoiceData['company'];
 
 
         $amount = $request['amount_total'];
@@ -111,6 +111,13 @@ class PaymentVoucherController extends Controller
             $invoice->dis_total = $invoiceData['dis_total'] ?? null;
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
             
+            
+            $lastChar = substr($request['company'], -1);
+            if ($lastChar === 'S') {
+                $invoice->company_ref = "S";
+            } elseif ($lastChar === 'B') {
+                $invoice->company_ref = "B";
+            }
 
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
@@ -206,6 +213,12 @@ class PaymentVoucherController extends Controller
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
 
+            $lastChar = substr($request['company'], -1);
+            if ($lastChar === 'S') {
+                $invoice->company_ref = "S";
+            } elseif ($lastChar === 'B') {
+                $invoice->company_ref = "B";
+            }
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
 
 
