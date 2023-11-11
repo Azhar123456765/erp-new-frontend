@@ -185,22 +185,30 @@ class pdfController extends Controller
                                 }
 
 
-                                $debit = sell_invoice::where('company', $customer)
-                                        ->whereIn('id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('sell_invoice')
-                                                        ->groupBy('unique_id');
-                                        })->latest('balance_amount')->first('balance_amount');
-
-
-                                $credit = p_voucher::where('company', $customer)
-                                        ->whereIn('payment_voucher.id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('payment_voucher')
-                                                        ->groupBy('unique_id');
-                                        })->sum('amount_total');
-
-                                $balance = $debit->balance_amount - $credit;
+                                $debit1 = sell_invoice::where('company', $customer)
+                                ->whereIn('id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('sell_invoice')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_paid');
+                    
+                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')
+                                ->whereIn('id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('receipt_vouchers')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_total');
+                    
+                            $debit = $debit1 ?? 0 - $debit2 ?? 0;
+                    
+                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')
+                                ->whereIn('payment_voucher.id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('payment_voucher')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_total');
+                    
+                            $balance = $debit ?? 0 - $credit ?? 0;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
@@ -242,22 +250,30 @@ class pdfController extends Controller
                                         $customerDebit = $value->debit;
                                 }
 
-                                $debit = sell_invoice::where('company', $customer)
-                                        ->whereIn('id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('sell_invoice')
-                                                        ->groupBy('unique_id');
-                                        })->latest('balance_amount')->first('balance_amount');
-
-
-                                $credit = p_voucher::where('company', $customer)
-                                        ->whereIn('payment_voucher.id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('payment_voucher')
-                                                        ->groupBy('unique_id');
-                                        })->sum('amount_total');
-
-                                $balance = $debit ?? 0 - $credit ?? 0;
+                                $debit1 = sell_invoice::where('company', $customer)
+                                ->whereIn('id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('sell_invoice')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_paid');
+                    
+                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')
+                                ->whereIn('id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('receipt_vouchers')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_total');
+                    
+                            $debit = $debit1 ?? 0 - $debit2 ?? 0;
+                    
+                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')
+                                ->whereIn('payment_voucher.id', function ($query2) {
+                                    $query2->select(DB::raw('MIN(id)'))
+                                        ->from('payment_voucher')
+                                        ->groupBy('unique_id');
+                                })->sum('amount_total');
+                    
+                            $balance = $debit ?? 0 - $credit ?? 0;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
@@ -338,14 +354,14 @@ class pdfController extends Controller
                                 })->sum('amount_total');
 
 
-                        $credit2 = p_voucher::where('company', $supplier)
+                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')
                                 ->whereIn('payment_voucher.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('payment_voucher')
                                                 ->groupBy('unique_id');
                                 })->sum('amount_total');
 
-                        $debit = ReceiptVoucher::where('company', $supplier)
+                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')
                                 ->whereIn('receipt_vouchers.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('receipt_vouchers')

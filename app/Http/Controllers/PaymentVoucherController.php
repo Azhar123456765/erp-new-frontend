@@ -75,7 +75,7 @@ class PaymentVoucherController extends Controller
         $expense->save();
 
         $lastChar = substr($request['company'], -1);
-        $company = $invoiceData['company'];
+        $company = substr($invoiceData['company'], 0, -1);
 
 
         $amount = $request['amount_total'];
@@ -129,7 +129,7 @@ class PaymentVoucherController extends Controller
             $invoice->save();
         }
 
-        $data = 'Invoices added successfully!';
+        $data = 'Voucher added successfully!';
         return response()->json($data);
     }
 
@@ -194,7 +194,7 @@ class PaymentVoucherController extends Controller
         ]);
       
         $invoiceData = $request->all();
-
+        $company = substr($invoiceData['company'], 0, -1);
         $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -203,7 +203,7 @@ class PaymentVoucherController extends Controller
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $invoice->company = $invoiceData['company'] ?? null;
+            $invoice->company = $company ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;

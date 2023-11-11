@@ -101,7 +101,7 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $company = $invoiceData['company'];
+            $company = substr($invoiceData['company'], 0, -1);
             $invoice->company = $company;
 
             
@@ -200,7 +200,7 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $company = $invoiceData['company'];
+            $company = substr($invoiceData['company'], 0, -1);
             $invoice->company = $company;
 
             $lastChar = substr($request['company'], -1);
