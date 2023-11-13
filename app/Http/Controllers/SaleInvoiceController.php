@@ -198,7 +198,7 @@ class SaleInvoiceController extends Controller
                 ->groupBy('unique_id');
         })->count();
 
-        $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
+        $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
         return view('invoice.s_med_invoice')->with($data);
@@ -350,7 +350,7 @@ class SaleInvoiceController extends Controller
 
 
 
-        $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
+        $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'single_invoice', 'account');
         return view('invoice.es_med_invoice')->with($data);
@@ -514,7 +514,7 @@ class SaleInvoiceController extends Controller
 
 
 
-        $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
+        $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'single_invoice', 'account');
         return view('invoice.rs_med_invoice')->with($data);

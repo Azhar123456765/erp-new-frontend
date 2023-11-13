@@ -743,6 +743,27 @@ display: flex;
         Update
     </button>
     <br>
+    
+<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+        var str = $(`[name=\'unique_id\']`).val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/ep_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+window.location.href = newUrl">
+    Previous
+</button>
+
+<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+  var str = $(`[name=\'unique_id\']`).val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/ep_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+window.location.href = newUrl
+">
+    Next
+</button>
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
     
     window.location.reload()

@@ -533,6 +533,28 @@ display: flex;
     <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;">
         submit
     </button>
+    <br>
+
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+            var str = $(`[name=\'unique_id\']`).val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+    window.location.href = newUrl">
+        Previous
+    </button>
+
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+      var str = $(`[name=\'unique_id\']`).val();
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+    window.location.href = newUrl
+    ">
+        Next
+    </button>
 
     <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
@@ -542,6 +564,7 @@ display: flex;
         Add More
     </a>
 
+    
     <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         PDF
     </a>
@@ -1311,7 +1334,7 @@ display: flex;
     var parts = str.split('-');
     var firstPart = parts.slice(0, -1).join('-');
     var lastPart = parts[parts.length - 1];
-    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) -     1);
+    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
     window.location.href = newUrl;
         }
     });

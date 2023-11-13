@@ -148,8 +148,8 @@
         text-align: center;
     }
 
-        .invoice {
- background-color: #f8f9fa;
+    .invoice {
+        background-color: #f8f9fa;
         border: none;
 
         height: 167.5px;
@@ -271,14 +271,14 @@
                                                                                                                                                                 echo $currentDate;
                                                                                                                                                                 ?>" />
                 </div>
-                
+
 
 
             </div>
 
             <div class="fields">
 
-            <div class="one  remark">
+                <div class="one  remark">
                     <label for="seller">Company</label>
                     <select name="company" id="company" class="company" required onchange="companyInvoice()">
                         <option></option>
@@ -310,9 +310,9 @@
 
             <div class="fields">
 
-            <div class="one">
+                <div class="one">
                     <label for="Invoice">Ref No</label>
-                    <input  style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
                 </div>
 
                 <div class="one  remark">
@@ -457,7 +457,28 @@ display: flex;
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;">
         submit
     </button>
+    <br>
 
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+        var str = $(`[name=\'unique_id\']`).val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+window.location.href = newUrl">
+        Previous
+    </button>
+
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+  var str = $(`[name=\'unique_id\']`).val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+window.location.href = newUrl
+">
+        Next
+    </button>
     <a href="/er_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
     </a>
@@ -507,11 +528,11 @@ display: flex;
 <script>
     $(document).change(function() {
         total_amount();
-         $('select').select2({
+        $('select').select2({
             theme: 'classic',
             width: 'resolve',
         });
-    
+
         var company = $("#company").find('option:selected');
         var id = company.data('id')
         $.ajax({
@@ -889,7 +910,7 @@ display: flex;
                     select.appendChild(option);
                 });
 
-                
+
             },
             error: function(error) {
                 // Handle the error here, if necessary
@@ -915,26 +936,26 @@ display: flex;
 
 
     $(document).on('keydown', function(e) {
-    if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
-        var str = $('[name=\'unique_id\']').val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-window.location.href = newUrl;
-    }
-});
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+            var str = $('[name=\'unique_id\']').val();
+            var parts = str.split('-');
+            var firstPart = parts.slice(0, -1).join('-');
+            var lastPart = parts[parts.length - 1];
+            var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+            window.location.href = newUrl;
+        }
+    });
 
-$(document).on('keydown', function(e) {
-    if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
-        var str = $('[name=\'unique_id\']').val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-window.location.href = newUrl;
-    }
-});
+    $(document).on('keydown', function(e) {
+        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+            var str = $('[name=\'unique_id\']').val();
+            var parts = str.split('-');
+            var firstPart = parts.slice(0, -1).join('-');
+            var lastPart = parts[parts.length - 1];
+            var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+            window.location.href = newUrl;
+        }
+    });
 </script>
 
 @endsection

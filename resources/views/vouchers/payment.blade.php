@@ -441,6 +441,28 @@ display: flex;
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;">
         submit
     </button>
+    <br>
+    
+<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+        var str = $(`[name=\'unique_id\']`).val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+window.location.href = newUrl">
+    Previous
+</button>
+
+<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+  var str = $(`[name=\'unique_id\']`).val();
+var parts = str.split('-');
+var firstPart = parts.slice(0, -1).join('-');
+var lastPart = parts[parts.length - 1];
+var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+window.location.href = newUrl
+">
+    Next
+</button>
 
     <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
         Edit
@@ -837,7 +859,7 @@ display: flex;
     var parts = str.split('-');
     var firstPart = parts.slice(0, -1).join('-');
     var lastPart = parts[parts.length - 1];
-    var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) -     1);
+    var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
     window.location.href = newUrl;
         }
     });

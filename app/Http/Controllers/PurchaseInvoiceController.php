@@ -284,7 +284,7 @@ class PurchaseInvoiceController extends Controller
 
      
 
-        $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
+        $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'single_invoice', 'account');
         return view('invoice.ep_med_invoice')->with($data);
@@ -467,7 +467,7 @@ class PurchaseInvoiceController extends Controller
 
 
 
-        $account = accounts::where('account_category', 1)->orWhere('account_category', 2)->get();
+        $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'single_invoice', 'account');
         return view('invoice.rp_med_invoice')->with($data);
