@@ -87,7 +87,37 @@ foreach ($name as $key => $value) {
         </tr>
     </thead>
     <tbody>
+    <?php
+        $query2 = session()->get('Data')['query1'];
+        foreach ($query1 as $row) {
+        ?>
+            <tr style="text-align: center;">
+                <td>
+                    <span><?php echo $row->date; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->unique_id; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->customer->company_name; ?></span>
+                </td>
+                <td style="text-align: left
+        ;">
+                    <span><?php echo $row->remark; ?></span>
+                </td>
+
+                <td style="text-align:right;">
+                    <span><?php echo $row->amount_paid; ?></span>
+                </td>
+                <td style="text-align:right;">
+                    <span>0.00</span>
+                </td>
+
+            </tr>
         <?php
+        }
+        ?>
+       <?php
         $query2 = session()->get('Data')['query2'];
         foreach ($query2 as $row) {
         ?>

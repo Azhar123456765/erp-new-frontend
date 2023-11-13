@@ -13,14 +13,14 @@
             <option value="1" {{ $id == 1 ? 'selected' : '' }}>Cash</option>
             <option value="2" {{ $id == 2 ? 'selected' : '' }}>Accounts Receivable</option>
             <option value="3" {{ $id == 3 ? 'selected' : '' }}>Accounts Payable</option>
-            <option value="3" {{ $id == 4 ? 'selected' : '' }}>Bank</option>
-            <option value="3" {{ $id == 5 ? 'selected' : '' }}>Expense</option>
-            <option value="3" {{ $id == 6 ? 'selected' : '' }}>Income</option>
-            <option value="3" {{ $id == 7 ? 'selected' : '' }}>Cost Of Sales</option>
-            <option value="3" {{ $id == 8 ? 'selected' : '' }}>Long Term Liabilities</option>
-            <option value="3" {{ $id == 9 ? 'selected' : '' }}>Inventory</option>
-            <option value="3" {{ $id == 10 ? 'selected' : '' }}>Capital</option>
-            <option value="3" {{ $id == 11 ? 'selected' : '' }}>Drawing</option>
+            <option value="4" {{ $id == 4 ? 'selected' : '' }}>Bank</option>
+            <option value="5" {{ $id == 5 ? 'selected' : '' }}>Expense</option>
+            <option value="6" {{ $id == 6 ? 'selected' : '' }}>Income</option>
+            <option value="7" {{ $id == 7 ? 'selected' : '' }}>Cost Of Sales</option>
+            <option value="8" {{ $id == 8 ? 'selected' : '' }}>Long Term Liabilities</option>
+            <option value="9" {{ $id == 9 ? 'selected' : '' }}>Inventory</option>
+            <option value="10" {{ $id == 10 ? 'selected' : '' }}>Capital</option>
+            <option value="11" {{ $id == 11 ? 'selected' : '' }}>Drawing</option>
         </select>
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">

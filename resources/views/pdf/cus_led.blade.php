@@ -209,7 +209,7 @@ $type = session()->get('Data')['type'];
     </tfoot>
     <tfoot style="color: purple; text-align:right;">
         <td colspan="3" style="text-align:right; border:none;"><b>Remaining Total:</b></td>
-        <td><b>{{$debit->balance_amount-$total_amount}}</b></td>
+        <td><b>{{$debit-$total_amount}}</b></td>
     </tfoot>
 </table>
 

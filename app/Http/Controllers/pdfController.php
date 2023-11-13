@@ -185,14 +185,14 @@ class pdfController extends Controller
                                 }
 
 
-                                $debit1 = sell_invoice::where('company', $customer)
+                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                     $query2->select(DB::raw('MIN(id)'))
                                         ->from('sell_invoice')
                                         ->groupBy('unique_id');
                                 })->sum('amount_paid');
                     
-                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')
+                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                     $query2->select(DB::raw('MIN(id)'))
                                         ->from('receipt_vouchers')
@@ -201,7 +201,7 @@ class pdfController extends Controller
                     
                             $debit = $debit1 ?? 0 - $debit2 ?? 0;
                     
-                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')
+                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('payment_voucher.id', function ($query2) {
                                     $query2->select(DB::raw('MIN(id)'))
                                         ->from('payment_voucher')
@@ -250,14 +250,14 @@ class pdfController extends Controller
                                         $customerDebit = $value->debit;
                                 }
 
-                                $debit1 = sell_invoice::where('company', $customer)
+                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                     $query2->select(DB::raw('MIN(id)'))
                                         ->from('sell_invoice')
                                         ->groupBy('unique_id');
                                 })->sum('amount_paid');
                     
-                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')
+                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                     $query2->select(DB::raw('MIN(id)'))
                                         ->from('receipt_vouchers')
@@ -266,7 +266,7 @@ class pdfController extends Controller
                     
                             $debit = $debit1 ?? 0 - $debit2 ?? 0;
                     
-                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')
+                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('payment_voucher.id', function ($query2) {
                                     $query2->select(DB::raw('MIN(id)'))
                                         ->from('payment_voucher')
@@ -346,7 +346,7 @@ class pdfController extends Controller
                                 $supplierName = $value->company_name;
                         }
 
-                        $credit1 = purchase_invoice::where('company', $supplier)
+                        $credit1 = purchase_invoice::where('company', $supplier)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('purchase_invoice')
@@ -354,14 +354,14 @@ class pdfController extends Controller
                                 })->sum('amount_total');
 
 
-                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')
+                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('payment_voucher.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('payment_voucher')
                                                 ->groupBy('unique_id');
                                 })->sum('amount_total');
 
-                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')
+                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('receipt_vouchers.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('receipt_vouchers')
@@ -617,7 +617,7 @@ class pdfController extends Controller
                                 'query2' => $query2,
                                 'query3' => $query3,
                                 'query4' => $query4,
-                                'debit' => $query3->sum('amount_total'),
+                                'debit' => $query3->sum('amount_total')+$query1->sum('amount_paid'),
                                 'credit' => $query2->sum('amount_total') + $query4->sum('amount_total'),
                                 '' => $query4,
                                 'startDate' => $startDate,
