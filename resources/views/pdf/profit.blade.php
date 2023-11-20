@@ -88,7 +88,7 @@ foreach ($name as $key => $value) {
     </thead>
     <tbody>
     <?php
-        $query2 = session()->get('Data')['query1'];
+        $query1 = session()->get('Data')['query1'];
         foreach ($query1 as $row) {
         ?>
             <tr style="text-align: center;">
