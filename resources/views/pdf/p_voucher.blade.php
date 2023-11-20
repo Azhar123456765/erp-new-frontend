@@ -235,9 +235,7 @@
   }
 
 
-  .sign{
-
-    }
+  .sign {}
 </style>
 
 
@@ -276,7 +274,7 @@ $sdata = session()->get('s_p_voucher_pdf_data');
   <tbody>
     <tr>
       <td>
-        Comapny Name: &nbsp;&nbsp;&nbsp; {{$row->company_name}}
+        Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{$row->company_ref == "B" ? $row->buyer->company_name : $row->supplier->company_name}}</span>
       </td>
       <td>Ref NO.:&nbsp;&nbsp;&nbsp;{{$row->ref_no}}</td>
     </tr>
@@ -365,12 +363,11 @@ $sdata = session()->get('s_p_voucher_pdf_data');
 <!-- ...Existing HTML code... -->
 
 <!-- Receiver Section -->
-  <div style="text-align: left; margin-top: 200px; "
-    <p>Receiver's Name: ________________________</p>
-  </div>
-  <div style="text-align: right; margin-top: -150px;">
-    <p>Authorized Signature: _____________________</p>
-  </div>
+<div style="text-align: left; margin-top: 200px; " <p>Receiver's Name: ________________________</p>
+</div>
+<div style="text-align: right; margin-top: -150px;">
+  <p>Authorized Signature: _____________________</p>
+</div>
 <!-- Authorized Signature Section -->
 
 

@@ -42,16 +42,23 @@ class SaleInvoiceController extends Controller
                     ->groupBy('unique_id');
             })->sum('amount_total');
 
-        $debit = $debit1 ?? 0 - $debit2 ?? 0;
+        $debit = $debit1 + $debit2;
 
-        $credit = p_voucher::where('company', $id)->where('company_ref', 'B')
+        $credit1 = p_voucher::where('company', $id)->where('company_ref', 'B')
             ->whereIn('payment_voucher.id', function ($query2) {
                 $query2->select(DB::raw('MIN(id)'))
                     ->from('payment_voucher')
                     ->groupBy('unique_id');
             })->sum('amount_total');
 
-        $balance = $debit ?? 0 - $credit ?? 0;
+        $credit2 = sell_invoice::where('company', $id)
+            ->whereIn('id', function ($query2) {
+                $query2->select(DB::raw('MIN(id)'))
+                    ->from('sell_invoice')
+                    ->groupBy('unique_id');
+            })->sum('grand_total');
+        $credit = $credit1 + $credit2;
+        $balance = $credit - $debit;
         return response()->json($balance);
     }
 

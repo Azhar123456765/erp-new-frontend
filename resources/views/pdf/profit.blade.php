@@ -87,7 +87,7 @@ foreach ($name as $key => $value) {
         </tr>
     </thead>
     <tbody>
-    <?php
+        <?php
         $query1 = session()->get('Data')['query1'];
         foreach ($query1 as $row) {
         ?>
@@ -117,7 +117,7 @@ foreach ($name as $key => $value) {
         <?php
         }
         ?>
-       <?php
+        <?php
         $query2 = session()->get('Data')['query2'];
         foreach ($query2 as $row) {
         ?>
@@ -159,7 +159,8 @@ foreach ($name as $key => $value) {
                     <span><?php echo $row->unique_id; ?></span>
                 </td>
                 <td>
-                    <span>{{$row->buyer->company_name}}</span>
+                    <span>{{$row->company_ref == "B" ? $row->buyer->company_name : $row->supplier->company_name}}</span>
+
                 </td>
                 <td style="text-align: left
         ;">
@@ -188,7 +189,7 @@ foreach ($name as $key => $value) {
                     <span><?php echo $row->unique_id; ?></span>
                 </td>
                 <td>
-                    <span>{{$row->customer->company_name??$row->supplier->company_name}}</span>
+                    <span>{{$row->company_ref == "B" ? $row->customer->company_name : $row->supplier->company_name}}</span>
                 </td>
                 <td style="text-align: left
         ;">

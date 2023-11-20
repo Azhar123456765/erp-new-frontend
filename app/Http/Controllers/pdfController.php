@@ -186,29 +186,36 @@ class pdfController extends Controller
 
 
                                 $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
-                                ->whereIn('id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('sell_invoice')
-                                        ->groupBy('unique_id');
-                                })->sum('amount_paid');
-                    
-                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
-                                ->whereIn('id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('receipt_vouchers')
-                                        ->groupBy('unique_id');
-                                })->sum('amount_total');
-                    
-                            $debit = $debit1 ?? 0 - $debit2 ?? 0;
-                    
-                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
-                                ->whereIn('payment_voucher.id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('payment_voucher')
-                                        ->groupBy('unique_id');
-                                })->sum('amount_total');
-                    
-                            $balance = $debit ?? 0 - $credit ?? 0;
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_paid');
+
+                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('receipt_vouchers')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_total');
+
+                                $debit = $debit1 ?? 0 + $debit2 ?? 0;
+
+                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('payment_voucher.id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('payment_voucher')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_total');
+
+                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        })->sum('grand_total');
+                                $credit = $credit1 + $credit2;
+                                $balance = $debit ?? 0 - $credit ?? 0;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
@@ -252,28 +259,35 @@ class pdfController extends Controller
 
                                 $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('sell_invoice')
-                                        ->groupBy('unique_id');
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('sell_invoice')
+                                                ->groupBy('unique_id');
                                 })->sum('amount_paid');
-                    
-                            $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+
+                        $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('receipt_vouchers')
-                                        ->groupBy('unique_id');
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('receipt_vouchers')
+                                                ->groupBy('unique_id');
                                 })->sum('amount_total');
-                    
-                            $debit = $debit1 ?? 0 - $debit2 ?? 0;
-                    
-                            $credit = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+
+                        $debit = $debit1 ?? 0 + $debit2 ?? 0;
+
+                        $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
                                 ->whereIn('payment_voucher.id', function ($query2) {
-                                    $query2->select(DB::raw('MIN(id)'))
-                                        ->from('payment_voucher')
-                                        ->groupBy('unique_id');
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('payment_voucher')
+                                                ->groupBy('unique_id');
                                 })->sum('amount_total');
-                    
-                            $balance = $debit ?? 0 - $credit ?? 0;
+
+                        $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                ->whereIn('id', function ($query2) {
+                                        $query2->select(DB::raw('MIN(id)'))
+                                                ->from('sell_invoice')
+                                                ->groupBy('unique_id');
+                                })->sum('grand_total');
+                        $credit = $credit1 + $credit2;
+                        $balance = $debit ?? 0 - $credit ?? 0;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
@@ -346,7 +360,7 @@ class pdfController extends Controller
                                 $supplierName = $value->company_name;
                         }
 
-                        $credit1 = purchase_invoice::where('company', $supplier)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                        $credit1 = purchase_invoice::where('company', $supplier)->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('purchase_invoice')
@@ -354,14 +368,14 @@ class pdfController extends Controller
                                 })->sum('amount_total');
 
 
-                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
                                 ->whereIn('payment_voucher.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('payment_voucher')
                                                 ->groupBy('unique_id');
                                 })->sum('amount_total');
 
-                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
                                 ->whereIn('receipt_vouchers.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('receipt_vouchers')
@@ -617,7 +631,7 @@ class pdfController extends Controller
                                 'query2' => $query2,
                                 'query3' => $query3,
                                 'query4' => $query4,
-                                'debit' => $query3->sum('amount_total')+$query1->sum('amount_paid'),
+                                'debit' => $query3->sum('amount_total') + $query1->sum('amount_paid'),
                                 'credit' => $query2->sum('amount_total') + $query4->sum('amount_total'),
                                 '' => $query4,
                                 'startDate' => $startDate,
@@ -1015,15 +1029,13 @@ class pdfController extends Controller
 
 
                 $receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
-                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->leftJoin('seller', 'receipt_vouchers.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
-                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->leftJoin('seller', 'receipt_vouchers.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
                 session()->put("receipt_vouchers_pdf_data", $receipt_vouchers);
