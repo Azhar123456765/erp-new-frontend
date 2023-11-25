@@ -3,6 +3,12 @@ $account = \App\Models\accounts::all();
 $warehouse = \App\Models\warehouse::all();
 $sales_officer = \App\Models\sales_officer::all();
 
+$product_category = \App\Models\product_category::all();
+$product_company = \App\Models\product_company::all();
+
+$endDate = date('Y-m-d');
+$startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
+
 $customer = \App\Models\buyer::all();
 $supplier = \App\Models\seller::all();
 
@@ -11,16 +17,16 @@ $product = \App\Models\products::all();
 @endphp
 
 <head>
-        <!-- Include other necessary scripts and stylesheets -->
-        <!-- Include Select2 CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    <!-- Include other necessary scripts and stylesheets -->
+    <!-- Include Select2 CSS -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 
-        <!-- Include jQuery library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include jQuery library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 
-        <!-- Include Select2 JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    </head>
+    <!-- Include Select2 JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+</head>
 <div class="modal fade" id="p-user">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -258,7 +264,14 @@ $theme_color = $value2->theme;
                                         <option value="1" data-id="1">Cash</option>
                                         <option value="2" data-id="2">Accounts Receivable</option>
                                         <option value="3" data-id="3">Accounts Payable</option>
-
+                                        <option value="4" data-id="4">Bank</option>
+                                        <option value="5" data-id="5">Expense</option>
+                                        <option value="6" data-id="6">Income</option>
+                                        <option value="7" data-id="7">Cost Of Sales</option>
+                                        <option value="8" data-id="8">Long Term Liabilities</option>
+                                        <option value="9" data-id="9">Inventory</option>
+                                        <option value="10" data-id="10">Capital</option>
+                                        <option value="11" data-id="11">Drawing</option>
                                     </select>
                                 </div>
                             </div>
@@ -323,7 +336,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" name="start_date" id="" required>
+                                    <input type="date" name="start_date" value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -331,7 +344,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" name="end_date" id="" required>
+                                    <input type="date" name="end_date" value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -353,7 +366,7 @@ text-align: center;
 
 <div class="modal fade" id="cus-led">
     <div class="modal-dialog">
-        <div class="modal-content gen-led">
+        <div class="modal-content gen-led" style="height: 95vh;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Customer Ledger</h4>
@@ -361,7 +374,6 @@ text-align: center;
                     <form method="GET" action="/cus-led">
                         @csrf
                         <div class="row" style="justify-content: space-between;">
-
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
@@ -374,19 +386,89 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
+
                             <div class="col-md">
                                 <div class="form-group">
-                                    <label for="">Type</label>
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control" name="sales_officer">
+                                        <option></option>
+                                        @foreach ($sales_officer as $row)
+                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
+                                        @endforeach
 
-                                    <select name="type" id="type">
-                                        <option value="1">Invoice Wise</option>
-                                        <option value="2">Voucher Wise</option>
                                     </select>
                                 </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Warehouse</label>
+                                    <select class="form-control" name="warehouse" id="warehouse">
+                                        <option></option>
+                                        @foreach ($warehouse as $row)
+                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
 
+
+
+
+                        <div class="row" style="justify-content: space-between;">
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Category</label>
+                                    <select class="form-control " name="product_category">
+                                        <option></option>
+                                        @foreach ($product_category as $row)
+                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Company</label>
+                                    <select class="form-control " name="product_company">
+                                        <option></option>
+                                        @foreach ($product_company as $row)
+                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product</label>
+                                    <select class="form-control " name="product">
+                                        <option></option>
+                                        @foreach ($product as $row)
+                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label for="">Type</label>
+
+                                <select name="type" id="type">
+                                    <option value="1">Invoice Wise</option>
+                                    <option value="2">Voucher Wise</option>
+                                </select>
                             </div>
 
                         </div>
+
 
                         <div class="row" style="    justify-content: space-between;
 margin-top:12%;
@@ -398,7 +480,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" name="start_date" id="" required>
+                                    <input type="date" name="start_date" value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -406,7 +488,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" name="end_date" id="" required>
+                                    <input type="date" name="end_date" value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -461,7 +543,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" name="start_date" id="" required>
+                                    <input type="date" name="start_date" value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -469,7 +551,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" name="end_date" id="" required>
+                                    <input type="date" name="end_date" value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -508,7 +590,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" name="start_date" id="" required>
+                                    <input type="date" name="start_date" value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -516,7 +598,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" name="end_date" id="" required>
+                                    <input type="date" name="end_date" value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -581,7 +663,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" name="start_date" id="" required>
+                                    <input type="date" name="start_date" value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -589,7 +671,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" name="end_date" id="" required>
+                                    <input type="date" name="end_date" value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -641,7 +723,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" name="start_date" id="" required>
+                                    <input type="date" name="start_date" value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -649,7 +731,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" name="end_date" id="" required>
+                                    <input type="date" name="end_date" value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -725,7 +807,7 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="">Invoice No</label>
-                            <input type="text" class="form-control"name="invoice_no" required>
+                            <input type="text" class="form-control" name="invoice_no" required>
                         </div>
 
                         <button type="submit" target class="btn btn-primary" id="btn">Search</button>
@@ -751,7 +833,7 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="">Invoice No</label>
-                            <input type="text" class="form-control"name="invoice_no" required>
+                            <input type="text" class="form-control" name="invoice_no" required>
                         </div>
 
                         <button type="submit" target class="btn btn-primary" id="btn">Search</button>

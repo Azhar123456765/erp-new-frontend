@@ -245,6 +245,20 @@ $('#mySelect2').on('select2:open', function () {
     });
 </script>
 @endif
+<!-- 
+@if (session()->get('not_found'))
+<script>
+    Swal.fire({
+        icon: 'succes',
+        title: "{{ session()->get('not_found') }}",
+        toast: true,
+        position: 'top-end',
+        showConfirmButton: false,
+        timer: 3000 // Automatically close after 3 seconds
+    });
+</script>
+@endif -->
+
 @if($errors->all() != null)
 <script>
     Swal.fire({

@@ -55,7 +55,6 @@ class maincontroller extends Controller
     function add_account(Request $request)
     {
 
-
         $add = new accounts();
         $add->account_name = $request['account_name'];
         $add->account_category = $request['account_category'];
@@ -63,13 +62,8 @@ class maincontroller extends Controller
         $add->account_debit = $request['account_debit'];
         $add->account_credit = $request['account_credit'];
 
-
         $add->save();
-
-
         session()->flash('message', 'account has been added successfully');
-
-
         return redirect()->back();
     }
 
@@ -391,7 +385,7 @@ class maincontroller extends Controller
 
 
 
-    public function get_week_data(Request  $post)
+    public function get_week_data(Request  $request)
     {
 
 
@@ -403,7 +397,7 @@ class maincontroller extends Controller
         $startOfWeek = $currentDate->startOfWeek();
         $endOfWeek = $currentDate->endOfWeek();
 
-        $classcheck =  $post->input('data');
+        $classcheck =  $request->input('data');
         if ($classcheck == 'buyer') {
 
             $weekData = buyer::all();
@@ -677,10 +671,10 @@ class maincontroller extends Controller
     }
 
 
-    public function logincheck(Request $post)
+    public function logincheck(Request $request)
     {
-        $username = $post->input('username');
-        $password = $post->input('password');
+        $username = $request->input('username');
+        $password = $request->input('password');
 
         $user = users::where([
             'username' => $username,
@@ -688,13 +682,13 @@ class maincontroller extends Controller
         ])->first();
 
         if ($user && $user->access != 'denied') {
-            $post->session()->put('user_id', $user);
+            $request->session()->put('user_id', $user);
             return redirect('/');
         } elseif ($user && $user->access == 'denied') {
-            $post->session()->flash('error', 'User access denied');
+            $request->session()->flash('error', 'User access denied');
             return redirect('/');
         } else {
-            $post->session()->flash('error', 'Please enter valid username or password');
+            $request->session()->flash('error', 'Please enter valid username or password');
             return redirect('/');
         }
     }
@@ -763,26 +757,26 @@ class maincontroller extends Controller
     }
 
 
-    public function add_user_form(Request $post)
+    public function add_user_form(Request $request)
     {
 
-        $post->validate([
+        $request->validate([
 
-            'email' => 'required|unique:users,email,' .  $post['user_id'] . ',user_id',
+            'email' => 'required|unique:users,email,' .  $request['user_id'] . ',user_id',
 
-            'username' => 'required|unique:users,username,' .  $post['user_id'] . ',user_id',
+            'username' => 'required|unique:users,username,' .  $request['user_id'] . ',user_id',
 
-            'phone_number' => 'required|unique:users,phone_number,' .  $post['user_id'] . ',user_id',
+            'phone_number' => 'required|unique:users,phone_number,' .  $request['user_id'] . ',user_id',
 
         ]);
 
         $user = new users();
 
-        $user->username = $post['username'];
-        $user->email = $post['email'];
-        $user->phone_number = $post['phone_number'];
-        $user->password = $post['password'];
-        $user->role = $post['role'];
+        $user->username = $request['username'];
+        $user->email = $request['email'];
+        $user->phone_number = $request['phone_number'];
+        $user->password = $request['password'];
+        $user->role = $request['role'];
         $user->save();
 
         session()->flash('message', 'User has been added successfully');
@@ -793,7 +787,7 @@ class maincontroller extends Controller
 
     }
 
-    public function view_edit_user(Request $post, $id)
+    public function view_edit_user(Request $request, $id)
     {
         $user = users::where([
 
@@ -808,7 +802,7 @@ class maincontroller extends Controller
 
 
 
-    public function user_rights(Request $post, $id)
+    public function user_rights(Request $request, $id)
     {
         $user = users::where([
 
@@ -826,16 +820,16 @@ class maincontroller extends Controller
 
 
 
-    public function user_right_form(Request $post)
+    public function user_right_form(Request $request)
     {
 
 
 
-        $query = users::where('user_id', $post['user_id'])->update([
+        $query = users::where('user_id', $request['user_id'])->update([
 
-            'access' => $post['access'],
-            'permission' => $post['permission'],
-            'role' => $post['role'],
+            'access' => $request['access'],
+            'permission' => $request['permission'],
+            'role' => $request['role'],
         ]);
 
 
@@ -843,9 +837,9 @@ class maincontroller extends Controller
 
             session()->flash('something_error', 'Some thing went wrong please try again later.');
         } else {
-            if ($post['access'] == 'denied') {
+            if ($request['access'] == 'denied') {
 
-                if ($post['user_id'] == session('user_id')['user_id']) {
+                if ($request['user_id'] == session('user_id')['user_id']) {
                     session()->forget('user_id');
                 }
             }
@@ -856,42 +850,42 @@ class maincontroller extends Controller
 
 
 
-    public function edit_user_form(Request $post)
+    public function edit_user_form(Request $request)
     {
         // $exist = users::where([
-        //     'user_id' => $post['user_id'],
-        //     'email' => $post['email'],
-        //     'username' => $post['username'],
-        //     'phone_number' => $post['phone_number'],
-        //     'password' => $post['password'],
-        //     'role' => $post['role'],
+        //     'user_id' => $request['user_id'],
+        //     'email' => $request['email'],
+        //     'username' => $request['username'],
+        //     'phone_number' => $request['phone_number'],
+        //     'password' => $request['password'],
+        //     'role' => $request['role'],
         // ])->get();
 
         // if (!$exist) {
-        // $check = users::where('email', $post['email'])->exists()->ignore($post['user_id']);
-        // $check2 = users::where('username', $post['username'])->exists()->ignore($post['user_id']);
-        // $check3 = users::where('phone_number', $post['phone_number'])->exists()->ignore($post['user_id']);
-        // // $check4 = users::where('password', $post['password'])->exists();
-        // // $check5 = users::where('role', $post['role'])->exists();
+        // $check = users::where('email', $request['email'])->exists()->ignore($request['user_id']);
+        // $check2 = users::where('username', $request['username'])->exists()->ignore($request['user_id']);
+        // $check3 = users::where('phone_number', $request['phone_number'])->exists()->ignore($request['user_id']);
+        // // $check4 = users::where('password', $request['password'])->exists();
+        // // $check5 = users::where('role', $request['role'])->exists();
 
         // if (!$check || !$check2 || !$check3) {
 
-        $post->validate([
+        $request->validate([
 
-            'email' => 'required|unique:users,email,' .  $post['user_id'] . ',user_id',
+            'email' => 'required|unique:users,email,' .  $request['user_id'] . ',user_id',
 
-            'username' => 'required|unique:users,username,' .  $post['user_id'] . ',user_id',
+            'username' => 'required|unique:users,username,' .  $request['user_id'] . ',user_id',
 
-            'phone_number' => 'required|unique:users,phone_number,' .  $post['user_id'] . ',user_id',
+            'phone_number' => 'required|unique:users,phone_number,' .  $request['user_id'] . ',user_id',
 
         ]);
 
-        users::where('user_id', $post['user_id'])->update([
-            'username' => $post['username'],
-            'email' => $post['email'],
-            'phone_number' => $post['phone_number'],
-            'password' => $post['password'],
-            'role' => $post['role'],
+        users::where('user_id', $request['user_id'])->update([
+            'username' => $request['username'],
+            'email' => $request['email'],
+            'phone_number' => $request['phone_number'],
+            'password' => $request['password'],
+            'role' => $request['role'],
         ]);
 
         session()->flash('message', 'User has been updated successfully');
@@ -902,7 +896,7 @@ class maincontroller extends Controller
 
 
 
-    public function user_delete(Request $post, $id)
+    public function user_delete(Request $request, $id)
     {
         users::where([
             'user_id' => $id
@@ -948,17 +942,17 @@ class maincontroller extends Controller
 
 
 
-    public function customize_form(Request $post)
+    public function customize_form(Request $request)
     {
         $id = session()->get('user_id')['user_id'];
 
         $customize = users::where('user_id', $id)->update([
-            'theme' =>  $post["theme_color"]
+            'theme' =>  $request["theme_color"]
         ]);
 
         return redirect()->back();
-        // $customize->company_name = $post['company'];
-        // $customize->theme_color = $post['theme_color'];
+        // $customize->company_name = $request['company'];
+        // $customize->theme_color = $request['theme_color'];
         // $customize->save();
 
     }
@@ -996,7 +990,7 @@ class maincontroller extends Controller
 
 
 
-    public function pdf(Request  $post, $view)
+    public function pdf(Request  $request, $view)
     {
 
         if (session()->has('pdf_data')) {
@@ -1046,9 +1040,9 @@ class maincontroller extends Controller
 
 
 
-    public function view_sellers(Request $post)
+    public function view_sellers(Request $request)
     {
-        $search = $post->input('search');
+        $search = $request->input('search');
 
         $pdf = seller::limit(100)->get();
         $zone = zone::all();
@@ -1080,28 +1074,37 @@ class maincontroller extends Controller
 
 
 
-    public function add_seller_form(Request $post)
+    public function add_seller_form(Request $request)
     {
 
-        $post->validate([
+        $request->validate([
 
-            'company_name' => 'required|unique:seller,company_name,' .  $post['user_id'] . ',seller_id',
+            'company_name' => 'required|unique:seller,company_name,' .  $request['user_id'] . ',seller_id',
 
         ]);
 
+        $add = new accounts();
+        $add->account_name = $request['company_name'];
+        $add->account_category = 3;
+        $add->account_qty = 0;
+        $add->account_debit = 0.00;
+        $add->account_credit = 0.00;
+        $add->save();
+
+
         $user = new seller();
 
-        $user->company_name = $post['company_name'];
-        $user->company_email = $post['company_email'];
-        $user->company_phone_number = $post['company_phone_number'];
-        $user->seller_type = $post['seller_type'];
-        $user->address = $post['address'];
-        $user->city = $post['city'];
-        $user->contact_person_number = $post['contact_person_number'];
-        $user->contact_person = $post['contact_person'];
+        $user->company_name = $request['company_name'];
+        $user->company_email = $request['company_email'];
+        $user->company_phone_number = $request['company_phone_number'];
+        $user->seller_type = $request['seller_type'];
+        $user->address = $request['address'];
+        $user->city = $request['city'];
+        $user->contact_person_number = $request['contact_person_number'];
+        $user->contact_person = $request['contact_person'];
 
-        $user->debit = $post['debit'];
-        $user->credit = $post['credit'];
+        $user->debit = $request['debit'];
+        $user->credit = $request['credit'];
 
         $user->save();
 
@@ -1118,44 +1121,44 @@ class maincontroller extends Controller
 
 
 
-    public function edit_seller_form(Request $post)
+    public function edit_seller_form(Request $request)
     {
 
-        $post->validate([
+        $request->validate([
 
-            'company_name' => 'required|unique:seller,company_name,' .  $post['user_id'] . ',seller_id',
-
-        ]);
-
-        seller::where('seller_id', $post['user_id'])->update([
-            'company_name' => $post['company_name'],
-            'company_email' => $post['company_email'],
-            'company_phone_number' => $post['company_phone_number'],
-            'seller_type' => $post['seller_type'],
-            'address' => $post['address'],
-            'city' => $post['city'],
-
-
-            'contact_person_number' => $post['contact_person_number'],
-            'contact_person' => $post['contact_person'],
-            'debit' => $post['debit'],
-            'credit' => $post['credit'],
-
-
+            'company_name' => 'required|unique:seller,company_name,' .  $request['user_id'] . ',seller_id',
 
         ]);
 
+        seller::where('seller_id', $request['user_id'])->update([
+            'company_name' => $request['company_name'],
+            'company_email' => $request['company_email'],
+            'company_phone_number' => $request['company_phone_number'],
+            'seller_type' => $request['seller_type'],
+            'address' => $request['address'],
+            'city' => $request['city'],
 
-        // $user->company_name = $post['company_name'];
-        // $user->company_email = $post['company_email'];
-        // $user->seller_type = $post['seller_type'];
-        // $user->address = $post['address'];
-        // $user->city = $post['city'];
-        // $user->contact_person_number = $post['contact_person_number'];
-        // $user->contact_person = $post['bilty_number'];
 
-        // $user->debit = $post['debit'];
-        // $user->credit = $post['credit'];
+            'contact_person_number' => $request['contact_person_number'],
+            'contact_person' => $request['contact_person'],
+            'debit' => $request['debit'],
+            'credit' => $request['credit'],
+
+
+
+        ]);
+
+
+        // $user->company_name = $request['company_name'];
+        // $user->company_email = $request['company_email'];
+        // $user->seller_type = $request['seller_type'];
+        // $user->address = $request['address'];
+        // $user->city = $request['city'];
+        // $user->contact_person_number = $request['contact_person_number'];
+        // $user->contact_person = $request['bilty_number'];
+
+        // $user->debit = $request['debit'];
+        // $user->credit = $request['credit'];
 
         session()->flash('message', 'seller has been updated successfully');
         return redirect('/sellers');
@@ -1170,24 +1173,24 @@ class maincontroller extends Controller
 
 
         //$user = seller::where([
-        //     'seller_id' => $post['seller_id']
+        //     'seller_id' => $request['seller_id']
         //    ]);
 
-        //     $user->company_name = $post['company_name'];
-        //     $user->company_email = $post['company_email'];
-        //     $user->salesman = $post['salesman'];
-        //     $user->address = $post['address'];
-        //     $user->transporter = $post['transporter'];
-        //     $user->reference_number	 = $post['reference_number'];
-        //     $user->bilty_number = $post['bilty_number'];
-        //     $user->payment_due_date = $post['payment_due_date'];
+        //     $user->company_name = $request['company_name'];
+        //     $user->company_email = $request['company_email'];
+        //     $user->salesman = $request['salesman'];
+        //     $user->address = $request['address'];
+        //     $user->transporter = $request['transporter'];
+        //     $user->reference_number	 = $request['reference_number'];
+        //     $user->bilty_number = $request['bilty_number'];
+        //     $user->payment_due_date = $request['payment_due_date'];
 
         //     $user->save();
     }
 
 
 
-    public function view_edit_seller(Request $post, $id)
+    public function view_edit_seller(Request $request, $id)
     {
         $seller = seller::where([
 
@@ -1204,7 +1207,7 @@ class maincontroller extends Controller
 
 
 
-    public function view_single_seller(Request $post, $id)
+    public function view_single_seller(Request $request, $id)
     {
         $seller = seller::where([
 
@@ -1264,9 +1267,9 @@ class maincontroller extends Controller
 
 
 
-    public function view_buyers(Request $post)
+    public function view_buyers(Request $request)
     {
-        $search = $post->input('search');
+        $search = $request->input('search');
 
         $pdf = buyer::limit(100)->get();
         $zone = zone::all();
@@ -1298,27 +1301,35 @@ class maincontroller extends Controller
 
 
 
-    public function add_buyer_form(Request $post)
+    public function add_buyer_form(Request $request)
     {
 
-        $post->validate([
+        $request->validate([
 
-            'company_name' => 'required|unique:buyer,company_name,' .  $post['user_id'] . ',buyer_id',
+            'company_name' => 'required|unique:buyer,company_name,' .  $request['user_id'] . ',buyer_id',
 
         ]);
 
+        $add = new accounts();
+        $add->account_name = $request['company_name'];
+        $add->account_category = 2;
+        $add->account_qty = 0;
+        $add->account_debit = 0.00;
+        $add->account_credit = 0.00;
+        $add->save();
+
         $user = new buyer();
 
-        $user->company_name = $post['company_name'];
-        $user->company_email = $post['company_email'];
-        $user->company_phone_number = $post['company_phone_number'];
-        $user->buyer_type = $post['buyer_type'];
-        $user->address = $post['address'];
-        $user->city = $post['city'];
-        $user->contact_person = $post['contact_person'];
-        $user->contact_person_number = $post['contact_person_number'];
-        $user->debit = $post['debit'];
-        $user->credit = $post['credit'];
+        $user->company_name = $request['company_name'];
+        $user->company_email = $request['company_email'];
+        $user->company_phone_number = $request['company_phone_number'];
+        $user->buyer_type = $request['buyer_type'];
+        $user->address = $request['address'];
+        $user->city = $request['city'];
+        $user->contact_person = $request['contact_person'];
+        $user->contact_person_number = $request['contact_person_number'];
+        $user->debit = $request['debit'];
+        $user->credit = $request['credit'];
 
         $user->save();
 
@@ -1335,44 +1346,44 @@ class maincontroller extends Controller
 
 
 
-    public function edit_buyer_form(Request $post)
+    public function edit_buyer_form(Request $request)
     {
 
-        $post->validate([
+        $request->validate([
 
-            'company_name' => 'required|unique:buyer,company_name,' .  $post['user_id'] . ',buyer_id',
-
-        ]);
-
-        buyer::where('buyer_id', $post['user_id'])->update([
-            'company_name' => $post['company_name'],
-            'company_email' => $post['company_email'],
-            'company_phone_number' => $post['company_phone_number'],
-            'buyer_type' => $post['buyer_type'],
-            'address' => $post['address'],
-            'city' => $post['city'],
-
-
-            'contact_person_number' => $post['contact_person_number'],
-            'contact_person' => $post['contact_person'],
-            'debit' => $post['debit'],
-            'credit' => $post['credit'],
-
-
+            'company_name' => 'required|unique:buyer,company_name,' .  $request['user_id'] . ',buyer_id',
 
         ]);
 
+        buyer::where('buyer_id', $request['user_id'])->update([
+            'company_name' => $request['company_name'],
+            'company_email' => $request['company_email'],
+            'company_phone_number' => $request['company_phone_number'],
+            'buyer_type' => $request['buyer_type'],
+            'address' => $request['address'],
+            'city' => $request['city'],
 
-        // $user->company_name = $post['company_name'];
-        // $user->company_email = $post['company_email'];
-        // $user->buyer_type = $post['buyer_type'];
-        // $user->address = $post['address'];
-        // $user->city = $post['city'];
-        // $user->contact_person_number = $post['contact_person_number'];
-        // $user->contact_person = $post['bilty_number'];
 
-        // $user->debit = $post['debit'];
-        // $user->credit = $post['credit'];
+            'contact_person_number' => $request['contact_person_number'],
+            'contact_person' => $request['contact_person'],
+            'debit' => $request['debit'],
+            'credit' => $request['credit'],
+
+
+
+        ]);
+
+
+        // $user->company_name = $request['company_name'];
+        // $user->company_email = $request['company_email'];
+        // $user->buyer_type = $request['buyer_type'];
+        // $user->address = $request['address'];
+        // $user->city = $request['city'];
+        // $user->contact_person_number = $request['contact_person_number'];
+        // $user->contact_person = $request['bilty_number'];
+
+        // $user->debit = $request['debit'];
+        // $user->credit = $request['credit'];
 
         session()->flash('message', 'buyer has been updated successfully');
         return redirect('/buyers');
@@ -1387,24 +1398,24 @@ class maincontroller extends Controller
 
 
         //$user = buyer::where([
-        //     'buyer_id' => $post['buyer_id']
+        //     'buyer_id' => $request['buyer_id']
         //    ]);
 
-        //     $user->company_name = $post['company_name'];
-        //     $user->company_email = $post['company_email'];
-        //     $user->salesman = $post['salesman'];
-        //     $user->address = $post['address'];
-        //     $user->transporter = $post['transporter'];
-        //     $user->reference_number	 = $post['reference_number'];
-        //     $user->bilty_number = $post['bilty_number'];
-        //     $user->payment_due_date = $post['payment_due_date'];
+        //     $user->company_name = $request['company_name'];
+        //     $user->company_email = $request['company_email'];
+        //     $user->salesman = $request['salesman'];
+        //     $user->address = $request['address'];
+        //     $user->transporter = $request['transporter'];
+        //     $user->reference_number	 = $request['reference_number'];
+        //     $user->bilty_number = $request['bilty_number'];
+        //     $user->payment_due_date = $request['payment_due_date'];
 
         //     $user->save();
     }
 
 
 
-    public function view_edit_buyer(Request $post, $id)
+    public function view_edit_buyer(Request $request, $id)
     {
         $buyer = buyer::where([
 
@@ -1421,7 +1432,7 @@ class maincontroller extends Controller
 
 
 
-    public function view_single_buyer(Request $post, $id)
+    public function view_single_buyer(Request $request, $id)
     {
         $buyer = buyer::where([
 

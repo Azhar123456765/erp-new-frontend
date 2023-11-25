@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\UserController;
-use App\Http\Controllers\invoicecontroller;
 use App\Http\Controllers\maincontroller;
 use App\Http\Controllers\pdfController;
 use App\Http\Controllers\product;
@@ -115,7 +114,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
                 return redirect('/es_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
             }
         }
-        session()->flash('something_error', 'Invoice not found');
+        session()->put('not_found', 'Invoice not found');
         return redirect()->back();
     });
     Route::post('/es_med_invoice_form_id={id}', [SaleInvoiceController::class, 'update']);

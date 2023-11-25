@@ -51,7 +51,7 @@ foreach ($theme_colors as $key => $value2) {
     </div>
 
     <nav class="mt-2">
-      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column nav-child-indent nav-compact nav-collapse-hide-child" data-widget="treeview" role="menu" data-accordion="false">
         <li class="nav-item {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'menu-open' : '' }}">
           <a href="#" class="nav-link {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'active' : '' }}">
             <i class="nav-icon fas fa-tachometer-alt"></i>

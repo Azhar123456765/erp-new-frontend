@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Accounts')  @section('content')
+@extends('master') @section('title','Accounts') @section('content')
 
 <br>
 <div class="container">
@@ -8,21 +8,31 @@
             <a href="" data-toggle="modal" data-target="#login-modal" class="btn btn-success float-right">
                 <i class="fa fa-plus"></i> &nbsp; Add Account</a>
         </div>
-
-        <select class="form-control float-right ml-4 mt-3" style="width: 21%;" id="account" name="property" onchange="accounts()">
-            <option value="1" {{ $id == 1 ? 'selected' : '' }}>Cash</option>
-            <option value="2" {{ $id == 2 ? 'selected' : '' }}>Accounts Receivable</option>
-            <option value="3" {{ $id == 3 ? 'selected' : '' }}>Accounts Payable</option>
-            <option value="4" {{ $id == 4 ? 'selected' : '' }}>Bank</option>
-            <option value="5" {{ $id == 5 ? 'selected' : '' }}>Expense</option>
-            <option value="6" {{ $id == 6 ? 'selected' : '' }}>Income</option>
-            <option value="7" {{ $id == 7 ? 'selected' : '' }}>Cost Of Sales</option>
-            <option value="8" {{ $id == 8 ? 'selected' : '' }}>Long Term Liabilities</option>
-            <option value="9" {{ $id == 9 ? 'selected' : '' }}>Inventory</option>
-            <option value="10" {{ $id == 10 ? 'selected' : '' }}>Capital</option>
-            <option value="11" {{ $id == 11 ? 'selected' : '' }}>Drawing</option>
-        </select>
+        <style>
+           .card .select2-container--classic {
+                width: 295px !important;
+                height: 27px !important;
+                margin-top: 1%;
+                margin-left: 2.5%;
+                line-height: 25px !important;
+                height: 25px !important;
+            }
+        </style>
+            <select class="form-control account-select" id="account" name="property" onchange="accounts()">
+                    <option value="1" {{ $id == 1 ? 'selected' : '' }}>Cash</option>
+                    <option value="2" {{ $id == 2 ? 'selected' : '' }}>Accounts Receivable</option>
+                    <option value="3" {{ $id == 3 ? 'selected' : '' }}>Accounts Payable</option>
+                    <option value="4" {{ $id == 4 ? 'selected' : '' }}>Bank</option>
+                    <option value="5" {{ $id == 5 ? 'selected' : '' }}>Expense</option>
+                    <option value="6" {{ $id == 6 ? 'selected' : '' }}>Income</option>
+                    <option value="7" {{ $id == 7 ? 'selected' : '' }}>Cost Of Sales</option>
+                    <option value="8" {{ $id == 8 ? 'selected' : '' }}>Long Term Liabilities</option>
+                    <option value="9" {{ $id == 9 ? 'selected' : '' }}>Inventory</option>
+                    <option value="10" {{ $id == 10 ? 'selected' : '' }}>Capital</option>
+                    <option value="11" {{ $id == 11 ? 'selected' : '' }}>Drawing</option>
+                </select>
         <div class="card-body">
+            
             <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
