@@ -53,26 +53,22 @@
 
 
 
-$startDate = session()->get('Data')['startDate'];
-$endDate = session()->get('Data')['endDate'];
-$total_amount = session()->get('Data')['total_amount'];
-$balance_amount = session()->get('Data')['balance_amount'];
-$credit = session()->get('Data')['credit'];
+$startDate = session()->get('Data')['startDate'] ?? null;
+$endDate = session()->get('Data')['endDate'] ?? null;
+$total_amount = session()->get('Data')['total_amount'] ?? null;
+$balance_amount = session()->get('Data')['balance_amount'] ?? null;
+$credit = session()->get('Data')['credit'] ?? null;
 $grand_total = session()->get('Data')['grand_total'] ?? null;
-$debit = session()->get('Data')['debit'];
-$customerName = session()->get('Data')['customerName'];
-$type = session()->get('Data')['type'];
+$debit = session()->get('Data')['debit'] ?? null;
+$customerName = session()->get('Data')['customerName'] ?? null;
+$type = session()->get('Data')['type'] ?? null;
 
-
-// $name = App\Models\accounts::where('account_id',$account)->get();
-
-// foreach ($name as $key => $value) {
-//     $name2 = $value->account_name;
-// }
-// // $startDate = $value->startDate
-
+$querysi = session()->get('Data')['ledgerDatasi'] ?? null;
+$queryrv = session()->get('Data')['ledgerDatarv'] ?? null;
+$querypv = session()->get('Data')['ledgerDatapv'] ?? null;
 
 ?>
+
 @include('pdf.head_pdf')
 
 <style>
@@ -107,7 +103,7 @@ $type = session()->get('Data')['type'];
     <tbody>
         <?php
 
-        $sell_invoice = session()->get('Data')['invoice'];
+        $sell_invoice = session()->get('Data')['invoice'] ?? null;
 
         if ($sell_invoice != null) {
             # code...
@@ -173,7 +169,7 @@ $type = session()->get('Data')['type'];
     <tbody>
         <?php
 
-        $sell_invoice = session()->get('Data')['invoice'];
+        $sell_invoice = session()->get('Data')['invoice'] ?? null;
 
         if ($sell_invoice != null) {
             # code...
@@ -213,10 +209,142 @@ $type = session()->get('Data')['type'];
     </tfoot>
 </table>
 
+@elseif($type == 3)
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Reference No</th>
+            <th>Description</th>
+            <th>Credit</th>
+            <th>Debit</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        foreach ($querysi as $row) {
+        ?>
+            <tr style="text-align: center;">
+                <td>
+                    <span><?php echo $row->date; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->unique_id; ?></span>
+                </td>
+                <td style="text-align: left
+                ;">
+                    <span><?php echo $row->remark; ?></span>
+                </td>
+                <td style="text-align:right;">
+ +  +++                 <span>0.00</span>
+                </td>
+                <td style="text-align:right;">
+                    <span><?php echo $row->grand_total; ?></span>
+                </td>
+            </tr>
+
+        <?php
+        }
+        ?>
+
+        <?php
+        foreach ($queryrv as $row) {
+        ?>
+            <tr style="text-align: center;">
+                <td>
+                    <span><?php echo $row->date; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->unique_id; ?></span>
+                </td>
+                <td style="text-align: left
+                ;">
+                    <span><?php echo $row->remark; ?></span>
+                </td>
+                <td style="text-align:right;">
+                    <span>0.00</span>
+                </td>
+                +
+                <td style="text-align:right;">
+                    <span><?php echo $row->amount_total; ?></span>
+                </td>
+            </tr>
+
+        <?php
+        }
+        ?>
+
+        <?php
+        foreach ($querypv as $row) {
+        ?>
+            <tr style="text-align: center;">
+                <td>
+                    <span><?php echo $row->date; ?></span>
+                </td>
+                <td>
+                    <span><?php echo $row->unique_id; ?></span>
+                </td>
+                <td style="text-align: left
+                ;">
+                    <span><?php echo $row->remark; ?></span>
+                </td>
+                <td style="text-align:right;">
+                    <span><?php echo $row->amount_total; ?></span>
+                </td>
+                <td style="text-align:right;">
+                    <span>0.00</span>
+                </td>
+            </tr>
+
+        <?php
+        }
+        ?>
+    </tbody>
+    <tfoot style="color: darkblue; text-align:right;">
+        <td colspan="3" style="text-align:right; border:none;"><b>Total:</b></td>
+        <td><b>{{$c+redit}}</b></td>
+        <td><b>{{$debit}}</b></td>
+    </tfoot>
+</table>
+
 @endif
+
+
+
 
 <div class="pdf-time">
     Generated on: <?php echo date('Y-m-d  H:i:s'); ?>
 </div>
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -316,6 +316,18 @@ foreach ($theme_colors as $key => $value2) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#sale-report" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Sale Report</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#pur-report" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Purchase Report</p>
+                  </a>
+                </li>
                 <li class="nav-item">
                   <a href="" data-toggle="modal" data-target="#profit-led" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>

@@ -9,6 +9,7 @@ use Illuminate\Http\Response;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
+use Illuminate\Support\Facades\Hash;
 
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Cache;
@@ -660,9 +661,6 @@ class maincontroller extends Controller
             }));
 
             // Now $onlineUsersCount contains the count of online users
-
-
-
             $data = compact('sell_invoice_qty', 'earning', 'expense', 'chartData', 'chartData2', 'onlineUsersCount');
             return view('dashboard')->with($data);
         } else {
@@ -775,7 +773,7 @@ class maincontroller extends Controller
         $user->username = $request['username'];
         $user->email = $request['email'];
         $user->phone_number = $request['phone_number'];
-        $user->password = $request['password'];
+        $user->password = Hash::make($request['password']);
         $user->role = $request['role'];
         $user->save();
 

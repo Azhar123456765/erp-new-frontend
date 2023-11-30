@@ -288,7 +288,7 @@
                     <select name="company" class="company" required>
                         <option></option>
                         @foreach ($seller as $row)
-                        <option value="{{ $row->seller_id }}S" data-debit="{{ $row->debit }}" {{ $row->seller_id .'S' == $sinvoice_row->company  ? 'selected' : '' }}>
+                        <option value="{{ $row->seller_id }}S" data-debit="{{ $row->debit }}" {{ $row->seller_id .'S' == $sinvoice_row->company ?? $sinvoice_row->company_ref == 'S' ? 'selected' : '' }}>
                             {{ $row->company_name }} (Supplier)
                         </option>
                         @endforeach

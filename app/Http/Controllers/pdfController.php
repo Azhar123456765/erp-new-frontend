@@ -150,10 +150,202 @@ class pdfController extends Controller
         }
 
 
+        public function sale_report(Request $request)
+        {
+
+                if (!session()->exists('Data')) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        // Retrieve form data
+                        $customer = $request->input('customer');
+                        $salesOfficer = $request->input('sales_officer');
+                        $warehouse = $request->input('warehouse');
+                        $product_category = $request->input('product_category');
+                        $product_company = $request->input('product_company');
+                        $product = $request->input('product');
+                        $product_id = null;
+
+
+
+                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                ->whereIn('sell_invoice.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('sell_invoice')
+                                                ->groupBy('unique_id');
+                                });
+
+                        if ($customer) {
+                                $query->where('company', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+                        if ($warehouse) {
+                                $query->where('warehouse', $warehouse);
+                        }
+
+                        if ($product_category) {
+                                $pr = products::where('category', $product_category)->get();
+                                foreach ($pr as $key => $value) {
+                                        $product_id = $value->product_id;
+                                }
+                                $query->where('item', $product_id);
+                        }
+
+                        if ($product_company) {
+                                $pr = products::where('company', $product_company)->get();
+                                foreach ($pr as $key => $value) {
+                                        $product_id = $value->product_id;
+                                }
+                                $query->where('item', $product_id);
+                        }
+                        if ($product) {
+                                $query->where('item', $product);
+                        }
+
+                        $ledgerDatasi = $query->get();
+
+                        $data = [
+                                'invoice' => $ledgerDatasi,
+                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                        ];
+
+                        session()->put('Data', $data);
+                }
+
+
+                if (session()->has('Data')) {
+
+                        $views = 'Sale Report';
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.sale_report')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();;
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                }
+        }
+
+        public function pur_report(Request $request)
+        {
+
+                if (!session()->exists('Data')) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        // Retrieve form data
+                        $supplier = $request->input('supplier');
+                        $salesOfficer = $request->input('sales_officer');
+                        $warehouse = $request->input('warehouse');
+                        $product_category = $request->input('product_category');
+                        $product_company = $request->input('product_company');
+                        $product = $request->input('product');
+                        $product_id = null;
+
+
+
+                        $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                                ->whereIn('purchase_invoice.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('purchase_invoice')
+                                                ->groupBy('unique_id');
+                                });
+
+                        if ($supplier) {
+                                $query->where('company', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+                        if ($warehouse) {
+                                $query->where('warehouse', $warehouse);
+                        }
+
+                        if ($product_category) {
+                                $pr = products::where('category', $product_category)->get();
+                                foreach ($pr as $key => $value) {
+                                        $product_id = $value->product_id;
+                                }
+                                $query->where('item', $product_id);
+                        }
+
+                        if ($product_company) {
+                                $pr = products::where('company', $product_company)->get();
+                                foreach ($pr as $key => $value) {
+                                        $product_id = $value->product_id;
+                                }
+                                $query->where('item', $product_id);
+                        }
+                        if ($product) {
+                                $query->where('item', $product);
+                        }
+
+                        $ledgerDatasi = $query->get();
+
+                        $data = [
+                                'invoice' => $ledgerDatasi,
+                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                        ];
+
+                        session()->put('Data', $data);
+                }
+
+
+                if (session()->has('Data')) {
+
+                        $views = 'Purchase Report';
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.pur_report')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();;
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                }
+        }
 
         public function cus_led(Request $request)
         {
-
                 if (!session()->exists('Data')) {
                         $type = $request->input('type');
                         if ($type == 1) {
@@ -170,6 +362,7 @@ class pdfController extends Controller
                                 $product_category = $request->input('product_category');
                                 $product_company = $request->input('product_company');
                                 $product = $request->input('product');
+                                $product_id = null;
 
 
 
@@ -187,24 +380,25 @@ class pdfController extends Controller
                                 if ($salesOfficer) {
                                         $query->where('sales_officer', $salesOfficer);
                                 }
-                                
+
                                 if ($warehouse) {
                                         $query->where('warehouse', $warehouse);
                                 }
-                                
-                                
+
                                 if ($product_category) {
                                         $pr = products::where('category', $product_category)->get();
                                         foreach ($pr as $key => $value) {
-                                                $query->where('item', $value->product_id);
+                                                $product_id = $value->product_id;
                                         }
+                                        $query->where('item', $product_id);
                                 }
-                                
+
                                 if ($product_company) {
                                         $pr = products::where('company', $product_company)->get();
                                         foreach ($pr as $key => $value) {
-                                                $query->where('item', $value->product_id);
+                                                $product_id = $value->product_id;
                                         }
+                                        $query->where('item', $product_id);
                                 }
                                 if ($product) {
                                         $query->where('item', $product);
@@ -217,48 +411,47 @@ class pdfController extends Controller
                                 }
 
 
-                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
-                                        ->whereIn('id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('sell_invoice')
-                                                        ->groupBy('unique_id');
-                                        })->sum('amount_paid');
+                                // $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                //         ->whereIn('id', function ($query2) {
+                                //                 $query2->select(DB::raw('MIN(id)'))
+                                //                         ->from('sell_invoice')
+                                //                         ->groupBy('unique_id');
+                                //         })->sum('amount_paid');
 
-                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
-                                        ->whereIn('id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('receipt_vouchers')
-                                                        ->groupBy('unique_id');
-                                        })->sum('amount_total');
+                                // $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                //         ->whereIn('id', function ($query2) {
+                                //                 $query2->select(DB::raw('MIN(id)'))
+                                //                         ->from('receipt_vouchers')
+                                //                         ->groupBy('unique_id');
+                                //         })->sum('amount_total');
 
-                                $debit = $debit1 ?? 0 + $debit2 ?? 0;
+                                // $debit = $debit1 ?? 0 + $debit2 ?? 0;
 
-                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
-                                        ->whereIn('payment_voucher.id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('payment_voucher')
-                                                        ->groupBy('unique_id');
-                                        })->sum('amount_total');
+                                // $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                //         ->whereIn('payment_voucher.id', function ($query2) {
+                                //                 $query2->select(DB::raw('MIN(id)'))
+                                //                         ->from('payment_voucher')
+                                //                         ->groupBy('unique_id');
+                                //         })->sum('amount_total');
 
-                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
-                                        ->whereIn('id', function ($query2) {
-                                                $query2->select(DB::raw('MIN(id)'))
-                                                        ->from('sell_invoice')
-                                                        ->groupBy('unique_id');
-                                        })->sum('grand_total');
-                                $credit = $credit1 + $credit2;
-                                $balance = $debit ?? 0 - $credit ?? 0;
+                                // $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                //         ->whereIn('id', function ($query2) {
+                                //                 $query2->select(DB::raw('MIN(id)'))
+                                //                         ->from('sell_invoice')
+                                //                         ->groupBy('unique_id');
+                                //         })->sum('grand_total');
+                                // $credit = $credit1 + $credit2;
+                                // $balance = $debit ?? 0 - $credit ?? 0;
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
                                         'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'grand_total' =>  $balance,
                                         'total_amount' =>  $ledgerDatasi->sum('amount_total'),
                                         'debit' =>  $ledgerDatasi->sum('previous_balance'),
                                         'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
-                                        'customerName' => $customerName ?? '',
+                                        'customerName' => $customerName ?? 'Not Selected',
                                         'type' => $type,
 
                                 ];
@@ -332,6 +525,93 @@ class pdfController extends Controller
                                         'customerName' => $customerName,
                                         'type' => $type,
 
+                                ];
+
+                                session()->put('Data', $data);
+                        }
+
+                        $type = $request->input('type');
+                        if ($type == 3) {
+
+                                $startDate = $request->input('start_date');
+                                $endDate = $request->input('end_date');
+                                $customer = $request->input('customer');
+
+                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                        ->where('company', $customer)
+                                        ->whereIn('sell_invoice.id', function ($subQuery) {
+                                                $subQuery->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        });
+
+                                $query2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('receipt_vouchers')
+                                                        ->groupBy('unique_id');
+                                        });
+
+                                $query3 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('payment_voucher.id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('payment_voucher')
+                                                        ->groupBy('unique_id');
+                                        });
+
+                                $ledgerDatasi = $query->get();
+                                $ledgerDatarv = $query2->get();
+                                $ledgerDatapv = $query3->get();
+                                $customerData = buyer::where('buyer_id', $customer)->get();
+                                foreach ($customerData as $key => $value) {
+                                        $customerName = $value->company_name;
+                                }
+
+
+                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        })->sum('grand_total');
+
+                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('receipt_vouchers')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_total');
+
+                                $debit = $debit1 ?? 0 + $debit2 ?? 0;
+
+                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('payment_voucher.id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('payment_voucher')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_total');
+
+                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('id', function ($query2) {
+                                                $query2->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        })->sum('amount_paid');
+
+                                $credit = $credit1 + $credit2;
+
+                                $data = [
+                                        'ledgerDatasi' => $ledgerDatasi,
+                                        'ledgerDatarv' => $ledgerDatarv,
+                                        'ledgerDatapv' => $ledgerDatapv,
+                                        'credit' => $credit,
+                                        'debit' => $debit,
+                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'balance_amount' => $ledgerDatasi->sum('balance_amount'),
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'customerName' => $customerName ?? 'Not Selected',
+                                        'type' => $type,
                                 ];
 
                                 session()->put('Data', $data);
@@ -912,7 +1192,7 @@ class pdfController extends Controller
                         $pdf->loadHtml($html);
                         $pdf->setPaper('A4', 'portrait');
 
-                        $pdf->render();
+                           $pdf->render();
 
                         return $pdf->stream("P" . '-' . rand(1111, 9999) . '.pdf');
                         session()->forget('pdf_data');
@@ -1019,7 +1299,7 @@ class pdfController extends Controller
                 $p_voucher = p_voucher::where("unique_id", $id)
                         ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
                         ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        ->leftJoin('pgroducts', 'payment_voucher.item', '=', 'products.product_id')
                         ->get();
 
                 $s_p_voucher = p_voucher::where("unique_id", $id)

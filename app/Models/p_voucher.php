@@ -9,14 +9,13 @@ class p_voucher extends Model
 {
     use HasFactory;
     protected $table = 'payment_voucher';
-    protected $guarded = [];
 
     function supplier()
     {
         return $this->hasOne(seller::class, 'seller_id', 'company');
     }
-    function customer()
+    function buyer()
     {
-        return $this->hasOne(buyer::class, 'buyer_id', 'company');
+        return $this->hasOne(buyer::class, 'buyer_id', "company");
     }
 }
