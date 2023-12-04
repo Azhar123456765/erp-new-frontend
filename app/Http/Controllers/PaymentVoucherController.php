@@ -67,14 +67,16 @@ class PaymentVoucherController extends Controller
     public function store(Request $request)
     {
         $invoiceData = $request->all();
+        $lastChar = substr($request['company'], -1);
 
         $expense =  new Expense;
         $expense->category_id = $invoiceData['unique_id'];
         $expense->category = 'Payment Voucher';
+        $expense->company_id = $invoiceData['company'];
+        $expense->company_ref = $lastChar;
         $expense->amount = $request['amount_total'];
         $expense->save();
 
-        $lastChar = substr($request['company'], -1);
         $company = substr($invoiceData['company'], 0, -1);
 
 
@@ -190,7 +192,8 @@ class PaymentVoucherController extends Controller
         p_voucher::where('unique_id', $id)->delete();
 
         Expense::where('category_id', $id)->update([
-            'amount' => $request['amount_total']
+            'amount' => $request['amount_total'],
+            'company_id' => $request['company']
         ]);
       
         $invoiceData = $request->all();

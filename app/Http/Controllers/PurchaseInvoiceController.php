@@ -42,7 +42,7 @@ class PurchaseInvoiceController extends Controller
         $company = $post['company'] ?? null;
         $sales_officer2 = $post['sales_officer'] ?? null;
         $date = $post['date'] ?? null;
-        
+
         if ($post['check'] != null) {
             $query = purchase_invoice::query();
 
@@ -119,7 +119,7 @@ class PurchaseInvoiceController extends Controller
                 ->groupBy('unique_id');
         })->count();
 
-        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'account','count');
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'account', 'count');
         return view('invoice.p_med_invoice')->with($data);
     }
 
@@ -137,6 +137,8 @@ class PurchaseInvoiceController extends Controller
         $expense =  new Expense;
         $expense->category_id = $invoiceData['unique_id'];
         $expense->category = 'Purchase Invoice';
+        $expense->company_id = $invoiceData['company'];
+        $expense->company_ref = 'S';
         $expense->amount = $request['amount_total'];
         $expense->save();
         // Assuming all array fields have the same lengthbdnbbh
@@ -145,11 +147,11 @@ class PurchaseInvoiceController extends Controller
             'no_records' => DB::raw("no_records + " . 1)
         ]);
         $pr_amount = $request['previous_balance'];
-       
+
 
         $amount = $request['amount_total'];
 
-        
+
 
         $arrayLength = count(array_filter($invoiceData['item']));
 
@@ -282,7 +284,7 @@ class PurchaseInvoiceController extends Controller
 
         ])->limit(1)->get();
 
-     
+
 
         $account = accounts::all();
 
@@ -306,11 +308,11 @@ class PurchaseInvoiceController extends Controller
 
 
         $pr_amount = $request['previous_balance'];
-        
+
 
         $amount = $request['amount_total'];
 
-        
+
 
 
 
@@ -318,7 +320,8 @@ class PurchaseInvoiceController extends Controller
         $invoiceData = $request->all();
 
         $expense =  Expense::where('category_id', $invoiceData['unique_id'])->update([
-            'amount' => $request['amount_total']
+            'amount' => $request['amount_total'],
+            'company' => $request['company']
         ]);
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));
@@ -443,7 +446,7 @@ class PurchaseInvoiceController extends Controller
     {
         //
     }
-    public function r_create(Request $post, $id)
+    public function r_edit(Request $post, $id)
     {
         $product = products::limit(1000)->get();
         $seller = seller::limit(1000)->get();
@@ -473,18 +476,18 @@ class PurchaseInvoiceController extends Controller
         return view('invoice.rp_med_invoice')->with($data);
     }
 
-
+    // UPDATE THIS FIRST
     function r_update(Request $request, $id)
     {
 
         purchase_invoice::where('unique_id', $id)->delete();
 
         $pr_amount = $request['previous_balance'];
-        
+
 
         $amount = $request['amount_total'];
 
-        
+
 
 
 
@@ -541,11 +544,7 @@ class PurchaseInvoiceController extends Controller
 
 
             $invoice->pr_item = $invoiceData['item']["$i"] ?? null;
-
-
-
             $invoice->previous_stock = $invoiceData['pur_qty']["$i"] ?? null;
-
             $product = $invoiceData['item']["$i"];
 
             // if ($invoiceData['item']["$i"] != $invoiceData['pr_item']["$i"]) {
@@ -560,7 +559,6 @@ class PurchaseInvoiceController extends Controller
             //     ]);
             // }
 
-
             products::where("product_id", $invoiceData['pr_item']["$i"])->update([
                 'opening_quantity' => DB::raw("opening_quantity - " . $invoiceData['previous_stock']["$i"])
             ]);
@@ -569,18 +567,11 @@ class PurchaseInvoiceController extends Controller
                 'opening_quantity' => DB::raw("opening_quantity + " . $invoiceData['pur_qty']["$i"])
             ]);
 
-
-
             products::where("product_id", $invoiceData['item']["$i"])->update([
                 'opening_quantity' => DB::raw("opening_quantity - " . $invoiceData['return_qty']["$i"])
             ]);
 
-
-            $invoice->return_qty = $invoiceData['return_qty']["$i"] ?? null;
-
-
-
-
+            $invoice->return_qty =  $invoice->return_qty + $invoiceData['return_qty']["$i"] ?? null;
 
             $invoice->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;
             $invoice->type = $invoiceData['type']["$i"] ?? null;
@@ -588,22 +579,12 @@ class PurchaseInvoiceController extends Controller
             $invoice->unit = $invoiceData['unit']["$i"] ?? null;
             $invoice->batch_no = $invoiceData['batch_no']["$i"] ?? null;
             $invoice->expiry = $invoiceData['expiry']["$i"] ?? null;
-            $invoice->pur_qty = $invoiceData['pur_qty']["$i"] ?? null;
-            $invoice->price = $invoiceData['price']["$i"] ?? null;
+            $invoice->pur_qty = $invoiceData['pur_qty']["$i"] - $invoiceData['return_qty']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->discount = $invoiceData['dis_per']["$i"] ?? null;
             $invoice->exp_unit = $invoiceData['exp_unit']["$i"] ?? null;
-            $invoice->mor_cut = $invoiceData['mor_cut']["$i"] ?? null;
-            $invoice->crate_cut = $invoiceData['crate_cut']["$i"] ?? null;
-            $invoice->avg = $invoiceData['avg']["$i"] ?? null;
-            $invoice->n_weight = $invoiceData['n_weight']["$i"] ?? null;
-            $invoice->rate_diff = $invoiceData['rate_diff']["$i"] ?? null;
-            $invoice->rate = $invoiceData['rate']["$i"] ?? null;
             $invoice->pur_price = $invoiceData['pur_price']["$i"] ?? null;
-            $invoice->sale_price = $invoiceData['sale_price']["$i"] ?? null;
-            $invoice->sale_qty = $invoiceData['sale_qty']["$i"] ?? null;
             $invoice->bonus_qty = $invoiceData['bonus_qty']["$i"] ?? null;
-
 
             $invoice->save();
         }

@@ -374,7 +374,7 @@ text-align: center;
         <div class="modal-content gen-led" style="height: 95vh;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Sale Report</h4>
+                <h4>Purchase Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/pur-report">
                         @csrf

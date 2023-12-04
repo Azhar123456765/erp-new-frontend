@@ -497,7 +497,7 @@ class SaleInvoiceController extends Controller
         //
     }
 
-    public function r_create(Request $post, $id)
+    public function r_edit(Request $post, $id)
     {
 
         $product = products::limit(1000)->get();
@@ -569,7 +569,7 @@ class SaleInvoiceController extends Controller
             $invoice->account = $invoiceData['account'] ?? null;
             $invoice->cash_method = $invoiceData['cash_method'] ?? null;
 
-            $invoice->pr_item = $invoiceData['item']["$i"] ?? null;
+            $invoice->pr_item = $invoiceData['pr_item']["$i"] ?? null;
 
 
 
@@ -598,15 +598,12 @@ class SaleInvoiceController extends Controller
                 'opening_quantity' => DB::raw("opening_quantity - " . $invoiceData['sale_qty']["$i"])
             ]);
 
-
-
-
             products::where("product_id", $invoiceData['item']["$i"])->update([
                 'opening_quantity' => DB::raw("opening_quantity + " . $invoiceData['return_qty']["$i"])
             ]);
 
 
-            $invoice->return_qty = $invoiceData['return_qty']["$i"] ?? null;
+            $invoice->return_qty =  $invoice->return_qty+$invoiceData['return_qty']["$i"] ?? null;
 
 
             $invoice->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;

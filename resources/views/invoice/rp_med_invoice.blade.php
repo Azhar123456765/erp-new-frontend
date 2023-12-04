@@ -1,4 +1,4 @@
-@extends('master') @section('title','Sale Invoice (RETURN)') @section('content')
+@extends('master')  @section('title','Purchase Invoice (RETURN)')  @section('content')
 
 <head>
 
@@ -126,8 +126,8 @@
         text-align: center;
     }
 
-    .invoice {
-        background-color: #f8f9fa;
+        .invoice {
+ background-color: #f8f9fa;
         border: none;
 
         height: 167.5px;
@@ -156,7 +156,7 @@
     }
 
     .invoice input {
-        width: 120px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
@@ -201,7 +201,7 @@
         border: 1px solid none;
         display: flex;
         justify-content: space-evenly;
-        margin-left: 44px;
+        margin-left: 9px;
     }
 
     .label label {
@@ -259,28 +259,29 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -85px; padding-top: 5px; overflow-x: visible;">
+<div class="container" style="margin-top: -85px; padding-top: 5px; overflow-x: visible;" onchange="addInvoice(); addInvoice2(` + counter + `);">
     <form id="form">
-        <h3 style="text-align: center;">Sale Invoice  (RETURN)</h3>
+        <h3 style="text-align: center;">Purchase Invoice &nbsp; RETURN</h3>
 
         <h5 style="text-align: right;">Medician</h5>
         @foreach ($single_invoice as $sinvoice_row)
-
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <label for="Invoice">Invoice#</label>
-                    <input style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="{{$sinvoice_row->unique_id}}" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" style="border: none !important;" readonly type="date" id="date" name="date" value="<?php
+                                                                                                                                                                                    $currentDate = date('Y-m-d');
+                                                                                                                                                                                    echo $currentDate;
+                                                                                                                                                                                    ?>" />
                 </div>
                 <div class="one">
-                    <label for="book">Book#</label>
-                    <input type="text" id="book" name="book" value="{{$sinvoice_row->book}}" />
+                    <label for="Invoice">GR#</label>
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="{{$sinvoice_row->unique_id}}" />
                 </div>
                 <div class="one">
-                    <label for="transporter">Transporter</label>
-                    <input type="text" id="transporter" name="transporter" value="{{$sinvoice_row->transporter}}" />
+                    <label for="Invoice">Invoice No</label>
+                    <input onkeydown="handleKeyPress(event)" type="text" id="invoice#" name="invoice_no" value="{{$sinvoice_row->invoice_no}}" />
+                </div>
 
-                </div>
                 <div class="one  avail_stock" style="display: none">
                     <label for="transporter">Available Stock</label>
                 </div>
@@ -289,58 +290,52 @@
             <div class="fields">
                 <div class="one">
                     <label for="date">Date</label>
-                    <input type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
                     <input type="hidden" id="created_at" name="created_at" value="{{$sinvoice_row->created_at}}" />
-
+                    <input onkeydown="handleKeyPress(event)" style="width: 219px !important; border: none !important;" type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
                 </div>
-                <div class="one">
-                    <label for="due_date">Due Date</label>
-                    <input type="date" id="due_date" name="due_date" value="{{$sinvoice_row->due_date}}" />
-                </div>
-                <div class="one">
-                    <label for="bilty_no">Bilty No.</label>
-                    <input type="text" id="bilty_no" name="bilty_no" value="{{$sinvoice_row->bilty_no}}" />
-                </div>
-            </div>
-
-            <div class="fields">
-                <div class="one  remark">
-                    <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company" onchange="seller123()">
-                        <option></option>
-                        @foreach ($seller as $row)
-                        <option value="{{ $row->buyer_id }}" {{ $row->buyer_id == $sinvoice_row->company ? 'selected' : '' }} data-debit="{{ $row->debit }}">{{ $row->company_name }}
-                        </option>
-                        @endforeach
-                    </select>
-                    <input type="hidden" id="get_previous_balance" value="{{$sinvoice_row->company}}">
-                </div>
-
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" data-live-search="true">
                         <option></option>
                         @foreach ($sales_officer as $row)
                         <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == $sinvoice_row->sales_officer ? 'selected' : '' }}>{{ $row->sales_officer_name }}
+                            @endforeach
+                    </select>
+                </div>
+                <div class="one">
+                    <label for="bilty_no">Bilty No.</label>
+                    <input onkeydown="handleKeyPress(event)" style="width: 219px !important;" type="text" id="bilty_no" name="bilty_no" value="{{$sinvoice_row->bilty_no}}" />
+                </div>
+            </div>
+
+            <div class="fields">
+                <div class="one  remark">
+                    <label for="seller">Company</label>
+                    <select id="seller" class="company" onchange="seller123()" name="company">
+                        <option></option>
+                        @foreach ($seller as $row)
+                        <option value="{{ $row->seller_id }}" {{ $row->seller_id == $sinvoice_row->company ? 'selected' : '' }} data-debit="{{ $row->debit }}">{{ $row->company_name }}
                         </option>
                         @endforeach
+
                     </select>
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="hidden" id="company" name="company" value="{{$sinvoice_row->company}}" />
+
                 </div>
 
                 <div class="one  remark">
                     <label for="warehouse">WRH</label>
-                    <select style="    width: 219px !important;" name="warehouse" id="warehouse">
+                    <select name="warehouse" id="warehouse" required>
                         <option></option>
                         @foreach ($warehouse as $row)
                         <option value="{{ $row->warehouse_id }}" {{ $row->warehouse_id == $sinvoice_row->warehouse ? 'selected' : '' }}>{{ $row->warehouse_name }}
-                        </option>
-                        @endforeach
+
+                            @endforeach
                     </select>
                 </div>
-
-                <div class="one">
+                <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="    width: 219px !important;" type="text" id="remark" name="remark" value="{{$sinvoice_row->remark}}" />
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark" name="remark" value="{{$sinvoice_row->remark}}" />
                 </div>
             </div>
         </div>
@@ -355,11 +350,10 @@
                 <label for="unit">Unit</label>
                 <label for="batch_no">Batch No</label>
                 <label for="expiry">Expire Date</label>
-                <label for="price">Sale Price</label>
+                <label for="price">Purchase Price</label>
+                <label for="pur_qty">Pur Qty</label>
 
-                <label for="pur_qty">Sale Qty</label>
                 <label for="pur_qty">Return Qty</label>
-                <label for="pur_qty">Bonus Qty</label>
 
                 <label for="dis">Dis(%)</label>
                 <label for="dis">Dis Amount</label>
@@ -374,23 +368,23 @@
             @php
             $counter = 1;
             @endphp
-            @foreach ($sell_invoice as $invoice_row)
+            @foreach ($purchase_invoice as $invoice_row)
 
-            @php
-            $rand = $invoice_row->unique_id;
-            @endphp
+            <?php
+            $rand = $invoice_row->unique_id
+            ?>
 
-            <div class="dup_invoice" onchange="addInvoice(1)">
+            <div class="dup_invoice">
 
                 <div class="div  items">
-                    <select name="" id="<?php echo $counter; ?>item" style="height: 28px" onchange="addInvoice(<?php echo $counter; ?>)" required disabled>
+                    <select  disabled id="<?php echo $counter; ?>item" style="height: 28px" onchange="addInvoice(<?php echo $counter; ?>)" required readonly>
                         <option></option>
                         @foreach ($product as $row)
-                        <option  data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}" value="{{ $row->product_id }}" {{ $row->product_id == $invoice_row->item ? 'selected' : '' }} >{{ $row->product_name }}</option>
+                        <option data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}" value="{{ $row->product_id }}" {{ $row->product_id == $invoice_row->item ? 'selected' : '' }}>{{ $row->product_name }}</option>
                         @endforeach
                     </select>
                     <input onkeydown="handleKeyPress(event)" style="display: none " value="{{$invoice_row->pr_item}}" id="pr_item" name="pr_item[]" />
-                    <input onkeydown="handleKeyPress(event)" style="display: none " value="{{$invoice_row->item}}" id="item" name="item[]" />
+                    <input onkeydown="handleKeyPress(event)" style="display: none " value="{{$invoice_row->item}}" id="pr_item" name="item[]" />
 
                 </div>
 
@@ -412,19 +406,15 @@
 
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>sale_price" type="number" min="0.00" style="text-align:right !important;" step='any' id="sale_price" value="{{$invoice_row->sale_price}}" name="sale_price[]" required onchange="count();  total_amount();" />
+                    <input class="<?php echo $counter; ?>pur_price" type="number" min="0.00" style="text-align:right !important;" step='any' id="pur_price" value="{{$invoice_row->pur_price}}" name="pur_price[]" required onchange="count();  total_amount();" />
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>sale_qty" type="number" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->sale_qty}}" id="sale_qty" name="sale_qty[]" onchange='qty(); per_unit();' />
+                    <input class="<?php echo $counter; ?>pur_qty" type="number" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->pur_qty}}" id="pur_qty" name="pur_qty[]" onchange='qty(); per_unit();' />
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>return_qty" type="number" min="0.00" style="text-align:right !important;" step='any' id="return_qty" name="return_qty[]" value="0.00"/>
-                </div>
-
-                <div class="div">
-                    <input class="<?php echo $counter; ?>bonus_qty" type="number" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->bonus_qty}}" id="bonus_qty" name="bonus_qty[]" />
+                    <input class="<?php echo $counter; ?>return_qty" type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00"  id="return_qty" name="return_qty[]" />
                 </div>
 
                 <div class="div">
@@ -450,11 +440,12 @@
             $counter++;
             @endphp
             @endforeach
-
-            <div class="dup_invoice" onchange="addInvoice2(1)">
+          
+            <div class="dup_invoice">
 
                 <div class="div  items">
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2(1)" class='clone_item1' disabled>
+                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2(1)" class='clone_item1'>
+                        <option></option>
                         <option></option>
                         @foreach ($product as $row)
                         <option value="{{ $row->product_id }}" data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}">{{ $row->product_name }}</option>
@@ -481,22 +472,15 @@
 
 
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="sale_price1" name="sale_price[]" required onchange='count2();  total_amount();' />
+                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price1" name="pur_price[]" required onchange='count2();  total_amount();' />
                 </div>
 
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="sale_qty1" name="sale_qty[]" onchange='qty(); per_unit2();' />
+                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty1" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
-
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' id="return_qty1" name="return_qty[]"  />
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
-
-
-                <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="bonus_qty" name="bonus_qty[]" />
-                </div>
-
                 <div class="div">
                     <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per1" name="dis_per[]" onchange='discount2();  total_amount();' />
                 </div>
@@ -511,7 +495,6 @@
                     <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount1" name="amount[]" />
                 </div>
             </div>
-
         </div>
 
 
@@ -561,59 +544,46 @@
         ">
                     <label for="exp_unit">Total</label>
                     <input type="number" step="any" id="qty_total" name="qty_total" style="
-                        margin-left: 30%;
+                        margin-left: 44%;
         " readonly="" value="{{$sinvoice_row->qty_total}}">
-
                     <input type="number" step="any" id="dis_total" name="dis_total" style="
-            margin-left: 60.2%;
-        " value="{{$sinvoice_row->dis_total}}">
-
+            margin-left: 30.2%;
+        " readonly="" value="{{$sinvoice_row->dis_total}}">
                     <input type="number" step="any" id="amount_total" name="amount_total" style="
-            margin-left: 30%;
-        " readonly="" value="{{$sinvoice_row->amount_total}}">
+                margin-left: 30%;
+            " readonly="" value="{{$sinvoice_row->amount_total}}">
 
 
                 </div>
+                <input type="hidden" value="{{$sinvoice_row->previous_balance}}" name="previous_balance">
 
                 <br>
                 <div class="one">
-                    <label for="item">Previous balance</label>
-                    <input type="hidden" value="{{$sinvoice_row->previous_balance_amount ?? 0}}" name="previous_balance_amount">
-
-
-                </div>
-
-
-
-
-
-                <div class="one">
-                    <label for="item">Cartage</label>
-
-                </div>
-
-
-                <div class="one">
-                    <label for="item">Grand Total</label>
-
-                </div>
-
-                <div class="one" style="    width: 115%;">
-                    <label for="item">Amount Paid</label>
-                    <div class="cash" style="margin-left: 24%;">
-                        <select class="cash" style="    margin-left: 14% !important;" name="cash_method" style="height: 28px">
+                    <label for="item">freight</label>
+                    <div class="cash">
+                        <select class="cash" name="freighta" style="height: 28px">
                             <option></option>
-                            <option {{ "Cash Recieve" == $sinvoice_row->cash_method ? 'selected' : '' }}>Cash Recieve</option>
-                            <option {{ "Online Recieve" == $sinvoice_row->cash_method ? 'selected' : '' }}>Online Recieve</option>
-                            <option {{ "Cheque Recieve<" == $sinvoice_row->cash_method ? 'selected' : '' }}>Cheque Recieve</option>
+
+                            @foreach ($account as $row)
+                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->freighta ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            @endforeach
+
                         </select>
                     </div>
-                    <div class="cash">
+                </div>
 
-                        <select name="account" style="height: 28px">
+
+
+
+
+                <div class="one">
+                    <label for="item">Sales Tax</label>
+                    <div class="cash">
+                        <select class="cash" name="sales_taxa" style="height: 28px">
                             <option></option>
+
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->account ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->sales_taxa ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
@@ -622,14 +592,48 @@
 
 
                 <div class="one">
-                    <label for="item">Balance Amount</label>
+                    <label for="item">Ad.Sales Tax</label>
+                    <div class="cash">
+                        <select class="cash" name="ad_sales_taxa" style="height: 28px">
+                            <option></option>
 
+                            @foreach ($account as $row)
+                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->ad_sales_taxa ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+                </div>
+
+                <div class="one  Amount">
+                    <label for="item">Bank</label>
+
+                    <div class="cash">
+                        <select class="cash" name="banka" style="height: 28px">
+                            <option></option>
+
+                            @foreach ($account as $row)
+                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->banka ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
                 </div>
 
 
+                <div class="one">
+                    <label for="item">other expense</label>
+                    <div class="cash">
+                        <select class="cash" name="other_expensea" style="height: 28px">
+                            <option></option>
 
+                            @foreach ($account as $row)
+                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->other_expensea ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            @endforeach
 
-
+                        </select>
+                    </div>
+                </div>
 
 
 
@@ -637,16 +641,17 @@
 
                 <div class="last">
 
-                    <div class="one" style="            flex-direction: column;
-        position: fixed;
-        bottom: 0.2% !important;
-        right: 1.5%;
-    ">
-                        <input type="number" min="0.00" style="text-align:right !important;" step='any' name="previous_balance" value="{{$row->previous_balance}}" id="debit" readonly>
-                        <input type="number" min="0.00" style="text-align:right !important;" step='any' name="cartage" onchange="cartage1()" value="{{$row->cartage}}" id="cartage">
-                        <input type="number" min="0.00" style="text-align:right !important;" step='any' name="grand_total" value="{{$row->grand_total}}" id="grand_total" readonly>
-                        <input type="number" min="0.00" style="text-align:right !important;" step='any' name="amount_paid" value="{{$row->amount_paid}}" id="credit">
-                        <input type="number" min="0.00" style="text-align:right !important;" step='any' name="balance_amount" value="{{$row->balance_amount}}" id="balance_amount" readonly>
+
+                    <div class="one" onclick="total_amount()" style="            flex-direction: column;
+position: fixed;
+bottom: 0.2% !important;
+right: 2%;
+">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="freight" value="{{$row->freight}}" id="freight">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="0.1" name="sales_tax" value="{{$row->sales_tax}}" id="sales_tax">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="ad_sales_tax" value="{{$row->ad_sales_tax}}" id="ad_sales_tax">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="bank" value="{{$row->bank}}" id="bank">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="other_expense" value="{{$row->other_expense}}" id="other_expense">
 
                     </div>
 
@@ -686,13 +691,13 @@ display: flex;
         Update
     </button>
     <br>
-
+    
 <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
         var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
 var firstPart = parts.slice(0, -1).join('-');
 var lastPart = parts[parts.length - 1];
-var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+var newUrl = '/ep_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
 window.location.href = newUrl">
     Previous
 </button>
@@ -702,23 +707,24 @@ window.location.href = newUrl">
 var parts = str.split('-');
 var firstPart = parts.slice(0, -1).join('-');
 var lastPart = parts[parts.length - 1];
-var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+var newUrl = '/ep_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
 window.location.href = newUrl
 ">
     Next
 </button>
-    <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
     
     window.location.reload()
     ">
         Revert
     </button>
 
-    <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
+
+    <a href="/purchase_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; ">
         PDF
     </a>
 
-    <a href="/s_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
+    <a href="/p_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
         Add More
     </a>
 
@@ -775,55 +781,52 @@ window.location.href = newUrl
         // count();
         // count2();
         per_unit();
-        // discount2();
-        // discount();
+
         qty();
-        r_qty();
         per_unit2();
         total_amount();
     })
 
 
 
-
-
-
-
     function per_unit() {
         $(document).ready(function() {
+            let count = <?php echo $counter; ?> - 1
 
 
-
-            // for (let i = 1; i <= count; i++) {
-
-
-            //     let amount = $("." + i + "sale_qty").val();
-
-            //     let sale = $("." + i + "sale_price").val();
-
-            //     $("." + i + "exp_unit").val(sale / amount);
+            for (let i = 1; i <= count; i++) {
 
 
-            // }
-            count();
-            count2();
+                let amount = $("." + i + "pur_qty").val();
+
+                let sale = $("." + i + "pur_price").val();
+
+                $("." + i + "exp_unit").val(sale / amount);
+
+
+            }
         })
     }
 
 
     function per_unit2() {
-        // for (let i = 1; i <= countera; i++) {
+        for (let i = 1; i <= countera; i++) {
 
-        //     let amount = $("#sale_qty" + i).val();
+            let amount = $("#pur_qty" + i).val();
 
-        //     let sale = $("#sale_price" + i).val();
+            let sale = $("#pur_price" + i).val();
 
-        //     $("#exp_unit-notWorking" + i).val(sale / amount);
-        // }
+            $("#exp_unit-notWorking" + i).val(sale / amount);
+        }
+
         count();
         count2();
-
     }
+
+
+
+
+
 
     function seller123() {
 
@@ -831,24 +834,15 @@ window.location.href = newUrl
 
             var selectedOption = $("#seller").find('option:selected');
             var debit = $('#debit');
-            var company = $('#get_previous_balance').val();
-            var id = selectedOption.val()
-            $.ajax({
-                url: '/get-previous-balance', // Replace with your Laravel route or endpoint
-                method: 'GET',
-                dataType: 'json',   
-                data: {
-                    'id': id,// Replace with the appropriate data you want to send
-                },
-                success: function(data) {
-                    if (data >= 0) {
-                    debit.val(data)
-                }                },
-                error: function(error) {
-                    // Handle the error here, if necessary
-                    console.error('Error:', error);
-                },
-            });
+            var credit = $('#credit');
+
+            debit.val(selectedOption.data('debit')); // Set the value of the unit input field to the data-unit value of the selected option
+            // Set the value of the unit input field to the data-unit value of the selected option
+
+
+
+
+
             count();
             count2();
             per_unit();
@@ -866,15 +860,15 @@ window.location.href = newUrl
     var countera = 1
 
 
-    function addInvoice(one) {
+    function addInvoice() {
         for (let i = 1; i <= counter; i++) {
 
 
             var clonedFields = `
-        <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
+        <div class="dup_invoice">
 
         <div class="div  items">
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2(` + counter + `)"  disabled class='clone_item` + counter + `'>
+                    <select  disabled id="item" style="height: 28px" onchange="addInvoice2(` + counter + `)"  class='clone_item` + counter + `'>
                     <option></option>
                     <option></option>
                         @foreach ($product as $row)
@@ -902,15 +896,11 @@ window.location.href = newUrl
                 
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="sale_price` + counter + `" name="sale_price[]" required onchange='count2();  total_amount();'/>
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price` + counter + `" name="pur_price[]" required onchange='count2();  total_amount();'/>
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="sale_qty` + counter + `" name="sale_qty[]" onchange='qty(); per_unit2();' />
-                </div>
-
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="bonus_qty" name="bonus_qty[]" />
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
 
                 <div class="div">
@@ -932,168 +922,17 @@ window.location.href = newUrl
 
 
         }
-        var one = one
-
-        $(document).ready(function() {
-            // Initialize Select2 for the desired select elements
-            $('select').select2({
-                theme: 'classic',
-                width: 'resolve',
-            });
-
-            let count = <?php echo $counter; ?> - 1
-            for (let i = 1; i <= count; i++) {
-
-                var selectedOption = $("#" + i + "item").find('option:selected');
-                var unitInput = $("." + i + "unit");
-                unitInput.val(selectedOption.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+        let count = <?php echo $counter; ?> - 1
+        let amount = $("#amount" + count).val()
+        let narration = $("#pur_price" + count).val()
+        if (!$("#amount" + count).hasClass('check')) {
 
 
-                var pInput = $("." + i + "pur_price");
-                pInput.val(selectedOption.data('pur_price'));
+            if (amount > 0 && narration > 0) {
 
+                $("#amount" + count).addClass("check")
+                console.log(counter + "first");
 
-
-                $('#p-img').css("display", "block")
-                var imgInput = $('#p-img');
-                var imgSrc1 = selectedOption.data('img');
-
-                console.log(imgSrc1);
-                imgInput.attr('src', imgSrc1);
-
-                $(".p-img").attr('href', imgSrc1)
-                // Initialize other select elements if necessary
-
-            }
-
-            var stInput = $('#avail_stock');
-            var select = $("." + one + "item").find('option:selected');
-
-            let s = select.data('stock');
-            let t = select.data('name');
-            var st_val2 = '  ' + t + ',  ' + s;
-            if (st_val2 != null) {
-
-                console.log(st_val2);
-                stInput.val(st_val2);
-            }
-
-
-
-
-
-            for (let index = 1; index <= countera; index++) {
-                var selectedOption2 = $(".clone_item" + index).find('option:selected');
-
-
-                var unitInput = $('#unit' + index);
-                unitInput.val(selectedOption2.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
-
-                var st_val2 = selectedOption2.data('stock');
-                if (st_val2 != null) {
-
-                    console.log(st_val2);
-                    stInput.val(st_val2);
-                }
-
-                var pInput = $('#pur_price' + index);
-                pInput.val(selectedOption2.data('pur_price')); // Set the value of the unit input field to the data-unit value of the selected option
-
-
-                imgSrc = selectedOption2.data('img');
-                imgInput.attr('src', imgSrc);
-                $(".p-img").attr('href', imgSrc)
-
-
-            }
-
-            $('.avail_stock').css("display", "none")
-
-        });
-
-    }
-
-
-    function addInvoice2() {
-        for (let i = 1; i <= counter; i++) {
-
-
-            var clonedFields = `
-        <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
-
-        <div class="div  items">
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2(` + counter + `)" disabled  class='clone_item` + counter + `'>
-                    <option></option>
-                    <option></option>
-                        @foreach ($product as $row)
-                        <option value="{{ $row->product_id }}" data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}"  >{{ $row->product_name }}</option>
-                        @endforeach
-                        </select>
-                        <input onkeydown="handleKeyPress(event)" style="display: none "  value="0" id="pr_item" name="pr_item[]" />
-
-                        </div>
-
-                <div class="div">
-                <input   type="text"style="text-align:center !important;" readonly   id="unit` + counter + `" name="unit[]" />
-                <input onkeydown="handleKeyPress(event)" style="display: none "  value="0.00" id="previous_stock` + counter + `" name="previous_stock[]" />
-                <input onkeydown="handleKeyPress(event)" style="display: none "  value="0.00"   id="avail_stock2` + counter + `" name="avail_stock[]" />
-                </div>
-
-                <div class="div">
-                <input   type="text" id="batch_no" name="batch_no[]" />
-                </div>
-
-                <div class="div">
-                    <input   type="date" id="expiry" name="expiry[]" />
-                </div>
-
-                
-
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="sale_price` + counter + `" name="sale_price[]" required onchange='count2();  total_amount();'/>
-                </div>
-
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="sale_qty` + counter + `" name="sale_qty[]" onchange='qty(); per_unit2();' />
-                </div>
-
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="bonus_qty" name="bonus_qty[]" />
-                </div>
-
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
-                </div>
-                <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount` + counter + `" name="dis_amount[]" onchange='discount();  total_amount();' />
-                </div>
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
-                </div>
-
-                <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
-                </div>
-    </div>
-
-  `;
-
-
-        }
-
-        counter = counter - 1
-        let amount2 = $("#amount" + counter).val()
-        console.log('counter' + counter);
-        let narration2 = $("#sale_price" + counter).val()
-        if (!$("#amount" + counter).hasClass('check')) {
-
-
-            if (narration2 > 0) {
-
-                $("#amount" + countera).addClass("check")
-
-                console.log(counter);
-                console.log(countera);
 
                 counter++
                 countera++
@@ -1103,14 +942,14 @@ window.location.href = newUrl
 
             }
         }
-        counter = counter + 1
+
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $('select').select2({
-                theme: 'classic',
-                width: 'resolve',
-            });
+             $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
 
             let count = <?php echo $counter; ?> - 1
             for (let i = 1; i <= count; i++) {
@@ -1120,8 +959,7 @@ window.location.href = newUrl
                 unitInput.val(selectedOption.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
 
-                var pInput = $("." + i + "pur_price");
-                pInput.val(selectedOption.data('pur_price'));
+
 
 
                 $('.avail_stock').css("display", "block")
@@ -1154,9 +992,14 @@ window.location.href = newUrl
                 var unitInput = $('#unit' + index);
                 unitInput.val(selectedOption2.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
+                var st_val2 = selectedOption2.data('stock');
+                if (st_val2 != null) {
 
-                var pInput = $('#pur_price' + index);
-                pInput.val(selectedOption2.data('pur_price')); // Set the value of the unit input field to the data-unit value of the selected option
+                    console.log(st_val2);
+                    stInput.val(st_val2);
+                }
+
+
 
 
                 imgSrc = selectedOption2.data('img');
@@ -1165,18 +1008,181 @@ window.location.href = newUrl
 
 
             }
-
-
-            var st_val2 = selectedOption2.data('stock');
-            if (st_val2 != null) {
-
-                console.log(st_val2);
-                stInput.val(st_val2);
-            }
-            $('.avail_stock').css("display", "none")
         });
 
     }
+
+
+
+
+
+
+
+
+    function addInvoice2() {
+        for (let i = 1; i <= counter; i++) {
+
+
+            var clonedFields = `
+        <div class="dup_invoice">
+
+        <div class="div  items">
+                    <select  disabled id="item" style="height: 28px" onchange="addInvoice2(` + counter + `)"  class='clone_item` + counter + `'>
+                    <option></option>
+                    <option></option>
+                        @foreach ($product as $row)
+                        <option value="{{ $row->product_id }}" data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}"  >{{ $row->product_name }}</option>
+                        @endforeach
+                        </select>
+                        <input onkeydown="handleKeyPress(event)" style="display: none "  value="0" id="pr_item" name="pr_item[]" />
+
+                        </div>
+
+                <div class="div">
+                <input   type="text"style="text-align:center !important;" readonly   id="unit` + counter + `" name="unit[]" />
+                <input onkeydown="handleKeyPress(event)" style="display: none "  value="0.00" id="previous_stock` + counter + `" name="previous_stock[]" />
+                <input onkeydown="handleKeyPress(event)" style="display: none "  value="0.00"   id="avail_stock2` + counter + `" name="avail_stock[]" />
+                </div>
+
+                <div class="div">
+                <input   type="text" id="batch_no" name="batch_no[]" />
+                </div>
+
+                <div class="div">
+                    <input   type="date" id="expiry" name="expiry[]" />
+                </div>
+
+                
+
+                <div class="div">
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price` + counter + `" name="pur_price[]" required onchange='count2();  total_amount();'/>
+                </div>
+
+                <div class="div">
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
+                </div>
+
+                <div class="div">
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
+                </div>
+                <div class="div">
+                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount` + counter + `" name="dis_amount[]" onchange='discount();  total_amount();' />
+                </div>
+                <div class="div">
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
+                </div>
+
+                <div class="div">
+                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
+                </div>
+    </div>
+
+  `;
+
+
+        }
+
+        counter = counter - 1
+        let amount2 = $("#amount" + counter).val()
+        console.log('counter' + counter);
+        let narration2 = $("#pur_price" + counter).val()
+        if (!$("#amount" + counter).hasClass('check')) {
+
+
+            if (narration2 > 0) {
+
+                $("#amount" + countera).addClass("check")
+
+                console.log(counter);
+                console.log(countera);
+
+                counter++
+                countera++
+
+
+                $(".invoice").append(clonedFields);
+
+            }
+        }
+        counter = counter + 1
+
+
+        $(document).ready(function() {
+            // Initialize Select2 for the desired select elements
+             $('select').select2({
+            theme: 'classic',
+            width: 'resolve',
+        });
+
+            let count = <?php echo $counter; ?> - 1
+            for (let i = 1; i <= count; i++) {
+
+                var selectedOption = $("#" + i + "item").find('option:selected');
+                var unitInput = $("." + i + "unit");
+                unitInput.val(selectedOption.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+
+
+
+
+
+                $('.avail_stock').css("display", "block")
+                var stInput = $('#avail_stock');
+                var st_val = selectedOption.data('stock');
+                stInput.val(st_val);
+
+
+                $('#p-img').css("display", "block")
+                var imgInput = $('#p-img');
+                var imgSrc1 = selectedOption.data('img');
+
+                console.log(imgSrc1);
+                imgInput.attr('src', imgSrc1);
+
+                $(".p-img").attr('href', imgSrc1)
+                // Initialize other select elements if necessary
+
+            }
+
+
+
+
+
+
+            for (let index = 1; index <= countera; index++) {
+                var selectedOption2 = $(".clone_item" + index).find('option:selected');
+
+
+                var unitInput = $('#unit' + index);
+                unitInput.val(selectedOption2.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+
+                var st_val2 = selectedOption2.data('stock');
+                if (st_val2 != null) {
+
+                    console.log(st_val2);
+                    stInput.val(st_val2);
+                }
+
+
+
+
+                imgSrc = selectedOption2.data('img');
+                imgInput.attr('src', imgSrc);
+                $(".p-img").attr('href', imgSrc)
+
+
+            }
+        });
+
+    }
+
+
+
+
+
+
+
+
+
 
 
     function count() {
@@ -1186,16 +1192,17 @@ window.location.href = newUrl
 
             for (let i = 1; i <= count; i++) {
 
-                let amount = $("." + i + "sale_price").val();
-                let qty = $("." + i + "sale_qty").val() - $("." + i + "return_qty").val();
+                let amount = $("." + i + "pur_price").val();
+                let qty = $("." + i + "pur_qty").val() - $("." + i + "return_qty").val();
 
 
                 $("." + i + "amount").val(parseFloat(amount * qty));
 
             }
+
+            total_amount();
             discount();
             discount2();
-            total_amount();
         })
 
     }
@@ -1205,16 +1212,15 @@ window.location.href = newUrl
         for (let i = 1; i <= countera; i++) {
 
 
-            let amount = parseFloat($("#sale_price" + i).val() * $("#sale_qty" + i).val());
-            let qty = $("#sale_qty" + i).val()
+            let amount = parseFloat($("#pur_price" + i).val() * $("#pur_qty" + i).val());
+            let qty = $("#pur_qty" + i).val()
 
-            $("#amount" + i).val(parseFloat(amount * $("#sale_qty" + i).val()));
+            $("#amount" + i).val(parseFloat(amount * $("#pur_qty" + i).val()));
 
         }
         discount();
         discount2();
     }
-
 
 
 
@@ -1227,9 +1233,9 @@ window.location.href = newUrl
 
             for (let i = 1; i <= count; i++) {
                 let amount1 = parseInt($("." + i + "dis_per").val());
-                let amount2 = parseInt($("." + i + "sale_price").val());
+                let amount2 = parseInt($("." + i + "pur_price").val());
 
-                let qty = parseFloat($("." + i + "sale_qty").val()) - $("." + i + "return_qty").val()
+                let qty = parseFloat($("." + i + "pur_qty").val()) - $("." + i + "return_qty").val();
 
                 amount2 = amount2 * qty
 
@@ -1248,12 +1254,12 @@ window.location.href = newUrl
             //     let amount1 = parseInt($("." + i + "dis_amount").val());
             //     atotal += amount1;
             // }
-
             // for (let i = 1; i <= countera; i++) {
             //     let amount1 = parseInt($("#dis_amount" + i).val());
             //     atotal += amount1;
             // }
             // console.log('test2' + atotal);
+
             // $("#dis_total").val(atotal);
 
             total_amount();
@@ -1272,33 +1278,31 @@ window.location.href = newUrl
 
 
             let amount1 = parseFloat($("#dis_per" + i).val());
-            let amount2 = parseFloat($("#sale_price" + i).val());
+            let amount2 = parseFloat($("#pur_price" + i).val());
 
             let discountPercentage = amount1;
             let amount = amount2 - (amount2 * discountPercentage / 100);
 
             let total = amount2 - amount
-            $("#dis_amount" + i).val($("#sale_qty" + i).val() * (amount2 - amount));
-            $("#amount" + i).val(amount * $("#sale_qty" + i).val());
+            $("#dis_amount" + i).val($("#pur_qty" + i).val() * (amount2 - amount));
+            $("#amount" + i).val(amount * $("#pur_qty" + i).val());
 
             console.log(amount2 - amount + '   ' + i);
 
         }
+
         // var total = 0;
 
         // for (let i = 1; i <= count; i++) {
         //     let amount1 = parseInt($("." + i + "dis_amount").val());
         //     total += amount1;
         // }
-
         // for (let i = 1; i <= countera; i++) {
         //     let amount1 = parseInt($("#dis_amount" + i).val());
         //     total += amount1;
         // }
-        // console.log('dis' + total);
-        // $("#dis_total").val(total)
-        // let t = $("#dis_total").val()
-        // console.log('test' + t);
+
+        // $("#dis_total").val(total);
         total_amount();
 
 
@@ -1317,26 +1321,32 @@ window.location.href = newUrl
 
         for (let i = 1; i <= count; i++) {
             let amount1 = parseFloat($("." + i + "amount").val());
-            console.log(amount1);
             atotal += amount1; // Add amount1 to atotal in each iteration.
         }
 
         for (let i = 1; i <= countera; i++) {
-            let amount2 = parseFloat($("#amount" + i).val());
-            atotal += amount2; // Add amount1 to atotal in each iteration.
+            let amount1 = parseFloat($("#amount" + i).val());
+            atotal += amount1; // Add amount1 to atotal in each iteration.
         }
 
-        $("#amount_total").val(atotal);
+        let fInput = $("#freight").val();
+        let sInput = $("#sales_tax").val();
+        let aInput = $("#ad_sales_tax").val();
+        let bInput = $("#bank").val();
+        let oInput = $("#other_expense").val();
 
-        let p = parseFloat($("#debit").val())
-        let c = parseFloat($("#cartage").val())
-        $("#grand_total").val(p + atotal + c);
+        let f = $.isNumeric(fInput) ? parseFloat(fInput) : 0;
+        let s = $.isNumeric(sInput) ? parseFloat(sInput) : 0;
+        let b = $.isNumeric(bInput) ? parseFloat(bInput) : 0;
+        let o = $.isNumeric(oInput) ? parseFloat(oInput) : 0;
 
-        let g = $("#grand_total").val()
+        let percent = $.isNumeric(aInput) ? (parseFloat(aInput)) : 0; // Calculate the percentage of 'a'
+        let total = f + b + o;
 
-        let credit = parseFloat($("#credit").val())
-        $("#balance_amount").val(parseFloat(g - credit));
+        percent += s
 
+        let grand = atotal + total
+        $("#amount_total").val(parseFloat(grand + (grand * percent / 100))); // Calculate the total and set it to 2 decimal places
 
 
         var totalb = 0;
@@ -1362,6 +1372,8 @@ window.location.href = newUrl
 
 
 
+
+
     function cartage1() {
         $(document).ready(function() {
 
@@ -1376,9 +1388,9 @@ window.location.href = newUrl
 
             $("#grand_total").val(parseFloat(p + atotal + c));
 
-            // let g = $("#grand_total").val()
+            let g = $("#grand_total").val()
 
-            // $("#balance_amount").val(parseFloat(g - credit));
+            $("#balance_amount").val(parseFloat(g - credit));
 
         })
 
@@ -1394,13 +1406,13 @@ window.location.href = newUrl
             let count = <?php echo $counter; ?> - 1;
             let atotal1 = 0
             for (let i = 1; i <= count; i++) {
-                let amount1 = parseInt($("." + i + "sale_qty").val())  - $("." + i + "return_qty").val() ; 
+                let amount1 = parseInt($("." + i + "pur_qty").val()) - $("." + i + "return_qty").val();
                 atotal1 += amount1;
             }
 
 
             for (let i = 1; i <= countera; i++) {
-                let amount1 = parseInt($("#sale_qty" + i).val());
+                let amount1 = parseInt($("#pur_qty" + i).val());
                 atotal1 += amount1;
             }
 
@@ -1408,16 +1420,6 @@ window.location.href = newUrl
 
         })
     }
-
-    // function r_qty() {
-    //         let count = <?php echo $counter; ?> - 0;
-    //         for (let i = 1; i <= count; i++) {
-    //             var amount1 = parseInt($("." + i + "sale_qty").val());
-    //             var amount2 = parseInt($("." + i + "return_qty").val());
-    //             $("." + i + "sale_qty").val(parseFloat(amount1-amount2));
-    //         }
-
-    // }
 </script>
 <script>
     $("#item option").click(function() {
@@ -1429,7 +1431,7 @@ window.location.href = newUrl
 
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
-        $('select').select2({
+         $('select').select2({
             theme: 'classic',
             width: 'resolve',
         });
@@ -1452,8 +1454,8 @@ window.location.href = newUrl
         count();
         count2();
         per_unit();
-        // discount();
-        // discount2();
+        discount();
+        discount2();
         total_amount();
         qty();
         per_unit2();
@@ -1462,7 +1464,7 @@ window.location.href = newUrl
 
         // Send an AJAX request
         $.ajax({
-            url: "/rs_med_invoice_form_id=<?php foreach ($single_invoice as $key => $row) {
+            url: "/rp_med_invoice_form_id=<?php foreach ($single_invoice as $key => $row) {
                                                 echo $row->unique_id;
                                             } ?>",
 
@@ -1476,6 +1478,8 @@ window.location.href = newUrl
                     title: response,
                     timer: 1900 // Automatically close after 3 seconds
                 });
+
+                
                 $(".submit").css("display", "none")
                 $(".edit").css("display", "block")
 
@@ -1502,35 +1506,37 @@ window.location.href = newUrl
             window.location.href = link.href;
         }
     });
-
-
+    
+    
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
-            $("#si-search").modal('show');
+            $("#pi-search").modal('show');
         }
     });
+
+
 
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
             var str = $('[name=\'unique_id\']').val();
-            var parts = str.split('-');
-            var firstPart = parts.slice(0, -1).join('-');
-            var lastPart = parts[parts.length - 1];
-            var newUrl = '/rs_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-            window.location.href = newUrl;
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/rp_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+    window.location.href = newUrl;
         }
     });
 
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
             var str = $('[name=\'unique_id\']').val();
-            var parts = str.split('-');
-            var firstPart = parts.slice(0, -1).join('-');
-            var lastPart = parts[parts.length - 1];
-            var newUrl = '/rs_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-            window.location.href = newUrl;
+    var parts = str.split('-');
+    var firstPart = parts.slice(0, -1).join('-');
+    var lastPart = parts[parts.length - 1];
+    var newUrl = '/rp_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) -     1);
+    window.location.href = newUrl;
         }
     });
-</script>
+    </script>
 
 @endsection
