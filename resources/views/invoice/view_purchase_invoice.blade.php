@@ -41,6 +41,9 @@
                                     <a href="/ep_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
+                                    <a href="/rp_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                        <i class="fa fa-retweet"></i>
+                                    </a>
                                     <a href="/purchase_invoice_pdf_{{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                                         <i class="fa fa-solid fa-file-pdf"></i>
                                     </a>

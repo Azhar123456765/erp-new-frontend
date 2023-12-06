@@ -122,30 +122,65 @@ foreach ($theme_colors as $key => $value2) {
             </p>
           </a>
           <ul class="nav nav-treeview">
-          <li class="nav-item">
+            <li class="nav-item  {{ request()->is('sale-invoice*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-money-bill"></i>
+                <p>
+                  Sale Invoice
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+              <li class="nav-item">
+                  <a href="/s_med_invoice" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Sale Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/sale-invoice" class="nav-link{{ request()->is('sale-invoice*') ? ' active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manage Sale Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
                   <a href="" data-toggle="modal" data-target="#si-search" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Search Sale Invoice</p>
                   </a>
                 </li>
-            <li class="nav-item">
-              <a href="/sale-invoice" class="nav-link{{ request()->is('sale-invoice*') ? ' active' : '' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Manage Sale Invoice</p>
-              </a>
+              </ul>
             </li>
-            <li class="nav-item">
-                  <a href="" data-toggle="modal" data-target="#pi-search" class="nav-link">
+            <li class="nav-item {{ request()->is('purchase-invoice*') ? 'menu-open' : '' }}">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-exclamation-circle"></i>
+                <p>
+                  Purchase Invoice
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="/p_med_invoice" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
-                    <p>Search Purchase Invoice</p>
+                    <p>Add Pur Invoice</p>
                   </a>
                 </li>
-            <li class="nav-item">
-              <a href="/purchase-invoice" class="nav-link{{ request()->is('purchase-invoice*') ? ' active' : '' }}">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Manage Purchase Invoice</p>
-              </a>
+                <li class="nav-item">
+                  <a href="/purchase-invoice" class="nav-link{{ request()->is('purchase-invoice*') ? ' active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Manage Pur Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#pi-search" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Search Pur Invoice</p>
+                  </a>
+                </li>
+              </ul>
             </li>
+
           </ul>
         </li>
 
@@ -316,7 +351,7 @@ foreach ($theme_colors as $key => $value2) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-              <li class="nav-item">
+                <li class="nav-item">
                   <a href="" data-toggle="modal" data-target="#sale-report" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Sale Report</p>

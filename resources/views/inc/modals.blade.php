@@ -821,19 +821,7 @@ text-align: center;
                         @csrf
                         <div class="row" style="justify-content: space-between;">
 
-                            <div class="col-md">
-                                <!-- <div class="form-group">
-                                    <label>Product</label>
-                                    <select class="form-control " name="product" id="product">
-                                        <option></option>
-                                        @foreach ($product as $row)
-                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
-                                        @endforeach
-
-                                    </select>
-                                </div> -->
-                            </div>
-                            <div class="col-md">
+                            <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Warehouse</label>
                                     <select class="form-control" name="warehouse" id="warehouse">
@@ -841,6 +829,44 @@ text-align: center;
                                         @foreach ($warehouse as $row)
                                         <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
                                         @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Select Product Category</label>
+                                    <select class="form-control " name="product_category">
+                                        <option></option>
+                                        @foreach ($product_category as $row)
+                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Company</label>
+                                    <select class="form-control " name="product_company">
+                                        <option></option>
+                                        @foreach ($product_company as $row)
+                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Product</label>
+                                    <select class="form-control " name="product" id="product">
+                                        <option></option>
+                                        @foreach ($product as $row)
+                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
+                                        @endforeach
+
                                     </select>
                                 </div>
                             </div>
