@@ -95,9 +95,9 @@ $type = session()->get('Data')['type'] ?? null;
             $si = session()->get('Data')['si'];
             foreach ($si as $key => $row2) {
         ?>
-            <tr style="text-align: center; {{$row->product->opening_quantity <= 0 ? 'color: red;' : ''}}">
+            <tr style="text-align: center; {{$row->product->opening_quantity <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: darkgoldenrod;' : ''}}">
                 <td>
-                    <span><?php echo $row->product->product_name; ?></span>
+                    <span><?php echo $row->product->product_name . ' ' . $row->product->category . ' COM ' . $row->product->company ?></span>
                 </td>
                 <td>
                     <span><?php echo $row->product->unit; ?></span>
@@ -115,7 +115,7 @@ $type = session()->get('Data')['type'] ?? null;
                     <span><?php echo $row2->total_r_sale_qty ?></span>
                 </td>
                 <td>
-                    <span><?php echo $row2->product->opening_quantity ?></span>
+                    <span><?php echo $row->product->opening_quantity ?? "(SOMETHING WENT WRONG)" ?></span>
                 </td>
         <?php
         }

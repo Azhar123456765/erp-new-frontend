@@ -101,7 +101,7 @@ $credit = session()->get('Data')['credit'];
         <?php
 
         $sell_invoice = session()->get('Data')['invoice'];
-
+        print_r($sell_invoice);
         if ($sell_invoice != null) {
             # code...
             foreach ($sell_invoice as $row) {
