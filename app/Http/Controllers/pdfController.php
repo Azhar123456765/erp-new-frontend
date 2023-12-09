@@ -1028,7 +1028,7 @@ class pdfController extends Controller
                         }
 
                         $si = $query->groupBy('item')->get();
-                        $pi = $query2->select('item', DB::raw('SUM(pur_qty) as total_pur_qty, SUM(return_qty) as total_r_pur_qty')) groupBy('item')->get();
+                        $pi = $query2->select('item', DB::raw('SUM(pur_qty) as total_pur_qty, SUM(return_qty) as total_r_pur_qty'))->groupBy('item')->get();
 
                         $data = [
                                 'si' => $si,
