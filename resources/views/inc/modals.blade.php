@@ -462,6 +462,16 @@ text-align: center;
                             </div>
                         </div>
 
+                        <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Invoice Wise</option>
+                                       <option value="2">Prodcut Wise</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         <br>
 
                         <div class="row" style="justify-content: space-between;
@@ -591,6 +601,16 @@ text-align: center;
                                 </div>
                             </div>
                         </div>
+
+                        <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Invoice Wise</option>
+                                       <option value="2">Prodcut Wise</option>
+                                    </select>
+                                </div>
+                            </div>
 
                         <br>
 

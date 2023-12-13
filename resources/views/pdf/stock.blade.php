@@ -85,7 +85,7 @@ $type = session()->get('Data')['type'] ?? null;
             <th>Purchase Return</th>
             <th>Sale</th>
             <th>Sale Return</th>
-            <th>Available Qty</th>
+            <th>Avail Qty</th>
         </tr>
     </thead>
     <tbody>
@@ -93,36 +93,39 @@ $type = session()->get('Data')['type'] ?? null;
         $pi = session()->get('Data')['pi'];
         foreach ($pi as $key => $row) {
             $si = session()->get('Data')['si'];
-            foreach ($si as $key => $row2) {
         ?>
-            <tr style="text-align: center; {{$row->product->opening_quantity <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: darkgoldenrod;' : ''}}">
-                <td>
-                    <span><?php echo $row->product->product_name . ' ' . $row->product->category . ' COM ' . $row->product->company ?></span>
-                </td>
-                <td>
-                    <span><?php echo $row->product->unit; ?></span>
-                </td>
-                <td>
-                    <span><?php echo $row->total_pur_qty; ?></span>
-                </td>
-                <td>
-                    <span><?php echo $row->total_r_pur_qty; ?></span>
-                </td>
-                <td>
-                    <span><?php echo $row2->total_sale_qty ?></span>
-                </td>
-                <td>
-                    <span><?php echo $row2->total_r_sale_qty ?></span>
-                </td>
-                <td>
-                    <span><?php echo $row->product->opening_quantity ?? "(SOMETHING WENT WRONG)" ?></span>
-                </td>
-        <?php
+                <tr style="text-align: center; {{$row->product->opening_quantity <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: black;' : ''}}">
+                    <td>
+                        <span><?php echo $row->product->product_name ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $row->product->unit; ?></span>
+                    </td>
+                    <td>
+                        <span><?php $qty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('pur_qty'); echo $qty;?></span>
+                    </td>
+                    <td>
+                        <span><?php $qty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('return_qty'); echo $qty;?></span>
+                    </td>
+                    <td>
+                        <span><?php $qty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty'); echo $qty;?></span>
+                    </td>
+                    <td>
+                        <span><?php $qty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('return_qty'); echo $qty;?></span>
+                    </td>
+                    <td>
+                        <span><?php  
+                            $pqty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('pur_qty');
+                            $sqty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty');
+
+                            echo $pqty-$sqty;
+                        ?></span>
+                    </td>
+            <?php
         }
-    }
-        ?>
-          
-        </tr>
+            ?>
+
+                </tr>
     </tbody>
     <!-- <tfoot style="color: darkblue; text-align:right;">
         <td colspan="4" style="text-align:right; border:none;"><b>Purchase Qty:</b></td>

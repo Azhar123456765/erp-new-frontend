@@ -58,6 +58,7 @@ $endDate = session()->get('Data')['endDate'];
 $total_amount = session()->get('Data')['total_amount'];
 $balance_amount = session()->get('Data')['balance_amount'];
 $credit = session()->get('Data')['credit'];
+$type = session()->get('Data')['type'];
 
 
 // $name = App\Models\accounts::where('account_id',$account)->get();
@@ -84,6 +85,7 @@ $credit = session()->get('Data')['credit'];
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
     <h3 style="text-align: right; "><?php echo date("l"); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
+@if($type == 1)
 
 <table>
     <thead>
@@ -141,6 +143,58 @@ $credit = session()->get('Data')['credit'];
 </table>
 <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase With Tax:&nbsp;&nbsp;</b><span style="color: green;"><b>{{$balance_amount}}</b></span>
 </h3>
+
+@elseif($type == 2)
+
+<table>
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Invoice No</th>
+            <th>Product Name</th>
+            <th>Qty</th>
+            <th>total Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+
+        $sell_invoice = session()->get('Data')['invoice'];
+        print_r($sell_invoice);
+        if ($sell_invoice != null) {
+            # code...
+            foreach ($sell_invoice as $row) {
+        ?>
+                <tr style="text-align: center;">
+                    <td>
+                        <span><?php echo $row->date; ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $row->unique_id; ?></span>
+                    </td>
+                    <td style="text-align: left
+                ;">
+                        <span><?php echo $row->product->product_name; ?></span>
+                    </td>
+                    <td>
+                        <span><?php echo $row->pur_qty; ?></span>
+                    </td>
+                    <td style="text-align:right;">
+                        <span><?php echo $row->amount; ?></span>
+                    </td>
+                </tr>
+        <?php
+            }
+        } else {
+            echo 'No record Found';
+        }
+        ?>
+    </tbody>
+</table>
+<h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase With Tax:&nbsp;&nbsp;</b><span style="color: green;"><b>{{$balance_amount}}</b></span>
+</h3>
+
+@endif
 
 <div class="pdf-time">
     Generated on: <?php echo date('Y-m-d  H:i:s'); ?>

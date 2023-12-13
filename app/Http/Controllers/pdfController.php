@@ -155,65 +155,125 @@ class pdfController extends Controller
         {
 
                 if (!session()->exists('Data')) {
+                        $type = $request['type'];
+                        if ($type == 1) {
+                                $startDate = $request->input('start_date');
+                                $endDate = $request->input('end_date');
 
-                        $startDate = $request->input('start_date');
-                        $endDate = $request->input('end_date');
-
-                        // Retrieve form data
-                        $customer = $request->input('customer');
-                        $salesOfficer = $request->input('sales_officer');
-                        $warehouse = $request->input('warehouse');
-                        $product_category = $request->input('product_category');
-                        $product_company = $request->input('product_company');
-                        $product = $request->input('product');
-                        $product_id = null;
+                                // Retrieve form data
+                                $customer = $request->input('customer');
+                                $salesOfficer = $request->input('sales_officer');
+                                $warehouse = $request->input('warehouse');
+                                $product_category = $request->input('product_category');
+                                $product_company = $request->input('product_company');
+                                $product = $request->input('product');
+                                $product_id = null;
 
 
 
-                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
-                                ->whereIn('sell_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('sell_invoice')
-                                                ->groupBy('unique_id');
-                                });
+                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('sell_invoice.id', function ($subQuery) {
+                                                $subQuery->select(DB::raw('MIN(id)'))
+                                                        ->from('sell_invoice')
+                                                        ->groupBy('unique_id');
+                                        });
 
-                        if ($customer) {
-                                $query->where('company', $customer);
+                                if ($customer) {
+                                        $query->where('company', $customer);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($warehouse) {
+                                        $query->where('warehouse', $warehouse);
+                                }
+
+                                if ($product_category) {
+                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+
+                                if ($product_company) {
+                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+                                if ($product) {
+                                        $query->where('item', $product);
+                                }
+
+                                $ledgerDatasi = $query->get();
+
+                                $data = [
+                                        'invoice' => $ledgerDatasi,
+                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'type' => $type,
+                                ];
+
+                                session()->put('Data', $data);
+                        } elseif ($type == 2) {
+
+                                $startDate = $request->input('start_date');
+                                $endDate = $request->input('end_date');
+
+                                // Retrieve form data
+                                $customer = $request->input('customer');
+                                $salesOfficer = $request->input('sales_officer');
+                                $warehouse = $request->input('warehouse');
+                                $product_category = $request->input('product_category');
+                                $product_company = $request->input('product_company');
+                                $product = $request->input('product');
+                                $product_id = null;
+
+                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
+
+                                if ($customer) {
+                                        $query->where('company', $customer);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($warehouse) {
+                                        $query->where('warehouse', $warehouse);
+                                }
+
+                                if ($product_category) {
+                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+
+                                if ($product_company) {
+                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+                                if ($product) {
+                                        $query->where('item', $product);
+                                }
+
+                                $query->orderBy('created_at'); // Order by date within each group
+
+
+                                $ledgerDatasi = $query->get();
+
+                                $data = [
+                                        'invoice' => $ledgerDatasi,
+                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'type' => $type,
+                                ];
+
+                                session()->put('Data', $data);
                         }
-
-                        if ($salesOfficer) {
-                                $query->where('sales_officer', $salesOfficer);
-                        }
-
-                        if ($warehouse) {
-                                $query->where('warehouse', $warehouse);
-                        }
-
-                        if ($product_category) {
-                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
-                        }
-
-                        if ($product_company) {
-                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
-                        }
-                        if ($product) {
-                                $query->where('item', $product);
-                        }
-
-                        $ledgerDatasi = $query->get();
-
-                        $data = [
-                                'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
-                                'startDate' => $startDate,
-                                'endDate' => $endDate,
-                        ];
-
-                        session()->put('Data', $data);
                 }
 
 
@@ -246,67 +306,129 @@ class pdfController extends Controller
         {
 
                 if (!session()->exists('Data')) {
+                        $type = $request['type'];
+                        if ($type == 1) {
+                                # code...
 
-                        $startDate = $request->input('start_date');
-                        $endDate = $request->input('end_date');
+                                $startDate = $request->input('start_date');
+                                $endDate = $request->input('end_date');
 
-                        // Retrieve form data
-                        $supplier = $request->input('supplier');
-                        $salesOfficer = $request->input('sales_officer');
-                        $warehouse = $request->input('warehouse');
-                        $product_category = $request->input('product_category');
-                        $product_company = $request->input('product_company');
-                        $product = $request->input('product');
-                        $product_id = [];
-
-
+                                // Retrieve form data
+                                $supplier = $request->input('supplier');
+                                $salesOfficer = $request->input('sales_officer');
+                                $warehouse = $request->input('warehouse');
+                                $product_category = $request->input('product_category');
+                                $product_company = $request->input('product_company');
+                                $product = $request->input('product');
+                                $product_id = [];
 
 
-                        $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
-                                ->whereIn('purchase_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('purchase_invoice')
-                                                ->groupBy('unique_id');
-                                });
 
-                        if ($supplier) {
-                                $query->where('company', $supplier);
+
+                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                                        ->whereIn('purchase_invoice.id', function ($subQuery) {
+                                                $subQuery->select(DB::raw('MIN(id)'))
+                                                        ->from('purchase_invoice')
+                                                        ->groupBy('unique_id');
+                                        });
+
+                                if ($supplier) {
+                                        $query->where('company', $supplier);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($warehouse) {
+                                        $query->where('warehouse', $warehouse);
+                                }
+
+                                if ($product_category) {
+                                        //I want to get data where category
+                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+
+                                if ($product_company) {
+                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+                                if ($product) {
+                                        $query->where('item', $product);
+                                }
+
+                                $ledgerDatasi = $query->get();
+
+                                $data = [
+                                        'invoice' => $ledgerDatasi,
+                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'type' => $type,
+                                ];
+
+                                session()->put('Data', $data);
+                        } elseif ($type == 2) {
+                                $startDate = $request->input('start_date');
+                                $endDate = $request->input('end_date');
+
+                                // Retrieve form data
+                                $supplier = $request->input('supplier');
+                                $salesOfficer = $request->input('sales_officer');
+                                $warehouse = $request->input('warehouse');
+                                $product_category = $request->input('product_category');
+                                $product_company = $request->input('product_company');
+                                $product = $request->input('product');
+                                $product_id = [];
+
+
+
+
+                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+
+                                if ($supplier) {
+                                        $query->where('company', $supplier);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($warehouse) {
+                                        $query->where('warehouse', $warehouse);
+                                }
+
+                                if ($product_category) {
+                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+
+                                if ($product_company) {
+                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                        $query->whereIn('item', $productIds);
+                                }
+                                if ($product) {
+                                        $query->where('item', $product);
+                                }
+
+                                $query->orderBy('created_at');
+                                $ledgerDatasi = $query->get();
+
+                                $data = [
+                                        'invoice' => $ledgerDatasi,
+                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'type' => $type,
+                                ];
+
+                                session()->put('Data', $data);
                         }
-
-                        if ($salesOfficer) {
-                                $query->where('sales_officer', $salesOfficer);
-                        }
-
-                        if ($warehouse) {
-                                $query->where('warehouse', $warehouse);
-                        }
-
-                        if ($product_category) {
-                                //I want to get data where category
-                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
-                        }
-
-                        if ($product_company) {
-                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
-                        }
-                        if ($product) {
-                                $query->where('item', $product);
-                        }
-
-                        $ledgerDatasi = $query->get();
-
-                        $data = [
-                                'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
-                                'startDate' => $startDate,
-                                'endDate' => $endDate,
-                        ];
-
-                        session()->put('Data', $data);
                 }
 
 
@@ -983,7 +1105,7 @@ class pdfController extends Controller
                         $product_company = $request->input('product_company');
 
 
-                        $query = $sellInvoices = sell_invoice::select('item', DB::raw('SUM(sale_qty) as total_sale_qty, SUM(return_qty) as total_r_sale_qty, SUM(return_qty) as total_r_sale_qty'))
+                        $query = $sellInvoices = sell_invoice::select('item')
                                 ->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
 
                         if ($product) {
@@ -1007,7 +1129,7 @@ class pdfController extends Controller
 
 
 
-                        $query2 = $purchaseInvoices = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                        $query2 = $purchaseInvoices = purchase_invoice::select('item')->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
 
                         if ($product) {
                                 $purchaseInvoices->where('item', $product);
@@ -1028,7 +1150,7 @@ class pdfController extends Controller
                         }
 
                         $si = $query->groupBy('item')->get();
-                        $pi = $query2->select('item', DB::raw('SUM(pur_qty) as total_pur_qty, SUM(return_qty) as total_r_pur_qty'))->groupBy('item')->get();
+                        $pi = $query2->groupBy('item')->get();
 
                         $data = [
                                 'si' => $si,
@@ -1041,56 +1163,8 @@ class pdfController extends Controller
                                 'endDate' => $endDate,
                                 'type' => 1,
                         ];
+
                         session()->put('Data', $data);
-                        // } else {
-
-                        //         $query = sell_invoice::query();
-
-                        //         if ($product) {
-                        //                 $query->where('item', $product);
-                        //         }
-                        //         if ($warehouse) {
-                        //                 $query->where('warehouse', $warehouse);
-                        //         }
-
-                        //         $query->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
-
-                        //         $query2 = purchase_invoice::query();
-
-                        //         if ($product) {
-                        //                 $query2->where('item', $product);
-                        //         }
-                        //         if ($warehouse) {
-                        //                 $query2->where('warehouse', $warehouse);
-                        //         }
-
-                        //         $query2->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
-
-                        //         $data1 = $query->get();
-                        //         $data2 = $query2->get();
-
-                        //         $products = products::where('product_id', $product)->get();
-                        //         foreach ($products as $key => $value) {
-                        //                 $product_name = $value->product_name;
-                        //         }
-                        //         $warehouses = warehouse::where('warehouse_id', $warehouse)->get();
-                        //         foreach ($warehouses as $key => $value) {
-                        //                 $warehouse_name = $value->warehouse_name;
-                        //         }
-                        //         $data = [
-                        //                 'query' => $data1,
-                        //                 'query2' => $data2,
-                        //                 'sale_qty' => $data1->sum('sale_qty'),
-                        //                 'pur_qty' => $data2->sum('pur_qty'),
-                        //                 'avail_qty' => $data2->sum('pur_qty') - $data1->sum('sale_qty'),
-                        //                 'warehouse' => $warehouse_name ?? 'All',
-                        //                 'product' => $product_name ?? 'All',
-                        //                 'startDate' => $startDate,
-                        //                 'endDate' => $endDate,
-                        //                 'type' => 2,
-                        //         ];
-                        //         session()->put('Data', $data);
-                        // }
                 }
 
 
