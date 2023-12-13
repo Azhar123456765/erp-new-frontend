@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="email" id="email2" name="company_email" placeholder="Company Email" class="form-control ">
+                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control ">
                     <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>

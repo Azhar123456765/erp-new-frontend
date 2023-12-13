@@ -556,13 +556,43 @@ class maincontroller extends Controller
         return redirect();
     }
 
+
+    function dashboard_data(Request $request)
+    {
+
+        $start_date = $request->input('start_date');
+        $end_date = $request->input('end_date');
+
+        $pur_qty = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$start_date, $end_date])->whereIn('purchase_invoice.id', function ($subQuery) {
+            $subQuery->select(DB::raw('MIN(id)'))
+                ->from('purchase_invoice')
+                ->groupBy('unique_id');
+        })->sum("qty_total");
+
+        $sell_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
+            $subQuery->select(DB::raw('MIN(id)'))
+                ->from('sell_invoice')
+                ->groupBy('unique_id');
+        })->sum("qty_total");
+
+        $earning = Income::whereBetween(DB::raw('DATE(incomes.created_at)'), [$start_date, $end_date])->sum('amount');
+        $expense =  Expense::whereBetween(DB::raw('DATE(expenses.created_at)'), [$start_date, $end_date])->sum('amount');
+
+        $data = compact('sell_qty', 'pur_qty', 'earning', 'expense');
+        return response()->json($data);
+    }
+
+
     public function viewhome()
     {
 
         if (session()->has("user_id")) {
 
+            $end_date = date('Y-m-d');
+            $start_date = date('Y-m-d', strtotime("-1 year", strtotime($end_date)));
+
             $today = Carbon::now()->format('Y-m-d');
-            $sell_invoice_qty = sell_invoice::whereDate(DB::raw('DATE(sell_invoice.created_at)'), $today)->whereIn('sell_invoice.id', function ($subQuery) {
+            $sell_invoice_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
                 $subQuery->select(DB::raw('MIN(id)'))
                     ->from('sell_invoice')
                     ->groupBy('unique_id');
@@ -647,10 +677,10 @@ class maincontroller extends Controller
             // ->sum('amount_total');
 
 
-            $si = Income::whereDate('updated_at', $today)->sum('amount');
+            $si = Income::whereBetween(DB::raw('DATE(incomes.created_at)'), [$start_date, $end_date])->sum('amount');
             $earning = $si;
 
-            $expense =  Expense::whereDate('updated_at', $today)->sum('amount');
+            $expense =  Expense::whereBetween(DB::raw('DATE(expenses.created_at)'), [$start_date, $end_date])->sum('amount');
 
 
             $onlineUsersCount = Cache::get('user_last_seen', []);

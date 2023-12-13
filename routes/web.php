@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\maincontroller;
 use App\Http\Controllers\pdfController;
@@ -35,6 +37,9 @@ Route::get('/403', function () {
 });
 
 Route::middleware(['roleAuth', 'userAuth', 'setupPermission'])->group(function () {
+    Route::post('/dashboard', [maincontroller::class, 'dashboard_data']);
+    Route::get('/expense', [ExpenseController::class, 'index']);
+    Route::get('/income', [IncomeController::class, 'index']);
     Route::get('/organization', [OrganizationController::class, 'index']);
     Route::post('/organization', [OrganizationController::class, 'store']);
     Route::get('/users', [UserController::class, 'index']);

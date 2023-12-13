@@ -26,7 +26,7 @@
             <div class="form-group">
                 <label for="">Company Email</label>
                 <div class="input-group">
-                    <input type="email" id="email2" name="company_email" placeholder="Company Email" class="form-control " value="{{$row->company_email}}">
+                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control " value="{{$row->company_email}}">
                     <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>

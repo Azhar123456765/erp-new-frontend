@@ -84,7 +84,7 @@
                         </div>
                         <div class="form-group">
                             <label for="username">Email</label>
-                            <input type="email" class="form-control " name="email">
+                            <input type="email" validate="email" class="form-control " name="email">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -121,7 +121,7 @@
                         </div>
                         <div class="form-group">
                             <label for="username">Email</label>
-                            <input type="email" class="form-control " name="email" value="{{$row->email}}">
+                            <input type="email" validate="email" class="form-control " name="email" value="{{$row->email}}">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>

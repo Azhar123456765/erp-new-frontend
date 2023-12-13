@@ -1,12 +1,26 @@
-@extends('master')  @section('title','Dashboard')  @section('content')
+@extends('master') @section('title','Dashboard') @section('content')
+@php
+$endDate = date('Y-m-d');
+$startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
+@endphp
 <div class="container">
     <br>
     @if(session()->get('user_id')['role'] == 'user')
 
     <h3>User's Dashboard</h3>
     @elseif(session()->get('user_id')['role'] == 'admin')
-    <h3>Today's Report</h3>
-
+    <style>
+        .date {
+            border: none;
+            outline: none;
+            background: transparent;
+        }
+    </style>
+    <label for="">Start Date:</label>
+    <input type="date" class="date" name="start_date" id="start_date" onchange="date()" value="{{$startDate}}">
+    &nbsp;&nbsp;&nbsp;
+    <label for="">End Date:</label>
+    <input type="date" class="date" name="end_date" id="end_date" onchange="date()" value="{{$endDate}}">
 
     @endif
     <br><br>
@@ -26,20 +40,30 @@
         @elseif(session()->get('user_id')['role'] == 'admin')
         <div class="col-md-4">
             <div class="info-box mb-3">
-                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-truck"></i></span>
+                <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-truck"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">items Sale</span>
-                    <span class="info-box-number">{{$sell_invoice_qty}}</span>
+                    <span class="info-box-text">items Purchase</span>
+                    <span class="info-box-number" id="pur_qty">{{$sell_invoice_qty}}</span>
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="info-box mb-3">
+                <span class="info-box-icon bg-warning elevation-1"><i class="fas fa-truck"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">items Sale</span>
+                    <span class="info-box-number" id="sell_qty">{{$sell_invoice_qty}}</span>
+                </div>
+            </div>
+        </div>
+
 
         <div class="col-md-4">
             <div class="info-box mb-3">
                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-exclamation-circle"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Expense</span>
-                    <span class="info-box-number">{{$expense}}&nbsp;Rs</span>
+                    <span class="info-box-text" onclick="expense()">Total Expense <a href="#">(Click For more details)</a></span>
+                    <span class="info-box-number" id="expense">{{$expense}}&nbsp;Rs</span>
                 </div>
             </div>
         </div>
@@ -48,8 +72,8 @@
             <div class="info-box mb-3">
                 <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">Total Earning</span>
-                    <span class="info-box-number">{{$earning}}&nbsp;Rs</span>
+                    <span class="info-box-text" onclick="income()">Total Earning <a href="#">(Click For more details)</a></span>
+                    <span class="info-box-number" id="earning">{{$earning}}&nbsp;Rs</span>
                 </div>
             </div>
         </div>
@@ -347,16 +371,52 @@
     }
 
 
-
-
-
-
     function getMonthName(month) {
         var months = [
             "January", "February", "March", "April", "May", "June", "July",
             "August", "September", "October", "November", "December"
         ];
         return months[month - 1];
+    }
+
+    function date() {
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+
+        $('#sell_qty').text('loading...');
+        $('#pur_qty').text('loading...');
+        $('#expense').text('loading...');
+        $('#earning').text('loading...');
+
+        $.ajax({
+            url: '/dashboard',
+            method: 'POST',
+            data: {
+                start_date: start_date,
+                end_date: end_date
+            },
+            success: function(response) {
+                $('#sell_qty').text(response.sell_qty);
+                $('#pur_qty').text(response.pur_qty);
+                $('#expense').text(response.expense + ' Rs');
+                $('#earning').text(response.earning + ' Rs');
+            },
+            error: function(error) {
+                // Handle the error
+            },
+        });
+    }
+
+    function expense() {
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+        window.location.href = `expense?start_date=` + start_date+`&end_date=` + end_date+``
+    }
+
+    function income() {
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+        window.location.href = `income?start_date=` + start_date+`&end_date=` + end_date+``
     }
 </script>
 @endsection

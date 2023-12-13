@@ -11,6 +11,7 @@
 <link rel="stylesheet" href="{{ asset('../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
 
 <link rel="stylesheet" href="{{ asset('../../dist/css/adminlte.min2167.css?v=3.2.0') }}" />
+
 <script nonce="d4cfe204-cbf9-4890-8e13-ef8d0a90d985">
     (function(w, d) {
         !(function(j, k, l, m) {
@@ -172,6 +173,33 @@
 
 
 <style>
+  /* // VALIDATE */
+  input.invalid,
+textarea.invalid,
+select.invalid,
+.match_error,
+.match_error:focus {
+	border-color: #b00 !important;
+}
+
+.validation_error {
+	margin: .4em 0 1em;
+	color: #b00 !important;
+	font-size: .7em;
+	text-transform: uppercase;
+	letter-spacing: .15em;
+}
+
+
+
+
+
+
+
+
+
+
+
     /* FILE UPLOAD STYLES */
     .file-upload {
       max-width: 600px;

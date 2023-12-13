@@ -27,7 +27,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="email" id="email2" name="email" placeholder="Email" class="form-control " required value="{{$row->email}}">
+                    <input type="email" validate="email" id="email2" name="email" placeholder="Email" class="form-control " required value="{{$row->email}}">
                     <div class="input-group-addon">
                         <i class=" -envelope"></i>
                     </div>

@@ -90,7 +90,9 @@
                         <div class="row">
                             <div class="form-group col col">
                                 <div class="input-group">
-                                    <input type="text" id="username2" name="company_name" placeholder="Customer" class="form-control" oninvalid="this.setCustomValidity('Enter User Name Here')">
+                                    <input type="text" id="username2" name="company_name" placeholder="Customer" class="form-control" oninvalid="this.setCustomValidity('Enter User Name Here')" required data-validation-required-message="Please enter your organization name">
+            <p class="help-block"></p>
+                                    
                                     <div class="input-group-addon">
 
                                     </div>
@@ -98,7 +100,7 @@
                             </div>
                             <div class="form-group col col">
                                 <div class="input-group">
-                                    <input type="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control ">
+                                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control ">
                                     <div class="input-group-addon">
                                     </div>
                                 </div>
@@ -252,7 +254,7 @@
                             <div class="form-group col">
                                 <label for="">Customer Email</label>
                                 <div class="input-group">
-                                    <input type="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control " value="{{$row->company_email}}">
+                                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control " value="{{$row->company_email}}">
                                     <div class="input-group-addon">
 
                                     </div>
@@ -439,7 +441,7 @@
                             <label for="">Customer Email</label>
 
                             <div class="input-group">
-                                <p type="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control " value="{{$row->company_email}}">
+                                <p type="email" validate="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control " value="{{$row->company_email}}">
                                     {{$row->company_email}}
                                 </p>
                                 <div class="input-group-addon">
@@ -451,7 +453,7 @@
                         <div class="form-group col">
                             <label for="">Customer Phone Number</label>
                             <div class="input-group">
-                                <p type="email" id="email2" name="company_phone_number" placeholder="Customer Email" class="form-control " value="{{$row->company_email}}">
+                                <p type="email" validate="email" id="email2" name="company_phone_number" placeholder="Customer Email" class="form-control " value="{{$row->company_email}}">
                                     {{$row->company_phone_number}}
                                 </p>
                                 <div class="input-group-addon">
@@ -477,7 +479,7 @@
                             <label for="">contact person number</label>
 
                             <div class="input-group">
-                                <p type="email" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="{{$row->contact_person_number}}">
+                                <p type="email" validate="email" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="{{$row->contact_person_number}}">
                                     {{$row->contact_person_number}}
                                 </p>
                                 <div class="input-group-addon">
@@ -597,4 +599,8 @@
         }
     })
 </script>
+<script>
+      $(function(){ $("input,textarea,select").not("[type=submit]").jqbootstrapValidation(); });
+
+    </script>+
 @endsection

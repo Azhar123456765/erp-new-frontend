@@ -26,7 +26,7 @@
             <label for="">Company Email</label>
 
                 <div class="input-group">
-                    <p type="email" id="email2" name="company_email" placeholder="Company Email" class="form-control " value="{{$row->company_email}}">
+                    <p type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control " value="{{$row->company_email}}">
            {{$row->company_email}}                  </p>                                        <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>
@@ -48,7 +48,7 @@
             <label for="">contact person number</label>
 
                 <div class="input-group">
-                    <p type="email" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="{{$row->contact_person_number}}">
+                    <p type="email" validate="email" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="{{$row->contact_person_number}}">
            {{$row->contact_person_number}}                  </p>                                        <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>

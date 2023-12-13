@@ -19,16 +19,14 @@
 <script src="{{ asset('../../dist/js/adminlte.min2167.js?v=3.2.0') }}"></script>
 
 <script src="{{ asset('../../dist/js/demo.js') }}"></script>
-
-
-
-
-
 <script src="select2/select2.min.js"></script>
+<script src="validate/validin.js"></script>
 
 
 <script>
-  $(function () {
+    
+    $(function () {
+      $('form').validin();
     $("#example1")
       .DataTable({
         responsive: true,

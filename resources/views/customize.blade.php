@@ -1,5 +1,6 @@
 @extends('master')  @section('title','Organization')  @section('content')
 <br>
+
 <style>
     @media (max-width: 755px) {
 
@@ -14,16 +15,31 @@
         }
 
     }
+    input.invalid,
+textarea.invalid,
+select.invalid,
+.match_error,
+.match_error:focus {
+	border-color: #b00 !important;
+}
+
+.validation_error {
+	margin: .4em 0 1em;
+	color: #b00 !important;
+	font-size: .7em;
+	text-transform: uppercase;
+	letter-spacing: .15em;
+}
 </style>
 <div class="content">
 
-    <form action="/organization" method="POST" enctype="multipart/form-data">
+    <form action="/organization" method="POST" enctype="multipart/form-data" id="form" novalidate="novalidate">
         @csrf
         @foreach ($organization as $row)
 
         <div class="form-group">
             <label for="">Organization Name</label>
-            <input type="text" name="name" id="company" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->organization_name}}" >
+            <input type="text" name="name" id="company" class="form-control" value="{{$row->organization_name}}" placeholder="" aria-describedby="helpId" required>
         </div>
 
         <div class="form-group">
@@ -35,11 +51,11 @@
             <div class="row">
                 <div class="col">
                     <label for="">Phone Number</label>
-                    <input type="number" name="phone_number" id="email" class="form-control" value="{{$row->phone_number}}" >
+                    <input type="number" name="phone_number" id="email" class="form-control" value="{{$row->phone_number}}" required>
                 </div>
                 <div class="col">
                     <label for="">Email address</label>
-                    <input type="email" name="email" id="email" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->email}}" required>
+                    <input required type="email" validate="email" name="email" id="email" class="form-control" placeholder="" aria-describedby="helpId" value="{{$row->email}}" required>
 
                 </div>
             </div>
@@ -51,7 +67,7 @@
                 <button class="file-upload-btn" type="button" onclick="$('.file-upload-input').trigger( 'click' )">Add Organization Logo</button>
 
                 <div class="image-upload-wrap" style="display: none;">
-                    <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" />
+                    <input class="file-upload-input" name="logo" type='file' onchange="readURL(this);" accept="image/*" required />
                     <input name="old_logo" type='hidden' value="{{$row->logo}}" />
                     <div class="drag-text">
                         <h3>Drag and drop a file or select add Image</h3>
@@ -75,3 +91,6 @@
 </div>
 
 @endsection
+<script>
+
+</script>
