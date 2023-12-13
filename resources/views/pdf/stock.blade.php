@@ -93,9 +93,12 @@ $type = session()->get('Data')['type'] ?? null;
         $pi = session()->get('Data')['pi'];
         foreach ($pi as $key => $row) {
             $si = session()->get('Data')['si'];
+            $pqty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('pur_qty');
+            $sqty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty');
+            $avail_qty = $pqty-$sqty;
         ?>
                 <tr style="text-align: center; {{$avail_qty <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: black;' : ''}}">
-                    <td>
+                    <td style="text-align: left;">
                         <span><?php echo $row->product->product_name ?></span>
                     </td>
                     <td>
@@ -115,9 +118,7 @@ $type = session()->get('Data')['type'] ?? null;
                     </td>
                     <td>
                         <span><?php  
-                            $pqty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('pur_qty');
-                            $sqty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty');
-                            $avail_qty = $pqty-$sqty;
+                           
                             echo $avail_qty;
                         ?></span>
                     </td>
