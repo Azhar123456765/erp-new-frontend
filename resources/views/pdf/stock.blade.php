@@ -97,7 +97,7 @@ $type = session()->get('Data')['type'] ?? null;
             $sqty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty');
             $avail_qty = $pqty-$sqty;
         ?>
-                <tr style="text-align: center; {{$avail_qty <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: black;' : ''}}">
+                <tr style="text-align: center; {{$avail_qty <= 0 ? 'color: red;' : ''}} {{$avail_qty >= 100 ? 'color: green;' : ''}} {{$row->product->opening_quantity == null ? 'color: goldenyellow;' : ''}}">
                     <td style="text-align: left;">
                         <span><?php echo $row->product->product_name ?></span>
                     </td>
