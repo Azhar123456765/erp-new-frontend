@@ -90,14 +90,11 @@ $type = session()->get('Data')['type'] ?? null;
     </thead>
     <tbody>
         <?php
-                           $pqty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('pur_qty');
-                           $sqty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty');
-                           $avail_qty = $pqty-$sqty;
         $pi = session()->get('Data')['pi'];
         foreach ($pi as $key => $row) {
             $si = session()->get('Data')['si'];
         ?>
-                <tr style="text-align: center; {{$avail_qty <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: yellow;' : ''}}">
+                <tr style="text-align: center; {{$avail_qty <= 0 ? 'color: red;' : ''}} {{$row->product->opening_quantity == null ? 'color: black;' : ''}}">
                     <td>
                         <span><?php echo $row->product->product_name ?></span>
                     </td>
@@ -117,7 +114,10 @@ $type = session()->get('Data')['type'] ?? null;
                         <span><?php $qty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('return_qty'); echo $qty;?></span>
                     </td>
                     <td>
-                        <span><?php   
+                        <span><?php  
+                            $pqty = App\Models\purchase_invoice::where('item', $row->product->product_id)->sum('pur_qty');
+                            $sqty = App\Models\sell_invoice::where('item', $row->product->product_id)->sum('sale_qty');
+                            $avail_qty = $pqty-$sqty;
                             echo $avail_qty;
                         ?></span>
                     </td>
