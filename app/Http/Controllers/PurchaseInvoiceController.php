@@ -17,6 +17,7 @@ use App\Models\product_category;
 use App\Models\product_company;
 use App\Models\product_type;
 use App\Models\products;
+use App\Models\purchase_return;
 use App\Models\warehouse;
 
 class PurchaseInvoiceController extends Controller
@@ -468,11 +469,15 @@ class PurchaseInvoiceController extends Controller
 
         ])->limit(1)->get();
 
-
+        $count = purchase_return::whereIn('purchase_returns.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('purchase_returns')
+                ->groupBy('unique_id');
+        })->count();
 
         $account = accounts::all();
 
-        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'single_invoice', 'account');
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'purchase_invoice', 'single_invoice', 'account', 'count');
         return view('invoice.rp_med_invoice')->with($data);
     }
 
@@ -483,18 +488,9 @@ class PurchaseInvoiceController extends Controller
         purchase_invoice::where('unique_id', $id)->delete();
 
         $pr_amount = $request['previous_balance'];
-
-
         $amount = $request['amount_total'];
-
-
-
-
-
-
         $invoiceData = $request->all();
 
-        // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -587,6 +583,106 @@ class PurchaseInvoiceController extends Controller
             $invoice->bonus_qty = $invoiceData['bonus_qty']["$i"] ?? null;
 
             $invoice->save();
+        }
+
+
+
+
+        $arrayLength = count(array_filter($invoiceData['return_qty'], function ($value) {
+            return $value > 0;
+        }));
+
+        for ($i = 0; $i < $arrayLength; $i++) {
+
+
+            $invoice_r = new purchase_return;
+
+            $invoice_r->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice_r->company = $invoiceData['company'] ?? null;
+            $invoice_r->remark = $invoiceData['remark'] ?? null;
+            $invoice_r->pkr_amount = $invoiceData['pkr_amount'] ?? null;
+            $invoice_r->date = $invoiceData['date'] ?? null;
+            $invoice_r->bilty_no = $invoiceData['bilty_no'] ?? null;
+            $invoice_r->warehouse = $invoiceData['warehouse'] ?? null;
+
+
+            $invoice_r->book = $invoiceData['book'] ?? null;
+            $invoice_r->due_date = $invoiceData['due_date'] ?? null;
+            $invoice_r->transporter = $invoiceData['transporter'] ?? null;
+            $invoice_r->return_id = $invoiceData['return_id'] ?? null;
+            $invoice_r->unique_id = $invoiceData['unique_id'] ?? null;
+
+            $invoice_r->previous_balance = $invoiceData['amount_total'] ?? null;
+            $invoice_r->cartage = $invoiceData['cartage'] ?? null;
+            $invoice_r->grand_total = $invoiceData['grand_total'] ?? null;
+            $invoice_r->amount_paid = $invoiceData['amount_paid'] ?? null;
+            $invoice_r->balance_amount = $invoiceData['balance_amount'] ?? null;
+
+            $invoice_r->qty_total = $invoiceData['qty_total'] ?? null;
+            $invoice_r->dis_total = $invoiceData['dis_total'] ?? null;
+            $invoice_r->amount_total = $invoiceData['amount_total'] ?? null;
+
+            $invoice_r->invoice_no = $invoiceData['invoice_no'] ?? null;
+
+
+
+            $invoice_r->freight = $invoiceData['freight'] ?? null;
+            $invoice_r->freighta = $invoiceData['freighta'] ?? null;
+            $invoice_r->sales_tax = $invoiceData['sales_tax'] ?? null;
+            $invoice_r->sales_taxa = $invoiceData['sales_taxa'] ?? null;
+            $invoice_r->ad_sales_tax = $invoiceData['ad_sales_tax'] ?? null;
+            $invoice_r->ad_sales_taxa = $invoiceData['ad_sales_taxa'] ?? null;
+            $invoice_r->bank = $invoiceData['bank'] ?? null;
+            $invoice_r->banka = $invoiceData['banka'] ?? null;
+            $invoice_r->other_expense = $invoiceData['other_expense'] ?? null;
+            $invoice_r->other_expensea = $invoiceData['other_expensea'] ?? null;
+
+
+
+            $invoice_r->pr_item = $invoiceData['item']["$i"] ?? null;
+            $invoice_r->previous_stock = $invoiceData['pur_qty']["$i"] ?? null;
+            $product = $invoiceData['item']["$i"];
+
+            // if ($invoiceData['item']["$i"] != $invoiceData['pr_item']["$i"]) {
+
+
+            //     products::where("product_id", $invoiceData['pr_item']["$i"])->update([
+            //         'opening_quantity' => DB::raw("opening_quantity - " . $invoiceData['previous_stock']["$i"])
+            //     ]);
+
+            //     products::where("product_id", $invoiceData['item']["$i"])->update([
+            //         'opening_quantity' => DB::raw("opening_quantity + " . $invoiceData['pur_qty']["$i"])
+            //     ]);
+            // }
+
+            products::where("product_id", $invoiceData['pr_item']["$i"])->update([
+                'opening_quantity' => DB::raw("opening_quantity - " . $invoiceData['previous_stock']["$i"])
+            ]);
+
+            products::where("product_id", $invoiceData['item']["$i"])->update([
+                'opening_quantity' => DB::raw("opening_quantity + " . $invoiceData['pur_qty']["$i"])
+            ]);
+
+            products::where("product_id", $invoiceData['item']["$i"])->update([
+                'opening_quantity' => DB::raw("opening_quantity - " . $invoiceData['return_qty']["$i"])
+            ]);
+
+            $invoice_r->return_qty =  $invoice_r->return_qty + $invoiceData['return_qty']["$i"] ?? null;
+
+            $invoice_r->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;
+            $invoice_r->type = $invoiceData['type']["$i"] ?? null;
+            $invoice_r->item = $invoiceData['item']["$i"] ?? 'error';
+            $invoice_r->unit = $invoiceData['unit']["$i"] ?? null;
+            $invoice_r->batch_no = $invoiceData['batch_no']["$i"] ?? null;
+            $invoice_r->expiry = $invoiceData['expiry']["$i"] ?? null;
+            $invoice_r->pur_qty = $invoiceData['pur_qty']["$i"] - $invoiceData['return_qty']["$i"] ?? null;
+            $invoice_r->amount = $invoiceData['amount']["$i"] ?? null;
+            $invoice_r->discount = $invoiceData['dis_per']["$i"] ?? null;
+            $invoice_r->exp_unit = $invoiceData['exp_unit']["$i"] ?? null;
+            $invoice_r->pur_price = $invoiceData['pur_price']["$i"] ?? null;
+            $invoice_r->bonus_qty = $invoiceData['bonus_qty']["$i"] ?? null;
+
+            $invoice_r->save();
         }
 
         $data = 'Invoices added successfully!';
