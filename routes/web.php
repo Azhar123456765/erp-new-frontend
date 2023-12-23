@@ -10,7 +10,9 @@ use App\Http\Controllers\ReceiptVoucherController;
 use App\Http\Controllers\OrganizationController;
 use App\Http\Controllers\PaymentVoucherController;
 use App\Http\Controllers\PurchaseInvoiceController;
+use App\Http\Controllers\PurchaseReturnController;
 use App\Http\Controllers\SaleInvoiceController;
+use App\Http\Controllers\SaleReturnController;
 use App\Models\purchase_invoice;
 use App\Models\sell_invoice;
 use Illuminate\Http\Request;
@@ -105,6 +107,11 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     // INVOICES
     Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
     Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
+    Route::get('/ars_med_invoice', [SaleReturnController::class, 'create']);
+    Route::post('/ars_med_invoice_form', [SaleReturnController::class, 'store']);
+    Route::get('/arp_med_invoice', [PurchaseReturnController::class, 'create']);
+    Route::post('/arp_med_invoice_form', [PurchaseReturnController::class, 'store']);
+    
     Route::get('/s_med_invoice', [SaleInvoiceController::class, 'create']);
     Route::get('/get-previous-balance', [SaleInvoiceController::class, 'get_previous_balance']);
     Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
@@ -159,6 +166,7 @@ Route::middleware(['userAuth', 'productPermission'])->group(function () {
     Route::post('/add_product_type', [product::class, 'add_product_type']);
     Route::post('/edit_product_type{id}', [product::class, 'edit_product_type']);
     Route::get('/products', [product::class, 'view_product']);
+    Route::get('/tmp', [product::class, 'tmp']);
     Route::post('/add_product_form', [product::class, 'add_product']);
     Route::post('/edit_product{id}', [product::class, 'edit_product']);
 });

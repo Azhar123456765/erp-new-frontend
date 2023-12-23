@@ -1,4 +1,6 @@
 <style>
+
+
     .header {
         display: flex;
         justify-content: space-between;
@@ -15,7 +17,7 @@
         font-weight: normal;
         text-align: right;
         margin-bottom: 78px;
-   
+
     }
 
     .pdf-time {
@@ -30,6 +32,15 @@
         font-family: "Poppins", sans-serif !important;
     }
 </style>
+
+<head>
+    <title>PDF</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="{{ asset('../../plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}" />
+</head>
 @php
 
 $org = App\Models\Organization::all();
@@ -41,13 +52,16 @@ $address = $value->address;
 
 }
 @endphp
-<div id="pdf_table">
-    <div class="header">
-        <div>
-            <img src="{{ 'data:image/png;base64,' . base64_encode(file_get_contents(public_path($logo))) }}" alt="Organization Logo" class="logo">
+<div class="container">
+    <div id="pdf_table">
+        <div class="header">
+            <div>
+                <img src="{{ 'data:image/png;base64,' . base64_encode(file_get_contents(public_path($logo))) }}" alt="Organization Logo" class="logo">
 
-        </div>
-        <u><div class="address"></u>
+            </div>
+            <u>
+                <div class="address">
+            </u>
 
             <p>Head Office Address:</p>
             <br>
@@ -55,4 +69,6 @@ $address = $value->address;
         </div>
     </div>
 
-    <h2 style="text-align: center;">{{session("pdf_title")}}</h2>
+    @yield('content')
+
+</div>

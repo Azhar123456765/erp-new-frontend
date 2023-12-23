@@ -484,12 +484,18 @@ class PurchaseInvoiceController extends Controller
     // UPDATE THIS FIRST
     function r_update(Request $request, $id)
     {
+        
 
         purchase_invoice::where('unique_id', $id)->delete();
 
         $pr_amount = $request['previous_balance'];
         $amount = $request['amount_total'];
         $invoiceData = $request->all();
+
+        $expense =  Expense::where('category_id', $invoiceData['unique_id'])->update([
+            'amount' => $request['amount_total'],
+            'company' => $request['company']
+        ]);
 
         $arrayLength = count(array_filter($invoiceData['item']));
 

@@ -38,6 +38,7 @@ $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
             </div>
         </div>
         @elseif(session()->get('user_id')['role'] == 'admin')
+
         <div class="col-md-4">
             <div class="info-box mb-3">
                 <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-truck"></i></span>
@@ -410,13 +411,13 @@ $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
     function expense() {
         var start_date = $('#start_date').val();
         var end_date = $('#end_date').val();
-        window.location.href = `expense?start_date=` + start_date+`&end_date=` + end_date+``
+        window.location.href = `expense?start_date=` + start_date + `&end_date=` + end_date + ``
     }
 
     function income() {
         var start_date = $('#start_date').val();
         var end_date = $('#end_date').val();
-        window.location.href = `income?start_date=` + start_date+`&end_date=` + end_date+``
+        window.location.href = `income?start_date=` + start_date + `&end_date=` + end_date + ``
     }
 </script>
 @endsection

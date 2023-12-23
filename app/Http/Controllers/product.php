@@ -15,6 +15,8 @@ use App\Models\product_category;
 use App\Models\product_company;
 use App\Models\product_type;
 use App\Models\products;
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Response;
 
 class product extends Controller
 {
@@ -155,7 +157,7 @@ class product extends Controller
         $request->validate([
             'company' => 'required|unique:product_company,company_name',
         ]);
-     
+
         $add = new product_company();
         $add->company_name = $request['company'];
         $add->save();
@@ -276,14 +278,20 @@ class product extends Controller
         $company = product_company::all();
         $type = product_type::all();
 
+        $product_code = $request['code'] ?? null;
+        if ($product_code != null) {
+            $users = products::where('qr_code', $product_code)->leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
+                ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
+                ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
+                ->get();
+        } else {
 
-        $users = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
-        ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
-        ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-        ->get();
-
-
-        $data = compact('users', 'category', 'sub_category', 'company', 'type');
+            $users = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
+                ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
+                ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
+                ->get();
+        }
+        $data = compact('users', 'category', 'sub_category', 'company', 'type', 'product_code');
 
         return view('products')->with($data);
     }
@@ -325,6 +333,16 @@ class product extends Controller
         }
 
         // Save the data to the database or perform any other desired operations
+        $rand = rand(1, 99999999);
+        $qr = QrCode::size(200)->generate(url('products?code=') . '26250710');
+        $qrCodePath = public_path('qrcodes' . 'qrcode.png');
+
+        if (is_writable(dirname($qrCodePath))) {
+            file_put_contents($qrCodePath, $qr);
+            // Success
+        } else {
+            // Handle the case where the directory is not writable
+        }
         $product = new products;
         $product->product_name = $productName;
         $product->desc = $desc;
@@ -343,10 +361,12 @@ class product extends Controller
         $product->avg_price_plus_oh = $avgPricePlusOh;
         $product->inactive_item = $inactiveItem;
         $product->barcode = $barcode;
+        $product->qr_code = $rand;
         $product->unit = $unit;
         $product->re_order_level = $reOrderLevel;
         $product->image = $imagePath;
         $product->save();
+
 
         // Redirect to a success page or return a response
         session()->flash('message', 'product has been added successfully');
@@ -354,22 +374,20 @@ class product extends Controller
     }
 
 
-
     function product_delete(Request $request, $id)
     {
 
         $image = products::where('product_id', $id)->get();
-        
+
         foreach ($image as $key => $row) {
-        
-            
-        if ($image != null) {
-            unlink($row->image);
+
+
+            if ($image != null) {
+                unlink($row->image);
+            }
         }
-        
-    }
-    
-    $query = products::where('product_id', $id)->delete();
+
+        $query = products::where('product_id', $id)->delete();
 
         session()->flash('message', 'Product has been deleted successfully');
 

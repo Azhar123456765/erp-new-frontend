@@ -131,10 +131,16 @@ foreach ($theme_colors as $key => $value2) {
                 </p>
               </a>
               <ul class="nav nav-treeview">
-              <li class="nav-item">
+                <li class="nav-item">
                   <a href="/s_med_invoice" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add Sale Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/ars_med_invoice" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Return Invoice</p>
                   </a>
                 </li>
                 <li class="nav-item">
@@ -164,6 +170,12 @@ foreach ($theme_colors as $key => $value2) {
                   <a href="/p_med_invoice" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Add Pur Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="/arp_med_invoice" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Add Return Invoice</p>
                   </a>
                 </li>
                 <li class="nav-item">

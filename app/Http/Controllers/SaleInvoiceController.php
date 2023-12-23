@@ -544,7 +544,12 @@ class SaleInvoiceController extends Controller
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));
 
+        $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
+            'amount' => $request['amount_paid']
+        ]);
+
         for ($i = 0; $i < $arrayLength; $i++) {
+
             $invoice = new sell_invoice;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
             $invoice->company = $invoiceData['company'] ?? null;
@@ -608,7 +613,7 @@ class SaleInvoiceController extends Controller
             ]);
 
 
-            $invoice->return_qty =  $invoice->return_qty+$invoiceData['return_qty']["$i"] ?? null;
+            $invoice->return_qty =  $invoice->return_qty + $invoiceData['return_qty']["$i"] ?? null;
 
 
             $invoice->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;
@@ -707,7 +712,7 @@ class SaleInvoiceController extends Controller
             ]);
 
 
-            $invoice_r->return_qty =  $invoice_r->return_qty+$invoiceData['return_qty']["$i"] ?? null;
+            $invoice_r->return_qty =  $invoice_r->return_qty + $invoiceData['return_qty']["$i"] ?? null;
 
 
             $invoice_r->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;
