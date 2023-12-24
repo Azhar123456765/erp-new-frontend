@@ -254,7 +254,7 @@
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" style="border: none !important;" readonly type="date" id="date" name="date" value="<?php
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" style="border: none !important;" readonly type="date" id="date" value="<?php
                                                                                                                                                                                     $currentDate = date('Y-m-d');
                                                                                                                                                                                     echo $currentDate;
                                                                                                                                                                                     ?>" />
