@@ -182,8 +182,10 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/gen-led', [pdfController::class, 'gen_led']);
     Route::get('/cus-led', [pdfController::class, 'cus_led']);
     Route::get('/supplier-led', [pdfController::class, 'supplier_led']);
+    Route::get('/sale-r-report', [pdfController::class, 'sale_r_report']);
     Route::get('/sale-report', [pdfController::class, 'sale_report']);
     Route::get('/pur-report', [pdfController::class, 'pur_report']);
+    Route::get('/pur-r-report', [pdfController::class, 'pur_r_report']);
     Route::get('/profit-led', [pdfController::class, 'profit_rep']);
     Route::get('/stock-report', [pdfController::class, 'stock_rep']);
     Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);

@@ -369,6 +369,145 @@ text-align: center;
 </div>
 
 
+<div class="modal fade" id="pur-r-report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led" style="height: 95vh;">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Purchase Return Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/pur-r-report">
+                        @csrf
+                        <div class="row" style="justify-content: space-between;">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Supplier</label>
+                                    <select class="form-control " name="customer" id="customer">
+                                        <option></option>
+                                        @foreach ($supplier as $row)
+                                        <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control" name="sales_officer">
+                                        <option></option>
+                                        @foreach ($sales_officer as $row)
+                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Warehouse</label>
+                                    <select class="form-control" name="warehouse" id="warehouse">
+                                        <option></option>
+                                        @foreach ($warehouse as $row)
+                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row" style="justify-content: space-between;">
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Category</label>
+                                    <select class="form-control " name="product_category">
+                                        <option></option>
+                                        @foreach ($product_category as $row)
+                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Company</label>
+                                    <select class="form-control " name="product_company">
+                                        <option></option>
+                                        @foreach ($product_company as $row)
+                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product</label>
+                                    <select class="form-control " name="product">
+                                        <option></option>
+                                        @foreach ($product as $row)
+                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Invoice Wise</option>
+                                       <option value="2">Prodcut Wise</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        <br>
+
+                        <div class="row" style="justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
+
 <div class="modal fade" id="pur-report">
     <div class="modal-dialog">
         <div class="modal-content gen-led" style="height: 95vh;">
@@ -507,6 +646,143 @@ text-align: center;
 </div><!-- /.modal-dialog -->
 </div>
 
+<div class="modal fade" id="sale-r-report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led" style="height: 95vh;">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Sale Return Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/sale-r-report">
+                        @csrf
+                        <div class="row" style="justify-content: space-between;">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Customer</label>
+                                    <select class="form-control " name="customer" id="customer">
+                                        <option></option>
+                                        @foreach ($customer as $row)
+                                        <option value="{{ $row->buyer_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control" name="sales_officer">
+                                        <option></option>
+                                        @foreach ($sales_officer as $row)
+                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Warehouse</label>
+                                    <select class="form-control" name="warehouse" id="warehouse">
+                                        <option></option>
+                                        @foreach ($warehouse as $row)
+                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row" style="justify-content: space-between;">
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Category</label>
+                                    <select class="form-control " name="product_category">
+                                        <option></option>
+                                        @foreach ($product_category as $row)
+                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Company</label>
+                                    <select class="form-control " name="product_company">
+                                        <option></option>
+                                        @foreach ($product_company as $row)
+                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product</label>
+                                    <select class="form-control " name="product">
+                                        <option></option>
+                                        @foreach ($product as $row)
+                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Invoice Wise</option>
+                                       <option value="2">Prodcut Wise</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        <br>
+
+                        <div class="row" style="justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
 
 
 <div class="modal fade" id="sale-report">
