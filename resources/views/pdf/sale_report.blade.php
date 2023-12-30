@@ -153,30 +153,32 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
         </tr>
     </thead>
     <tbody>
-        <?php
+        @php
         $sell_invoice = session()->get('Data')["invoice"];
 
         if ($sell_invoice != null) {
-            $unique_ids_seen = []; // Keep track of unique_ids already processed
+            // $unique_ids_seen = []; // Keep track of unique_ids already processed
+            $pr = null;
 
             foreach ($sell_invoice as $key => $row) {
-                $pr = $row->unique_id;
                 // Check if this unique_id has been processed before
-                if ($pr == $row->unique_id[$key - 1]) {
+                if ($pr != $row->unique_id) {
                     // Add the gap for the first occurrence of this unique_id
-        ?>
+        @endphp
                     <tr>
                         <td colspan="8" style="border: none !important;">&nbsp;</td>
                     </tr>
-                <?php
+                @php
 
                     $id = $row->unique_id;
-                    $unique_ids_seen[] = $row->unique_id;
+                    // $unique_ids_seen[] = $row->unique_id;
                 }
-                $couple = false;
+                // $couple = false;
 
-                ?>
-                <td style="{{$couple == true ? 'display:none;' : '' }} border:none; color: blue;">{{$row->customer->company_name}}</td>
+                @endphp
+                @if($pr != $row->unique_id)
+                <td style=" border:none; color: blue;">{{$row->customer->company_name}}</td>
+                @endif  
                 <tr style="text-align: center;">
                     <td>
                         <span style="width:8px;">{{$row->date}}</span>
@@ -203,7 +205,8 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
                         <span>{{$row->amount}}</span>
                     </td>
                 </tr>
-    <tfoot style="{{ $couple == false ? 'display:none;' : '' }} color: green; font-weight: bolder ;">
+                @if($pr == $row->unique_id)
+    <tfoot style="color: green; font-weight: bolder ;">
         <tr>
             <td colspan="5" style="text-align:right; border: none !important; ">Invoice# {{$row->unique_id}} Total:</td>
             <td style="text-align:center;  background-color: lightgray;">{{$row->qty_total}}</td>
@@ -212,7 +215,8 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
         </tr>
     </tfoot>
 
-    <tfoot style="{{ $couple == true ? 'display:none;' : '' }} color: green; font-weight: bolder ;">
+    @elseif($pr != $row->unique_id)
+    <tfoot style="color: blue; font-weight: bolder ;">
         <tr>
             <td colspan="5" style="text-align:right; border: none !important; ">Invoice# {{$row->unique_id}} Total:</td>
             <td style="text-align:center;  background-color: lightgray;">{{$row->qty_total}}</td>
@@ -220,11 +224,20 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
             <td style="text-align:right; background-color: lightgray;">{{$row->amount_total}}</td>
         </tr>
     </tfoot>
+    @endif
+    <!-- <tfoot style="{{ $pr != $row->unique_id ? 'display:none;' : '' }} color: green; font-weight: bolder ;">
+        <tr>
+            <td colspan="5" style="text-align:right; border: none !important; ">Invoice# {{$row->unique_id}} Total:</td>
+            <td style="text-align:center;  background-color: lightgray;">{{$row->qty_total}}</td>
+            <td style="text-align:center; background-color: lightgray;">{{$row->dis_total}}</td>
+            <td style="text-align:right; background-color: lightgray;">{{$row->amount_total}}</td>
+        </tr>
+    </tfoot> -->
 
 <?php
 
                 $couple = true;
-                $id = $row->unique_id;
+                $pr = $row->unique_id;
             }
         } else {
             echo 'No record Found';

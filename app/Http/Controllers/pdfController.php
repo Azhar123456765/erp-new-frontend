@@ -262,12 +262,29 @@ class pdfController extends Controller
 
 
                         $ledgerDatasi = $query->get();
+                        foreach ($ledgerDatasi as $key => $row) {
 
+                                $columnValues = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->where('unique_id', $row->unique_id)->pluck('unique_id');
+                        }
+                        dd($columnValues);
+                        // $columnValues = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->select("unique_id",DB::raw('count(unique_id) as count'))
+                        //         ->groupBy('unique_id')->get();
+                        //         dd($columnValues);
+                        // foreach ($columnValues as $key => $row) {
+
+                        //         if ($row->count > 1) {
+                        //                 dd("multiple id");
+                        //         }else{
+                        //                 dd('single id');
+                        //         }
+
+                        // }
+                        die();
                         $data = [
                                 'invoice' => $ledgerDatasi,
                                 'credit' =>  $ledgerDatasi->sum('amount_paid'),
                                 'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),  
+                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'qty_total' => $ledgerDatasi->sum('qty_total'),
                                 'dis_total' => $ledgerDatasi->sum('dis_total'),
                                 'amount_total' => $ledgerDatasi->sum('amount_total'),
@@ -420,7 +437,7 @@ class pdfController extends Controller
                                 'invoice' => $ledgerDatasi,
                                 'credit' =>  $ledgerDatasi->sum('amount_paid'),
                                 'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),  
+                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'qty_total' => $ledgerDatasi->sum('qty_total'),
                                 'dis_total' => $ledgerDatasi->sum('dis_total'),
                                 'amount_total' => $ledgerDatasi->sum('amount_total'),

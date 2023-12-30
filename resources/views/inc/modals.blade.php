@@ -463,14 +463,14 @@ text-align: center;
                         </div>
 
                         <div class="col-md">
-                                <div class="form-group">
-                                    <label>Select Type</label>
-                                    <select class="form-control" name="type">
-                                        <option value="1">Invoice Wise</option>
-                                       <option value="2">Prodcut Wise</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label>Select Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="1">Invoice Wise</option>
+                                    <option value="2">Prodcut Wise</option>
+                                </select>
                             </div>
+                        </div>
 
                         <br>
 
@@ -602,14 +602,14 @@ text-align: center;
                         </div>
 
                         <div class="col-md">
-                                <div class="form-group">
-                                    <label>Select Type</label>
-                                    <select class="form-control" name="type">
-                                        <option value="1">Invoice Wise</option>
-                                       <option value="2">Prodcut Wise</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label>Select Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="1">Invoice Wise</option>
+                                    <option value="2">Prodcut Wise</option>
+                                </select>
                             </div>
+                        </div>
 
                         <br>
 
@@ -740,14 +740,14 @@ text-align: center;
                         </div>
 
                         <div class="col-md">
-                                <div class="form-group">
-                                    <label>Select Type</label>
-                                    <select class="form-control" name="type">
-                                        <option value="1">Invoice Wise</option>
-                                       <option value="2">Prodcut Wise</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label>Select Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="1">Invoice Wise</option>
+                                    <option value="2">Prodcut Wise</option>
+                                </select>
                             </div>
+                        </div>
 
                         <br>
 
@@ -879,14 +879,14 @@ text-align: center;
                         </div>
 
                         <div class="col-md">
-                                <div class="form-group">
-                                    <label>Select Type</label>
-                                    <select class="form-control" name="type">
-                                        <option value="1">Invoice Wise</option>
-                                       <option value="2">Prodcut Wise</option>
-                                    </select>
-                                </div>
+                            <div class="form-group">
+                                <label>Select Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="1">Invoice Wise</option>
+                                    <option value="2">Prodcut Wise</option>
+                                </select>
                             </div>
+                        </div>
 
                         <br>
 

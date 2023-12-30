@@ -19,7 +19,6 @@
             <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
                 <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Product</a>
         </div>
-        {{QrCode::size(200)->generate(url('products?code=') . '26250710' ?? 'no')}}
 
         <div class="card-body">
             <table id="example1" class="table table-bordered table-striped">
@@ -32,6 +31,7 @@
                             <th>product type</th>
                             <th>product category</th>
                             <th>purchase Price</th>
+                            <th>Qr Code</th>
                             <th>Created At</th>
                             <th>Updated At</th>
                         <th>Actions</th>
@@ -49,6 +49,7 @@
                             <td>{{ $row->type }}</td>
                             <td>{{ $row->category_name }}</td>
                             <td>{{ $row->purchase_price }}</td>
+                            <td>{{ QrCode::size(100)->generate(url('products?code=') . $row->product_id ?? 'undefined') }}</td>
                             <td>{{ $row->created_at }}</td>
                             <td>{{ $row->updated_at }}</td>
                             <td>
@@ -433,7 +434,6 @@
                         <div class="card-body card-block">
                             <div>
                                 @csrf
-                                {{QrCode::size(200)->generate($row->qr_code ?? 'no')}}
                                 <!-- SQL Fields -->
                                 <div class="form-group">
                                     <div class="row">

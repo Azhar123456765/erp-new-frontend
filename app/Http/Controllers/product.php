@@ -280,12 +280,11 @@ class product extends Controller
 
         $product_code = $request['code'] ?? null;
         if ($product_code != null) {
-            $users = products::where('qr_code', $product_code)->leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
+            $users = products::where('product_id', $product_code)->leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
                 ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
                 ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
                 ->get();
         } else {
-
             $users = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
                 ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
                 ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
