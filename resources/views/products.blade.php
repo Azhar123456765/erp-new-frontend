@@ -63,7 +63,7 @@
                                     <a href="#" data-toggle="modal" data-target="#view_modal{{$row->product_id}}" class="item" data-toggle="tooltip" data-placement="top" title="View">
                                         <i class="fa fa-eye"></i>
                                     </a>
-                                    <a href="/product_pdf?id={{$row->product_id}}"class="item" data-toggle="tooltip" data-placement="top" title="View">
+                                    <a href="/product_pdf_id={{$row->product_id}}"class="item" data-toggle="tooltip" data-placement="top" title="View">
                                         <i class="fa fa-print"></i>
                                     </a>
                                     <!-- <a href="/del_user/{{ $row->user_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete User">
