@@ -264,9 +264,9 @@ class pdfController extends Controller
                         $ledgerDatasi = $query->get();
                         foreach ($ledgerDatasi as $key => $row) {
 
-                                $columnValues = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->where('unique_id', $row->unique_id)->pluck('unique_id');
+                                $columnValues[] = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->where('unique_id', $row->unique_id)->pluck('unique_id');
                         }
-                        dd($columnValues);
+                        // dd($columnValues);
                         // $columnValues = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->select("unique_id",DB::raw('count(unique_id) as count'))
                         //         ->groupBy('unique_id')->get();
                         //         dd($columnValues);
@@ -279,9 +279,10 @@ class pdfController extends Controller
                         //         }
 
                         // }
-                        die();
+                        // die();
                         $data = [
                                 'invoice' => $ledgerDatasi,
+                                'columnValues' => $columnValues,
                                 'credit' =>  $ledgerDatasi->sum('amount_paid'),
                                 'total_amount' =>  $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
@@ -1783,5 +1784,32 @@ class pdfController extends Controller
                 $pdf->render();
 
                 return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+        }
+
+
+        function product_detail(Request $request, $id)
+        {
+                $product = products::where("product_id", $id)->get();
+
+                session()->put("product", $product);
+
+                $views = $id;
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.product_detail')->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
 }

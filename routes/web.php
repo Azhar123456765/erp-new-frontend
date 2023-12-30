@@ -111,7 +111,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::post('/ars_med_invoice_form', [SaleReturnController::class, 'store']);
     Route::get('/arp_med_invoice', [PurchaseReturnController::class, 'create']);
     Route::post('/arp_med_invoice_form', [PurchaseReturnController::class, 'store']);
-    
+
     Route::get('/s_med_invoice', [SaleInvoiceController::class, 'create']);
     Route::get('/get-previous-balance', [SaleInvoiceController::class, 'get_previous_balance']);
     Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
@@ -175,6 +175,7 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     // PDF
     Route::get('/pdf_field={view}', [pdfController::class, 'pdf']);
     Route::get('/pdf_limit{view}', [pdfController::class, 'pdf_limit']);
+    Route::get('/product_pdf_id={id}', [pdfController::class, 'product_detail']);
     Route::get('/sale_invoice_pdf_{id}', [pdfController::class, 'sale_invoice_pdf']);
     Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
     Route::get('/pv_pdf_{id}', [pdfController::class, 'pv_pdf']);
