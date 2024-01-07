@@ -73,7 +73,7 @@
     }
 
 // Check if the screen width is less than or equal to 767 pixels (common mobile breakpoint)
-if (window.innerWidth <= 500) {
+if (window.innerWidth >= 500) {
   // Select anchor elements with the class 'external-link' within aside elements
   var links = $('aside a');
 
