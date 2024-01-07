@@ -59,7 +59,7 @@
     <script>
       $(function () {
         //Add text editor
-        $("#compose-textarea").summernote();
+        $("textarea").summernote();
       });
     </script>
 
@@ -72,7 +72,16 @@
         window.location.href = "/pdf" + href
     }
 
+// Check if the screen width is less than or equal to 767 pixels (common mobile breakpoint)
+if (window.innerWidth <= 500) {
+  // Select anchor elements with the class 'external-link' within aside elements
+  var links = $('aside a');
 
+  // Iterate through each link and set the target attribute to '_blank'
+  links.each(function() {
+    $(this).attr('target', '_blank');
+  });
+}
 
     function accountData() {
         var company = $("#head_account").find('option:selected');

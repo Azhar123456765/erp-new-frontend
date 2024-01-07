@@ -43,13 +43,11 @@ class pdfController extends Controller
         {
 
 
-                if (!session()->exists('gen-led-si')) {
+                if (!session()->exists('Data')) {
 
                         $start_date = $request->input('start_date');
                         $end_date = $request->input('end_date');
 
-
-                        // Retrieve form data
                         $account = $request->input('account');
                         $salesOfficer = $request->input('sales_officer');
                         $companyType = $request->input('company_type');
@@ -57,74 +55,193 @@ class pdfController extends Controller
                         $startDate = $request->input('start_date');
                         $endDate = $request->input('end_date');
 
+                        $type = $request->input('type');
 
-                        // Start building the query
-                        $query = sell_invoice::query();
+                        if ($type == 1) {
 
-                        if ($account) {
-                                $query->where('account', $account);
+                                $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate])->whereIn('sell_invoice.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('sell_invoice')
+                                                ->groupBy('unique_id');
+                                });;
+
+                                if ($account) {
+                                        $query->where('account', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query->where('warehouse', $zone);
+                                }
+
+
+                                $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate])->whereIn('receipt_vouchers.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('receipt_vouchers')
+                                                ->groupBy('unique_id');
+                                });;
+
+
+                                if ($account) {
+                                        $query2->where('cash_bank', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query2->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query2->where('warehouse', $zone);
+                                }
+
+                                $query3 = purchase_invoice::whereBetween('purchase_invoice.created_at', [$startDate, $endDate])->whereIn('purchase_invoice.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('purchase_invoice')
+                                                ->groupBy('unique_id');
+                                });
+
+                                if ($account) {
+                                        $query3->where('freighta', $account);
+                                        $query3->where('sales_taxa', $account);
+                                        $query3->where('ad_sales_taxa', $account);
+                                        $query3->where('banka', $account);
+                                        $query3->where('other_expensea', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query3->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query3->where('warehouse', $zone);
+                                }
+
+                                $query4 = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate])->whereIn('payment_voucher.id', function ($subQuery) {
+                                        $subQuery->select(DB::raw('MIN(id)'))
+                                                ->from('payment_voucher')
+                                                ->groupBy('unique_id');
+                                });
+
+
+                                if ($account) {
+                                        $query4->where('cash_bank', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query4->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query4->where('warehouse', $zone);
+                                }
+
+                                $ledgerDatasi = $query->get();
+                                $ledgerDatarv = $query2->get();
+                                $ledgerDatapi = $query3->get();
+                                $ledgerDatapv = $query4->get();
+
+
+                                $data = [
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'account' => $account,
+                                        'ledgerDatasi' => $ledgerDatasi,
+                                        'ledgerDatarv' => $ledgerDatarv,
+                                        'ledgerDatapi' => $ledgerDatapi,
+                                        'ledgerDatapv' => $ledgerDatapv,
+                                        'type' => $type
+                                ];
+
+                                session()->put('Data', $data);
+                        } elseif ($type == 2) {
+                                $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate]);
+
+                                if ($account) {
+                                        $query->where('account', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query->where('warehouse', $zone);
+                                }
+
+
+                                $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
+
+
+                                if ($account) {
+                                        $query2->where('cash_bank', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query2->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query2->where('warehouse', $zone);
+                                }
+
+                                $query3 = purchase_invoice::whereBetween('purchase_invoice.created_at', [$startDate, $endDate]);
+
+                                if ($account) {
+                                        $query3->where('freighta', $account);
+                                        $query3->where('sales_taxa', $account);
+                                        $query3->where('ad_sales_taxa', $account);
+                                        $query3->where('banka', $account);
+                                        $query3->where('other_expensea', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query3->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query3->where('warehouse', $zone);
+                                }
+
+                                $query4 = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate]);
+
+
+                                if ($account) {
+                                        $query4->where('cash_bank', $account);
+                                }
+
+                                if ($salesOfficer) {
+                                        $query4->where('sales_officer', $salesOfficer);
+                                }
+
+                                if ($zone) {
+                                        $query4->where('warehouse', $zone);
+                                }
+
+                                $ledgerDatasi = $query->get();
+                                $ledgerDatarv = $query2->get();
+                                $ledgerDatapi = $query3->get();
+                                $ledgerDatapv = $query4->get();
+
+
+                                $data = [
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+                                        'account' => $account,
+                                        'ledgerDatasi' => $ledgerDatasi,
+                                        'ledgerDatarv' => $ledgerDatarv,
+                                        'ledgerDatapi' => $ledgerDatapi,
+                                        'ledgerDatapv' => $ledgerDatapv,
+                                        'type' => $type
+                                ];
+                                session()->put('Data', $data);
                         }
-
-                        if ($salesOfficer) {
-                                $query->where('sales_officer', $salesOfficer);
-                        }
-
-                        if ($zone) {
-                                $query->where('warehouse', $zone);
-                        }
-
-                        $query->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
-                                ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
-                                ->leftJoin('warehouse', 'sell_invoice.warehouse', '=', 'warehouse.warehouse_id')
-                                ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
-                                ->leftJoin('accounts', 'sell_invoice.sales_officer', '=', 'accounts.account_id');
-
-                        if ($startDate && $endDate) {
-                                $query->whereBetween('sell_invoice.created_at', [$startDate, $endDate]); // Specify the table alias
-                        }
-
-
-
-
-                        $rc = ReceiptVoucher::query();
-
-                        $rc->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id');
-
-
-                        if ($account) {
-                                $rc->where('cash_bank', $account);
-                        }
-
-                        if ($salesOfficer) {
-                                $rc->where('sales_officer', $salesOfficer);
-                        }
-
-                        if ($startDate && $endDate) {
-                                $rc->whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]); // Specify the table alias
-                        }
-
-
-
-                        $ledgerDatasi = $query->get();
-                        $ledgerDatarc = $rc->get();
-
-                        $credit = $query->sum('amount_paid') + $rc->sum('credit');
-                        $debit = $query->sum('previous_balance');
-                        $amount = $query->sum('amount_total') + $rc->sum('amount_total');
-
-
-
-
-                        session()->put('gen-led-si', $ledgerDatasi);
-                        session()->put('gen-led-rc', $ledgerDatarc);
-                        $account_id = $request->input('account');
-
-                        $data = compact('startDate', 'endDate', 'credit', 'debit', 'amount', 'account_id');
-                        session()->put('otherData', $data);
                 }
 
 
-                if (session()->has('gen-led-si')) {
+                if (session()->has('Data')) {
 
                         $views = 'General Ledger';
 
@@ -144,9 +261,7 @@ class pdfController extends Controller
                         }
                         $pdf->render();
 
-                        session()->forget('gen-led-si');
-                        session()->forget('gen-led-rc');
-                        session()->forget('otherData');
+                        session()->forget('Data');
 
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
@@ -172,7 +287,7 @@ class pdfController extends Controller
 
 
 
-                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                 ->whereIn('sell_invoice.id', function ($subQuery) {
                                         $subQuery->select(DB::raw('MIN(id)'))
                                                 ->from('sell_invoice')
@@ -231,7 +346,7 @@ class pdfController extends Controller
                         $product = $request->input('product');
                         $product_id = null;
 
-                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
+                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate]);
 
                         if ($customer) {
                                 $query->where('company', $customer);
@@ -264,25 +379,72 @@ class pdfController extends Controller
                         $ledgerDatasi = $query->get();
                         foreach ($ledgerDatasi as $key => $row) {
 
-                                $columnValues[] = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->where('unique_id', $row->unique_id)->pluck('unique_id');
+                                $columnValues[] = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])->where('unique_id', $row->unique_id)->pluck('unique_id');
                         }
-                        // dd($columnValues);
-                        // $columnValues = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->select("unique_id",DB::raw('count(unique_id) as count'))
-                        //         ->groupBy('unique_id')->get();
-                        //         dd($columnValues);
-                        // foreach ($columnValues as $key => $row) {
 
-                        //         if ($row->count > 1) {
-                        //                 dd("multiple id");
-                        //         }else{
-                        //                 dd('single id');
-                        //         }
-
-                        // }
-                        // die();
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'columnValues' => $columnValues,
+                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                'qty_total' => $ledgerDatasi->sum('qty_total'),
+                                'dis_total' => $ledgerDatasi->sum('dis_total'),
+                                'amount_total' => $ledgerDatasi->sum('amount_total'),
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'type' => $type,
+                        ];
+
+                        session()->put('Data', $data);
+                } elseif ($type == 3) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        // Retrieve form data
+                        $customer = $request->input('customer');
+                        $salesOfficer = $request->input('sales_officer');
+                        $warehouse = $request->input('warehouse');
+                        $product_category = $request->input('product_category');
+                        $product_company = $request->input('product_company');
+                        $product = $request->input('product');
+                        $product_id = null;
+
+                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate]);
+
+                        if ($customer) {
+                                $query->where('sell_invoice.company', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+                        if ($warehouse) {
+                                $query->where('warehouse', $warehouse);
+                        }
+
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $product_data = Products::where('category', $product_category)->get();
+                                $query->whereIn('item', $productIds)->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id');
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $query->whereIn('item', $productIds)->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id');
+                        }
+                        if ($product) {
+                                $query->where('item', $product);
+                        }
+
+                        $query->orderBy('products.product_id'); // Order by date within each group
+
+
+                        $ledgerDatasi = $query->get();
+
+                        $data = [
+                                'invoice' => $ledgerDatasi,
                                 'credit' =>  $ledgerDatasi->sum('amount_paid'),
                                 'total_amount' =>  $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
@@ -343,7 +505,7 @@ class pdfController extends Controller
 
 
 
-                        $query = sale_return::whereBetween(DB::raw('DATE(sale_returns.created_at)'), [$startDate, $endDate])
+                        $query = sale_return::whereBetween(DB::raw('DATE(sale_returns.updated_at)'), [$startDate, $endDate])
                                 ->whereIn('sale_returns.id', function ($subQuery) {
                                         $subQuery->select(DB::raw('MIN(id)'))
                                                 ->from('sale_returns')
@@ -402,7 +564,7 @@ class pdfController extends Controller
                         $product = $request->input('product');
                         $product_id = null;
 
-                        $query = sale_return::whereBetween(DB::raw('DATE(sale_returns.created_at)'), [$startDate, $endDate]);
+                        $query = sale_return::whereBetween(DB::raw('DATE(sale_returns.updated_at)'), [$startDate, $endDate]);
 
                         if ($customer) {
                                 $query->where('company', $customer);
@@ -499,7 +661,7 @@ class pdfController extends Controller
 
 
 
-                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('purchase_invoice.id', function ($subQuery) {
                                                 $subQuery->select(DB::raw('MIN(id)'))
                                                         ->from('purchase_invoice')
@@ -561,7 +723,7 @@ class pdfController extends Controller
 
 
 
-                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate]);
 
                                 if ($supplier) {
                                         $query->where('company', $supplier);
@@ -655,7 +817,7 @@ class pdfController extends Controller
 
 
 
-                                $query = purchase_return::whereBetween(DB::raw('DATE(purchase_returns.created_at)'), [$startDate, $endDate])
+                                $query = purchase_return::whereBetween(DB::raw('DATE(purchase_returns.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('purchase_returns.id', function ($subQuery) {
                                                 $subQuery->select(DB::raw('MIN(id)'))
                                                         ->from('purchase_returns')
@@ -717,7 +879,7 @@ class pdfController extends Controller
 
 
 
-                                $query = purchase_return::whereBetween(DB::raw('DATE(purchase_returns.created_at)'), [$startDate, $endDate]);
+                                $query = purchase_return::whereBetween(DB::raw('DATE(purchase_returns.updated_at)'), [$startDate, $endDate]);
 
                                 if ($supplier) {
                                         $query->where('company', $supplier);
@@ -809,7 +971,7 @@ class pdfController extends Controller
 
 
 
-                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('sell_invoice.id', function ($subQuery) {
                                                 $subQuery->select(DB::raw('MIN(id)'))
                                                         ->from('sell_invoice')
@@ -854,14 +1016,14 @@ class pdfController extends Controller
                                 }
 
 
-                                // $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                // $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                 //         ->whereIn('id', function ($query2) {
                                 //                 $query2->select(DB::raw('MIN(id)'))
                                 //                         ->from('sell_invoice')
                                 //                         ->groupBy('unique_id');
                                 //         })->sum('amount_paid');
 
-                                // $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                // $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.updated_at)'), [$startDate, $endDate])
                                 //         ->whereIn('id', function ($query2) {
                                 //                 $query2->select(DB::raw('MIN(id)'))
                                 //                         ->from('receipt_vouchers')
@@ -870,14 +1032,14 @@ class pdfController extends Controller
 
                                 // $debit = $debit1 ?? 0 + $debit2 ?? 0;
 
-                                // $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                // $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.updated_at)'), [$startDate, $endDate])
                                 //         ->whereIn('payment_voucher.id', function ($query2) {
                                 //                 $query2->select(DB::raw('MIN(id)'))
                                 //                         ->from('payment_voucher')
                                 //                         ->groupBy('unique_id');
                                 //         })->sum('amount_total');
 
-                                // $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                // $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                 //         ->whereIn('id', function ($query2) {
                                 //                 $query2->select(DB::raw('MIN(id)'))
                                 //                         ->from('sell_invoice')
@@ -912,7 +1074,7 @@ class pdfController extends Controller
 
                                 // Start building the query
                                 $query = ReceiptVoucher::query()
-                                        ->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                        ->whereBetween(DB::raw('DATE(receipt_vouchers.updated_at)'), [$startDate, $endDate])
                                         ->where('receipt_vouchers.company', $customer)  // Specify 'receipt_vouchers.company'
                                 ;
 
@@ -925,14 +1087,14 @@ class pdfController extends Controller
                                         $customerDebit = $value->debit;
                                 }
 
-                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('sell_invoice')
                                                         ->groupBy('unique_id');
                                         })->sum('amount_paid');
 
-                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('receipt_vouchers')
@@ -941,14 +1103,14 @@ class pdfController extends Controller
 
                                 $debit = $debit1 ?? 0 + $debit2 ?? 0;
 
-                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('payment_voucher.id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('payment_voucher')
                                                         ->groupBy('unique_id');
                                         })->sum('amount_total');
 
-                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('sell_invoice')
@@ -980,7 +1142,7 @@ class pdfController extends Controller
                                 $endDate = $request->input('end_date');
                                 $customer = $request->input('customer');
 
-                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                         ->where('company', $customer)
                                         ->whereIn('sell_invoice.id', function ($subQuery) {
                                                 $subQuery->select(DB::raw('MIN(id)'))
@@ -988,14 +1150,14 @@ class pdfController extends Controller
                                                         ->groupBy('unique_id');
                                         });
 
-                                $query2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                $query2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('receipt_vouchers')
                                                         ->groupBy('unique_id');
                                         });
 
-                                $query3 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                $query3 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('payment_voucher.id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('payment_voucher')
@@ -1011,14 +1173,14 @@ class pdfController extends Controller
                                 }
 
 
-                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                $debit1 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('sell_invoice')
                                                         ->groupBy('unique_id');
                                         })->sum('grand_total');
 
-                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                                $debit2 = ReceiptVoucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(receipt_vouchers.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('receipt_vouchers')
@@ -1027,14 +1189,14 @@ class pdfController extends Controller
 
                                 $debit = $debit1 ?? 0 + $debit2 ?? 0;
 
-                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                                $credit1 = p_voucher::where('company', $customer)->where('company_ref', 'B')->whereBetween(DB::raw('DATE(payment_voucher.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('payment_voucher.id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('payment_voucher')
                                                         ->groupBy('unique_id');
                                         })->sum('amount_total');
 
-                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])
+                                $credit2 = sell_invoice::where('company', $customer)->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
                                         ->whereIn('id', function ($query2) {
                                                 $query2->select(DB::raw('MIN(id)'))
                                                         ->from('sell_invoice')
@@ -1101,7 +1263,7 @@ class pdfController extends Controller
                         $supplier = $request->input('supplier');
 
                         // Start building the query
-                        $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                        $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate])
                                 ->where('company', $supplier)
                                 ->whereIn('purchase_invoice.id', function ($subQuery) {
                                         $subQuery->select(DB::raw('MIN(id)'))
@@ -1115,7 +1277,7 @@ class pdfController extends Controller
                                 $supplierName = $value->company_name;
                         }
 
-                        $credit1 = purchase_invoice::where('company', $supplier)->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate])
+                        $credit1 = purchase_invoice::where('company', $supplier)->whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate])
                                 ->whereIn('id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('purchase_invoice')
@@ -1123,14 +1285,14 @@ class pdfController extends Controller
                                 })->sum('amount_total');
 
 
-                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(payment_voucher.created_at)'), [$startDate, $endDate])
+                        $credit2 = p_voucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(payment_voucher.updated_at)'), [$startDate, $endDate])
                                 ->whereIn('payment_voucher.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('payment_voucher')
                                                 ->groupBy('unique_id');
                                 })->sum('amount_total');
 
-                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(receipt_vouchers.created_at)'), [$startDate, $endDate])
+                        $debit = ReceiptVoucher::where('company', $supplier)->where('company_ref', 'S')->whereBetween(DB::raw('DATE(receipt_vouchers.updated_at)'), [$startDate, $endDate])
                                 ->whereIn('receipt_vouchers.id', function ($query2) {
                                         $query2->select(DB::raw('MIN(id)'))
                                                 ->from('receipt_vouchers')
@@ -1353,7 +1515,7 @@ class pdfController extends Controller
                         $endDate = $request->input('end_date');
 
                         // Start building the query
-                        $query1 = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate])->whereIn('sell_invoice.id', function ($subQuery) {
+                        $query1 = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])->whereIn('sell_invoice.id', function ($subQuery) {
                                 $subQuery->select(DB::raw('MIN(id)'))
                                         ->from('sell_invoice')
                                         ->groupBy('unique_id');
@@ -1436,7 +1598,7 @@ class pdfController extends Controller
 
 
                         $query = $sellInvoices = sell_invoice::select('item')
-                                ->whereBetween(DB::raw('DATE(sell_invoice.created_at)'), [$startDate, $endDate]);
+                                ->whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate]);
 
                         if ($product) {
                                 $sellInvoices->where('item', $product);
@@ -1459,7 +1621,7 @@ class pdfController extends Controller
 
 
 
-                        $query2 = $purchaseInvoices = purchase_invoice::select('item')->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                        $query2 = $purchaseInvoices = purchase_invoice::select('item')->whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate]);
 
                         if ($product) {
                                 $purchaseInvoices->where('item', $product);
@@ -1536,7 +1698,7 @@ class pdfController extends Controller
                         $warehouse = $request->input('warehouse');
 
                         $query = purchase_invoice::query();
-                        $query->whereBetween(DB::raw('DATE(purchase_invoice.created_at)'), [$startDate, $endDate]);
+                        $query->whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate]);
                         $data1 = $query->get();
 
                         $warehouses = warehouse::where('warehouse_id', $warehouse)->get();

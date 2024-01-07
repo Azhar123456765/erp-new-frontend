@@ -20,7 +20,7 @@ class ExpenseController extends Controller
         $endDate = date('Y-m-d');
         $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
 
-        $expense = Expense::whereBetween(DB::raw('DATE(expenses.created_at)'), [$start_date ?? $startDate, $end_date ?? $endDate])->get();
+        $expense = Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date ?? $startDate, $end_date ?? $endDate])->get();
         $data = compact('start_date', 'end_date', 'expense');
         return view('expense')->with($data);
     }

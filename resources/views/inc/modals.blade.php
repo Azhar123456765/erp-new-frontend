@@ -332,6 +332,15 @@ $theme_color = $value2->theme;
                                 </div>
                             </div>
 
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Summary</option>
+                                        <option value="2">Detail</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row" style="    justify-content: space-between;
@@ -882,8 +891,9 @@ text-align: center;
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
-                                    <option value="1">Invoice Wise</option>
-                                    <option value="2">Prodcut Wise</option>
+                                    <option value="1">Summary</option>
+                                    <option value="2">invoice Wise</option>
+                                    <option value="3">Prodcut Wise</option>
                                 </select>
                             </div>
                         </div>

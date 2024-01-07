@@ -303,7 +303,7 @@ $querypv = session()->get('Data')['ledgerDatapv'] ?? null;
     </tbody>
     <tfoot style="color: darkblue; text-align:right;">
         <td colspan="3" style="text-align:right; border:none;"><b>Total:</b></td>
-        <td><b>{{$c+redit}}</b></td>
+        <td><b>{{$credit}}</b></td>
         <td><b>{{$debit}}</b></td>
     </tfoot>
 </table>

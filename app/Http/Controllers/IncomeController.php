@@ -20,7 +20,7 @@ class IncomeController extends Controller
         $endDate = date('Y-m-d');
         $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
 
-        $income = Income::whereBetween(DB::raw('DATE(incomes.created_at)'), [$start_date ?? $startDate, $end_date ?? $endDate])->get();
+        $income = Income::whereBetween(DB::raw('DATE(incomes.updated_at)'), [$start_date ?? $startDate, $end_date ?? $endDate])->get();
         $data = compact('start_date', 'end_date', 'income');
         return view('income')->with($data);
     }

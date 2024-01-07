@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Products')  @section('content')
+@extends('master') @section('title','Products') @section('content')
 <style>
     @media (max-width: 755px) {
         .modal-dialog {
@@ -25,15 +25,15 @@
                 <thead>
                     <tr>
 
-                    <th>S.NO</th>
-                            <th>product Name</th>
-                            <th>product company</th>
-                            <th>product type</th>
-                            <th>product category</th>
-                            <th>purchase Price</th>
-                            <th>Qr Code</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
+                        <th>S.NO</th>
+                        <th>product Name</th>
+                        <th>product company</th>
+                        <th>product type</th>
+                        <th>product category</th>
+                        <th>purchase Price</th>
+                        <th>Qr Code</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -42,41 +42,41 @@
                     $serial = 1
                     @endphp
                     @foreach ($users as $row)
-                        <tr class="tr-shadow">
-                            <td>{{ $serial }}</td>
-                            <td>{{ $row->product_name }}</td>
-                            <td>{{ $row->company_name }}</td>
-                            <td>{{ $row->type }}</td>
-                            <td>{{ $row->category_name }}</td>
-                            <td>{{ $row->purchase_price }}</td>
-                            <td>{{ QrCode::size(100)->generate(url('products?code=') . $row->product_id ?? 'undefined') }}</td>
-                            <td>{{ $row->created_at }}</td>
-                            <td>{{ $row->updated_at }}</td>
-                            <td>
-                                <div class="table-data-feature">
-                                    <a href="#" data-toggle="modal" data-target="#edit_modal{{$row->product_id}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
-                                    <a href="/product_delete{{ $row->product_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                        <i class="fa fa-trash"></i>
-                                    </a>
-                                    <a href="#" data-toggle="modal" data-target="#view_modal{{$row->product_id}}" class="item" data-toggle="tooltip" data-placement="top" title="View">
-                                        <i class="fa fa-eye"></i>
-                                    </a>
-                                    <a href="/product_pdf_id={{$row->product_id}}"class="item" data-toggle="tooltip" data-placement="top" title="View">
-                                        <i class="fa fa-print"></i>
-                                    </a>
-                                    <!-- <a href="/del_user/{{ $row->user_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete User">
+                    <tr class="tr-shadow">
+                        <td>{{ $serial }}</td>
+                        <td>{{ $row->product_name }}</td>
+                        <td>{{ $row->company_name }}</td>
+                        <td>{{ $row->type }}</td>
+                        <td>{{ $row->category_name }}</td>
+                        <td>{{ $row->purchase_price }}</td>
+                        <td>{{ QrCode::size(100)->generate(url('products?code=') . $row->product_id ?? 'undefined') }}</td>
+                        <td>{{ $row->created_at }}</td>
+                        <td>{{ $row->updated_at }}</td>
+                        <td>
+                            <div class="table-data-feature">
+                                <a href="#" data-toggle="modal" data-target="#edit_modal{{$row->product_id}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="/product_delete{{ $row->product_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                <a href="#" data-toggle="modal" data-target="#view_modal{{$row->product_id}}" class="item" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye"></i>
+                                </a>
+                                <a href="/product_pdf_id={{$row->product_id}}" class="item" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-print"></i>
+                                </a>
+                                <!-- <a href="/del_user/{{ $row->user_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete User">
                                             <i class="fa fa-trash"></i>
                                         </a> -->
-                                </div>
-                            </td>
-                        </tr>
-                        <!-- <tr class="spacer"></tr> -->
-                        @php
-                        $serial++;
-                        @endphp
-                        @endforeach
+                            </div>
+                        </td>
+                    </tr>
+                    <!-- <tr class="spacer"></tr> -->
+                    @php
+                    $serial++;
+                    @endphp
+                    @endforeach
                 </tbody>
 
             </table>

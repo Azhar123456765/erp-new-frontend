@@ -17,8 +17,16 @@ foreach ($theme_colors as $key => $value2) {
   $theme_color = $value2->theme;
 }
 
-?>
+$target = null;
 
+?>
+<style>
+  @media only screen and (max-width: 2000px) {
+    a {
+    target-name: '_blank';
+  }
+  }
+</style>
 
 
 
@@ -418,3 +426,7 @@ foreach ($theme_colors as $key => $value2) {
     </nav>
   </div>
 </aside>
+
+<script>
+
+  </script>

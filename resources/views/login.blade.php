@@ -18,11 +18,11 @@ $logo = $value->logo;
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&amp;display=fallback">
 
-    <link rel="stylesheet" href="../../plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="{{ asset('../../plugins/fontawesome-free/css/all.min.css') }}">
 
-    <link rel="stylesheet" href="../../plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('../../plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}">
 
-    <link rel="stylesheet" href="../../dist/css/adminlte.min2167.css?v=3.2.0">
+    <link rel="stylesheet" href="{{ asset('../../dist/css/adminlte.min2167.css?v=3.2.0') }}">
 </head>
 
 <body class="hold-transition login-page">
@@ -71,11 +71,11 @@ $logo = $value->logo;
     </div>
 
 
-    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <script src="{{ asset('../../plugins/jquery/jquery.min.js') }}"></script>
 
-    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="{{ asset('../../plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
-    <script src="../../dist/js/adminlte.min2167.js?v=3.2.0"></script>
+    <script src="{{ asset('../../dist/js/adminlte.min2167.js?v=3.2.0') }}"></script>
 </body>
 
 <!-- Mirrored from adminlte.io/themes/v3/pages/examples/login-v2.html by HTTrack Website Copier/3.x [XR&CO'2014], Tue, 08 Aug 2023 15:12:40 GMT -->

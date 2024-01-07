@@ -60,7 +60,9 @@ $balance_amount = session()->get('Data')['balance_amount'];
 $credit = session()->get('Data')['credit'];
 $type = session()->get('Data')['type'];
 
-
+$qty_total = session()->get('Data')['qty_total'] ?? null;
+$dis_total = session()->get('Data')['dis_total'] ?? null;
+$amount_total = session()->get('Data')['amount_total'] ?? null;
 // $name = App\Models\accounts::where('account_id',$account)->get();
 
 // foreach ($name as $key => $value) {
@@ -151,48 +153,101 @@ $type = session()->get('Data')['type'];
         <tr>
             <th>Date</th>
             <th>Invoice No</th>
+            <th>Book No</th>
             <th>Product Name</th>
+            <th>Per Price</th>
             <th>Qty</th>
+            <th>Discount</th>
             <th>total Amount</th>
         </tr>
     </thead>
     <tbody>
         <?php
+        $sell_invoice = session()->get('Data')["invoice"];
+        $unique_ids = [];
+        $last_unique_id = null;
+        $last_row_key = null;
 
-        $sell_invoice = session()->get('Data')['invoice'];
-        print_r($sell_invoice);
-        if ($sell_invoice != null) {
-            # code...
-            foreach ($sell_invoice as $row) {
-        ?>
-                <tr style="text-align: center;">
-                    <td>
-                        <span><?php echo $row->date; ?></span>
-                    </td>
-                    <td>
-                        <span><?php echo $row->unique_id; ?></span>
-                    </td>
-                    <td style="text-align: left
-                ;">
-                        <span><?php echo $row->product->product_name; ?></span>
-                    </td>
-                    <td>
-                        <span><?php echo $row->pur_qty; ?></span>
-                    </td>
-                    <td style="text-align:right;">
-                        <span><?php echo $row->amount; ?></span>
-                    </td>
-                </tr>
-        <?php
+        foreach ($sell_invoice as $key => $row) {
+
+            if ($last_unique_id !== $row->unique_id) {
+                // Add tfoot for the last row of the previous group
+                if ($last_row_key !== null) {
+                    echo '                    <tr>
+                    <td colspan="8" style="border: none !important;">&nbsp;</td>
+                </tr>';
+                }
+
+                // Update the last_unique_id and last_row_key for the next iteration
+                $last_unique_id = $row->unique_id;
+                $last_row_key = $key;
             }
-        } else {
-            echo 'No record Found';
-        }
+
+            $last_unique_id = $row->unique_id;
+            $next_key = $key + 1;
+            $next_unique_id = isset($sell_invoice[$next_key]) ? $sell_invoice[$next_key]->unique_id : null;
+
+            if ($next_unique_id !== $row->unique_id || $next_key === count($sell_invoice) - 1) {
         ?>
-    </tbody>
+
+
+            <?php } ?>
+
+            <tr style="text-align: center;">
+                <td>
+                    <span style="width:8px;">{{$row->date}}</span>
+                </td>
+                <td>
+                    <span>{{$row->unique_id}}</span>
+                </td>
+                <td>
+                    <span>{{$row->book}}</span>
+                </td>
+                <td style="text-align: left;">
+                    <span>{{$row->product->product_name}}</span>
+                </td>
+                <td>
+                    <span>{{$row->sale_price}}</span>
+                </td>
+                <td>
+                    <span>{{$row->sale_qty}}</span>
+                </td>
+                <td>
+                    <span>{{$row->dis_amount}}</span>
+                </td>
+                <td style="text-align:right;">
+                    <span>{{$row->amount}}</span>
+                </td>
+            </tr>
+            <?php
+            if ($next_unique_id !== $row->unique_id || $next_key === count($sell_invoice) - 1) {
+            ?>
+    <tfoot style="color: green; font-weight: bolder ;">
+        <tr>
+            <td colspan="5" style="text-align:right; border: none !important; "><span style="color:blue;">{{$row->supplier->company_name}}'s</span> &nbsp; Invoice# {{$row->unique_id}} Total:</td>
+            <td style="text-align:center;  background-color: lightgray;">{{$row->qty_total}}</td>
+            <td style="text-align:center; background-color: lightgray;">{{$row->dis_total}}</td>
+            <td style="text-align:right; background-color: lightgray;">{{$row->amount_total}}</td>
+        </tr>
+    </tfoot>
+<?php
+            }
+        }
+?>
+
+
+</tbody>
+
+<tfoot style="color: blue; font-weight: bolder ;">
+    <tr>
+        <td colspan="5" style="text-align:right; border: none !important; ">Grand Total:</td>
+        <td style="text-align:center;  background-color: lightgray;">{{$qty_total}}</td>
+        <td style="text-align:center; background-color: lightgray;">{{$dis_total}}</td>
+        <td style="text-align:right; background-color: lightgray;">{{$amount_total}}</td>
+    </tr>
+</tfoot>
+
 </table>
-<h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase With Tax:&nbsp;&nbsp;</b><span style="color: green;"><b>{{$balance_amount}}</b></span>
-</h3>
 
 @endif
 
