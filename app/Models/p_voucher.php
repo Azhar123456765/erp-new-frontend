@@ -18,4 +18,9 @@ class p_voucher extends Model
     {
         return $this->hasOne(buyer::class, 'buyer_id', "company");
     }
+
+    function accounts()
+    {
+        return $this->hasOne(accounts::class, 'account_id', "cash_bank");
+    }
 }

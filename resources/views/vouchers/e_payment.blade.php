@@ -452,7 +452,7 @@
                 .options {
                     display: flex;
                     justify-content: center;
-                    margin-top: -7%;
+                    margin-top: -210px;
                 }
             </style>
 
@@ -499,18 +499,18 @@ display: flex;
         Update
     </button>
     <br>
-    
-<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
         var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
 var firstPart = parts.slice(0, -1).join('-');
 var lastPart = parts[parts.length - 1];
 var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
 window.location.href = newUrl">
-    Previous
-</button>
+        Previous
+    </button>
 
-<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
   var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
 var firstPart = parts.slice(0, -1).join('-');
@@ -518,8 +518,8 @@ var lastPart = parts[parts.length - 1];
 var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
 window.location.href = newUrl
 ">
-    Next
-</button>
+        Next
+    </button>
 
     <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px;">
         Add More
@@ -833,8 +833,8 @@ window.location.href = newUrl
         // Send an AJAX request
         $.ajax({
             url: '/ep_voucher_form_id=<?php foreach ($sp_voucher as $key => $row) {
-                                                echo $row->unique_id;
-                                            } ?>', // Replace with your Laravel route or endpoint
+                                            echo $row->unique_id;
+                                        } ?>', // Replace with your Laravel route or endpoint
             method: 'POST',
             data: formData,
             success: function(response) {
@@ -869,25 +869,24 @@ window.location.href = newUrl
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
             var str = $('[name=\'unique_id\']').val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-    window.location.href = newUrl;
+            var parts = str.split('-');
+            var firstPart = parts.slice(0, -1).join('-');
+            var lastPart = parts[parts.length - 1];
+            var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+            window.location.href = newUrl;
         }
     });
 
     $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
             var str = $('[name=\'unique_id\']').val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-    window.location.href = newUrl;
+            var parts = str.split('-');
+            var firstPart = parts.slice(0, -1).join('-');
+            var lastPart = parts[parts.length - 1];
+            var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+            window.location.href = newUrl;
         }
     });
-
 </script>
 
 @endsection

@@ -9,7 +9,7 @@
             @csrf
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" id="username2" name="company_name" placeholder="Company" class="form-control " required>
+                    <input type="text" id="username2" name="company_name" placeholder="Company" class="form-control" required>
                     <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>
@@ -20,7 +20,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control ">
+                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control">
                     <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>
@@ -29,7 +29,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control ">
+                    <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control">
                     <div class="input-group-addon">
                         <i class="fa fa-user"></i>
                     </div>
@@ -38,7 +38,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control ">
+                    <input type="text" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control">
                     <div class="input-group-addon">
                         <i class="fa fa-envelope"></i>
                     </div>
@@ -48,7 +48,7 @@
 
             <div class="form-group">
                 <div class="input-group">
-                    <input type="text" id="username2" name="city" placeholder="city" class="form-control ">
+                    <input type="text" id="username2" name="city" placeholder="city" class="form-control">
                     <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>
@@ -57,7 +57,7 @@
 
             <div class="form-group">
             <label for="">Seller Type</label>
-            <select name="seller_type" id="" style="text-transform: capitalize;" class="form-control ">
+            <select name="seller_type" id="" style="text-transform: capitalize;" class="form-control">
                 <option value="supplier">supplier</option>
                 <option value="medical">medical</option>
                 <option value="layer farm">layer farm</option>
@@ -76,7 +76,7 @@
             <div class="form-group">
             <label for="">Debit</label>
                 <div class="input-group">
-                    <input type="number" id="username2" name="debit" placeholder="debit" class="form-control " value="0.00">
+                    <input type="number" id="username2" name="debit" placeholder="debit" class="form-control" value="0.00">
                     <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>
@@ -86,7 +86,7 @@
             <div class="form-group">
             <label for="">Credit</label>
                 <div class="input-group">
-                    <input type="number" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
+                    <input type="number" id="username2" name="credit" placeholder="Credit" class="form-control" value="0.00">
                     <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>

@@ -1974,4 +1974,148 @@ class pdfController extends Controller
 
                 return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
+
+
+        function p_voucher_report(Request $request)
+        {
+                if (!session()->exists('Data')) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        $contra_account = $request->input('contra_account');
+                        $salesOfficer = $request->input('sales_officer');
+
+                        $company = substr($request->input('company'), 0, -1);
+                        $lastChar = substr($request->input('company'), -1);
+
+
+                        $type = $request->input('type');
+
+
+                        $query = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate]);
+
+                        if ($contra_account) {
+                                $query->where('cash_bank', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+                        if ($company) {
+                                $query->where('company', $company)->where('company_ref', $lastChar);
+                        }
+
+                        $p_voucher = $query->get();
+
+                        $data = [
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'contra_account' => $contra_account,
+                                'p_voucher' => $p_voucher,
+                                'company' => $lastChar,
+                                'type' => $type ?? null
+                        ];
+
+                        session()->put('Data', $data);
+                }
+
+
+                if (session()->has('Data')) {
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.p_voucher_rep')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();
+
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                }
+        }
+
+
+
+
+        function r_voucher_report(Request $request)
+        {
+                if (!session()->exists('Data')) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        $contra_account = $request->input('contra_account');
+                        $salesOfficer = $request->input('sales_officer');
+
+                        $company = substr($request->input('company'), 0, -1);
+                        $lastChar = substr($request->input('company'), -1);
+
+
+                        $type = $request->input('type');
+
+
+                        $query = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
+
+                        if ($company) {
+                                $query->where('company', $company)->where('company_ref', $lastChar);
+                        }
+                        if ($contra_account) {
+                                $query->where('cash_bank', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+
+                        $r_voucher = $query->get();
+
+                        $data = [
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'contra_account' => $contra_account,
+                                'r_voucher' => $r_voucher,
+                                'company' => $lastChar,
+                                'type' => $type ?? null
+                        ];
+
+                        session()->put('Data', $data);
+                }
+
+
+                if (session()->has('Data')) {
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.r_voucher_rep')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();
+
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                }
+        }
 }

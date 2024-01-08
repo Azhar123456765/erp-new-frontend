@@ -464,7 +464,7 @@
                 .options {
                     display: flex;
                     justify-content: center;
-                    margin-top: -7%;
+                    margin-top: -210px;
                 }
             </style>
 

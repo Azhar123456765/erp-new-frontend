@@ -95,22 +95,22 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">account Name</label>
-                            <input type="text" class="form-control " id="account" name="account_name" required>
+                            <input type="text" class="form-control" id="account" name="account_name" required>
                             <input type="hidden" name="account_category" value="{{$id}}">
                         </div>
 
                         <div class="form-group">
                             <label for="username">Qty</label>
-                            <input type="number" class="form-control " id="account" name="account_qty">
+                            <input type="number" class="form-control" id="account" name="account_qty">
                         </div>
 
                         <div class="form-group">
                             <label for="username">Debit</label>
-                            <input type="number" class="form-control " id="account" name="account_debit">
+                            <input type="number" class="form-control" id="account" name="account_debit">
                         </div>
                         <div class="form-group">
                             <label for="username">Credit</label>
-                            <input type="number" class="form-control " id="account" name="account_credit">
+                            <input type="number" class="form-control" id="account" name="account_credit">
                         </div>
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
 
@@ -138,21 +138,21 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">account Name</label>
-                            <input type="text" class="form-control " id="account" name="account_name" required value="{{$row->account_name}}">
+                            <input type="text" class="form-control" id="account" name="account_name" required value="{{$row->account_name}}">
                         </div>
 
                         <div class="form-group">
                             <label for="username">Qty</label>
-                            <input type="number" class="form-control " id="account" name="account_qty" value="{{$row->account_qty}}">
+                            <input type="number" class="form-control" id="account" name="account_qty" value="{{$row->account_qty}}">
                         </div>
 
                         <div class="form-group">
                             <label for="username">Debit</label>
-                            <input type="number" class="form-control " id="account" name="account_debit" value="{{$row->account_debit}}">
+                            <input type="number" class="form-control" id="account" name="account_debit" value="{{$row->account_debit}}">
                         </div>
                         <div class="form-group">
                             <label for="username">Credit</label>
-                            <input type="number" class="form-control " id="account" name="account_credit" value="{{$row->account_credit}}">
+                            <input type="number" class="form-control" id="account" name="account_credit" value="{{$row->account_credit}}">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>

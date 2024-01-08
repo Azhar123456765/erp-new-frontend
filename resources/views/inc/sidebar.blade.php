@@ -23,8 +23,8 @@ $target = null;
 <style>
   @media only screen and (max-width: 2000px) {
     a {
-    target-name: '_blank';
-  }
+      target-name: '_blank';
+    }
   }
 </style>
 
@@ -366,6 +366,30 @@ $target = null;
               <a href="#" class="nav-link">
                 <i class="nav-icon fas fa-file"></i>
                 <p>
+                  Voucher Reports
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#p_voucher_report" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Payment Voucher</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="" data-toggle="modal" data-target="#r_voucher_report" class="nav-link">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Receipt Voucher</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
                   Other Reports
                   <i class="right fas fa-angle-left"></i>
                 </p>
@@ -429,4 +453,4 @@ $target = null;
 
 <script>
 
-  </script>
+</script>

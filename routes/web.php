@@ -180,6 +180,8 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
     Route::get('/pv_pdf_{id}', [pdfController::class, 'pv_pdf']);
     Route::get('/rv_pdf_{id}', [pdfController::class, 'rv_pdf']);
+    Route::get('/p-voucher-report', [pdfController::class, 'p_voucher_report']);
+    Route::get('/r-voucher-report', [pdfController::class, 'r_voucher_report']);
     Route::get('/gen-led', [pdfController::class, 'gen_led']);
     Route::get('/cus-led', [pdfController::class, 'cus_led']);
     Route::get('/supplier-led', [pdfController::class, 'supplier_led']);

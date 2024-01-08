@@ -1,7 +1,3 @@
-<head>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-
-</head>
 <style>
     table {
         border-collapse: collapse;
@@ -58,7 +54,7 @@ $endDate = session()->get('Data')['endDate'] ?? null;
 $total_amount = session()->get('Data')['total_amount'] ?? null;
 $balance_amount = session()->get('Data')['balance_amount'] ?? null;
 $credit = session()->get('Data')['credit'] ?? null;
-$grand_total = session()->get('Data')['grand_total'] ?? null;
+$grand_total = session()->get('Data')['grand_total' ] ?? null;
 $debit = session()->get('Data')['debit'] ?? null;
 $customerName = session()->get('Data')['customerName'] ?? null;
 $type = session()->get('Data')['type'] ?? null;

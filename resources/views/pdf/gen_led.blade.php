@@ -249,7 +249,7 @@ foreach ($name as $key => $value) {
                 </td>
                 <td style="text-align: left
                 ;">
-                    <span><?php echo $row->product_name; ?></span>
+                    <span><?php echo $row->product->product_name; ?></span>
                 </td>
                 <td>
                     <span><?php echo $row->qty; ?></span>
@@ -308,7 +308,7 @@ foreach ($name as $key => $value) {
                 </td>
                 <td style="text-align: left
 ;">
-                    <span><?php echo $row->remark; ?></span>
+                    <span><?php echo $row->product->product_name; ?></span>
                 </td>
                 <td>
                     <span><?php echo $row->qty ?? 0; ?></span>

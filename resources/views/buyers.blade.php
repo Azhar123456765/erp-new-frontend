@@ -100,7 +100,7 @@
                             </div>
                             <div class="form-group col col">
                                 <div class="input-group">
-                                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control ">
+                                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Customer Email" class="form-control">
                                     <div class="input-group-addon">
                                     </div>
                                 </div>
@@ -118,7 +118,7 @@
 
                             <div class="form-group col col">
                                 <div class="input-group">
-                                    <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control ">
+                                    <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control">
                                     <div class="input-group-addon">
 
                                     </div>

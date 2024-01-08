@@ -44,7 +44,7 @@ $product = \App\Models\products::all();
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control " id="type" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" target class="btn btn-primary" id="btn">Submit</button>
@@ -72,7 +72,7 @@ $product = \App\Models\products::all();
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control " id="type" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -100,7 +100,7 @@ $product = \App\Models\products::all();
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control " id="type" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -127,7 +127,7 @@ $product = \App\Models\products::all();
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control " id="type" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -154,7 +154,7 @@ $product = \App\Models\products::all();
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control " id="type" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -184,7 +184,7 @@ $product = \App\Models\products::all();
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control " id="type" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -220,7 +220,7 @@ $theme_color = $value2->theme;
                         @csrf
                         <div class="form-group">
                             <label for="username">Theme</label>
-                            <input type="color" class="form-control " name="theme_color" style="min-height:10vh;" value="{{$theme_color}}">
+                            <input type="color" class="form-control" name="theme_color" style="min-height:10vh;" value="{{$theme_color}}">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -265,7 +265,7 @@ $theme_color = $value2->theme;
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Head Of Account</label>
-                                    <select class="form-control " name="head_account" id="head_account" onchange="accountData()">
+                                    <select class="form-control" name="head_account" id="head_account" onchange="accountData()">
                                         <option></option>
                                         <option value="1" data-id="1">Cash</option>
                                         <option value="2" data-id="2">Accounts Receivable</option>
@@ -287,7 +287,7 @@ $theme_color = $value2->theme;
                                 <div class="form-group">
                                     <label>Account</label>
                                     <label for=""></label>
-                                    <select class="form-control " name="account" id="gen-led-account">
+                                    <select class="form-control" name="account" id="gen-led-account">
                                         <option></option>
 
                                     </select>
@@ -299,7 +299,7 @@ $theme_color = $value2->theme;
                                 <div class="form-group">
                                     <label>Sales Officer</label>
                                     <label for=""></label>
-                                    <select class="form-control " name="sales_officer">
+                                    <select class="form-control" name="sales_officer">
                                         <option></option>
                                         @foreach ($sales_officer as $row)
                                         <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
@@ -313,7 +313,7 @@ $theme_color = $value2->theme;
                                 <div class="form-group">
                                     <label>Company Type</label>
                                     <label for=""></label>
-                                    <select class="form-control " name="company_type">
+                                    <select class="form-control" name="company_type">
                                         <option></option>
 
                                     </select>
@@ -391,7 +391,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control " name="customer" id="customer">
+                                    <select class="form-control" name="customer" id="customer">
                                         <option></option>
                                         @foreach ($supplier as $row)
                                         <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
@@ -434,7 +434,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control " name="product_category">
+                                    <select class="form-control" name="product_category">
                                         <option></option>
                                         @foreach ($product_category as $row)
                                         <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
@@ -447,7 +447,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control " name="product_company">
+                                    <select class="form-control" name="product_company">
                                         <option></option>
                                         @foreach ($product_company as $row)
                                         <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
@@ -460,7 +460,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control " name="product">
+                                    <select class="form-control" name="product">
                                         <option></option>
                                         @foreach ($product as $row)
                                         <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
@@ -530,7 +530,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control " name="customer" id="customer">
+                                    <select class="form-control" name="customer" id="customer">
                                         <option></option>
                                         @foreach ($supplier as $row)
                                         <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
@@ -573,7 +573,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control " name="product_category">
+                                    <select class="form-control" name="product_category">
                                         <option></option>
                                         @foreach ($product_category as $row)
                                         <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
@@ -586,7 +586,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control " name="product_company">
+                                    <select class="form-control" name="product_company">
                                         <option></option>
                                         @foreach ($product_company as $row)
                                         <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
@@ -599,7 +599,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control " name="product">
+                                    <select class="form-control" name="product">
                                         <option></option>
                                         @foreach ($product as $row)
                                         <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
@@ -668,7 +668,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control " name="customer" id="customer">
+                                    <select class="form-control" name="customer" id="customer">
                                         <option></option>
                                         @foreach ($customer as $row)
                                         <option value="{{ $row->buyer_id }}">{{ $row->company_name }}</option>
@@ -711,7 +711,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control " name="product_category">
+                                    <select class="form-control" name="product_category">
                                         <option></option>
                                         @foreach ($product_category as $row)
                                         <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
@@ -724,7 +724,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control " name="product_company">
+                                    <select class="form-control" name="product_company">
                                         <option></option>
                                         @foreach ($product_company as $row)
                                         <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
@@ -737,7 +737,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control " name="product">
+                                    <select class="form-control" name="product">
                                         <option></option>
                                         @foreach ($product as $row)
                                         <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
@@ -807,7 +807,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control " name="customer" id="customer">
+                                    <select class="form-control" name="customer" id="customer">
                                         <option></option>
                                         @foreach ($customer as $row)
                                         <option value="{{ $row->buyer_id }}">{{ $row->company_name }}</option>
@@ -850,7 +850,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control " name="product_category">
+                                    <select class="form-control" name="product_category">
                                         <option></option>
                                         @foreach ($product_category as $row)
                                         <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
@@ -863,7 +863,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control " name="product_company">
+                                    <select class="form-control" name="product_company">
                                         <option></option>
                                         @foreach ($product_company as $row)
                                         <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
@@ -876,7 +876,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control " name="product">
+                                    <select class="form-control" name="product">
                                         <option></option>
                                         @foreach ($product as $row)
                                         <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
@@ -1020,7 +1020,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control " name="supplier" id="supplier">
+                                    <select class="form-control" name="supplier" id="supplier">
                                         <option></option>
                                         @foreach ($supplier as $row)
                                         <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
@@ -1142,7 +1142,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control " name="product_category">
+                                    <select class="form-control" name="product_category">
                                         <option></option>
                                         @foreach ($product_category as $row)
                                         <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
@@ -1154,7 +1154,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control " name="product_company">
+                                    <select class="form-control" name="product_company">
                                         <option></option>
                                         @foreach ($product_company as $row)
                                         <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
@@ -1167,7 +1167,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Product</label>
-                                    <select class="form-control " name="product" id="product">
+                                    <select class="form-control" name="product" id="product">
                                         <option></option>
                                         @foreach ($product as $row)
                                         <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
@@ -1300,7 +1300,7 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="username">GR No</label>
-                            <input type="number" min="1" class="form-control " id="invoice" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="invoice" name="limit" required value="">
                         </div>
 
                         <button type="button" class="btn btn-primary" id="btn" onclick="invoice()">Submit</button>
@@ -1367,4 +1367,187 @@ text-align: center;
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
+</div>
+
+
+<div class="modal fade" id="p_voucher_report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Payment Voucher Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/p-voucher-report">
+                        @csrf
+                        <div class="row justify-content-between">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Company</label>
+                                    <select class="form-control" name="company">
+                                        <option></option>
+                                        @foreach ($supplier as $row)
+                                        <option value="{{ $row->seller_id }}S">{{ $row->company_name }} (Supplier)</option>
+                                        @endforeach
+
+                                        @foreach ($customer as $row)
+                                        <option value="{{ $row->buyer_id }}B">{{ $row->company_name }} (Customer)</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Contra Account</label>
+                                    <select class="form-control" name="contra_account">
+                                        <option></option>
+                                        @foreach ($account as $row)
+                                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control" name="sales_officer">
+                                        <option></option>
+                                        @foreach ($sales_officer as $row)
+                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+
+                            <br>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="submit" style="
+    text-align: center;
+">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+
+
+<div class="modal fade" id="r_voucher_report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Receipt Voucher Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="/r-voucher-report">
+                        @csrf
+                        <div class="row justify-content-between">
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Company</label>
+                                    <select class="form-control" name="company">
+                                        <option></option>
+                                        @foreach ($supplier as $row)
+                                        <option value="{{ $row->seller_id }}S">{{ $row->company_name }} (Supplier)</option>
+                                        @endforeach
+
+                                        @foreach ($customer as $row)
+                                        <option value="{{ $row->buyer_id }}B">{{ $row->company_name }} (Customer)</option>
+                                        @endforeach
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Contra Account</label>
+                                    <select class="form-control" name="contra_account">
+                                        <option></option>
+                                        @foreach ($account as $row)
+                                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control" name="sales_officer">
+                                        <option></option>
+                                        @foreach ($sales_officer as $row)
+                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+
+                            <br>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="submit" style="
+    text-align: center;
+">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div>
