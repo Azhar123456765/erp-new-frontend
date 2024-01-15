@@ -1854,7 +1854,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
 
 
