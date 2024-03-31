@@ -202,7 +202,7 @@ select.invalid,
 
     /* FILE UPLOAD STYLES */
     .file-upload {
-      max-width: 600px;
+      max-width: 100%;
     margin: 0px auto 0 0px;
   padding: 20px;
 }

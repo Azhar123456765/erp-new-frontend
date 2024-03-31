@@ -22,7 +22,7 @@ $logo = $value->logo;
         </div>
         @include('inc.navbar')
         @include('inc.sidebar')
-        <div class="content-wrapper">
+        <div class="content-wrapper" style="min-height: 110vh !important;">
             @yield('content')
         </div>
         <footer class="main-footer">
