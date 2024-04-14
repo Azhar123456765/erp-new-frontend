@@ -175,4 +175,5 @@
     }
 </script>
 
+@extends('master') @section('title','Accounts') @section('content')
 @endsection
