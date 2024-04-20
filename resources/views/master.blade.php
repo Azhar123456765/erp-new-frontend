@@ -2,8 +2,8 @@
 
 $org = App\Models\Organization::all();
 foreach ($org as $key => $value) {
-$organization = $value->organization_name;
-$logo = $value->logo;
+    $organization = $value->organization_name;
+    $logo = $value->logo;
 }
 
 @endphp
@@ -15,11 +15,12 @@ $logo = $value->logo;
     </title>
 </head>
 
-<body class="{{ request()->is('s_med_invoice*', 'es_med_invoice*','p_med_invoice*','ep_med_invoice*','rp_med_invoice*','rs_med_invoice*','arp_med_invoice*','ars_med_invoice*','r_voucher*','er_voucher_id=*','p_voucher*','ep_voucher_id=*') ? 'sidebar-collapse' : 'sidebar-mini' }}  layout-fixed">
+<body class="{{ request()->is('s_med_invoice*', 'es_med_invoice*', 'p_med_invoice*', 'ep_med_invoice*', 'rp_med_invoice*', 'rs_med_invoice*', 'arp_med_invoice*', 'ars_med_invoice*', 'r_voucher*', 'er_voucher_id=*', 'p_voucher*', 'ep_voucher_id=*') ? 'sidebar-collapse' : 'sidebar-mini' }}  layout-fixed">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{$logo}}" alt="AdminLTELogo" height="60" width="60" style="border-radius: 50%;" />
         </div>
+
         @include('inc.navbar')
         @include('inc.sidebar')
         <div class="content-wrapper" style="min-height: 110vh !important;">
@@ -33,6 +34,6 @@ $logo = $value->logo;
             <aside class="control-sidebar control-sidebar-dark"></aside>
         </footer>
     </div>
+    @include('inc.modals')
+    @include('inc.script')
 </body>
-@include('inc.modals')
-@include('inc.script')

@@ -123,10 +123,10 @@ class SaleInvoiceController extends Controller
     {
 
 
-        $product = products::limit(1000)->get();
-        $seller = buyer::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
+        $sales_officer = sales_officer::all();
 
 
         $invoice_no = $post['invoice_no'] ?? null;
@@ -149,10 +149,9 @@ class SaleInvoiceController extends Controller
             if ($post['date']) {
                 $query->Where("date", $post['date']);
             }
-            $query->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
-                ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
-                ->leftJoin('warehouse', 'sell_invoice.warehouse', '=', 'warehouse.warehouse_id')
-                ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+            $query
+                ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+                ->select('sell_invoice.unique_id', 'sell_invoice.qty_total', 'sell_invoice.amount_total', 'sell_invoice.due_date', 'sell_invoice.created_at', 'buyer.company_name')
                 ->whereIn('sell_invoice.id', function ($query2) {
                     $query2->select(DB::raw('MIN(id)'))
                         ->from('sell_invoice')
@@ -193,13 +192,13 @@ class SaleInvoiceController extends Controller
      */
     public function create()
     {
-        $product = products::limit(1000)->get();
-        $seller = buyer::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer = sales_officer::all();
 
-        $sell_invoice  = sell_invoice::all();
+        $sell_invoice = sell_invoice::all();
         $count = sell_invoice::whereIn('sell_invoice.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
                 ->from('sell_invoice')
@@ -232,7 +231,7 @@ class SaleInvoiceController extends Controller
         $amount = $request['balance_amount'];
 
 
-        $income =  new Income;
+        $income = new Income;
         $income->category_id = $invoiceData['unique_id'];
         $income->category = 'Sale Invoice';
         $income->amount = $request['amount_paid'];
@@ -337,11 +336,11 @@ class SaleInvoiceController extends Controller
      */
     public function edit($id)
     {
-        $product = products::limit(1000)->get();
-        $seller = buyer::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer = sales_officer::all();
 
         $sell_invoice = sell_invoice::where("unique_id", $id)
             ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
@@ -351,7 +350,7 @@ class SaleInvoiceController extends Controller
             ->get();
 
 
-        $single_invoice  = sell_invoice::where([
+        $single_invoice = sell_invoice::where([
 
             "unique_id" => $id
         ])->limit(1)->get();
@@ -383,7 +382,7 @@ class SaleInvoiceController extends Controller
 
         $invoiceData = $request->all();
 
-        $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
+        $income = Income::where('category_id', $invoiceData['unique_id'])->update([
             'amount' => $request['amount_paid']
         ]);
 
@@ -501,11 +500,11 @@ class SaleInvoiceController extends Controller
     public function r_edit(Request $post, $id)
     {
 
-        $product = products::limit(1000)->get();
-        $seller = buyer::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer = sales_officer::limit(1000)->get();
+        $sales_officer = sales_officer::all();
 
         $sell_invoice = sell_invoice::where("unique_id", $id)
             ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
@@ -544,7 +543,7 @@ class SaleInvoiceController extends Controller
         // Assuming all array fields have the same length
         $arrayLength = count(array_filter($invoiceData['item']));
 
-        $income =  Income::where('category_id', $invoiceData['unique_id'])->update([
+        $income = Income::where('category_id', $invoiceData['unique_id'])->update([
             'amount' => $request['amount_paid']
         ]);
 
@@ -613,7 +612,7 @@ class SaleInvoiceController extends Controller
             ]);
 
 
-            $invoice->return_qty =  $invoice->return_qty + $invoiceData['return_qty']["$i"] ?? null;
+            $invoice->return_qty = $invoice->return_qty + $invoiceData['return_qty']["$i"] ?? null;
 
 
             $invoice->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;
@@ -712,7 +711,7 @@ class SaleInvoiceController extends Controller
             ]);
 
 
-            $invoice_r->return_qty =  $invoice_r->return_qty + $invoiceData['return_qty']["$i"] ?? null;
+            $invoice_r->return_qty = $invoice_r->return_qty + $invoiceData['return_qty']["$i"] ?? null;
 
 
             $invoice_r->dis_amount = $invoiceData['dis_amount']["$i"] ?? null;

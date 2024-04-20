@@ -39,11 +39,11 @@ class PurchaseReturnController extends Controller
      */
     public function create()
     {
-        // $product = products::limit(1000)->get();
-        $seller = seller::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        // $product = products::all();
+        $seller = seller::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $purchase_invoice  = purchase_invoice::all();
         $product  = products::all();

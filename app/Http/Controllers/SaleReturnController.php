@@ -37,11 +37,11 @@ class SaleReturnController extends Controller
      */
     public function create()
     {
-        $product = products::limit(1000)->get();
-        $seller = buyer::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $sell_invoice  = sale_return::all();
         $count = sale_return::whereIn('sale_returns.id', function ($query2) {

@@ -29,6 +29,7 @@ use PurchaseInvoice;
 
 class pdfController extends Controller
 {
+        
 
         public function test_pdf(Request $post)
         {
@@ -270,7 +271,6 @@ class pdfController extends Controller
 
         public function sale_report(Request $request)
         {
-
                 $type = $request['type'];
                 if ($type == 1) {
                         $startDate = $request->input('start_date');

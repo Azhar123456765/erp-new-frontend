@@ -40,12 +40,12 @@ class PaymentVoucherController extends Controller
     public function create()
     {
        
-        $seller = seller::limit(1000)->get();
-        $buyer = buyer::limit(1000)->get();
+        $seller = seller::all();
+        $buyer = buyer::all();
 
-        $warehouse = warehouse::limit(1000)->get();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $account = accounts::all();
         $count = p_voucher::whereIn('payment_voucher.id', function ($query2) {
@@ -156,12 +156,12 @@ class PaymentVoucherController extends Controller
     public function edit(Request $request, $id)
     {
 
-        $seller = seller::limit(1000)->get();
-        $buyer = buyer::limit(1000)->get();
+        $seller = seller::all();
+        $buyer = buyer::all();
 
-        $warehouse = warehouse::limit(1000)->get();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $p_voucher = p_voucher::where("unique_id", $id)
             ->get();

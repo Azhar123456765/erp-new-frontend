@@ -147,9 +147,24 @@ class product extends Controller
 
     function product_company(Request $request)
     {
-
-        $users = product_company::all();
+        $users = product_company::paginate(15);
+        $search = $request->input('search');
         $data = compact('users');
+        if ($search) {
+            $users = product_company::where('company_name', 'like', '%' . $search . '%')->get();
+            $data = compact('users');
+            $view = view('load.product.company', $data)->render();
+            return response()->json(['view' => $view]);
+        } elseif ($request->ajax()) {
+            $view = view('load.product.company', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        }
+
+
+        if ($request->ajax()) {
+            $view = view('load.product.company', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        }
         return view('product_company')->with($data);
     }
     function add_product_company(Request $request)
@@ -277,21 +292,39 @@ class product extends Controller
         $sub_category = product_sub_category::all();
         $company = product_company::all();
         $type = product_type::all();
+        $search = $request->input('search');
 
         $product_code = $request['code'] ?? null;
+        
         if ($product_code != null) {
             $users = products::where('product_id', $product_code)->leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
                 ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
                 ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-                ->get();
+                ->paginate(15);
         } else {
             $users = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
                 ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
                 ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-                ->get();
+                ->paginate(15);
         }
         $data = compact('users', 'category', 'sub_category', 'company', 'type', 'product_code');
 
+
+        if ($search) {
+            $users = product_company::where('company_name', 'like', '%' . $search . '%')->get();
+            $data = compact('users');
+            $view = view('load.product.company', $data)->render();
+            return response()->json(['view' => $view]);
+        } elseif ($request->ajax()) {
+            $view = view('load.product.company', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        }
+
+
+        if ($request->ajax()) {
+            $view = view('load.product.company', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        }
         return view('products')->with($data);
     }
 
@@ -299,7 +332,7 @@ class product extends Controller
     {
 
         $request->validate([
-            'product_name' => 'required|unique:products,product_name,' .  $request['product_name'] . ',product_id',
+            'product_name' => 'required|unique:products,product_name,' . $request['product_name'] . ',product_id',
         ]);
         // Retrieve the form data
         $productName = $request->input('product_name');

@@ -43,12 +43,12 @@ class ReceiptVoucherController extends Controller
     public function index()
     {
 
-        $seller = seller::limit(1000)->get();
-        $buyer = buyer::limit(1000)->get();
+        $seller = seller::all();
+        $buyer = buyer::all();
 
-        $warehouse = warehouse::limit(1000)->get();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $sell_invoice  = sell_invoice::all();
 
@@ -153,12 +153,12 @@ class ReceiptVoucherController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $seller = seller::limit(1000)->get();
-        $buyer = buyer::limit(1000)->get();
+        $seller = seller::all();
+        $buyer = buyer::all();
 
-        $warehouse = warehouse::limit(1000)->get();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $ReceiptVoucher = ReceiptVoucher::where("unique_id", $id)->get();
 

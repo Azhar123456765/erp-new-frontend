@@ -31,11 +31,11 @@ class PurchaseInvoiceController extends Controller
     {
 
 
-        $product = products::limit(1000)->get();
-        $seller = seller::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = seller::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
 
 
@@ -104,11 +104,11 @@ class PurchaseInvoiceController extends Controller
      */
     public function create()
     {
-        // $product = products::limit(1000)->get();
-        $seller = seller::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        // $product = products::all();
+        $seller = seller::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $purchase_invoice  = purchase_invoice::all();
         $product  = products::all();
@@ -265,11 +265,11 @@ class PurchaseInvoiceController extends Controller
     public function edit($id)
     {
 
-        $product = products::limit(1000)->get();
-        $seller = seller::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = seller::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $purchase_invoice = purchase_invoice::where("unique_id", $id)
             ->leftJoin('seller', 'purchase_invoice.company', '=', 'seller.seller_id')
@@ -449,11 +449,11 @@ class PurchaseInvoiceController extends Controller
     }
     public function r_edit(Request $post, $id)
     {
-        $product = products::limit(1000)->get();
-        $seller = seller::limit(1000)->get();
-        $warehouse = warehouse::limit(1000)->get();
+        $product = products::all();
+        $seller = seller::all();
+        $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::limit(1000)->get();
+        $sales_officer  = sales_officer::all();
 
         $purchase_invoice = purchase_invoice::where("unique_id", $id)
             ->leftJoin('seller', 'purchase_invoice.company', '=', 'seller.seller_id')

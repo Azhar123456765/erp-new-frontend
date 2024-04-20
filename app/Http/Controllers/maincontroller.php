@@ -386,7 +386,7 @@ class maincontroller extends Controller
 
 
 
-    public function get_week_data(Request  $request)
+    public function get_week_data(Request $request)
     {
 
 
@@ -398,7 +398,7 @@ class maincontroller extends Controller
         $startOfWeek = $currentDate->startOfWeek();
         $endOfWeek = $currentDate->endOfWeek();
 
-        $classcheck =  $request->input('data');
+        $classcheck = $request->input('data');
         if ($classcheck == 'buyer') {
 
             $weekData = buyer::all();
@@ -576,7 +576,7 @@ class maincontroller extends Controller
         })->sum("qty_total");
 
         $earning = Income::whereBetween(DB::raw('DATE(incomes.updated_at)'), [$start_date, $end_date])->sum('amount');
-        $expense =  Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
+        $expense = Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
 
         $data = compact('sell_qty', 'pur_qty', 'earning', 'expense');
         return response()->json($data);
@@ -680,7 +680,7 @@ class maincontroller extends Controller
             $si = Income::whereBetween(DB::raw('DATE(incomes.updated_at)'), [$start_date, $end_date])->sum('amount');
             $earning = $si;
 
-            $expense =  Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
+            $expense = Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
 
 
             $onlineUsersCount = Cache::get('user_last_seen', []);
@@ -790,11 +790,11 @@ class maincontroller extends Controller
 
         $request->validate([
 
-            'email' => 'required|unique:users,email,' .  $request['user_id'] . ',user_id',
+            'email' => 'required|unique:users,email,' . $request['user_id'] . ',user_id',
 
-            'username' => 'required|unique:users,username,' .  $request['user_id'] . ',user_id',
+            'username' => 'required|unique:users,username,' . $request['user_id'] . ',user_id',
 
-            'phone_number' => 'required|unique:users,phone_number,' .  $request['user_id'] . ',user_id',
+            'phone_number' => 'required|unique:users,phone_number,' . $request['user_id'] . ',user_id',
 
         ]);
 
@@ -900,11 +900,11 @@ class maincontroller extends Controller
 
         $request->validate([
 
-            'email' => 'required|unique:users,email,' .  $request['user_id'] . ',user_id',
+            'email' => 'required|unique:users,email,' . $request['user_id'] . ',user_id',
 
-            'username' => 'required|unique:users,username,' .  $request['user_id'] . ',user_id',
+            'username' => 'required|unique:users,username,' . $request['user_id'] . ',user_id',
 
-            'phone_number' => 'required|unique:users,phone_number,' .  $request['user_id'] . ',user_id',
+            'phone_number' => 'required|unique:users,phone_number,' . $request['user_id'] . ',user_id',
 
         ]);
 
@@ -975,7 +975,7 @@ class maincontroller extends Controller
         $id = session()->get('user_id')['user_id'];
 
         $customize = users::where('user_id', $id)->update([
-            'theme' =>  $request["theme_color"]
+            'theme' => $request["theme_color"]
         ]);
 
         return redirect()->back();
@@ -988,7 +988,7 @@ class maincontroller extends Controller
     static function theme_color()
     {
 
-        return  $theme_color = customization::all();
+        return $theme_color = customization::all();
     }
 
 
@@ -1018,7 +1018,7 @@ class maincontroller extends Controller
 
 
 
-    public function pdf(Request  $request, $view)
+    public function pdf(Request $request, $view)
     {
 
         if (session()->has('pdf_data')) {
@@ -1071,22 +1071,27 @@ class maincontroller extends Controller
     public function view_sellers(Request $request)
     {
         $search = $request->input('search');
-
-        $pdf = seller::limit(100)->get();
-        $zone = zone::all();
-
-        if ($search != '') {
-            $seller = seller::where('company_name', 'LIKE', "%$search%")->get();
-            $pdf = seller::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
-
-
-            $data = compact('seller', 'search', 'pdf', 'zone');
-            return view('sellers')->with($data);
+        $zone = zone::paginate(5);
+        $seller = seller::paginate(10);
+        $serial = $request->input('serial');
+        $search = $request->input('search');
+        
+        $data = compact('seller', 'search', 'zone', 'serial');
+        if ($search) {
+            $seller = seller::where('company_name', 'like', '%' . $search . '%')->get();
+            $data = compact('seller', 'search', 'zone', 'serial');
+            $view = view('load.supplier', $data)->render();
+            return response()->json(['view' => $view]);
+        } elseif ($request->ajax()) {
+            $view = view('load.supplier', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $seller->nextPageUrl()]);
         }
 
-        $seller = seller::all();
-        $data = compact('seller', 'search', 'pdf', 'zone');
 
+        if ($request->ajax()) {
+            $view = view('load.supplier', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $seller->nextPageUrl()]);
+        }
         return view('sellers')->with($data);
     }
 
@@ -1107,7 +1112,7 @@ class maincontroller extends Controller
 
         $request->validate([
 
-            'company_name' => 'required|unique:seller,company_name,' .  $request['user_id'] . ',seller_id',
+            'company_name' => 'required|unique:seller,company_name,' . $request['user_id'] . ',seller_id',
 
         ]);
 
@@ -1154,7 +1159,7 @@ class maincontroller extends Controller
 
         $request->validate([
 
-            'company_name' => 'required|unique:seller,company_name,' .  $request['user_id'] . ',seller_id',
+            'company_name' => 'required|unique:seller,company_name,' . $request['user_id'] . ',seller_id',
 
         ]);
 
@@ -1299,19 +1304,45 @@ class maincontroller extends Controller
     {
         $search = $request->input('search');
 
-        $pdf = buyer::limit(100)->get();
-        $zone = zone::all();
+        // $pdf = buyer::limit(10)->get();
+        $zone = zone::paginate(5);
 
-        if ($search != '') {
-            $buyer = buyer::where('company_name', 'LIKE', "%$search%")->get();
-            $pdf = buyer::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
+        // if ($search != '') {
+        //     $buyer = buyer::where('company_name', 'LIKE', "%$search%")->get();
+        //     $pdf = buyer::where('company_name', 'LIKE', "%$search%")->limit(100)->get();
 
-            $data = compact('buyer', 'search', 'pdf', 'zone');
-            return view('buyers')->with($data);
+        //     $data = compact('buyer', 'search', 'pdf', 'zone');
+        //     return view('buyers')->with($data);
+        // }
+
+        $buyer = buyer::paginate(10);
+        $serial = $request->input('serial');
+        $search = $request->input('search');
+        // if ($search) {
+        //     // Retrieve all fillable attributes of the Buyer model
+        //     $fillableAttributes = (new Buyer())->getFillable();
+
+        //     // Dynamically construct the query to search all fillable attributes
+        //     foreach ($fillableAttributes as $attribute) {
+        //         $query->orWhere($attribute, 'like', '%' . $search . '%');
+        //     }
+        // }
+        $data = compact('buyer', 'search', 'zone', 'serial');
+        if ($search) {
+            $buyer = Buyer::where('company_name', 'like', '%' . $search . '%')->get();
+            $data = compact('buyer', 'search', 'zone', 'serial');
+            $view = view('load.buyer', $data)->render();
+            return response()->json(['view' => $view]);
+        } elseif ($request->ajax()) {
+            $view = view('load.buyer', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $buyer->nextPageUrl()]);
         }
 
-        $buyer = buyer::all();
-        $data = compact('buyer', 'search', 'pdf', 'zone');
+
+        if ($request->ajax()) {
+            $view = view('load.buyer', $data)->render();
+            return response()->json(['view' => $view, 'nextPageUrl' => $buyer->nextPageUrl()]);
+        }
         return view('buyers')->with($data);
     }
 
@@ -1334,7 +1365,7 @@ class maincontroller extends Controller
 
         $request->validate([
 
-            'company_name' => 'required|unique:buyer,company_name,' .  $request['user_id'] . ',buyer_id',
+            'company_name' => 'required|unique:buyer,company_name,' . $request['user_id'] . ',buyer_id',
 
         ]);
 
@@ -1379,7 +1410,7 @@ class maincontroller extends Controller
 
         $request->validate([
 
-            'company_name' => 'required|unique:buyer,company_name,' .  $request['user_id'] . ',buyer_id',
+            'company_name' => 'required|unique:buyer,company_name,' . $request['user_id'] . ',buyer_id',
 
         ]);
 
