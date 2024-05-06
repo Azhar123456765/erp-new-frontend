@@ -832,7 +832,7 @@ window.location.href = newUrl
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $('select').select2({
+            $('.select2').select2({
                 theme: 'classic',
                 width: 'resolve',
             });
@@ -967,7 +967,7 @@ window.location.href = newUrl
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $('select').select2({
+            $('.select2').select2({
                 theme: 'classic',
                 width: 'resolve',
             });

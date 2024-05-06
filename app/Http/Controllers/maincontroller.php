@@ -34,6 +34,7 @@ use App\Models\sell_invoice;
 use App\Models\purchase_invoice;
 use App\Models\ReceiptVoucher;
 use Illuminate\Validation\Rule;
+use Yajra\DataTables\DataTables;
 
 class maincontroller extends Controller
 {
@@ -1346,17 +1347,16 @@ class maincontroller extends Controller
         return view('buyers')->with($data);
     }
 
+function data_buyer(){
+    $buyer = buyer::all();
+    return DataTables::of($buyer)->make(true);
+}
 
-
-
+     
     public function view_add_buyer()
     {
         return view('add_buyer');
     }
-
-
-
-
 
 
 

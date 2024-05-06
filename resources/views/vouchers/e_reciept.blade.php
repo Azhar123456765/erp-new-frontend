@@ -577,7 +577,7 @@ window.location.href = newUrl
 <script>
     $(document).change(function() {
         total_amount();
-        $('select').select2({
+        $('.select2').select2({
             theme: 'classic',
             width: 'resolve',
         });

@@ -17,6 +17,7 @@ use App\Models\product_type;
 use App\Models\products;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Response;
+use Yajra\DataTables\DataTables;
 
 class product extends Controller
 {
@@ -143,7 +144,11 @@ class product extends Controller
 
 
 
-
+    function data_product_company()
+    {
+        $product = product_company::all();
+        return DataTables::of($product)->make(true);
+    }
 
     function product_company(Request $request)
     {
@@ -285,7 +290,14 @@ class product extends Controller
 
 
 
-
+    function data_product()
+    {
+        $product = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
+            ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
+            ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
+            ->get();
+        return DataTables::of($product)->make(true);
+    }
     function view_product(Request $request)
     {
         $category = product_category::all();
@@ -295,7 +307,7 @@ class product extends Controller
         $search = $request->input('search');
 
         $product_code = $request['code'] ?? null;
-        
+
         if ($product_code != null) {
             $users = products::where('product_id', $product_code)->leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
                 ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')

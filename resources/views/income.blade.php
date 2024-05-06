@@ -22,7 +22,7 @@ $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
         </div>
 
         <div class="card-body">
-            <table id="example1" class="table table-bordered table-striped">
+            <table id="table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>S.No</th>

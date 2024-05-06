@@ -20,6 +20,7 @@ use App\Models\sale_return;
 use App\Models\warehouse;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\Mail;
+use Yajra\DataTables\DataTables;
 
 class SaleInvoiceController extends Controller
 {
@@ -184,7 +185,20 @@ class SaleInvoiceController extends Controller
 
         return view('invoice.view_sale_invoice')->with($data);
     }
+    function data()
+    {
+        ini_set('memory_limit', '1024M');
 
+        $sell_invoice = sell_invoice::leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+            ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+            ->leftJoin('warehouse', 'sell_invoice.warehouse', '=', 'warehouse.warehouse_id')
+            ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+            ->whereRaw('sell_invoice.id IN (SELECT MIN(id) FROM sell_invoice GROUP BY unique_id)')
+            ->orderby("sell_invoice.id")
+            ->get();
+
+        return DataTables::of($sell_invoice)->make(true);
+    }
     /**
      * Show the form for creating a new resource.
      *

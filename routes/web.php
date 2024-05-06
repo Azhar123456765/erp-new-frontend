@@ -70,6 +70,7 @@ Route::middleware(['userAuth', 'setupPermission'])->group(function () {
 
     Route::get('/edit_buyer{id}', [maincontroller::class, 'view_edit_buyer']);
     Route::get('/buyers', [maincontroller::class, 'view_buyers']);
+    Route::get('/data-buyers', [maincontroller::class, 'data_buyer']);
     Route::get('/add-buyer', [maincontroller::class, 'view_add_buyer']);
     Route::get('/view-buyer{id}', [maincontroller::class, 'view_single_buyer']);
     Route::get('/view_single_buyer{id}', [maincontroller::class, 'view_single_buyer']);
@@ -106,6 +107,7 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
 
     // INVOICES
     Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
+    Route::get('/data-sale-invoice', [SaleInvoiceController::class, 'data']);
     Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
     Route::get('/ars_med_invoice', [SaleReturnController::class, 'create']);
     Route::post('/ars_med_invoice_form', [SaleReturnController::class, 'store']);
@@ -160,6 +162,7 @@ Route::middleware(['userAuth', 'productPermission'])->group(function () {
     Route::post('/add_product_sub_category', [product::class, 'add_product_sub_category']);
     Route::post('/edit_product_sub_category{id}', [product::class, 'edit_product_sub_category']);
     Route::get('/product_company', [product::class, 'product_company']);
+    Route::get('/data-product-company', [product::class, 'data_product_company']);
     Route::post('/add_product_company', [product::class, 'add_product_company']);
     Route::post('/edit_product_company{id}', [product::class, 'edit_product_company']);
     Route::get('/product_type', [product::class, 'product_type']);
@@ -167,6 +170,7 @@ Route::middleware(['userAuth', 'productPermission'])->group(function () {
     Route::post('/edit_product_type{id}', [product::class, 'edit_product_type']);
     Route::get('/products', [product::class, 'view_product']);
     Route::get('/tmp', [product::class, 'tmp']);
+    Route::get('/data-product', [product::class, 'data_product']);
     Route::post('/add_product_form', [product::class, 'add_product']);
     Route::post('/edit_product{id}', [product::class, 'edit_product']);
 });

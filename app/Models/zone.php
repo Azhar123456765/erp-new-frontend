@@ -7,6 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class zone extends Model
 {
+    protected $guarded = [];
     public $table = 'zone';
-    public $id = 'id';
+    function customer()
+    {
+        return $this->hasOne(buyer::class, 'city', 'zone_id');
+    }
 }

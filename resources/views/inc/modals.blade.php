@@ -1282,7 +1282,7 @@ text-align: center;
     //         $('#gen-led').hide()
 
     $(document).ready(function() {
-        $('select').select2({
+        $('.select2').select2({
             theme: 'classic',
             width: '100%',
         });

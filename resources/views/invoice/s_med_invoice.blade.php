@@ -775,7 +775,7 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $('select').select2({
+            $('.select2').select2({
                 theme: 'classic',
                 width: 'resolve',
             });
@@ -914,7 +914,7 @@ display: flex;
 
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
-            $('select').select2({
+            $('.select2').select2({
                 theme: 'classic',
          
                 width: 'resolve',
@@ -1223,7 +1223,7 @@ display: flex;
     $("#item option").click(function() {
         // Initialize Select2 for the desired select elements
         $("select").select2();
-        $('select').select2({
+        $('.select2').select2({
             theme: 'classic',
             width: 'resolve',
         });

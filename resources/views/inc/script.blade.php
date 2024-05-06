@@ -224,7 +224,7 @@ if (window.innerWidth() <= 500) {
         showConfirmButton: false,
         timer: 3000 // Automatically close after 3 seconds
     });
-    $('.select').select2({
+    $('.select2').select2({
         theme: 'default',
         width: 'resolve',
          
