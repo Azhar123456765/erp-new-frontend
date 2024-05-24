@@ -599,40 +599,40 @@ class maincontroller extends Controller
                     ->groupBy('unique_id');
             })->sum("qty_total");
 
-            $earning_y = Income::select(
-                DB::raw('MONTH(updated_at) as month'),
-                DB::raw('SUM(amount) as total_earning')
-            )
-                ->whereYear('updated_at', 2023)
-                ->groupBy(DB::raw('MONTH(updated_at)'))
-                ->orderBy(DB::raw('MONTH(updated_at)'))
-                ->get();
+            // $earning_y = Income::select(
+            //     DB::raw('MONTH(updated_at) as month'),
+            //     DB::raw('SUM(amount) as total_earning')
+            // )
+            //     ->whereYear('updated_at', 2023)
+            //     ->groupBy(DB::raw('MONTH(updated_at)'))
+            //     ->orderBy(DB::raw('MONTH(updated_at)'))
+            //     ->get();
 
-            $chartData = [];
-            foreach ($earning_y as $item) {
-                $chartData[] = [
+            // $chartData = [];
+            // foreach ($earning_y as $item) {
+            //     $chartData[] = [
 
-                    $chartData[$item->month] = $item->total_earning
-                ];
-            }
+            //         $chartData[$item->month] = $item->total_earning
+            //     ];
+            // }
 
+                // dd($chartData);
+            // $expense_y = Expense::select(
+            //     DB::raw('MONTH(updated_at) as month'),
+            //     DB::raw('SUM(amount) as total_earning')
+            // )
+            //     ->whereYear('updated_at', 2023)
+            //     ->groupBy(DB::raw('MONTH(updated_at)'))
+            //     ->orderBy(DB::raw('MONTH(updated_at)'))
+            //     ->get();
 
-            $expense_y = Expense::select(
-                DB::raw('MONTH(updated_at) as month'),
-                DB::raw('SUM(amount) as total_earning')
-            )
-                ->whereYear('updated_at', 2023)
-                ->groupBy(DB::raw('MONTH(updated_at)'))
-                ->orderBy(DB::raw('MONTH(updated_at)'))
-                ->get();
+            // $chartData2 = [];
+            // foreach ($expense_y as $item) {
+            //     $chartData2[] = [
 
-            $chartData2 = [];
-            foreach ($expense_y as $item) {
-                $chartData2[] = [
-
-                    $chartData2[$item->month] = $item->total_earning
-                ];
-            }
+            //         $chartData2[$item->month] = $item->total_earning
+            //     ];
+            // }
             // $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
             //     ->select(
             //         DB::raw('MONTH(created_at) as month'),
@@ -692,7 +692,7 @@ class maincontroller extends Controller
             }));
 
             // Now $onlineUsersCount contains the count of online users
-            $data = compact('sell_invoice_qty', 'earning', 'expense', 'chartData', 'chartData2', 'onlineUsersCount');
+            $data = compact('sell_invoice_qty', 'earning', 'expense', 'onlineUsersCount');
             return view('dashboard')->with($data);
         } else {
             return view('login');
@@ -1076,7 +1076,7 @@ class maincontroller extends Controller
         $seller = seller::paginate(10);
         $serial = $request->input('serial');
         $search = $request->input('search');
-        
+
         $data = compact('seller', 'search', 'zone', 'serial');
         if ($search) {
             $seller = seller::where('company_name', 'like', '%' . $search . '%')->get();
@@ -1347,12 +1347,13 @@ class maincontroller extends Controller
         return view('buyers')->with($data);
     }
 
-function data_buyer(){
-    $buyer = buyer::all();
-    return DataTables::of($buyer)->make(true);
-}
+    function data_buyer()
+    {
+        $buyer = buyer::all();
+        return DataTables::of($buyer)->make(true);
+    }
 
-     
+
     public function view_add_buyer()
     {
         return view('add_buyer');

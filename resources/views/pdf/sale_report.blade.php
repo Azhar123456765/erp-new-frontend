@@ -192,7 +192,7 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
                     <span>{{$row->book}}</span>
                 </td>
                 <td style="text-align: left;">
-                    <span>{{$row->product->product_name}}</span>
+                    <span>{{$row->product->product_name ?? 'null'}}</span>
                 </td>
                 <td>
                     <span>{{$row->sale_price}}</span>

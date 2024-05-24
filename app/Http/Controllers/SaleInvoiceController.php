@@ -187,8 +187,6 @@ class SaleInvoiceController extends Controller
     }
     function data()
     {
-        ini_set('memory_limit', '1024M');
-
         $sell_invoice = sell_invoice::leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
             ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
             ->leftJoin('warehouse', 'sell_invoice.warehouse', '=', 'warehouse.warehouse_id')

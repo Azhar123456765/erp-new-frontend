@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\select2Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\maincontroller;
 use App\Http\Controllers\pdfController;
@@ -197,6 +198,22 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/stock-report', [pdfController::class, 'stock_rep']);
     Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);
 });
+
+Route::middleware('userAuth')->group(function () {
+    // SELECT
+    Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
+    Route::get('/select-warehouse', [select2Controller::class, 'warehouse'])->name('select2.warehouse');
+    Route::get('/select-sales_officer', [select2Controller::class, 'sales_officer'])->name('select2.sales_officer');
+    Route::get('/select-product_category', [select2Controller::class, 'product_category'])->name('select2.product_category');
+    Route::get('/select-product_company', [select2Controller::class, 'product_company'])->name('select2.product_company');
+    Route::get('/select-buyer', [select2Controller::class, 'buyer'])->name('select2.buyer');
+    Route::get('/select-seller', [select2Controller::class, 'seller'])->name('select2.seller');
+    Route::get('/select-products', [select2Controller::class, 'products'])->name('select2.products');
+    Route::get('/select-seller-buyer', [select2Controller::class, 'seller_buyer'])->name('select2.seller-buyer');
+
+
+});
+
 
 
 Route::get('/pdf2', [pdfController::class, 'test_pdf']);

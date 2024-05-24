@@ -19,49 +19,54 @@
 <script src="{{ asset('../../dist/js/adminlte.min2167.js?v=3.2.0') }}"></script>
 
 <script src="{{ asset('../../dist/js/demo.js') }}"></script>
-<script src="select2/select2.min.js"></script>
+<!-- Include Select2 CSS -->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+
+<!-- Include Select2 JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+
 <script src="validate/validin.js"></script>
 
 
 <script>
-    
+
     $(function () {
-      $('form').validin();
-    $("#example1")
-      .DataTable({
-        responsive: true,
-        lengthChange: false,
-        autoWidth: false,
-        buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
-      })
-      .buttons()
-      .container()
-      .appendTo("#example1_wrapper .col-md-6:eq(0)");
-    $("#example2").DataTable({
-      paging: true,
-      lengthChange: false,
-      searching: false,
-      ordering: true,
-      info: true,
-      autoWidth: false,
-      responsive: true,
+        $('form').validin();
+        $("#example1")
+            .DataTable({
+                responsive: true,
+                lengthChange: false,
+                autoWidth: false,
+                buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+            })
+            .buttons()
+            .container()
+            .appendTo("#example1_wrapper .col-md-6:eq(0)");
+        $("#example2").DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: false,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+        });
     });
-  });
 </script>
 
 
 
 
 
-    <script src="../../plugins/summernote/summernote-bs4.min.js"></script>
+<script src="../../plugins/summernote/summernote-bs4.min.js"></script>
 
 
-    <script>
-      $(function () {
+<script>
+    $(function () {
         //Add text editor
         $("textarea").summernote();
-      });
-    </script>
+    });
+</script>
 
 
 
@@ -72,22 +77,22 @@
         window.location.href = "/pdf" + href
     }
 
-// Check if the screen width is less than or equal to 767 pixels (common mobile breakpoint)
-if (window.innerWidth() <= 500) {
-  // Select anchor elements with the class 'external-link' within aside elements
-  var links = $('aside a');
+    // Check if the screen width is less than or equal to 767 pixels (common mobile breakpoint)
+    if (window.innerWidth() <= 500) {
+        // Select anchor elements with the class 'external-link' within aside elements
+        var links = $('aside a');
 
-  // Iterate through each link and set the target attribute to '_blank'
-  links.each(function() {
-    $(this).attr('target', '_blank');
-  });
-}
+        // Iterate through each link and set the target attribute to '_blank'
+        links.each(function () {
+            $(this).attr('target', '_blank');
+        });
+    }
 
     function accountData() {
         var company = $("#head_account").find('option:selected');
         var id = company.data('id')
 
-        $("#head_account").on('change', function() {
+        $("#head_account").on('change', function () {
 
             let invoice = $("#gen-led-account").find('option:selected').val('');
             let invoiceText = $("#gen-led-account").find('option:selected').text('');
@@ -95,7 +100,7 @@ if (window.innerWidth() <= 500) {
         })
 
         console.log('it is id ' + id);
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#gen-led-account').select2({
                 ajax: {
                     url: '/get-data/account',
@@ -104,11 +109,11 @@ if (window.innerWidth() <= 500) {
                         'id': id
                     },
                     delay: 250,
-                    processResults: function(data) {
+                    processResults: function (data) {
 
                         // console.log(data.data);          
                         return {
-                            results: $.map(data, function(item) {
+                            results: $.map(data, function (item) {
                                 return {
                                     id: item.account_id,
                                     text: item.account_name
@@ -142,7 +147,7 @@ if (window.innerWidth() <= 500) {
         $.ajax({
             url: '/user-access', // Replace with your Laravel route or endpoint
             method: 'POST',
-            success: function(response) {
+            success: function (response) {
                 // Handle the response
                 console.log(response);
                 if (response == false) {
@@ -152,22 +157,22 @@ if (window.innerWidth() <= 500) {
                 }
 
             },
-            error: function(error) {
+            error: function (error) {
                 // Handle the error
             },
         });
     }
 
 
-    $(document).click(function() {
+    $(document).click(function () {
 
         user_check_access();
     })
-    $(document).change(function() {
+    $(document).change(function () {
 
         user_check_access();
     })
-    $(document).focus(function() {
+    $(document).focus(function () {
 
         user_check_access();
     })
@@ -211,46 +216,41 @@ if (window.innerWidth() <= 500) {
     }
 </style>
 
-<script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js') }}" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="{{ asset('https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js') }}"
+    integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.css">
 <script src="{{ asset('https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js') }}"></script>
 @if (session('message') != '')
-<script>
-    Swal.fire({
-        icon: 'success',
-        title: "{{ session('message') }}",
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000 // Automatically close after 3 seconds
-    });
-    $('.select2').select2({
-        theme: 'default',
-        width: 'resolve',
-         
-    });
-$('#mySelect2').on('select2:open', function () {
-      $('.select2-search__field').focus();
-    });
-    // Swal.fire({
-    //     icon: 'success',
-    //     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
-    //   })    
-</script>
+    <script>
+        Swal.fire({
+            icon: 'success',
+            title: "{{ session('message') }}",
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000 // Automatically close after 3 seconds
+        });
+
+        // Swal.fire({
+        //     icon: 'success',
+        //     title: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr.'
+        //   })    
+    </script>
 
 @endif
 
 @if (session('something_error') != '')
-<script>
-    Swal.fire({
-        icon: 'warning',
-        title: "{{ session('message') }}",
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000 // Automatically close after 3 seconds
-    });
-</script>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            title: "{{ session('message') }}",
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000 // Automatically close after 3 seconds
+        });
+    </script>
 @endif
 <!-- 
 @if (session()->get('not_found'))
@@ -267,89 +267,376 @@ $('#mySelect2').on('select2:open', function () {
 @endif -->
 
 @if($errors->all() != null)
-<script>
-    Swal.fire({
-        icon: 'warning',
-        @foreach($errors-> all() as $error)
-        title: "{{ $error }}",
-        @endforeach
-        toast: true,
-        position: 'top-end',
-        showConfirmButton: false,
-        timer: 3000 // Automatically close after 3 seconds
-    });
-</script>
+    <script>
+        Swal.fire({
+            icon: 'warning',
+            @foreach($errors->all() as $error)
+                title: "{{ $error }}",
+            @endforeach
+                                                            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000 // Automatically close after 3 seconds
+        });
+    </script>
 @endif
 
 <script>
-       function readURL(input) {
-  if (input.files && input.files[0]) {
+    function readURL(input) {
+        if (input.files && input.files[0]) {
 
-    var reader = new FileReader();
+            var reader = new FileReader();
 
-    reader.onload = function(e) {
-      $('.image-upload-wrap').hide();
+            reader.onload = function (e) {
+                $('.image-upload-wrap').hide();
 
-      $('.file-upload-image').attr('src', e.target.result);
-      $('.file-upload-content').show();
+                $('.file-upload-image').attr('src', e.target.result);
+                $('.file-upload-content').show();
 
-      $('.image-title').html(input.files[0].name);
+                $('.image-title').html(input.files[0].name);
+            };
+
+            reader.readAsDataURL(input.files[0]);
+
+        } else {
+            removeUpload();
+        }
+    }
+
+    function removeUpload() {
+        $('.file-upload-input').replaceWith($('.file-upload-input').clone());
+        $('.file-upload-content').hide();
+        $('.image-upload-wrap').show();
+    }
+    $('.image-upload-wrap').bind('dragover', function () {
+        $('.image-upload-wrap').addClass('image-dropping');
+    });
+    $('.image-upload-wrap').bind('dragleave', function () {
+        $('.image-upload-wrap').removeClass('image-dropping');
+    });
+
+
+    $(document).on('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && (String.fromCharCode(e.which).toLowerCase() === 'm')) {
+            $("#add-modal").modal('show');
+            $("#login-modal").modal('show');
+        }
+    });
+
+    $(document).on('keydown', function (e) {
+        if ((e.metaKey || e.ctrlKey) && (String.fromCharCode(e.which).toLowerCase() === 'l')) {
+            window.location.href = '/logout'
+        }
+    });
+
+
+
+    // const elements = document.querySelectorAll('input, select');
+
+    // let currentIndex = 2;
+
+    // document.addEventListener('keydown', function(e) {
+    //     if (e.key === 'Shift') {
+    //         e.preventDefault();
+    //         currentIndex = (currentIndex + 1) % elements.length;
+    //         elements[currentIndex].focus();
+    //     }
+    // });
+
+    $(document).ready(function () {
+
+        $('input[name="date"]').focus();
+
+    })
+
+
+    // SELECT2
+    $(document).ready(function () {
+        $('.select-account').select2({
+            ajax: {
+                url: '{{ route("select2.account") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.account_name,
+                                id: item.account_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+        $('.select-warehouse').select2({
+            ajax: {
+                url: '{{ route("select2.warehouse") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.warehouse_name,
+                                id: item.warehouse_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+
+        $('.select-sales_officer').select2({
+            ajax: {
+                url: '{{ route("select2.sales_officer") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.sales_officer_name,
+                                id: item.sales_officer_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+        $('.select-product_category').select2({
+            ajax: {
+                url: '{{ route("select2.product_category") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.product_category_name,
+                                id: item.product_category_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+
+        $('.select-product_company').select2({
+            ajax: {
+                url: '{{ route("select2.product_company") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.product_company_name,
+                                id: item.product_company_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+
+
+        $('.select-buyer').select2({
+            ajax: {
+                url: '{{ route("select2.buyer") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.buyer_name,
+                                id: item.buyer_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+
+
+        $('.select-seller').select2({
+            ajax: {
+                url: '{{ route("select2.seller") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.seller_name,
+                                id: item.seller_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+
+
+        $('.select-products').select2({
+            ajax: {
+                url: '{{ route("select2.products") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data, function (item) {
+                            return {
+                                text: item.products_name,
+                                id: item.products_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+
+
+
+        $('.select-seller-buyer').select2({
+            ajax: {
+                url: '{{ route("select2.seller-buyer") }}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term 
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.returnData, function (item) {
+                            return {
+                                if(data.ref == 'S') {
+                        alert(data.ref)
+                        text: item.buyer_name + data.ref,
+                            id: item.buyer_id + data.ref
+                    }
+                               else if(data.ref == 'B') {
+            alert(data.ref)
+
+            text: item.seller_name + data.ref,
+                id: item.seller_id + data.ref
+        }
     };
-
-    reader.readAsDataURL(input.files[0]);
-
-  } else {
-    removeUpload();
-  }
-}
-
-function removeUpload() {
-  $('.file-upload-input').replaceWith($('.file-upload-input').clone());
-  $('.file-upload-content').hide();
-  $('.image-upload-wrap').show();
-}
-$('.image-upload-wrap').bind('dragover', function () {
-		$('.image-upload-wrap').addClass('image-dropping');
-	});
-	$('.image-upload-wrap').bind('dragleave', function () {
-		$('.image-upload-wrap').removeClass('image-dropping');
-});
+                        })
+                    };
+                },
+    cache: true
+            },
+    minimumInputLength: 2,
+        theme: 'classic',
+            width: '100%',
+        });
 
 
-$(document).on('keydown', function ( e ) {
-    if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'm') ) {
-		$("#add-modal").modal('show');
-		$("#login-modal").modal('show');
-    }
-});
+        //     $('.select-account').select2({
+        //         ajax: {
+        //             url: 'https://api.example.com/data',  // Replace with your data URL
+        //             dataType: 'json',
+        //             delay: 250,  // Delay in milliseconds to reduce the number of requests
+        //             data: function (params) {
+        //                 return {
+        //                     q: params.term,  
+        //                     page: params.page  // Pagination parameter
+        //                 };
+        //             },
+        //             processResults: function (data, params) {
+        //                 // Parse the results into the format expected by Select2
+        //                 params.page = params.page || 1;
 
-$(document).on('keydown', function ( e ) {
-    if ((e.metaKey || e.ctrlKey) && ( String.fromCharCode(e.which).toLowerCase() === 'l') ) {
-        window.location.href = '/logout'
-    }
-});
+        //                 return {
+        //                     results: data.items,  // Array of results
+        //                     pagination: {
+        //                         more: data.pagination.more  // Whether there are more results available
+        //                     }
+        //                 };
+        //             },
+        //             cache: true
+        //         },
+        //         placeholder: 'Search for an item',
+        //         minimumInputLength: 1,  // Minimum number of characters required to trigger the search
+        //     });
+        // });
 
-
-
-// const elements = document.querySelectorAll('input, select');
-
-// let currentIndex = 2;
-
-// document.addEventListener('keydown', function(e) {
-//     if (e.key === 'Shift') {
-//         e.preventDefault();
-//         currentIndex = (currentIndex + 1) % elements.length;
-//         elements[currentIndex].focus();
-//     }
-// });
-
-$(document).ready(function() {
-
-    $('input[name="date"]').focus();
-
-})
-
-
+    })
 
 </script>
-

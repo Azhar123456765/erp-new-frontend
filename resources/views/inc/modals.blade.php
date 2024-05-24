@@ -1,20 +1,4 @@
-@php
-$account = \App\Models\accounts::all();
-$warehouse = \App\Models\warehouse::all();
-$sales_officer = \App\Models\sales_officer::all();
 
-$product_category = \App\Models\product_category::all();
-$product_company = \App\Models\product_company::all();
-
-$endDate = date('Y-m-d');
-$startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
-
-$customer = \App\Models\buyer::all();
-$supplier = \App\Models\seller::all();
-
-$warehouse = \App\Models\warehouse::all();
-$product = \App\Models\products::all();
-@endphp
 <style>
     .date {
         border: none;
@@ -48,7 +32,8 @@ $product = \App\Models\products::all();
                         </div>
 
                         <button type="submit" target class="btn btn-primary" id="btn">Submit</button>
-                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn" href="/pdf_field=users">PDF All</a>
+                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
+                            href="/pdf_field=users">PDF All</a>
 
                     </form>
                 </div>
@@ -76,7 +61,8 @@ $product = \App\Models\products::all();
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn" href="/pdf_field=supplier">PDF All</a>
+                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
+                            href="/pdf_field=supplier">PDF All</a>
 
                     </form>
                 </div>
@@ -104,7 +90,8 @@ $product = \App\Models\products::all();
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn" href="/pdf_field=buyer">PDF All</a>
+                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
+                            href="/pdf_field=buyer">PDF All</a>
 
                     </form>
                 </div>
@@ -131,7 +118,8 @@ $product = \App\Models\products::all();
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn" href="/pdf_field=zone">PDF All</a>
+                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
+                            href="/pdf_field=zone">PDF All</a>
 
                     </form>
                 </div>
@@ -158,7 +146,8 @@ $product = \App\Models\products::all();
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn" href="/pdf_field=warehouse">PDF All</a>
+                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
+                            href="/pdf_field=warehouse">PDF All</a>
 
                     </form>
                 </div>
@@ -188,7 +177,8 @@ $product = \App\Models\products::all();
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn" href="/pdf_field=sales_officer">PDF All</a>
+                        <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
+                            href="/pdf_field=sales_officer">PDF All</a>
 
                     </form>
                 </div>
@@ -200,13 +190,13 @@ $product = \App\Models\products::all();
 
 @php
 
-$id = session()->get("user_id")['user_id'];
-$theme_colors = App\Models\users::where("user_id", $id)->get();
+    $id = session()->get("user_id")['user_id'];
+    $theme_colors = App\Models\users::where("user_id", $id)->get();
 
-foreach ($theme_colors as $key => $value2) {
+    foreach ($theme_colors as $key => $value2) {
 
-$theme_color = $value2->theme;
-}
+        $theme_color = $value2->theme;
+    }
 
 @endphp
 <div class="modal fade" id="customize">
@@ -220,7 +210,8 @@ $theme_color = $value2->theme;
                         @csrf
                         <div class="form-group">
                             <label for="username">Theme</label>
-                            <input type="color" class="form-control" name="theme_color" style="min-height:10vh;" value="{{$theme_color}}">
+                            <input type="color" class="form-control" name="theme_color" style="min-height:10vh;"
+                                value="{{$theme_color}}">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -265,7 +256,8 @@ $theme_color = $value2->theme;
                             <div class="col-md-4">
                                 <div class="form-group">
                                     <label>Head Of Account</label>
-                                    <select class="form-control" name="head_account" id="head_account" onchange="accountData()">
+                                    <select class="form-control" name="head_account" id="head_account"
+                                        onchange="accountData()">
                                         <option></option>
                                         <option value="1" data-id="1">Cash</option>
                                         <option value="2" data-id="2">Accounts Receivable</option>
@@ -299,11 +291,8 @@ $theme_color = $value2->theme;
                                 <div class="form-group">
                                     <label>Sales Officer</label>
                                     <label for=""></label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -323,11 +312,7 @@ $theme_color = $value2->theme;
                                 <div class="form-group">
                                     <label>Zone</label>
                                     <label for=""></label>
-                                    <select class="js-example-basic-multiple js-states form-control" name="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses js-example-basic-multiple js-states form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -351,7 +336,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -391,12 +377,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control" name="customer" id="customer">
-                                        <option></option>
-                                        @foreach ($supplier as $row)
-                                        <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
-
+                                    <select class="form-control select-seller" name="customer" id="customer">
                                     </select>
                                 </div>
                             </div>
@@ -404,11 +385,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
 
                                     </select>
                                 </div>
@@ -416,11 +394,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="form-control" name="warehouse" id="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -434,11 +408,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control" name="product_category">
-                                        <option></option>
-                                        @foreach ($product_category as $row)
-                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_category" name="product_category">
+                                        
 
                                     </select>
                                 </div>
@@ -447,11 +418,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control" name="product_company">
-                                        <option></option>
-                                        @foreach ($product_company as $row)
-                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_company" name="product_company">
+                                        
 
                                     </select>
                                 </div>
@@ -460,11 +428,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control" name="product">
-                                        <option></option>
-                                        @foreach ($product as $row)
-                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-products" name="product">
+                                       
 
                                     </select>
                                 </div>
@@ -491,7 +456,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -530,12 +496,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control" name="customer" id="customer">
-                                        <option></option>
-                                        @foreach ($supplier as $row)
-                                        <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
-
+                                    <select class="form-control select-seller" name="customer" id="customer">
                                     </select>
                                 </div>
                             </div>
@@ -543,11 +504,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
 
                                     </select>
                                 </div>
@@ -555,11 +513,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="form-control" name="warehouse" id="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -573,11 +527,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control" name="product_category">
-                                        <option></option>
-                                        @foreach ($product_category as $row)
-                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_category" name="product_category">
+                                        
 
                                     </select>
                                 </div>
@@ -586,11 +537,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control" name="product_company">
-                                        <option></option>
-                                        @foreach ($product_company as $row)
-                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_company" name="product_company">
+                                        
 
                                     </select>
                                 </div>
@@ -599,11 +547,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control" name="product">
-                                        <option></option>
-                                        @foreach ($product as $row)
-                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-products" name="product">
+                                       
 
                                     </select>
                                 </div>
@@ -630,7 +575,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -668,11 +614,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control" name="customer" id="customer">
-                                        <option></option>
-                                        @foreach ($customer as $row)
-                                        <option value="{{ $row->buyer_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-buyer" name="customer" id="customer">
+                                        
 
                                     </select>
                                 </div>
@@ -681,11 +624,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
 
                                     </select>
                                 </div>
@@ -693,11 +633,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="form-control" name="warehouse" id="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -711,11 +647,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control" name="product_category">
-                                        <option></option>
-                                        @foreach ($product_category as $row)
-                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_category" name="product_category">
+                                        
 
                                     </select>
                                 </div>
@@ -724,11 +657,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control" name="product_company">
-                                        <option></option>
-                                        @foreach ($product_company as $row)
-                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_company" name="product_company">
+                                        
 
                                     </select>
                                 </div>
@@ -737,11 +667,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control" name="product">
-                                        <option></option>
-                                        @foreach ($product as $row)
-                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-products" name="product">
+                                       
 
                                     </select>
                                 </div>
@@ -768,7 +695,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -807,11 +735,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control" name="customer" id="customer">
-                                        <option></option>
-                                        @foreach ($customer as $row)
-                                        <option value="{{ $row->buyer_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-buyer" name="customer" id="customer">
+                                        
 
                                     </select>
                                 </div>
@@ -820,11 +745,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
 
                                     </select>
                                 </div>
@@ -832,11 +754,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="form-control" name="warehouse" id="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -850,11 +768,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control" name="product_category">
-                                        <option></option>
-                                        @foreach ($product_category as $row)
-                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_category" name="product_category">
+                                        
 
                                     </select>
                                 </div>
@@ -863,11 +778,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control" name="product_company">
-                                        <option></option>
-                                        @foreach ($product_company as $row)
-                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_company" name="product_company">
+                                        
 
                                     </select>
                                 </div>
@@ -876,11 +788,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product</label>
-                                    <select class="form-control" name="product">
-                                        <option></option>
-                                        @foreach ($product as $row)
-                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-products" name="product">
+                                       
 
                                     </select>
                                 </div>
@@ -908,7 +817,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -946,11 +856,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control" name="customer" id="customer" required>
-                                        <option></option>
-                                        @foreach ($customer as $row)
-                                        <option value="{{ $row->buyer_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-buyer" name="customer" id="customer" required>
+                                        
 
                                     </select>
                                 </div>
@@ -979,7 +886,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
                             </div>
                             <div class="col-md-6">
@@ -1020,12 +928,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control" name="supplier" id="supplier">
-                                        <option></option>
-                                        @foreach ($supplier as $row)
-                                        <option value="{{ $row->seller_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
-
+                                    <select class="form-control select-seller" name="supplier" id="supplier">
                                     </select>
                                 </div>
                             </div>
@@ -1041,7 +944,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -1088,7 +992,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -1130,11 +1035,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Warehouse</label>
-                                    <select class="form-control" name="warehouse" id="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -1142,11 +1043,8 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
-                                    <select class="form-control" name="product_category">
-                                        <option></option>
-                                        @foreach ($product_category as $row)
-                                        <option value="{{ $row->product_category_id }}">{{ $row->category_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_category" name="product_category">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -1154,11 +1052,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
-                                    <select class="form-control" name="product_company">
-                                        <option></option>
-                                        @foreach ($product_company as $row)
-                                        <option value="{{ $row->product_company_id }}">{{ $row->company_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-product_company" name="product_company">
+                                        
 
                                     </select>
                                 </div>
@@ -1167,11 +1062,8 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Product</label>
-                                    <select class="form-control" name="product" id="product">
-                                        <option></option>
-                                        @foreach ($product as $row)
-                                        <option value="{{ $row->product_id }}">{{ $row->product_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-products" name="product" id="product">
+                                       
 
                                     </select>
                                 </div>
@@ -1187,7 +1079,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -1228,11 +1121,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Warehouse</label>
-                                    <select class="form-control" name="warehouse" id="warehouse">
-                                        <option></option>
-                                        @foreach ($warehouse as $row)
-                                        <option value="{{ $row->warehouse_id }}">{{ $row->warehouse_name }}</option>
-                                        @endforeach
+                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -1247,7 +1136,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -1276,17 +1166,30 @@ text-align: center;
 <script>
     // if ($('#gen-led').hasClass('show')) {
 
-    //     $('.form-control').select2({})
+        // $('select').select2({})
     // }    
 
     //         $('#gen-led').hide()
 
-    $(document).ready(function() {
-        $('.select2').select2({
-            theme: 'classic',
-            width: '100%',
-        });
-    });
+    // $(document).ready(function () {
+       
+    //     $('.select-account').select2({
+    //         placeholder: 'Enter a search term',
+    //         ajax: {
+    //             dataType: 'json',
+    //             url: '/your-route/for-search', // Replace with your actual route
+    //             delay: 400, // Optional: Delay before sending the request (milliseconds)
+    //             data: function (params) {
+    //                 return {
+    //                     term: params.term // Search term entered by the user
+    //                 };
+    //             },
+    //             processResults: function (data, page) {
+    //                 return { results: data }; // Format the data for Select2
+    //             }
+    //         }
+    //     });
+    // });
 </script>
 
 <div class="modal fade" id="p-return">
@@ -1300,7 +1203,8 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="username">GR No</label>
-                            <input type="number" min="1" class="form-control" id="invoice" name="limit" required value="">
+                            <input type="number" min="1" class="form-control" id="invoice" name="limit" required
+                                value="">
                         </div>
 
                         <button type="button" class="btn btn-primary" id="btn" onclick="invoice()">Submit</button>
@@ -1384,15 +1288,8 @@ text-align: center;
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
-                                    <select class="form-control" name="company">
-                                        <option></option>
-                                        @foreach ($supplier as $row)
-                                        <option value="{{ $row->seller_id }}S">{{ $row->company_name }} (Supplier)</option>
-                                        @endforeach
-
-                                        @foreach ($customer as $row)
-                                        <option value="{{ $row->buyer_id }}B">{{ $row->company_name }} (Customer)</option>
-                                        @endforeach
+                                    <select class="form-control select-seller-buyer" name="company">
+                                        
 
                                     </select>
                                 </div>
@@ -1401,11 +1298,8 @@ text-align: center;
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
-                                    <select class="form-control" name="contra_account">
-                                        <option></option>
-                                        @foreach ($account as $row)
-                                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-account" name="contra_account">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -1413,11 +1307,8 @@ text-align: center;
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -1433,7 +1324,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -1478,15 +1370,8 @@ text-align: center;
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
-                                    <select class="form-control" name="company">
-                                        <option></option>
-                                        @foreach ($supplier as $row)
-                                        <option value="{{ $row->seller_id }}S">{{ $row->company_name }} (Supplier)</option>
-                                        @endforeach
-
-                                        @foreach ($customer as $row)
-                                        <option value="{{ $row->buyer_id }}B">{{ $row->company_name }} (Customer)</option>
-                                        @endforeach
+                                    <select class="form-control select-seller-buyer" name="company">
+                                        
 
                                     </select>
                                 </div>
@@ -1495,11 +1380,8 @@ text-align: center;
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
-                                    <select class="form-control" name="contra_account">
-                                        <option></option>
-                                        @foreach ($account as $row)
-                                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-account" name="contra_account">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -1507,11 +1389,8 @@ text-align: center;
                             <div class="col-md-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
-                                    <select class="form-control" name="sales_officer">
-                                        <option></option>
-                                        @foreach ($sales_officer as $row)
-                                        <option value="{{ $row->sales_officer_id }}">{{ $row->sales_officer_name }}</option>
-                                        @endforeach
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
                                     </select>
                                 </div>
                             </div>
@@ -1527,7 +1406,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id="" required>
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
                                 </div>
 
                             </div>
@@ -1551,3 +1431,4 @@ text-align: center;
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div>
+
