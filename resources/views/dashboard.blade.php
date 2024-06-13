@@ -130,10 +130,6 @@
     </div>
 
 
-
-
-
-
     <!-- <div class="col-lg-6">
         <div class="au-card m-b-30">
         <h3 class="title-2 m-b-40">Yearly Sales</h3>
@@ -143,18 +139,255 @@
             </div>
         </div>
     </div> -->
-    <div class="col-md-12">
-        <div class="form-group">
-            <label>Select Contra Account</label>
-            <select class="form-control select-account" name="contra_account">
-
-            </select>
-        </div>
-    </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+<script>
 
+    var ctx = document.getElementById("team-chart2").getContext('2d');
+    if (ctx) {
+        const Utils = {
+            rand: function ({ min = 0, max = 1 }) {
+                return Math.random() * (max - min) + min;
+            },
+            months: function ({ count = 1 }) {
+                const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+                return months.slice(0, count);
+            },
+            transparentize: function (color, opacity) { 
+                // Implement transparentize function as per your requirement
+            }
+        };
+
+        const DATA_COUNT = 12;
+        const NUMBER_CFG = { count: DATA_COUNT, min: -100, max: 100 };
+
+        const labels = {!! json_encode($months) !!};
+        const data = {
+            labels: labels,
+            datasets: [
+                {
+                    label: 'Expense',
+                    data: {!! json_encode($expense_chart) !!},
+                    borderColor: 'red', // Utils.CHART_COLORS.red is not defined, replace with a color string
+                    backgroundColor: Utils.transparentize('red', 0.5), // Utils.transparentize is not defined, replace with a color string
+                    yAxisID: 'y',
+                },
+                {
+                    label: 'Earning',
+                    data: {!! json_encode($earning_chart) !!},
+                    borderColor: 'green', // Utils.CHART_COLORS.blue is not defined, replace with a color string
+                    backgroundColor: Utils.transparentize('blue', 0.5), // Utils.transparentize is not defined, replace with a color string
+                    yAxisID: 'y1',
+                }
+            ]
+        };
+
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: data,
+            options: {
+                responsive: true,
+                interaction: {
+                    mode: 'index',
+                    intersect: false,
+                },
+                stacked: false,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'ONLY FOR TESTING'
+                    }
+                },
+                scales: {
+                    y: {
+                        type: 'linear',
+                        display: true,
+                        position: 'left',
+                    },
+                    y1: {
+                        type: 'linear',
+                        display: true,
+                        position: 'right',
+
+                        // grid line settings
+                        grid: {
+                            drawOnChartArea: false, // only want the grid lines for one axis to show up
+                        },
+                    },
+                }
+            },
+        });
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //Sales chart
+    var ctx = document.getElementById("sales-chart1");
+    if (ctx) {
+        ctx.height = 150;
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ["2010", "2011", "2012", "2013", "2014", "2015", "2016"],
+                type: 'line',
+                defaultFontFamily: 'Poppins',
+                datasets: [{
+                    label: "Foods",
+                    data: [0, 30, 10, 120, 50, 63, 10],
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgba(220,53,69,0.75)',
+                    borderWidth: 3,
+                    pointStyle: 'circle',
+                    pointRadius: 5,
+                    pointBorderColor: 'transparent',
+                    pointBackgroundColor: 'rgba(220,53,69,0.75)',
+                }, {
+                    label: "Electronics",
+                    data: [0, 50, 40, 80, 40, 79, 120],
+                    backgroundColor: 'transparent',
+                    borderColor: 'rgba(40,167,69,0.75)',
+                    borderWidth: 3,
+                    pointStyle: 'circle',
+                    pointRadius: 5,
+                    pointBorderColor: 'transparent',
+                    pointBackgroundColor: 'rgba(40,167,69,0.75)',
+                }]
+            },
+            options: {
+                responsive: true,
+                tooltips: {
+                    mode: 'index',
+                    titleFontSize: 12,
+                    titleFontColor: '#000',
+                    bodyFontColor: '#000',
+                    backgroundColor: '#fff',
+                    titleFontFamily: 'Poppins',
+                    bodyFontFamily: 'Poppins',
+                    cornerRadius: 3,
+                    intersect: false,
+                },
+                legend: {
+                    display: false,
+                    labels: {
+                        usePointStyle: true,
+                        fontFamily: 'Poppins',
+                    },
+                },
+                scales: {
+                    xAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        scaleLabel: {
+                            display: false,
+                            labelString: 'Month'
+                        },
+                        ticks: {
+                            fontFamily: "Poppins"
+                        }
+                    }],
+                    yAxes: [{
+                        display: true,
+                        gridLines: {
+                            display: false,
+                            drawBorder: false
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Value',
+                            fontFamily: "Poppins"
+
+                        },
+                        ticks: {
+                            fontFamily: "Poppins"
+                        }
+                    }]
+                },
+                title: {
+                    display: false,
+                    text: 'Normal Legend'
+                }
+            }
+        });
+    }
+
+
+    function getMonthName(month) {
+        var months = [
+            "January", "February", "March", "April", "May", "June", "July",
+            "August", "September", "October", "November", "December"
+        ];
+        return months[month - 1];
+    }
+
+    function date() {
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+
+        $('#sell_qty').text('loading...');
+        $('#pur_qty').text('loading...');
+        $('#expense').text('loading...');
+        $('#earning').text('loading...');
+
+        $.ajax({
+            url: '/dashboard',
+            method: 'POST',
+            data: {
+                start_date: start_date,
+                end_date: end_date
+            },
+            success: function (response) {
+                $('#sell_qty').text(response.sell_qty);
+                $('#pur_qty').text(response.pur_qty);
+                $('#expense').text(response.expense + ' Rs');
+                $('#earning').text(response.earning + ' Rs');
+            },
+            error: function (error) {
+                // Handle the error
+            },
+        });
+    }
+
+    function expense() {
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+        window.location.href = `expense?start_date=` + start_date + `&end_date=` + end_date + ``
+    }
+
+    function income() {
+        var start_date = $('#start_date').val();
+        var end_date = $('#end_date').val();
+        window.location.href = `income?start_date=` + start_date + `&end_date=` + end_date + ``
+    }
+
+
+
+
+
+</script>
 @endsection

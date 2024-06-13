@@ -1,4 +1,8 @@
+@php
 
+    $endDate = date('Y-m-d');
+    $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
+@endphp
 <style>
     .date {
         border: none;
@@ -131,7 +135,7 @@
 
 
 
-<div class="modal fade" id="p-warehouse">
+<div class="modal fade" id="pwarehouse">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
@@ -312,7 +316,7 @@
                                 <div class="form-group">
                                     <label>Zone</label>
                                     <label for=""></label>
-                                    <select class="select-warehouses js-example-basic-multiple js-states form-control" name="warehouse">
+                                    <select class="select-warehouse js-example-basic-multiple js-states form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -377,7 +381,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control select-seller" name="customer" id="customer">
+                                    <select class="form-control select-seller" name="customer" >
                                     </select>
                                 </div>
                             </div>
@@ -394,7 +398,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
+                                    <select class="select-warehouse form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -496,7 +500,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control select-seller" name="customer" id="customer">
+                                    <select class="form-control select-seller" name="customer" >
                                     </select>
                                 </div>
                             </div>
@@ -513,7 +517,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
+                                    <select class="select-warehouse form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -614,7 +618,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control select-buyer" name="customer" id="customer">
+                                    <select class="form-control select-buyer" name="customer">
                                         
 
                                     </select>
@@ -633,7 +637,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
+                                    <select class="select-warehouse form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -735,7 +739,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control select-buyer" name="customer" id="customer">
+                                    <select class="form-control select-buyer" name="customer">
                                         
 
                                     </select>
@@ -754,7 +758,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
-                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
+                                    <select class="select-warehouse form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -856,7 +860,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control select-buyer" name="customer" id="customer" required>
+                                    <select class="form-control select-buyer" name="customer" required>
                                         
 
                                     </select>
@@ -1035,7 +1039,7 @@ text-align: center;
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label>Warehouse</label>
-                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
+                                    <select class="select-warehouse form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -1121,7 +1125,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Warehouse</label>
-                                    <select class="select-warehouses form-control" name="warehouse" id="warehouse">
+                                    <select class="select-warehouse form-control" name="warehouse">
                                     </select>
                                 </div>
                             </div>

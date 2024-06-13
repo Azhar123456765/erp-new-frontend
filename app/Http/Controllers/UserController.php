@@ -207,6 +207,7 @@ class UserController extends Controller
             'finance_permission' => $request['finance_permission'],
             'report_permission' => $request['report_permission'],
             'product_permission' => $request['product_permission'],
+            'select_permission' => $request['select_permission'],
             'role' => $request['role'],
         ]);
 

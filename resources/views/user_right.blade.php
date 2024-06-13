@@ -79,6 +79,19 @@
                         </div>
                     </div>
                 </div>
+                <div class="form-group col-md-6">
+                    <label for="">Select Data</label>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="select_permission" id="select_permission" {{$row->select_permission == 'on' ? 'checked' : ''}}>
+                                <label class="form-check-label" for="readPermission">
+                                    Access
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
 
             </div>

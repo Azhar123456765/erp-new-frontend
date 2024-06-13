@@ -85,7 +85,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = products::where('product_name', 'LIKE', "%{$search}%")
-            ->get(['product_id', 'product_name']);
+            ->get();
 
         return response()->json($results);
     }

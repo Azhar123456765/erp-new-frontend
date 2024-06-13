@@ -199,7 +199,7 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);
 });
 
-Route::middleware('userAuth')->group(function () {
+Route::middleware(['userAuth','selectPermission'])->group(function () {
     // SELECT
     Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
     Route::get('/select-warehouse', [select2Controller::class, 'warehouse'])->name('select2.warehouse');

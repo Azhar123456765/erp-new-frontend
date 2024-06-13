@@ -177,8 +177,6 @@ class maincontroller extends Controller
     }
     function add_warehouse(Request $request)
     {
-
-
         $add = new warehouse();
         $add->warehouse_name = $request['warehouse_name'];
         $add->zone = $request['zone'];
@@ -345,13 +343,9 @@ class maincontroller extends Controller
     {
 
         $query = sales_officer::where('sales_officer_id', $id)->update([
-
             'sales_officer_name' => $request['sales_officer_name'],
             'phone_number' => $request['phone_number'],
             'email' => $request['email'],
-
-
-
         ]);
 
         session()->flash('message', 'Sales Officer has been updated successfully');
@@ -599,6 +593,25 @@ class maincontroller extends Controller
                     ->groupBy('unique_id');
             })->sum("qty_total");
 
+            $earning_chartData = Income::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
+                return Carbon::parse($data->updated_at)->format('M');
+            });
+
+            $earning_chart = [];
+            foreach ($earning_chartData as $month => $value) {
+                $earning_chart[] = $value->sum('amount');
+            }
+
+            $expense_chartData = Expense::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
+                return Carbon::parse($data->updated_at)->format('M');
+            });
+
+            $months = [];
+            $expense_chart = [];
+            foreach ($expense_chartData as $month => $value) {
+                $months[] = $month;
+                $expense_chart[] = $value->sum('amount');
+            }
             // $earning_y = Income::select(
             //     DB::raw('MONTH(updated_at) as month'),
             //     DB::raw('SUM(amount) as total_earning')
@@ -616,7 +629,7 @@ class maincontroller extends Controller
             //     ];
             // }
 
-                // dd($chartData);
+            // dd($chartData);
             // $expense_y = Expense::select(
             //     DB::raw('MONTH(updated_at) as month'),
             //     DB::raw('SUM(amount) as total_earning')
@@ -692,7 +705,7 @@ class maincontroller extends Controller
             }));
 
             // Now $onlineUsersCount contains the count of online users
-            $data = compact('sell_invoice_qty', 'earning', 'expense', 'onlineUsersCount');
+            $data = compact('sell_invoice_qty', 'earning', 'expense', 'onlineUsersCount', 'earning_chart', 'months', 'earning_chart','expense_chart');
             return view('dashboard')->with($data);
         } else {
             return view('login');

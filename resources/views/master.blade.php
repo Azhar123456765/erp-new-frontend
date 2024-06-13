@@ -71,7 +71,7 @@
             theme: 'classic',
             width: '100%',
         });
-        $('.select-warehouses').select2({
+        $('.select-warehouse').select2({
             ajax: {
                 url: '{{ route("select2.warehouse") }}',
                 dataType: 'json',
@@ -138,7 +138,7 @@
                     return {
                         results: $.map(data, function (item) {
                             return {
-                                text: item.product_category_name,
+                                text: item.category_name,
                                 id: item.product_category_id
                             };
                         })
@@ -165,7 +165,7 @@
                     return {
                         results: $.map(data, function (item) {
                             return {
-                                text: item.product_company_name,
+                                text: item.company_name,
                                 id: item.product_company_id
                             };
                         })
@@ -177,6 +177,9 @@
             theme: 'classic',
             width: '100%',
         });
+
+
+
 
 
         $('.select-buyer').select2({
@@ -205,7 +208,6 @@
             theme: 'classic',
             width: '100%',
         });
-
 
         $('.select-seller').select2({
             ajax: {
@@ -249,8 +251,9 @@
                     return {
                         results: $.map(data, function (item) {
                             return {
-                                text: item.products_name,
-                                id: item.products_id
+                                text: item.purchase_price,
+                                id: item.product_id,
+                                // 'data-pur_price': item.purchase_price,
                             };
                         })
                     };
@@ -261,6 +264,7 @@
             theme: 'classic',
             width: '100%',
         });
+
 
 
 

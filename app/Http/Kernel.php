@@ -71,5 +71,6 @@ class Kernel extends HttpKernel
         'financePermission' => \App\Http\Middleware\financePermission::class,
         'reportPermission' => \App\Http\Middleware\reportPermission::class,
         'productPermission' => \App\Http\Middleware\productPermission::class,
+        'selectPermission' => \App\Http\Middleware\selectPermission::class,
     ];
 }
