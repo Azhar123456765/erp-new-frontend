@@ -44,7 +44,7 @@
                         <span class="info-box-icon bg-danger elevation-1"><i class="fas fa-truck"></i></span>
                         <div class="info-box-content">
                             <span class="info-box-text">items Purchase</span>
-                            <span class="info-box-number" id="pur_qty">{{$sell_invoice_qty}}</span>
+                            <span class="info-box-number" id="pur_qty">{{$pur_invoice_qty}}</span>
                         </div>
                     </div>
                 </div>
@@ -80,6 +80,16 @@
                         </div>
                     </div>
                 </div>
+                {{-- <div class="col-md-12">
+                    <div class="info-box mb-3">
+                        <span class="info-box-icon bg-success elevation-1"><i class="fa fa-money-bill"></i></span>
+                        <div class="info-box-content">
+                            <span class="info-box-text" onclick="income()">Total Earning <a href="#">(Click For more
+                                    details)</a></span>
+                            <span class="info-box-number" id="earning">{{$earning}}&nbsp;Rs</span>
+                        </div>
+                    </div>
+                </div> --}}
 
             </div>
         @endif

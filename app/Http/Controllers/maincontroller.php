@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\products;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
 use Illuminate\Support\Facades\View;
@@ -585,8 +586,30 @@ class maincontroller extends Controller
 
             $end_date = date('Y-m-d');
             $start_date = date('Y-m-d', strtotime("-1 year", strtotime($end_date)));
-
+            $currentYear = Carbon::now()->year;
             $today = Carbon::now()->format('Y-m-d');
+
+            $topProducts = products::select(
+                'products.product_id',
+                'products.product_name',
+                DB::raw('SUM(sell_invoice.sale_qty) as total_quantity')
+            )
+                ->join('sell_invoice', 'products.product_id', '=', 'sell_invoice.item')
+                ->whereYear('sell_invoice.updated_at', $currentYear)
+                ->groupBy(
+                    'products.product_id',
+                    'products.product_name',
+                )
+                ->orderByDesc('total_quantity')
+                ->take(3)
+                ->get();
+
+            $pur_invoice_qty = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$start_date, $end_date])->whereIn('purchase_invoice.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('purchase_invoice')
+                    ->groupBy('unique_id');
+            })->sum("qty_total");
+
             $sell_invoice_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
                 $subQuery->select(DB::raw('MIN(id)'))
                     ->from('sell_invoice')
@@ -648,21 +671,21 @@ class maincontroller extends Controller
             // }
             // $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
             //     ->select(
-            //         DB::raw('MONTH(created_at) as month'),
+            //         DB::raw('MONTH(updated_at) as month'),
             //         DB::raw('SUM(amount_total) as total_earning')
             //     )
-            //     ->whereYear('created_at', 2023)
-            //     ->groupBy(DB::raw('MONTH(created_at)'))
-            //     ->orderBy(DB::raw('MONTH(created_at)'));
+            //     ->whereYear('updated_at', 2023)
+            //     ->groupBy(DB::raw('MONTH(updated_at)'))
+            //     ->orderBy(DB::raw('MONTH(updated_at)'));
 
             // $expense_y2 = p_voucher::whereRaw('payment_voucher.id IN (SELECT MIN(id) FROM payment_voucher GROUP BY unique_id)')
             //     ->select(
-            //         DB::raw('MONTH(created_at) as month'),
+            //         DB::raw('MONTH(updated_at) as month'),
             //         DB::raw('SUM(amount_total) as total_earning')
             //     )
-            //     ->whereYear('created_at', 2023)
-            //     ->groupBy(DB::raw('MONTH(created_at)'))
-            //     ->orderBy(DB::raw('MONTH(created_at)'));
+            //     ->whereYear('updated_at', 2023)
+            //     ->groupBy(DB::raw('MONTH(updated_at)'))
+            //     ->orderBy(DB::raw('MONTH(updated_at)'));
 
             // $combinedResults = $expense_y1->union($expense_y2)->get();
 
@@ -682,7 +705,7 @@ class maincontroller extends Controller
             //     ];
             // }
 
-            // $re = ReceiptVoucher::whereDate('created_at', $today)
+            // $re = ReceiptVoucher::whereDate('updated_at', $today)
             // ->whereIn('receipt_vouchers.id', function ($subQuery) {
             //     $subQuery->select(DB::raw('MIN(id)'))
             //         ->from('receipt_vouchers')
@@ -705,7 +728,7 @@ class maincontroller extends Controller
             }));
 
             // Now $onlineUsersCount contains the count of online users
-            $data = compact('sell_invoice_qty', 'earning', 'expense', 'onlineUsersCount', 'earning_chart', 'months', 'earning_chart','expense_chart');
+            $data = compact('sell_invoice_qty', 'pur_invoice_qty', 'topProducts', 'earning', 'expense', 'onlineUsersCount', 'earning_chart', 'months', 'earning_chart', 'expense_chart');
             return view('dashboard')->with($data);
         } else {
             return view('login');
@@ -718,12 +741,12 @@ class maincontroller extends Controller
         $username = $request->input('username');
         $password = $request->input('password');
 
-        $user = users::where([
-            'username' => $username,
-            'password' => $password,
-        ])->first();
+        $user = users::where(
+            'username',
+            $username
+        )->first();
 
-        if ($user && $user->access != 'denied') {
+        if ($user && $user->access != 'denied' && Hash::check($request->input('password'), $user->password)) {
             $request->session()->put('user_id', $user);
             return redirect('/');
         } elseif ($user && $user->access == 'denied') {

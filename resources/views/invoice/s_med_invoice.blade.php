@@ -209,31 +209,29 @@
                 <div class="one">
                     <label for="Invoice">Invoice#</label>
                     <input onkeydown="handleKeyPress(event)" style="border: none !important; width: 219px !important;"
-                        type="text" id="invoice#" name="unique_id" readonly
-                        value="<?php $year = date('Y');
-$lastTwoWords = substr($year, -2);
-echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
+                        type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
+                        $lastTwoWords = substr($year, -2);
+                        echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
                     <input onkeydown="handleKeyPress(event)"
-                        style="border: none !important; width: 219px !important; text-align:center;        " type="date"
-                        id="date" name="date"
-                        value="<?php
-$currentDate = date('Y-m-d');
-echo $currentDate;
-                                                                                                                                        ?>" />
+                        style="border: none !important; width: 219px !important; text-align:center;        "
+                        type="date" id="date" name="date" value="<?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                        ?>" />
                 </div>
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company" onchange="seller123()" required>
+                    <select name="company" id="seller" class="company select-buyer" onchange="seller123()" required>
 
                     </select>
                 </div>
                 <div class="one  avail_stock" style="display: none">
                     <label for="transporter">Available Stock</label>
-                    <input type="text" style="border: none !important; width:max-content !important;" id="avail_stock"
-                        name="avail_stock" />
+                    <input type="text" style="border: none !important; width:max-content !important;"
+                        id="avail_stock" name="avail_stock" />
                 </div>
             </div>
 
@@ -258,17 +256,12 @@ echo $currentDate;
 
                 <div class="one  remark">
                     <label for="bilty_no">Bilty No.</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="bilty_no"
-                        name="bilty_no" />
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text"
+                        id="bilty_no" name="bilty_no" />
                 </div>
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
-                    <select name="sales_officer" id="sales_officer" data-live-search="true">
-                        <option></option>
-                        @foreach ($sales_officer as $row)
-                            <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == 1 ? 'selected' : ''}}>
-                                {{ $row->sales_officer_name }}</option>
-                        @endforeach
+                    <select name="sales_officer" id="sales_officer" class="select-sales_officer">
                     </select>
 
                 </div>
@@ -278,19 +271,13 @@ echo $currentDate;
 
                 <div class="one  remark">
                     <label for="warehouse">WRH</label>
-                    <select name="warehouse" id="warehouse" required>
-                        <option></option>
-                        @foreach ($warehouse as $row)
-                            <option value="{{ $row->warehouse_id }}" {{ $row->warehouse_id == 1 ? 'selected' : ''}}>
-                                {{ $row->warehouse_name }}
-                            </option>
-                        @endforeach
+                    <select name="warehouse" id="warehouse" required class="select-warehouse">
                     </select>
                 </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark"
-                        name="remark" />
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text"
+                        id="remark" name="remark" />
                 </div>
             </div>
         </div>
@@ -303,18 +290,16 @@ echo $currentDate;
                 <div class="div   items">
                     <label for="item">Item</label>
                     <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
-                        class="item0 select-products">
+                        class="item0 select-fin-products">
 
                     </select>
                 </div>
-                <script>
-
-                </script>
+                <script></script>
 
                 <div class="div">
                     <label for="unit">Unit</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" style="text-align:center !important;" readonly
-                        id="unit" name="unit[]" />
+                    <input onkeydown="handleKeyPress(event)" type="text" style="text-align:center !important;"
+                        readonly id="unit" name="unit[]" />
                     <input onkeydown="handleKeyPress(event)" style="display: none " id="previous_stock"
                         name="previous_stock[]" />
                     <input onkeydown="handleKeyPress(event)" style="display: none " id="avail_stock2"
@@ -337,44 +322,49 @@ echo $currentDate;
 
                 <div class="div">
                     <label for="price">Sale Price</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" placeholder="0.00" id="sale_price" name="sale_price[]" required
-                        onchange="count();  total_amount();" />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" placeholder="0.00" id="sale_price"
+                        name="sale_price[]" required onchange="count();  total_amount();" />
                 </div>
 
                 <div class="div">
                     <label for="pur_qty">Sale Qty</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" id="sale_qty" name="sale_qty[]" onchange='qty(); per_unit();' />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" id="sale_qty" name="sale_qty[]"
+                        onchange='qty(); per_unit();' />
                 </div>
 
                 <div class="div">
                     <label for="pur_qty">Bonus Qty</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" id="bonus_qty" name="bonus_qty[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" id="bonus_qty"
+                        name="bonus_qty[]" />
                 </div>
 
                 <div class="div">
                     <label for="dis">Dis(%)</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" id="dis_per" name="dis_per[]" onchange='discount();  total_amount();' />
-                </div>
-                <div class="div">
-                    <label for="dis">Dis Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" id="dis_amount" name="dis_amount[]"
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" id="dis_per" name="dis_per[]"
                         onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
+                    <label for="dis">Dis Amount</label>
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" id="dis_amount"
+                        name="dis_amount[]" onchange='discount();  total_amount();' />
+                </div>
+                <div class="div">
                     <label for="exp_unit">Exp/Unit</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" id="exp_unit" name="exp_unit[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" id="exp_unit"
+                        name="exp_unit[]" />
                 </div>
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" onchange='count()' id="amount" readonly name="amount[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="amount"
+                        readonly name="amount[]" />
                 </div>
             </div>
         </div>
@@ -423,12 +413,12 @@ echo $currentDate;
             margin-left: 0%;
         ">
                     <label for="exp_unit">Total</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="qty_total" id="qty_total"
-                        style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="qty_total"
+                        id="qty_total" style="
                         margin-left: 30.25%;
         " readonly>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="dis_total" id="dis_total"
-                        style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="dis_total"
+                        id="dis_total" style="
             margin-left: 60%;
         " readonly>
                     <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total"
@@ -471,13 +461,7 @@ echo $currentDate;
                         </select>
                     </div>
                     <div class="cash">
-                        <select class="cash" name="account" style="height: 28px">
-                            <option></option>
-
-                            @foreach ($account as $row)
-                                <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-                            @endforeach
-
+                        <select class="cash select-account" name="account" style="height: 28px">
                         </select>
                     </div>
                 </div>
@@ -496,21 +480,26 @@ echo $currentDate;
 
                 <div class="last">
 
-                    <div class="one" style="            flex-direction: column;
+                    <div class="one"
+                        style="            flex-direction: column;
         position: fixed;
         bottom: 0.2% !important;
         right: 2%;
     ">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                            step="any" name="previous_balance" value="0.00" id="debit" readonly>
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                            step="any" name="cartage" value="0.00" id="cartage">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                            step="any" name="grand_total" value="0.00" id="grand_total" readonly>
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                            step="any" name="amount_paid" value="0.00" id="credit">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                            step="any" name="balance_amount" value="0.00" id="balance_amount" readonly>
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                            style="text-align: right;" step="any" name="previous_balance" value="0.00"
+                            id="debit" readonly>
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                            style="text-align: right;" step="any" name="cartage" value="0.00" id="cartage">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                            style="text-align: right;" step="any" name="grand_total" value="0.00"
+                            id="grand_total" readonly>
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                            style="text-align: right;" step="any" name="amount_paid" value="0.00"
+                            id="credit">
+                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                            style="text-align: right;" step="any" name="balance_amount" value="0.00"
+                            id="balance_amount" readonly>
 
                     </div>
 
@@ -532,7 +521,8 @@ echo $currentDate;
         margin-top: 5px;
     }
 </style>
-<div class="options" style="
+<div class="options"
+    style="
 display: flex;
     /* justify-content: center; */
     margin-top: -21.5%;
@@ -541,12 +531,14 @@ display: flex;
     width: 8%;
     margin-right: 85%;
     ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;">
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
+        style="padding: 2px; margin-left: 19px;">
         submit
     </button>
     <br>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;"
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
+        style="padding: 2px; margin-left: 19px;"
         onclick="
             var str = $(`[name=\'unique_id\']`).val();
     var parts = str.split('-');
@@ -557,7 +549,8 @@ display: flex;
         Previous
     </button>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;"
+    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
+        style="padding: 2px; margin-left: 19px;"
         onclick="
       var str = $(`[name=\'unique_id\']`).val();
     var parts = str.split('-');
@@ -574,18 +567,20 @@ display: flex;
         Edit
     </a>
 
-    <a href="/s_med_invoice" class="edit add-more  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="/s_med_invoice" class="edit add-more  btn btn-secondary btn-sm"
+        style="margin-left: 19px; display:none;">
         Add More
     </a>
 
 
-    <a href="/sale_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm"
+    <a href="/sale_invoice_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm"
         style="margin-left: 19px; display:none;">
         PDF
     </a>
 
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;"
+        onclick="
     
     window.location.reload()
     ">
@@ -598,7 +593,8 @@ display: flex;
 </form>
 </div>
 
-<div class="img" style="
+<div class="img"
+    style="
     position: absolute;
     top: 77%;
     left: 19.5%;
@@ -606,7 +602,8 @@ display: flex;
     height: 191px;
     ">
     <a href="" target="_blank" class="p-img">
-        <img src="g" alt="Product  does not have any img or an error occur" style="
+        <img src="g" alt="Product  does not have any img or an error occur"
+            style="
     width: 100%;
     height:100%;
     display:none;
@@ -617,7 +614,8 @@ display: flex;
 
 
 <div class="flex justify-center items-center" style="display: none">
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert" style="
+    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert"
+        style="
             position: fixed;
             top: 79%;
             left: 50%;
@@ -633,7 +631,7 @@ display: flex;
 </div>
 
 <script>
-    $(document).change(function () {
+    $(document).change(function() {
         count();
         count2();
         per_unit();
@@ -647,7 +645,7 @@ display: flex;
 
     function seller123() {
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
             var selectedOption = $("#seller").find('option:selected');
             var debit = $('#debit');
@@ -660,12 +658,12 @@ display: flex;
                 data: {
                     'id': id // Replace with the appropriate data you want to send
                 },
-                success: function (data) {
+                success: function(data) {
                     if (data >= 0) {
                         debit.val(data)
                     }
                 },
-                error: function (error) {
+                error: function(error) {
                     // Handle the error here, if necessary
                     console.error('Error:', error);
                 },
@@ -709,19 +707,23 @@ display: flex;
             var clonedFields = `
             <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
         <div class="div  items">
-                    <select name="item[]" id="item"  style="height: 28px" onchange="addInvoice2(` + counter + `)"  class='clone_item` + counter + `'>
+                    <select name="item[]" id="item"  style="height: 28px" onchange="addInvoice2(` + counter +
+                `)"  class='clone_item ` + counter +
+                ` select-fin-products'>
                     <option></option>
                     <option></option>
                         @foreach ($product as $row) 
-                            <option value="{{ $row->product_id }}" data-stock="{{$row->opening_quantity}}" data-unit="{{$row->unit}}" data-img="{{$row->image}}" data-name="{{$row->product_name}}" data-pur_price="{{$row->purchase_price}}">{{ $row->product_name }}</option>
+                            <option value="{{ $row->product_id }}" data-stock="{{ $row->opening_quantity }}" data-unit="{{ $row->unit }}" data-img="{{ $row->image }}" data-name="{{ $row->product_name }}" data-pur_price="{{ $row->purchase_price }}">{{ $row->product_name }}</option>
                         @endforeach
                     </select>
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="text"style="text-align:center !important;" readonly   id="unit` + counter + `" name="unit[]" />
+                    <input  onkeydown="handleKeyPress(event)"  type="text"style="text-align:center !important;" readonly   id="unit` +
+                counter + `" name="unit[]" />
                     <input onkeydown="handleKeyPress(event)" style="display: none "  id="previous_stock` + counter + `" name="previous_stock[]" />
-                    <input onkeydown="handleKeyPress(event)" style="display: none "  id="avail_stock2` + counter + `" name="avail_stock[]" />
+                    <input onkeydown="handleKeyPress(event)" style="display: none "  id="avail_stock2` + counter +
+                `" name="avail_stock[]" />
                 </div>
 
                 <div class="div">
@@ -733,11 +735,15 @@ display: flex;
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` + counter + `" name="sale_price[]" required onchange='count2();  total_amount();'/>
+                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` +
+                counter +
+                `" name="sale_price[]" required onchange='count2();  total_amount();'/>
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` + counter + `" name="sale_qty[]" onchange='qty(); per_unit();' />
+                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` +
+                counter +
+                `" name="sale_qty[]" onchange='qty(); per_unit();' />
                 </div>
 
                 <div class="div">
@@ -745,19 +751,26 @@ display: flex;
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
+                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` +
+                counter +
+                `" name="dis_per[]" onchange='discount2();  total_amount();'  />
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` + counter + `"name="dis_amount[]" onchange='discount();  total_amount();' />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` +
+                counter +
+                `"name="dis_amount[]" onchange='discount();  total_amount();' />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` + counter + `" name="exp_unit[]" />
+                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` +
+                counter +
+                `" name="exp_unit[]" />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
+                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` +
+                counter + `" name="amount[]"/>
                 </div>
     </div>
 
@@ -788,7 +801,7 @@ display: flex;
             }
         }
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select').select2({
                 theme: 'classic',
@@ -798,7 +811,8 @@ display: flex;
 
             var selectedOption = $("#item").find('option:selected');
             var unitInput = $('#unit');
-            unitInput.val(selectedOption.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+            unitInput.val(selectedOption.data(
+                'unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
 
             var pInput = $('#pur_price');
@@ -844,19 +858,23 @@ display: flex;
             var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
 <div class="div  items">
-            <select name="item[]" id="item"  style="height: 28px" onchange="addInvoice2(` + counter + `)"  class='clone_item` + counter + `'>
+            <select name="item[]" id="item"  style="height: 28px" onchange="addInvoice2(` + counter +
+                `)"  class='clone_item` + counter +
+                ` select-fin-products'>
             <option></option>
             <option></option>
                 @foreach ($product as $row) 
-                    <option value="{{ $row->product_id }}" data-stock="{{$row->opening_quantity}}" data-unit="{{$row->unit}}" data-img="{{$row->image}}" data-name="{{$row->product_name}}" data-pur_price="{{$row->purchase_price}}">{{ $row->product_name }}</option>
+                    <option value="{{ $row->product_id }}" data-stock="{{ $row->opening_quantity }}" data-unit="{{ $row->unit }}" data-img="{{ $row->image }}" data-name="{{ $row->product_name }}" data-pur_price="{{ $row->purchase_price }}">{{ $row->product_name }}</option>
                 @endforeach
             </select>
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="text"style="text-align:center !important;" readonly   id="unit` + counter + `" name="unit[]" />
+            <input  onkeydown="handleKeyPress(event)"  type="text"style="text-align:center !important;" readonly   id="unit` +
+                counter + `" name="unit[]" />
             <input onkeydown="handleKeyPress(event)" style="display: none "  id="previous_stock` + counter + `" name="previous_stock[]" />
-            <input onkeydown="handleKeyPress(event)" style="display: none "  id="avail_stock2` + counter + `" name="avail_stock[]" />
+            <input onkeydown="handleKeyPress(event)" style="display: none "  id="avail_stock2` + counter +
+                `" name="avail_stock[]" />
         </div>
 
         <div class="div">
@@ -868,11 +886,15 @@ display: flex;
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` + counter + `" name="sale_price[]" required onchange='count2();  total_amount();'/>
+            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` +
+                counter +
+                `" name="sale_price[]" required onchange='count2();  total_amount();'/>
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` + counter + `" name="sale_qty[]" onchange='qty(); per_unit();' />
+            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` +
+                counter +
+                `" name="sale_qty[]" onchange='qty(); per_unit();' />
         </div>
 
         <div class="div">
@@ -880,19 +902,26 @@ display: flex;
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
+            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` +
+                counter +
+                `" name="dis_per[]" onchange='discount2();  total_amount();'  />
         </div>
 
         <div class="div">
-            <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` + counter + `"name="dis_amount[]" onchange='discount();  total_amount();' />
+            <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` +
+                counter +
+                `"name="dis_amount[]" onchange='discount();  total_amount();' />
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` + counter + `" name="exp_unit[]" />
+            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` +
+                counter +
+                `" name="exp_unit[]" />
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
+            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` +
+                counter + `" name="amount[]"/>
         </div>
 </div>
 
@@ -927,7 +956,7 @@ display: flex;
         var one = one
         counter = counter + 1
 
-        $(document).ready(function () {
+        $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select').select2({
                 theme: 'classic',
@@ -937,7 +966,8 @@ display: flex;
 
             var selectedOption = $("#item").find('option:selected');
             var unitInput = $('#unit');
-            unitInput.val(selectedOption.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+            unitInput.val(selectedOption.data(
+                'unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
 
             var pInput = $('#pur_price');
@@ -977,9 +1007,13 @@ display: flex;
 
                 var selectedOption2 = $(".clone_item" + index).find('option:selected');
                 var unitInput = $('#unit' + index);
-                unitInput.val(selectedOption2.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+                unitInput.val(selectedOption2.data(
+                    'unit'
+                    )); // Set the value of the unit input field to the data-unit value of the selected option
                 var pInput = $('#pur_price' + index);
-                pInput.val(selectedOption2.data('pur_price')); // Set the value of the unit input field to the data-unit value of the selected option
+                pInput.val(selectedOption2.data(
+                    'pur_price'
+                    )); // Set the value of the unit input field to the data-unit value of the selected option
 
                 imgSrc = selectedOption2.data('img');
                 imgInput.attr('src', imgSrc);
@@ -1159,9 +1193,9 @@ display: flex;
 
     }
 
-    $("#cartage").change(function () {
+    $("#cartage").change(function() {
 
-        $(document).ready(function () {
+        $(document).ready(function() {
 
 
             var atotal = parseFloat($("#amount").val());
@@ -1190,24 +1224,28 @@ display: flex;
 
 
 
-    $(document).ready(function () {
+    $(document).ready(function() {
 
-        $('.item').change(function () {
+        $('.item').change(function() {
             // Set the value of the unit input field to the data-unit value of the selected option
 
         });
-        $('.clone_item').change(function () {
+        $('.clone_item').change(function() {
 
             for (let index = 1; index <= countera; index++) {
                 var selectedOption = $(".clone_item" + index).find('option:selected');
 
 
                 var unitInput = $('#unit' + index);
-                unitInput.val(selectedOption.data('unit')); // Set the value of the unit input field to the data-unit value of the selected option
+                unitInput.val(selectedOption.data(
+                    'unit'
+                    )); // Set the value of the unit input field to the data-unit value of the selected option
 
 
                 var pInput = $('#pur_price' + index);
-                pInput.val(selectedOption.data('pur_price')); // Set the value of the unit input field to the data-unit value of the selected option
+                pInput.val(selectedOption.data(
+                    'pur_price'
+                    )); // Set the value of the unit input field to the data-unit value of the selected option
 
             }
         })
@@ -1235,7 +1273,7 @@ display: flex;
     }
 </script>
 <script>
-    $("#item option").click(function () {
+    $("#item option").click(function() {
         // Initialize Select2 for the desired select elements
         $("select").select2();
         $('.select').select2({
@@ -1245,7 +1283,7 @@ display: flex;
         // Initialize other select elements if necessary
     });
 
-    $(document).ready(function () {
+    $(document).ready(function() {
         // Initialize Select2 for the desired select elements
         $("select").select2({
             maximumSelectionLength: 100,
@@ -1263,7 +1301,7 @@ display: flex;
 
 
 
-    $('#form').submit(function (event) {
+    $('#form').submit(function(event) {
         event.preventDefault();
 
         // Get the form data
@@ -1274,7 +1312,7 @@ display: flex;
             url: '/s_med_invoice_form', // Replace with your Laravel route or endpoint
             method: 'POST',
             data: formData,
-            success: function (response) {
+            success: function(response) {
                 // Handle the response
 
                 Swal.fire({
@@ -1302,37 +1340,37 @@ display: flex;
 
 
             },
-            error: function (error) {
+            error: function(error) {
                 // Handle the error
             },
         });
     })
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
             var link = document.querySelector('.add-more');
             window.location.href = link.href;
         }
     });
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
             var link = document.querySelector('.pdf');
             window.location.href = link.href;
         }
     });
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'e')) {
             var link = document.querySelector('.edit-btn');
             window.location.href = link.href;
         }
     });
 
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 's')) {
             $("#si-search").modal('show');
         }
     });
 
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
             var str = $('[name=\'unique_id\']').val();
             var parts = str.split('-');
@@ -1343,7 +1381,7 @@ display: flex;
         }
     });
 
-    $(document).on('keydown', function (e) {
+    $(document).on('keydown', function(e) {
         if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
             var str = $('[name=\'unique_id\']').val();
             var parts = str.split('-');
@@ -1353,36 +1391,6 @@ display: flex;
             window.location.href = newUrl;
         }
     });
-    $('.select-products').select2({
-        ajax: {
-            url: '{{ route("select2.products") }}',
-            dataType: 'json',
-            delay: 250,
-            data: function (params) {
-                return {
-                    q: params.term
-                };
-            },
-            processResults: function (data) {
-                return {
-                    results: $.map(data, function (item) {
-                        return {
-                            text: item.product_name,
-                            id: item.product_id,
-                            $(`${this} option:selected`).data('stock', item.opening_quantity);
-                            $(`${this} option:selected`).data('img', item.image);
-                            $(`${this} option:selected`).data('pur_price', item.purchase_price);
-                        };
-                    })
-                };
-            },
-            cache: true
-        },
-        minimumInputLength: 2,
-        theme: 'classic',
-        width: '100%',
-    });
-
 </script>
 
 

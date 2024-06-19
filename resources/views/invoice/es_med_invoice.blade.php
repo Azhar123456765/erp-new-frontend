@@ -383,7 +383,7 @@
             <div class="dup_invoice" onchange="addInvoice(1)">
 
                 <div class="div  items">
-                    <select name="item[]" id="<?php echo $counter; ?>item" style="height: 28px" onchange="addInvoice(<?php echo $counter; ?>)" required readonly>
+                    <select name="item[]" id="<?php echo $counter; ?>item" style="height: 28px" onchange="addInvoice(<?php echo $counter; ?>)" required class="select-fin-products">
                         <option></option>
                         @foreach ($product as $row)
                         <option data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}" value="{{ $row->product_id }}" {{ $row->product_id == $invoice_row->item ? 'selected' : '' }}>{{ $row->product_name }}</option>
@@ -449,11 +449,8 @@
             <div class="dup_invoice" onchange="addInvoice2(1)">
 
                 <div class="div  items">
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2(1)" class='clone_item1'>
-                        <option></option>
-                        @foreach ($product as $row)
-                        <option value="{{ $row->product_id }}" data-unit="{{$row->unit}}" data-stock="{{$row->opening_quantity}}" data-img="{{$row->image}}" data-pur_price="{{$row->purchase_price}}">{{ $row->product_name }}</option>
-                        @endforeach
+                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2(1)" class='clone_item1 select-fin-products'>
+                       
                     </select>
                     <input onkeydown="handleKeyPress(event)" style="display: none " value="0" id="pr_item" name="pr_item[]" />
 

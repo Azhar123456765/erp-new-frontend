@@ -65,6 +65,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=supplier">PDF All</a>
 
@@ -94,6 +95,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=buyer">PDF All</a>
 
@@ -122,6 +124,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=zone">PDF All</a>
 
@@ -150,6 +153,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=warehouse">PDF All</a>
 
@@ -181,6 +185,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=sales_officer">PDF All</a>
 
@@ -219,6 +224,7 @@
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
 
                     </form>
                 </div>
@@ -359,6 +365,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -478,6 +485,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                 <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
             </div>
             </form>
         </div>
@@ -597,6 +605,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                 <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
             </div>
             </form>
         </div>
@@ -717,6 +726,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                 <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
             </div>
             </form>
         </div>
@@ -839,6 +849,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                 <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
             </div>
             </form>
         </div>
@@ -908,6 +919,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                 <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
             </div>
             </form>
         </div>
@@ -967,6 +979,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -1015,6 +1028,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -1102,6 +1116,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -1159,6 +1174,7 @@ text-align: center;
     margin-top: 3.5%;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -1346,6 +1362,7 @@ text-align: center;
     text-align: center;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -1428,6 +1445,7 @@ text-align: center;
     text-align: center;
 ">
                     <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
                 </div>
                 </form>
             </div>
@@ -1436,3 +1454,19 @@ text-align: center;
 </div><!-- /.modal-dialog -->
 </div>
 
+<script>
+ document.addEventListener('DOMContentLoaded', function() {
+            // Initialize Select2 on the select element
+            var select = document.querySelector('select');
+            var select2 = new Select2(select, {
+                // Select2 configuration options can go here if needed
+            });
+
+            // Attach click event to the clear button
+            var clearBtn = document.querySelector('#clear-btn');
+            clearBtn.addEventListener('click', function() {
+                alert(1); // Show alert for debugging
+                select2.val(null).trigger('change'); // Clear selection
+            });
+        });
+</script>

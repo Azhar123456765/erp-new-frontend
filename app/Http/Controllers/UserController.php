@@ -62,7 +62,7 @@ class UserController extends Controller
         $user->username = $request['username'];
         $user->email = $request['email'];
         $user->phone_number = $request['phone_number'];
-        $user->password = $request['password'];
+        $user->password = Hash::make($request['password']);
         $user->role = $request['role'];
         $user->save();
 
@@ -132,7 +132,7 @@ class UserController extends Controller
             'username' => $request['username'],
             'email' => $request['email'],
             'phone_number' => $request['phone_number'],
-            'password' => $request['password'],
+            'password' => Hash::make($request['password']),
             'role' => $request['role'],
         ]);
 

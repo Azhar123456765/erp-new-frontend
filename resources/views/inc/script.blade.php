@@ -330,7 +330,6 @@
     });
 
 
-
     // const elements = document.querySelectorAll('input, select');
 
     // let currentIndex = 2;
