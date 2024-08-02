@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\purchase_invoice;
 use App\Models\sell_invoice;
 use App\Models\users;
+use Hash;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 

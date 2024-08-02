@@ -78,6 +78,7 @@ Route::middleware(['userAuth', 'setupPermission'])->group(function () {
 
     Route::get('/edit_seller{id}', [maincontroller::class, 'view_edit_seller']);
     Route::get('/sellers', [maincontroller::class, 'view_sellers']);
+    Route::get('/data-sellers', [maincontroller::class, 'data_seller']);
     Route::get('/add-seller', [maincontroller::class, 'view_add_seller']);
     Route::get('/view-seller{id}', [maincontroller::class, 'view_single_seller']);
     Route::get('/view_single_seller{id}', [maincontroller::class, 'view_single_seller']);
@@ -224,3 +225,7 @@ Route::post('/login-check', [maincontroller::class, 'logincheck']);
 Route::post('/user-access', [maincontroller::class, 'user_acces']);
 Route::get('/logout', [maincontroller::class, 'logout']);
 Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
+
+Route::prefix('farm')->group(function(){
+    Route::get('/add-sale-invoice', [SaleInvoiceController::class, 'create_farm']);
+});

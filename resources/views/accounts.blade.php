@@ -1,6 +1,5 @@
 @extends('master') @section('title','Accounts') @section('content')
 
-<br>
 <div class="container">
     <div class="card">
         <div class="card-header">
@@ -18,7 +17,7 @@
                 height: 25px !important;
             }
         </style>
-            <select class="form-control account-select" id="account" name="property" onchange="accounts()">
+            <select class="form-control account-select m-auto w-50" id="account" name="property" onchange="accounts()">
                     <option value="1" {{ $id == 1 ? 'selected' : '' }}>Cash</option>
                     <option value="2" {{ $id == 2 ? 'selected' : '' }}>Accounts Receivable</option>
                     <option value="3" {{ $id == 3 ? 'selected' : '' }}>Accounts Payable</option>
@@ -175,5 +174,4 @@
     }
 </script>
 
-@extends('master') @section('title','Accounts') @section('content')
 @endsection

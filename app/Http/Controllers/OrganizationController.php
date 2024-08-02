@@ -75,6 +75,7 @@ class OrganizationController extends Controller
         $organization->logo = $imagePath;
         $organization->save();
 
+        session()->flash('message', 'Organization has been updated successfully');
         return redirect()->back();
     }
 

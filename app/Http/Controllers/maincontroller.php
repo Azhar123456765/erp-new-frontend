@@ -1132,6 +1132,12 @@ class maincontroller extends Controller
         return view('sellers')->with($data);
     }
 
+    function data_seller()
+    {
+        $seller = seller::all();
+        return DataTables::of($seller)->make(true);
+    }
+
 
     public function view_add_seller()
     {

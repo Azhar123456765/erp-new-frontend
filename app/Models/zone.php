@@ -13,4 +13,9 @@ class zone extends Model
     {
         return $this->hasOne(buyer::class, 'city', 'zone_id');
     }
+   
+    function supplier()
+    {
+        return $this->hasOne(seller::class, 'city', 'zone_id');
+    }
 }
