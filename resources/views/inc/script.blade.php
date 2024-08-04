@@ -98,7 +98,7 @@
 
         })
 
-        console.log('it is id ' + id);
+        // console.log('it is id ' + id);
         $(document).ready(function() {
             $('#gen-led-account').select2({
                 ajax: {
@@ -148,7 +148,7 @@
             method: 'POST',
             success: function(response) {
                 // Handle the response
-                console.log(response);
+                // console.log(response);
                 if (response == false) {
                     window.location.href = '/'
                 } else {
@@ -730,11 +730,12 @@
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="text" id="vehicle_no" name="vehicle_no[]" />
+                    <input  onkeydown="handleKeyPress(event)"  type="text" id="vehicle_no` + counter + `" name="vehicle_no[]" />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="date" id="crate_type" name="crate_type[]" />
+                    <input  onkeydown="handleKeyPress(event)"  type="date" id="crate_type` + counter +
+                `" name="crate_type[]" />
                 </div>
 
                 <div class="div">
@@ -750,7 +751,9 @@
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="gross_weight" name="gross_weight[]" />
+                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="gross_weight` +
+                counter +
+                `" name="gross_weight[]" />
                 </div>
 
                 <div class="div">
@@ -790,13 +793,15 @@
                 </div>
                 <div class="div">
                     <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
-                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="rate` + counter + `"
+                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="rate` + counter +
+                `"
                          name="rate[]" />
                 </div>
                 <div class="div">
                     <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
-                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="amount` + counter + `"
-                         name="amount[]" />
+                        style="text-align: right;width: 90px !important;" step="any" value="0.00" onchange='count()' id="amount` +
+                counter + `"
+                         name="amount[]"  class="xl-width-inp"/>
                 </div>
                 <div class="div">
                     <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
@@ -822,6 +827,10 @@
                         style="text-align: right;" step="any" value="0.00" onchange='count()'
                         id="pur_n_weight` + counter + `"  name="pur_n_weight[]" />
                 </div>
+                 <div class="div">
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
+                        step="any" value="0.00" onchange='count()' id="avg` + counter + `" name="avg[]" />
+                </div>
                 <div class="div">
                     <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
                         style="text-align: right;" step="any" value="0.00" onchange='count()'
@@ -829,14 +838,15 @@
                 </div>
                 <div class="div">
                     <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
-                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="pur_rate` + counter + `"
+                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="pur_rate` + counter +
+                `"
                          name="pur_rate[]" />
                 </div>
                 <div class="div">
                     <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
-                        style="text-align: right;" step="any" value="0.00" onchange='count()' id="pur_amount` +
+                        style="text-align: right;width: 90px !important;" step="any" value="0.00" onchange='count()' id="pur_amount` +
                 counter + `"
-                         name="pur_amount[]" />
+                         name="pur_amount[]" class="xl-width-inp"/>
                 </div>
                 
     </div>
@@ -854,7 +864,7 @@
 
 
             $("amount").addClass("check")
-            console.log(counter + "first");
+            // console.log(counter + "first");
 
             counter++
             countera++
@@ -865,6 +875,9 @@
         }
 
         $(document).ready(function() {
+            $("input").on('input', function() {
+                total_calc();
+            });
             // Initialize Select2 for the desired select elements
             $('.select').select2({
                 theme: 'classic',
@@ -889,7 +902,7 @@
             let = st_val2 = '  ' + t + ',  ' + s;
             if (st_val2 != null) {
 
-                console.log(st_val2);
+                // console.log(st_val2);
                 stInput.val(st_val2);
             }
 
@@ -994,7 +1007,7 @@
 
         counter = counter - 1
         let amount2 = $("amount" + counter).val()
-        console.log('counter' + counter);
+        // console.log('counter' + counter);
         let narration2 = $("#sale_price" + counter).val()
         if (!$("amount" + counter).hasClass('check')) {
 
@@ -1003,8 +1016,8 @@
 
                 $("amount" + countera).addClass("check")
 
-                console.log(counter);
-                console.log(countera);
+                // console.log(counter);
+                // console.log(countera);
 
                 counter++
                 countera++
@@ -1018,6 +1031,9 @@
         counter = counter + 1
 
         $(document).ready(function() {
+            $("input").on('input', function() {
+                total_calc();
+            });
             // Initialize Select2 for the desired select elements
             $('.select').select2({
                 theme: 'classic',
@@ -1059,7 +1075,7 @@
             var st_val2 = '  ' + t + ',  ' + s;
             if (st_val2 != null) {
 
-                console.log(st_val2);
+                // console.log(st_val2);
                 stInput.val(st_val2);
             }
 
@@ -1210,7 +1226,7 @@
             $("#dis_amount" + i).val($("#sale_qty" + i).val() * (amount2 - amount));
             $("amount" + i).val(amount * $("#sale_qty" + i).val());
 
-            console.log(amount2 - amount + '   ' + i);
+            // console.log(amount2 - amount + '   ' + i);
 
         }
 
@@ -1364,7 +1380,7 @@
 
         let amount = n_weight * rate;
         let pur_amount = pur_n_weight * pur_rate;
-        
+
         $("#rate").val(rate);
         $("#pur_rate").val(pur_rate);
         $("#n_weight").val(n_weight);
@@ -1373,8 +1389,87 @@
         $("#amount").val(amount);
         $("#pur_amount").val(pur_amount);
 
-        // TOTAL
+        // CLONE
+        for (let i = 1; i <= countera; i++) {
+            let actual_rate = +$("#actual_rate" + i).val();
+            let rate_diff = +$("#rate_diff" + i).val();
+            let rate = actual_rate - rate_diff;
 
+            let pur_rate_diff = +$("#pur_rate_diff" + i).val();
+            let pur_rate = actual_rate - pur_rate_diff;
+
+            let feed_cut = +$("#feed_cut" + i).val();
+            let mor_cut = +$("#mor_cut" + i).val();
+            let crate_cut = +$("#crate_cut" + i).val();
+            let gross_weight = +$("#gross_weight" + i).val();
+            let total_cut = feed_cut + mor_cut + crate_cut;
+            let n_weight = gross_weight - total_cut;
+
+            let pur_feed_cut = +$("#pur_feed_cut" + i).val();
+            let pur_mor_cut = +$("#pur_mor_cut" + i).val();
+            let pur_crate_cut = +$("#pur_crate_cut" + i).val();
+            let pur_total_cut = pur_feed_cut + pur_mor_cut + pur_crate_cut;
+            let pur_n_weight = gross_weight - pur_total_cut;
+
+            let hen_qty = +$("#hen_qty" + i).val();
+            let avg = gross_weight / hen_qty;
+
+            let amount = n_weight * rate;
+            let pur_amount = pur_n_weight * pur_rate;
+
+            $("#rate" + i).val(rate);
+            $("#pur_rate" + i).val(pur_rate);
+            $("#n_weight" + i).val(n_weight);
+            $("#pur_n_weight" + i).val(pur_n_weight);
+            $("#avg" + i).val(avg);
+            $("#amount" + i).val(amount);
+            $("#pur_amount" + i).val(pur_amount);
+        }
+
+        // TOTAL
+        let crate_qty_total = +$("#crate_qty").val();
+        let hen_qty_total = +$("#hen_qty").val();
+        let gross_weight_total = +$("#gross_weight").val();
+        let feed_cut_total = +$("#feed_cut").val();
+        let mor_cut_total = +$("#mor_cut").val();
+        let crate_cut_total = +$("#crate_cut").val();
+        let n_weight_total = +$("#n_weight").val();
+        let pur_amount_total = +$("#pur_amount").val();
+        let pur_feed_cut_total = +$("#pur_feed_cut").val();
+        let pur_mor_cut_total = +$("#pur_mor_cut").val();
+        let pur_crate_cut_total = +$("#pur_crate_cut").val();
+        let pur_n_weight_total = +$("#pur_n_weight").val();
+        let pur_amount_total = +$("#pur_amount").val();
+
+        for (let i = 1; i <= countera; i++) {
+            crate_qty_total += +$("#crate_qty" + i).val();
+            hen_qty_total += +$("#hen_qty" + i).val();
+            gross_weight_total += +$("#gross_weight" + i).val();
+            feed_cut_total = +$("#feed_cut" + i).val();
+            mor_cut_total = +$("#mor_cut" + i).val();
+            crate_cut_total = +$("#crate_cut" + i).val();
+            n_weight_total = +$("#n_weight" + i).val();
+            pur_amount_total = +$("#pur_amount" + i).val();
+            pur_feed_cut_total = +$("#pur_feed_cut" + i).val();
+            pur_mor_cut_total = +$("#pur_mor_cut" + i).val();
+            pur_crate_cut_total = +$("#pur_crate_cut" + i).val();
+            pur_n_weight_total = +$("#pur_n_weight" + i).val();
+            pur_amount_total = +$("#pur_amount" + i).val();
+
+        }
+        $("#crate_qty_total").val(crate_qty_total);
+        $("#hen_qty_total").val(hen_qty_total);
+        $("#gross_weight_total").val(gross_weight_total);
+        $("#feed_cut_total").val(feed_cut_total);
+        $("#mor_cut_total").val(mor_cut_total);
+        $("#crate_cut_total").val(crate_cut_total);
+        $("#n_weight_total").val(n_weight_total);
+        $("#pur_amount_total").val(pur_amount_total);
+        $("#pur_feed_cut_total").val(pur_feed_cut_total);
+        $("#pur_mor_cut_total").val(pur_mor_cut_total);
+        $("#pur_crate_cut_total").val(pur_crate_cut_total);
+        $("#pur_n_weight_total").val(pur_n_weight_total);
+        $("#pur_amount_total").val(pur_amount_total);
 
     }
 </script>

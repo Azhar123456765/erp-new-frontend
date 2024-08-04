@@ -203,9 +203,16 @@
         width: 63px !important;
     }
 
+    .dup_invoice input[id="amount"] {
+        width: 90px !important;
+    }
+
     .total input {
         width: 63px !important;
+    }
 
+    .xl-width-inp {
+        width: 90px !important;
     }
 </style>
 <div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
@@ -352,8 +359,9 @@
                 </div>
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" onchange='count()' id="amount" name="amount[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;width: 90px !important;" step="any" value="0.00" onchange='count()'
+                        id="amount" name="amount[]" class="xl-width-inp" />
                 </div>
                 <div class="div">
                     <label for="pur_dis">Feed Cut</label>
@@ -397,8 +405,9 @@
                 </div>
                 <div class="div">
                     <label for="pur_amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" onchange='count()' id="pur_amount" name="pur_amount[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        style="text-align: right;width: 90px !important;" step="any" value="0.00" onchange='count()'
+                        id="pur_amount" name="pur_amount[]" class="xl-width-inp" />
                 </div>
 
             </div>
@@ -450,59 +459,78 @@
                     <label for="mor_cut" style="
         position: fixed;
         top: 95%;
-        left: 7%;
+        left: -1%;
     ">Total</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="qty_total" id="qty_total" style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_qty_total"
+                        id="crate_qty_total" style="
                             /* margin-left: 2%; */
                             position: fixed;
                             top: 95%;
-                            left: 12.3%;
-            " =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="dis_total" id="dis_total" style="
+                            left: 7%;
+            "=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="hen_qty_total"
+                        id="hen_qty_total" style="
                 /* margin-left: 52%; */
                 position: fixed;
                 top: 95%;
-                left: 17.3%;
-            " =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="
+                left: 12.5%;
+            "=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="gross_weight_total
+                        id=" gross_weight_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
-                left: 23.1%;
-            " =""="">
+                left: 18%;
+            "=""="">
 
 
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="feed_cut_total"
+                        id="feed_cut_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
-                left: 34.1%;
-            " =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="
+                left: 29%;
+            "=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="mor_cut_total"
+                        id="mor_cut_total" style="
             /* margin-left: 30%; */
             position: fixed;
             top: 95%;
-            left: 39.5%;
-        " =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="
+            left: 34.7%;
+        "=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total"
+                        id="crate_cut_total" style="
         /* margin-left: 30%; */
         position: fixed;
         top: 95%;
-        left: 45.1%;
-    " =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="
+        left: 40.4%;
+    "=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="n_weight_total"
+                        id="n_weight_total" style="
     /* margin-left: 30%; */
     position: fixed;
     top: 95%;
-    left: 50.5%;
-" =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 67.1%;" =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 72.7%;" =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 78.3%;" =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 83.7%;" =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 89.1%;" =""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="crate_cut_total" id="crate_cut_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 106%;" =""="">
+    left: 46%;
+"=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="pur_amount_total"
+                        id="pur_amount_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;width: 90px !important;left: 62.4%;"=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="pur_feed_cut_total"
+                        id="pur_feed_cut_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 70.4%;"=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="pur_mor_cut_total"
+                        id="pur_mor_cut_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 75.9%;"=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="pur_crate_cut_total"
+                        id="pur_crate_cut_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 81.3%;"=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="pur_n_weight_total"
+                        id="pur_n_weight_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 86.9%;"=""="">
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="pur_amount_total"
+                        id="pur_amount_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 108.8%;width: 90px !important;"=""="">
 
 
                 </div>
