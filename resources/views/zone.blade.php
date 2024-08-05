@@ -58,9 +58,6 @@
 </div>
 
 
-</div>
-
-
 
 <div class="modal fade" id="add-modal">
     <div class="modal-dialog">

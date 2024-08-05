@@ -16,7 +16,7 @@
 </head>
 
 <body
-    class="{{ request()->is('farm*','s_med_invoice*', 'es_med_invoice*', 'p_med_invoice*', 'ep_med_invoice*', 'rp_med_invoice*', 'rs_med_invoice*', 'arp_med_invoice*', 'ars_med_invoice*', 'r_voucher*', 'er_voucher_id=*', 'p_voucher*', 'ep_voucher_id=*') ? 'sidebar-collapse' : 'sidebar-mini' }}  layout-fixed">
+    class="{{ request()->is('farm*', 's_med_invoice*', 'expense-voucher*', 'es_med_invoice*', 'p_med_invoice*', 'ep_med_invoice*', 'rp_med_invoice*', 'rs_med_invoice*', 'arp_med_invoice*', 'ars_med_invoice*', 'r_voucher*', 'er_voucher_id=*', 'p_voucher*', 'ep_voucher_id=*') ? 'sidebar-collapse' : 'sidebar-mini' }}  layout-fixed">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{ $logo }}" alt="AdminLTELogo" height="60" width="60"
@@ -179,9 +179,6 @@
         });
 
 
-
-
-
         $('.select-buyer').select2({
             ajax: {
                 url: '{{ route('select2.buyer') }}',
@@ -208,7 +205,7 @@
             theme: 'classic',
             width: '100%',
         });
-        
+
 
         $('.select-seller').select2({
             ajax: {
@@ -304,40 +301,39 @@
         });
 
 
-        //     $('.select-seller-buyer').select2({
-        //         ajax: {
-        //             url: '{{ route('select2.seller-buyer') }}',
-        //             dataType: 'json',
-        //             delay: 250,
-        //             data: function (params) {
-        //                 return {
-        //                     q: params.term
-        //                 };
-        //             },
-        //             processResults: function (data) {
-        //                 return {
-        //                     results: $.map(data.returnData, function (item) {
-        //                         return {
-        //                             if(data.ref == 'S') {
-        //                     alert(data.ref)
-        //                     text: item.buyer_name + data.ref,
-        //                         id: item.buyer_id + data.ref
-        //                 }
-        //                            else if(data.ref == 'B') {
-        //         alert(data.ref)
+        $('.select-seller-buyer').select2({
+    ajax: {
+        url: '{{ route('select2.seller-buyer') }}',
+        dataType: 'json',
+        delay: 250,
+        data: function(params) {
+            return {
+                q: params.term
+            };
+        },
+        processResults: function(data) {
+            return {
+                results: $.map(data.returnData, function(item) {
+                    if (data.ref === 'S') {
+                        return {
+                            text: item.seller_name + ' ' + data.ref,
+                            id: item.seller_id + ' ' + data.ref
+                        };
+                    } else if (data.ref === 'B') {
+                        return {
+                            text: item.buyer_name + ' ' + data.ref,
+                            id: item.buyer_id + ' ' + data.ref
+                        };
+                    }
+                })
+            };
+        },
+        cache: true
+    },
+    minimumInputLength: 2,
+    theme: 'classic',
+    width: '100%',
+});
 
-        //         text: item.seller_name + data.ref,
-        //             id: item.seller_id + data.ref
-        //     }
-        // };
-        //                     })
-        //                 };
-        //             },
-        //     cache: true
-        //         },
-        //     minimumInputLength: 2,
-        //         theme: 'classic',
-        //             width: '100%',
-        //     });
     </script>
 </body>

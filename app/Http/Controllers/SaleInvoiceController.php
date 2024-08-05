@@ -244,7 +244,10 @@ class SaleInvoiceController extends Controller
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
         return view('invoice.s_med_invoice')->with($data);
     }
-
+    public function store_farm(Request $request)
+    {
+        dd($request->all());
+    }
     /**
      * Store a newly created resource in storage.
      *

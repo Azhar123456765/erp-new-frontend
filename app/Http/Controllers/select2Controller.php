@@ -96,8 +96,8 @@ class select2Controller extends Controller
         $resultsS = seller::where('company_name', 'LIKE', "%{$search}%")
             ->get(['seller_id', 'company_name']);
 
-        $resultsB = buyer::where('buyer_name', 'LIKE', "%{$search}%")
-            ->get(['buyer_id', 'buyer_name']);
+        $resultsB = buyer::where('company_name', 'LIKE', "%{$search}%")
+            ->get(['buyer_id', 'company_name']);
         if ($resultsS) {
             return response()->json(['returnData' => $resultsS, 'ref' => 'S']);
         } elseif ($resultsB) {

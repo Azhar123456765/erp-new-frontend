@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\ExpenseController;
+use App\Http\Controllers\ExpenseVoucherController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\NarrationController;
 use App\Http\Controllers\select2Controller;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\maincontroller;
@@ -107,6 +109,11 @@ Route::middleware(['userAuth', 'financePermission'])->group(function () {
     Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
     Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update']);
 
+    Route::controller(ExpenseVoucherController::class)->group(function () {
+        Route::get('/expense-voucher', 'create')->name('add_expense_voucher');
+        Route::post('/expense-voucher', 'store')->name('store_expense_voucher');
+    });
+
     // INVOICES
     Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
     Route::get('/data-sale-invoice', [SaleInvoiceController::class, 'data']);
@@ -200,7 +207,7 @@ Route::middleware(['userAuth', 'reportPermission'])->group(function () {
     Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);
 });
 
-Route::middleware(['userAuth','selectPermission'])->group(function () {
+Route::middleware(['userAuth', 'selectPermission'])->group(function () {
     // SELECT
     Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
     Route::get('/select-warehouse', [select2Controller::class, 'warehouse'])->name('select2.warehouse');
@@ -220,12 +227,17 @@ Route::middleware(['userAuth','selectPermission'])->group(function () {
 Route::get('/pdf2', [pdfController::class, 'test_pdf']);
 
 // GENERAL
-Route::post('/customize-form', [maincontroller::class, 'customize_form']);
+// Route::post('/customize-form', [maincontroller::class, 'customize_form']);
 Route::post('/login-check', [maincontroller::class, 'logincheck']);
 Route::post('/user-access', [maincontroller::class, 'user_acces']);
 Route::get('/logout', [maincontroller::class, 'logout']);
-Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
+// Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
 
-Route::prefix('farm')->group(function(){
+Route::prefix('farm')->middleware('userAuth')->group(function () {
     Route::get('/add-sale-invoice', [SaleInvoiceController::class, 'create_farm']);
+    Route::post('/add-sale-invoice', [SaleInvoiceController::class, 'store_farm'])->name("sale-submit");
+
+    Route::get('/narrations', [NarrationController::class, 'index'])->name("narrations");
+    Route::post('/narration', [NarrationController::class, 'store'])->name("store_narration");
+    Route::post('/update_narration/id={id?}', [NarrationController::class, 'update'])->name("update_narration");
 });
