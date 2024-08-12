@@ -297,7 +297,7 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="crate_type">Crate Type</label>
-                    <input  type="date" id="crate_type" name="crate_type[]" />
+                    <input  type="text" id="crate_type" name="crate_type[]" />
                 </div>
 
 
@@ -721,7 +721,7 @@ display: flex;
         </div>
 
         <div class="div">
-            <input    type="date" id="crate_type` + counter +
+            <input    type="text" id="crate_type` + counter +
                     `" name="crate_type[]" />
         </div>
 
@@ -943,7 +943,7 @@ display: flex;
         </div>
 
         <div class="div">
-            <input    type="date" id="crate_type` + counter +
+            <input    type="text" id="crate_type` + counter +
                     `" name="crate_type[]" />
         </div>
 
