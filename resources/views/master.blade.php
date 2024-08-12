@@ -333,5 +333,37 @@
             theme: 'classic',
             width: '100%',
         });
+        $('.select-seller-buyer-sec').select2({
+            ajax: {
+                url: '{{ route('select2.seller-buyer') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            let ref = '';
+                            if (item.comp_ref === "S") {
+                                ref = " (SELLER)";
+                            } else if (item.comp_ref === "B") {
+                                ref = " (BUYER)";
+                            }
+                            return {
+                                text: item.company_name + ref,
+                                id: item.id + item.comp_ref
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
     </script>
 </body>
