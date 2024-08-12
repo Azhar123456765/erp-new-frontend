@@ -25,6 +25,10 @@
         transform: scale(0.75);
     }
 
+input[type="number"]{
+text-align:right !important;
+}
+
     * input {
         border: 1px solid gray !important;
         width: 71px;
@@ -222,7 +226,7 @@
 
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company select-buyer" required>
+                    <select name="company" id="seller" class="company select-seller-buyer" required>
                         {{-- <option></option>
                         @foreach ($seller as $row)
                             <option value="{{ $row->seller_id }}S">

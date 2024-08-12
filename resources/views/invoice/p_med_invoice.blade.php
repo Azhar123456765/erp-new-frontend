@@ -69,6 +69,10 @@
         transform: scale(0.75);
     }
 
+input[type="number"]{
+text-align:right !important;
+}
+
     * input {
         border: 1px solid gray !important;
         width: 71px;

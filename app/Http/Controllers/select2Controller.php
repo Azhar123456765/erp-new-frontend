@@ -11,6 +11,7 @@ use App\Models\seller;
 use App\Models\buyer;
 use App\Models\products;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class select2Controller extends Controller
 {
@@ -94,14 +95,15 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $resultsS = seller::where('company_name', 'LIKE', "%{$search}%")
-            ->get(['seller_id', 'company_name']);
+            ->select('seller_id as id', 'company_name', DB::raw('"S" as comp_ref'))
+            ->toBase();
 
-        $resultsB = buyer::where('company_name', 'LIKE', "%{$search}%")
-            ->get(['buyer_id', 'company_name']);
-        if ($resultsS) {
-            return response()->json(['returnData' => $resultsS, 'ref' => 'S']);
-        } elseif ($resultsB) {
-            return response()->json(['returnData' => $resultsB, 'ref' => 'B']);
-        }
+        $results = buyer::where('company_name', 'LIKE', "%{$search}%")
+            ->select('buyer_id as id', 'company_name', DB::raw('"B" as comp_ref'))
+            ->union($resultsS)
+            ->get();
+            
+        return response()->json($results);
+
     }
 }

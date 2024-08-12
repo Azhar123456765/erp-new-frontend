@@ -18,9 +18,8 @@ class AuthenticateUser
     {
         // Check if user is authenticated
         if (!session()->has('user_id')) {
-            // User is not logged in, you can customize this part
             session()->flash('error','You must login first!');
-            return redirect('/'); // Redirect to login page
+            return redirect('/');
         }
 
         return $next($request);

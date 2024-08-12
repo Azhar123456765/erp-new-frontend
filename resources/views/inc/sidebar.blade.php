@@ -436,6 +436,54 @@ $target = null;
 
           </ul>
         </li>
+
+        <li class="nav-item">
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-chart-line"></i>
+            <p>
+              Farm Module
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="#" class="nav-link">
+                <i class="nav-icon fas fa-file"></i>
+                <p>
+                  Invoices
+                  <i class="right fas fa-angle-left"></i>
+                </p>
+              </a>
+              <ul class="nav nav-treeview">
+                <li class="nav-item">
+                  <a href="{{ Route('invoice-chicken') }}" class="nav-link {{ request()->routeIs('invoice-chicken') ? ' active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Chicken Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ Route('invoice-chick') }}" class="nav-link {{ request()->routeIs('invoice-chick') ? ' active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Chick Invoice</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="{{ Route('invoice-feed') }}" class="nav-link {{ request()->routeIs('invoice-feed') ? ' active' : '' }}">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>Feed Invoice</p>
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a href="{{ Route('daily-reports') }}" class="nav-link{{ request()->routeIs('daily-reports') ? ' active' : '' }}">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Farm Daily Report</p>
+              </a>
+            </li>
+
+          </ul>
+        </li>
       </ul>
       <br>
       <div class="bg-blue" style="

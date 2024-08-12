@@ -33,6 +33,10 @@
         transform: scale(0.75);
     }
 
+input[type="number"]{
+text-align:right !important;
+}
+
     * input {
         border: 1px solid gray !important;
         width: 71px;
@@ -218,7 +222,7 @@
 <div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
-        <h3 style="text-align: center;">Sale Invoice</h3>
+        <h3 style="text-align: center;">Chciken Invoice</h3>
 
         <h5 style="text-align: end;">FARM</h5>
         <div class="top">
@@ -241,7 +245,7 @@
                 </div>
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company select-buyer" onchange="seller123()" required>
+                    <select name="company" id="seller" class="company select-buyer" required>
 
                     </select>
                 </div>
@@ -573,7 +577,7 @@
     style="
 display: flex;
     /* justify-content: center; */
-    margin-top: -21.5%;
+    margin-top: -4%;
     flex-direction: column;
     position:absolute;
     width: 8%;
@@ -903,13 +907,13 @@ display: flex;
             }
 
 
-            let amount = $("amount").val()
+            let amount = $("#amount").val()
             let narration = $("#sale_price").val()
-            if (!$("amount").hasClass('check')) {
+            if (!$("#amount").hasClass('check')) {
 
 
 
-                $("amount").addClass("check")
+                $("#amount").addClass("check")
                 // console.log(counter + "first");
 
                 counter++
@@ -1127,15 +1131,15 @@ display: flex;
 
 
             counter = counter - 1
-            let amount2 = $("amount" + counter).val()
+            let amount2 = $("#amount" + counter).val()
             // console.log('counter' + counter);
             let narration2 = $("#amount" + counter).val()
-            if (!$("amount" + counter).hasClass('check')) {
+            if (!$("#amount" + counter).hasClass('check')) {
 
 
                 if (narration2 > 0) {
 
-                    $("amount" + countera).addClass("check")
+                    $("#amount" + countera).addClass("check")
 
                     // console.log(counter);
                     // console.log(countera);
@@ -1259,6 +1263,10 @@ display: flex;
             let rate_diff = +$("#rate_diff").val();
             let rate = actual_rate - rate_diff;
 
+            let qty = $("#qty").val();
+            let price = $("#price").val();
+            let amount = qty * price; // 100%10 = 10 - 100 = 90
+            $("#amount").val(amount);
             let pur_rate_diff = +$("#pur_rate_diff").val();
             let pur_rate = actual_rate - pur_rate_diff;
 

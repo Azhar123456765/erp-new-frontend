@@ -204,7 +204,14 @@ class SaleInvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create_farm()
+
+
+
+
+
+
+
+    public function create_farm_chicken()
     {
         $product = products::all();
         $seller = buyer::all();
@@ -222,8 +229,67 @@ class SaleInvoiceController extends Controller
         $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
-        return view('invoice.farm.sale_invoice')->with($data);
+        return view('invoice.farm.chicken_sale_invoice')->with($data);
     }
+    public function create_farm_chick()
+    {
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
+
+        $sales_officer = sales_officer::all();
+
+        $sell_invoice = sell_invoice::all();
+        $count = sell_invoice::whereIn('sell_invoice.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('sell_invoice')
+                ->groupBy('unique_id');
+        })->count();
+
+        $account = accounts::all();
+
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
+        return view('invoice.farm.chick_sale_invoice')->with($data);
+    }
+    public function create_farm_feed()
+    {
+        $product = products::all();
+        $seller = buyer::all();
+        $warehouse = warehouse::all();
+
+        $sales_officer = sales_officer::all();
+
+        $sell_invoice = sell_invoice::all();
+        $count = sell_invoice::whereIn('sell_invoice.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('sell_invoice')
+                ->groupBy('unique_id');
+        })->count();
+
+        $account = accounts::all();
+
+        $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
+        return view('invoice.farm.feed_sale_invoice')->with($data);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function create()
     {
         $product = products::all();
