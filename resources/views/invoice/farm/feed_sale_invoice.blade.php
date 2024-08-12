@@ -230,14 +230,14 @@
             <div class="fields">
                 <div class="one">
                     <label for="Invoice">Invoice#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important; width: 219px !important;"
+                    <input  style="border: none !important; width: 219px !important;"
                         type="text" id="invoice#" name="unique_id" value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)"
+                    <input 
                         style="border: none !important; width: 219px !important; text-align:center;        " type="date"
                         id="date" name="date" value="<?php
                         $currentDate = date('Y-m-d');
@@ -260,10 +260,10 @@
                     </select>
 
                 </div>
-                <input onkeydown="handleKeyPress(event)" type="hidden" name="unique_id" value="<?php echo $rand; ?>">
+                <input  type="hidden" name="unique_id" value="<?php echo $rand; ?>">
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark"
+                    <input style="width: 219px !important;"  type="text" id="remark"
                         name="remark" />
                 </div>
             </div>
@@ -276,26 +276,26 @@
             <div class="dup_invoice" onchange="addInvoice()">
                 <div class="div">
                     <label for="qty">Quantity</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" id="qty" name="qty[]" />
+                    <input  type="number" id="qty" name="qty[]" />
                 </div>
 
                 <div class="div">
                     <label for="rate">Rate</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" id="rate" name="rate[]" />
+                    <input  type="number" id="rate" name="rate[]" />
                 </div>
 
                 <div class="div">
                     <label for="crate_type">Discount(%)</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" id="discount" name="discount[]" />
+                    <input  type="number" id="discount" name="discount[]" />
                 </div>
                 <div class="div">
                     <label for="bonus">Bonus(%)</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" step="any" placeholder="0.00"
+                    <input  type="number" min="0.00" step="any" placeholder="0.00"
                         id="bonus" name="bonus[]" required />
                 </div>
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount" name="amount[]" class="xl-width-inp" />
                 </div>
@@ -351,35 +351,35 @@
         left: -1%;
     ">Total</label>
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="qty_total" id="qty_total"
+                    <input  type="number" step="any" name="qty_total" id="qty_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 11%;
             "=""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="rate_total" id="rate_total"
+                    <input  type="number" step="any" name="rate_total" id="rate_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 25.2%;
             "=""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="discount_total"
+                    <input  type="number" step="any" name="discount_total"
                         id="discount_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 39.5%;
             "=""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="bonus_total"
+                    <input  type="number" step="any" name="bonus_total"
                         id="bonus_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 53.8%;
             "=""="">
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total"
+                    <input  type="number" step="any" name="amount_total"
                         id="amount_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
@@ -504,23 +504,23 @@ display: flex;
             var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" id="qty` + counter + `"
+                    <input  type="number" id="qty` + counter + `"
                         name="qty[]" />
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" id="rate` + counter + `" name="rate[]" />
+                    <input  type="number" id="rate` + counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" id="discount` + counter + `" name="discount[]" />
+                    <input  type="number" id="discount` + counter + `" name="discount[]" />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input  type="number" min="0.00"
                         step="any" placeholder="0.00" id="bonus` + counter + `" name="bonus[]" required />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>
@@ -607,23 +607,23 @@ display: flex;
             var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" id="qty` + counter + `"
+                    <input  type="number" id="qty` + counter + `"
                         name="qty[]" />
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" id="rate` + counter + `" name="rate[]" />
+                    <input  type="number" id="rate` + counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" id="discount` + counter + `" name="discount[]" />
+                    <input  type="number" id="discount` + counter + `" name="discount[]" />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input  type="number" min="0.00"
                         step="any" placeholder="0.00" id="bonus` + counter + `" name="bonus[]" required />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>

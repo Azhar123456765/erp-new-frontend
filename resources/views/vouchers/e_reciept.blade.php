@@ -276,11 +276,11 @@ text-align:right !important;
             <div class="fields">
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="{{$sinvoice_row->unique_id}}" />
+                    <input  style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="{{$sinvoice_row->unique_id}}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
+                    <input  style="border: none !important;" type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
                 </div>
             </div>
 
@@ -320,11 +320,11 @@ text-align:right !important;
 
                 <div class="one">
                     <label for="Invoice">Ref No</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" value="{{$sinvoice_row->ref_no}}" />
+                    <input  type="text" id="ref_no" name="ref_no" value="{{$sinvoice_row->ref_no}}" />
                 </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark" name="remark" value="{{$sinvoice_row->remark}}" />
+                    <input style="width: 219px !important;"  type="text" id="remark" name="remark" value="{{$sinvoice_row->remark}}" />
                 </div>
             </div>
         </div>
@@ -358,7 +358,7 @@ text-align:right !important;
 
 
                 <div class="div">
-                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" value="{{$invoice_row->narration}}" />
+                    <input style="width: 289px !important;"  type="text" id="narration" name="narration[]" value="{{$invoice_row->narration}}" />
                 </div>
                 <div class="div">
                     <select class="invoice_no" id="invoice_no" name="invoice_no[]" style="height: 28px">
@@ -371,10 +371,10 @@ text-align:right !important;
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" value="{{$invoice_row->cheque_no}}" />
+                    <input  type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" value="{{$invoice_row->cheque_no}}" />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="{{$invoice_row->cheque_date}}" id="cheque_date" name="cheque_date[]" onchange='total_amount()' />
+                    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="{{$invoice_row->cheque_date}}" id="cheque_date" name="cheque_date[]" onchange='total_amount()' />
                 </div>
                 <div class="div">
                     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -388,7 +388,7 @@ text-align:right !important;
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>amount" onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" value="{{$invoice_row->amount}}" onchange='total_amount()' id="amount" name="amount[]" />
+                    <input class="<?php echo $counter; ?>amount"  type="number" min="0.00" style="text-align: right;" step="any" value="{{$invoice_row->amount}}" onchange='total_amount()' id="amount" name="amount[]" />
                 </div>
             </div>
 
@@ -401,7 +401,7 @@ text-align:right !important;
 
             <div class="dup_invoice" onchange="addInvoice2()">
                 <div class="div">
-                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;"  type="text" id="narration" name="narration[]" />
                 </div>
                 <div class="div">
                     <select class="invoice_no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
@@ -413,10 +413,10 @@ text-align:right !important;
                     </select>
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
+                    <input  type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
                 </div>
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
+                    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
                     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
