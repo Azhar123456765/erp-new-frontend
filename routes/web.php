@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseVoucherController;
+use App\Http\Controllers\FarmDailyReportController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\NarrationController;
 use App\Http\Controllers\select2Controller;
@@ -236,16 +237,18 @@ Route::middleware('userAuth')->group(function () {
     // Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
 
     Route::prefix('farm')->group(function () {
-        Route::get('/add-sale-invoice-chicken', [SaleInvoiceController::class, 'create_farm_chicken'])->name("invoice-chicken");
-        Route::get('/add-sale-invoice-chick', [SaleInvoiceController::class, 'create_farm_chick'])->name("invoice-chick");
-        Route::get('/add-sale-invoice-feed', [SaleInvoiceController::class, 'create_farm_feed'])->name("invoice-feed");
-        Route::post('/add-sale-invoice', [SaleInvoiceController::class, 'store_farm'])->name("sale-submit");
+        Route::get('/add-sale-invoice-chicken', [SaleInvoiceController::class, 'create_farm_chicken'])->name("invoice_chicken");
+        Route::get('/add-sale-invoice-chick', [SaleInvoiceController::class, 'create_farm_chick'])->name("invoice_chick");
+        Route::get('/add-sale-invoice-feed', [SaleInvoiceController::class, 'create_farm_feed'])->name("invoice_feed");
+        Route::post('/add-sale-invoice', [SaleInvoiceController::class, 'store_farm'])->name("sale_submit");
 
         Route::get('/narrations', [NarrationController::class, 'index'])->name("narrations");
         Route::post('/narration', [NarrationController::class, 'store'])->name("store_narration");
-        Route::post('/update_narration/id={id?}', [NarrationController::class, 'update'])->name("update_narration");
+        Route::post('/update-narration/id={id?}', [NarrationController::class, 'update'])->name("update_narration");
 
-        Route::get('/daily-reports', [NarrationController::class, 'index'])->name("daily-reports");
+        Route::get('/daily-reports', [FarmDailyReportController::class, 'index'])->name("daily_reports");
+        Route::post('/daily-reports', [NarrationController::class, 'store'])->name("store_daily_report");
+        Route::post('/update-daily-report/id={id?}', [NarrationController::class, 'update'])->name("update_daily_report");
 
     });
 });

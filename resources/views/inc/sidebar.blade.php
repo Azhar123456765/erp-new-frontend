@@ -439,7 +439,7 @@ $target = null;
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-chart-line"></i>
+            <i class="nav-icon far fa-circle"></i>
             <p>
               Farm Module
               <i class="right fas fa-angle-left"></i>
@@ -456,19 +456,19 @@ $target = null;
               </a>
               <ul class="nav nav-treeview">
                 <li class="nav-item">
-                  <a href="{{ Route('invoice-chicken') }}" class="nav-link {{ request()->routeIs('invoice-chicken') ? ' active' : '' }}">
+                  <a href="{{ Route('invoice_chicken') }}" class="nav-link {{ request()->routeIs('invoice_chicken') ? ' active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Chicken Invoice</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ Route('invoice-chick') }}" class="nav-link {{ request()->routeIs('invoice-chick') ? ' active' : '' }}">
+                  <a href="{{ Route('invoice_chick') }}" class="nav-link {{ request()->routeIs('invoice_chick') ? ' active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Chick Invoice</p>
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="{{ Route('invoice-feed') }}" class="nav-link {{ request()->routeIs('invoice-feed') ? ' active' : '' }}">
+                  <a href="{{ Route('invoice_feed') }}" class="nav-link {{ request()->routeIs('invoice_feed') ? ' active' : '' }}">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Feed Invoice</p>
                   </a>
@@ -476,7 +476,7 @@ $target = null;
               </ul>
             </li>
             <li class="nav-item">
-              <a href="{{ Route('daily-reports') }}" class="nav-link{{ request()->routeIs('daily-reports') ? ' active' : '' }}">
+              <a href="{{ Route('daily_reports') }}" class="nav-link{{ request()->routeIs('daily_reports') ? ' active' : '' }}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Farm Daily Report</p>
               </a>
