@@ -82,7 +82,7 @@
 @php
 
 $data = session()->get('pdf_data');
-    // $customer = App\Models\Buyer::where('buyer_id', $data['pur_company'])->first();
+    $customer = App\Models\Buyer::where('buyer_id', $data['buyer'])->first();
     $org = App\Models\Organization::all();
     foreach ($org as $key => $value) {
         $logo = $value->logo;

@@ -2122,7 +2122,7 @@ class pdfController extends Controller
 
 
 
-        function invoice_chick(Request $request, $id)
+        function invoice_chick(Request $request, $id=null)
         {
                 
 

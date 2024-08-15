@@ -467,10 +467,10 @@ display: flex;
     </a>
 
 
-    <button type="button" class="btn btn-secondary btn-sm d-none" id="sale_pdf" style="margin-left: 19px;">
+    <button type="button" class="btn btn-secondary btn-sm" id="sale_pdf" style="margin-left: 19px;">
         SALE PDF
     </button>
-    <button type="button" class="btn btn-secondary btn-sm d-none" id="purchase_pdf" style="margin-left: 19px;">
+    <button type="button" class="btn btn-secondary btn-sm" id="purchase_pdf" style="margin-left: 19px;">
         PURCHASE PDF
     </button>
 
@@ -862,8 +862,9 @@ display: flex;
         $('#sale_pdf').click(function(event) {
             event.preventDefault();
 
-            var unique_id = $("#unique_id").val();
-            var url = '{{ route('pdf_invoice_chick') }}' + '?id=' + unique_id;
+            // var unique_id = $("#unique_id").val();
+            var formData = $("#form").serialize();
+            var url = '{{ route('pdf_invoice_chick') }}' + '?id=null' + formData;
             window.open(url, '__blank')
         });
 
