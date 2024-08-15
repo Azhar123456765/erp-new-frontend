@@ -2118,4 +2118,31 @@ class pdfController extends Controller
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
+
+
+
+
+        function invoice_chick(Request $request, $id)
+        {
+                
+
+                session()->flash("pdf_data", $request->all());
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.invoice_chick')->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+        }
 }

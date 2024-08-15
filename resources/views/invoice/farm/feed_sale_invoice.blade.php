@@ -204,7 +204,7 @@
 
     .dup_invoice input {
         border: 1px solid;
-        width: 163px !important;
+        width: 120px !important;
         text-align: right !important;
     }
 
@@ -213,7 +213,7 @@
     }
 
     .total input {
-        width: 163px !important;
+        width: 120px !important;
     }
 
     .xl-width-inp {
@@ -303,6 +303,31 @@
                         step="any" value="0.00" onchange='count()' id="amount" name="amount[]"
                         class="xl-width-inp" />
                 </div>
+
+
+                <div class="div">
+                    <label for="pur_qty">Quantity</label>
+                    <input type="number" id="pur_qty" name="pur_qty[]" />
+                </div>
+                <div class="div">
+                    <label for="pur_rate">Rate</label>
+                    <input type="number" id="pur_rate" name="pur_rate[]" />
+                </div>
+                <div class="div">
+                    <label for="pur_crate_type">Discount(%)</label>
+                    <input type="number" id="pur_discount" name="pur_discount[]" />
+                </div>
+                <div class="div">
+                    <label for="pur_bonus">Bonus(%)</label>
+                    <input type="number" min="0.00" step="any" placeholder="0.00" id="pur_bonus"
+                        name="pur_bonus[]" required />
+                </div>
+                <div class="div">
+                    <label for="pur_amount">Amount</label>
+                    <input type="number" min="0.00" style="text-align: right;width: 190px !important;"
+                        step="any" value="0.00" onchange='count()' id="pur_amount" name="pur_amount[]"
+                        class="xl-width-inp" />
+                </div>
             </div>
         </div>
 
@@ -353,45 +378,30 @@
                         style="
         position: fixed;
         top: 95%;
-        left: -1%;
+        left: -20%;
     ">Total</label>
+
 
                     <input type="number" step="any" name="qty_total" id="qty_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
-                left: 11%;
-            "=""="">
-                    <input type="number" step="any" name="rate_total" id="rate_total"
-                        style="
-                /* margin-left: 30%; */
-                position: fixed;
-                top: 95%;
-                left: 25.2%;
-            "=""="">
-                    <input type="number" step="any" name="discount_total" id="discount_total"
-                        style="
-                /* margin-left: 30%; */
-                position: fixed;
-                top: 95%;
-                left: 39.5%;
-            "=""="">
-                    <input type="number" step="any" name="bonus_total" id="bonus_total"
-                        style="
-                /* margin-left: 30%; */
-                position: fixed;
-                top: 95%;
-                left: 53.8%;
+                left: -11%;
             "=""="">
                     <input type="number" step="any" name="amount_total" id="amount_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
-                left: 68.2%;
+                left: 31%;
                 width: 190px !important;
             "=""="">
+
+                    <input type="number" step="any" name="pur_qty_total" id="pur_qty_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 47.7%;"=""="">
+                    <input type="number" step="any" name="pur_amount_total" id="pur_amount_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 89.55%;width: 190px !important;"=""="">
 
                 </div>
 
@@ -536,6 +546,27 @@ display: flex;
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>
+                
+                <div class="div">
+                    <input  type="number" id="pur_qty` + counter + `"
+                        name="pur_qty[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" id="pur_rate` + counter + `" name="pur_rate[]" />
+                </div>
+
+                <div class="div">
+                    <input  type="number" id="pur_discount` + counter + `" name="pur_discount[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        step="any" placeholder="0.00" id="pur_bonus` + counter + `" name="pur_bonus[]" required />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
+                        id="pur_amount` + counter + `" name="pur_amount[]" class="xl-width-inp" />
+                </div>
             </div>
 
 `;
@@ -639,6 +670,28 @@ display: flex;
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>
+
+
+                <div class="div">
+                    <input  type="number" id="pur_qty` + counter + `"
+                        name="pur_qty[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" id="pur_rate` + counter + `" name="pur_rate[]" />
+                </div>
+
+                <div class="div">
+                    <input  type="number" id="pur_discount` + counter + `" name="pur_discount[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        step="any" placeholder="0.00" id="pur_bonus` + counter + `" name="pur_bonus[]" required />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
+                        id="pur_amount` + counter + `" name="pur_amount[]" class="xl-width-inp" />
+                </div>
             </div>
 
 `;
@@ -674,7 +727,18 @@ display: flex;
             amount -= discountAmount;
             // let bonusAmount = (qty * rate) * (bonus / 100);
             amount -= bonus;
+
+            let pur_qty = +$('#pur_qty').val();
+            let pur_rate = +$('#pur_rate').val();
+            let pur_discount = +$('#pur_discount').val();
+            let pur_bonus = +$('#pur_bonus').val();
+            let pur_amount = pur_qty * pur_rate;
+            let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
+            pur_amount -= pur_discountAmount;
+            // let pur_bonusAmount = (pur_qty * rate) * (bonus / 100);
+            pur_amount -= pur_bonus;
             $('#amount').val(amount);
+            $('#pur_amount').val(pur_amount);
 
             // CLONE
             for (let i = 1; i <= countera; i++) {
@@ -687,27 +751,35 @@ display: flex;
                 amount -= discountAmount;
                 // let bonusAmount = (qty * rate) * (bonus / 100);
                 amount -= bonus;
+
+                let pur_qty = +$('#pur_qty' + i).val();
+                let pur_rate = +$('#pur_rate' + i).val();
+                let pur_discount = +$('#pur_discount' + i).val();
+                let pur_bonus = +$('#pur_bonus' + i).val();
+                let pur_amount = pur_qty * pur_rate;
+                let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
+                pur_amount -= pur_discountAmount;
+                // let pur_bonusAmount = (pur_qty * rate) * (bonus / 100);
+                pur_amount -= pur_bonus;
                 $('#amount' + i).val(amount);
+                $('#pur_amount' + i).val(pur_amount);
             }
 
             // TOTAL
             let qty_total = +$('#qty').val();
-            let rate_total = +$('#rate').val();
-            let discount_total = +$('#discount').val();
-            let bonus_total = +$('#bonus').val();
             let amount_total = +$('#amount').val();
+            let pur_qty_total = +$('#pur_qty').val();
+            let pur_amount_total = +$('#pur_amount').val();
             for (let i = 1; i <= countera; i++) {
                 qty_total += +$('#qty' + i).val();
-                rate_total += +$('#rate' + i).val();
-                discount_total += +$('#discount' + i).val();
-                bonus_total += +$('#bonus' + i).val();
                 amount_total += +$('#amount' + i).val();
+                pur_qty_total += +$('#pur_qty' + i).val();
+                pur_amount_total += +$('#pur_amount' + i).val();
             }
             $('#qty_total').val(qty_total);
-            $('#rate_total').val(rate_total);
-            $('#discount_total').val(discount_total);
-            $('#bonus_total').val(bonus_total);
             $('#amount_total').val(amount_total);
+            $('#pur_qty_total').val(pur_qty_total);
+            $('#pur_amount_total').val(pur_amount_total);
 
         }
 

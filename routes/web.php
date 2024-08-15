@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\ChickenInvoiceController;
+use App\Http\Controllers\ChickInvoiceController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseVoucherController;
 use App\Http\Controllers\FarmDailyReportController;
@@ -121,7 +123,7 @@ Route::middleware('userAuth')->group(function () {
 
         // INVOICES
         Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
-        Route::get('/data-sale-invoice', [SaleInvoiceController::class, 'data']);
+        Route::get('/data-invoice', [SaleInvoiceController::class, 'data']);
         Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
         Route::get('/ars_med_invoice', [SaleReturnController::class, 'create']);
         Route::post('/ars_med_invoice_form', [SaleReturnController::class, 'store']);
@@ -237,10 +239,14 @@ Route::middleware('userAuth')->group(function () {
     // Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
 
     Route::prefix('farm')->group(function () {
-        Route::get('/add-sale-invoice-chicken', [SaleInvoiceController::class, 'create_farm_chicken'])->name("invoice_chicken");
-        Route::get('/add-sale-invoice-chick', [SaleInvoiceController::class, 'create_farm_chick'])->name("invoice_chick");
-        Route::get('/add-sale-invoice-feed', [SaleInvoiceController::class, 'create_farm_feed'])->name("invoice_feed");
-        Route::post('/add-sale-invoice', [SaleInvoiceController::class, 'store_farm'])->name("sale_submit");
+        Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("invoice_chicken");
+        Route::post('/add-invoice-chicken', [ChickenInvoiceController::class, 'store'])->name("store_invoice_chicken");
+
+        Route::get('/add-invoice-chick', [SaleInvoiceController::class, 'create_farm_chick'])->name("invoice_chick");
+        Route::post('/add-invoice-chick', [ChickInvoiceController::class, 'store'])->name("store_invoice_chick");
+
+        Route::get('/add-invoice-feed', [SaleInvoiceController::class, 'create_farm_feed'])->name("invoice_feed");
+
 
         Route::get('/narrations', [NarrationController::class, 'index'])->name("narrations");
         Route::post('/narration', [NarrationController::class, 'store'])->name("store_narration");
@@ -249,6 +255,10 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/daily-reports', [FarmDailyReportController::class, 'index'])->name("daily_reports");
         Route::post('/daily-reports', [NarrationController::class, 'store'])->name("store_daily_report");
         Route::post('/update-daily-report/id={id?}', [NarrationController::class, 'update'])->name("update_daily_report");
+
+        Route::prefix('pdf')->group(function () {
+            Route::get('/invoice-chick/{id?}', [pdfController::class, 'invoice_chick'])->name("pdf_invoice_chick");
+        });
 
     });
 });

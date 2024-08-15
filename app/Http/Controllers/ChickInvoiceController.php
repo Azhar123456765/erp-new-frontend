@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\FarmSaleInvoice;
+use App\Models\ChickInvoice;
 use Illuminate\Http\Request;
 
-class FarmSaleInvoiceController extends Controller
+class ChickInvoiceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class FarmSaleInvoiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\FarmSaleInvoice  $farmSaleInvoice
+     * @param  \App\Models\ChickInvoice  $chickInvoice
      * @return \Illuminate\Http\Response
      */
-    public function show(FarmSaleInvoice $farmSaleInvoice)
+    public function show(ChickInvoice $chickInvoice)
     {
         //
     }
@@ -52,10 +52,10 @@ class FarmSaleInvoiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\FarmSaleInvoice  $farmSaleInvoice
+     * @param  \App\Models\ChickInvoice  $chickInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(FarmSaleInvoice $farmSaleInvoice)
+    public function edit(ChickInvoice $chickInvoice)
     {
         //
     }
@@ -64,10 +64,10 @@ class FarmSaleInvoiceController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\FarmSaleInvoice  $farmSaleInvoice
+     * @param  \App\Models\ChickInvoice  $chickInvoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FarmSaleInvoice $farmSaleInvoice)
+    public function update(Request $request, ChickInvoice $chickInvoice)
     {
         //
     }
@@ -75,10 +75,10 @@ class FarmSaleInvoiceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\FarmSaleInvoice  $farmSaleInvoice
+     * @param  \App\Models\ChickInvoice  $chickInvoice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(FarmSaleInvoice $farmSaleInvoice)
+    public function destroy(ChickInvoice $chickInvoice)
     {
         //
     }

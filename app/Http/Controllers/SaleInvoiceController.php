@@ -64,57 +64,57 @@ class SaleInvoiceController extends Controller
         return response()->json($balance);
     }
 
-    public function mail(Request $request)
-    {
+    // public function mail(Request $request)
+    // {
 
-        $id = $request->input('unique_id');
+    //     $id = $request->input('unique_id');
 
-        $sell_invoice = sell_invoice::where("unique_id", $id)
-            ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
-            ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
-            ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
-            ->get();
+    //     $sell_invoice = sell_invoice::where("unique_id", $id)
+    //         ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+    //         ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+    //         ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+    //         ->get();
 
-        $s_sell_invoice = sell_invoice::where("unique_id", $id)
-            ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
-            ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
-            ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
-            ->limit(1)->get();
+    //     $s_sell_invoice = sell_invoice::where("unique_id", $id)
+    //         ->leftJoin('buyer', 'sell_invoice.company', '=', 'buyer.buyer_id')
+    //         ->leftJoin('sales_officer', 'sell_invoice.sales_officer', '=', 'sales_officer.sales_officer_id')
+    //         ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
+    //         ->limit(1)->get();
 
-        session()->put("sale_invoice_pdf_data", $sell_invoice);
-        session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
+    //     session()->put("sale_invoice_pdf_data", $sell_invoice);
+    //     session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
 
-        $views = $id;
+    //     $views = $id;
 
-        $pdf = new Dompdf();
+    //     $pdf = new Dompdf();
 
-        $html = view('pdf.sale_pdf')->render();
+    //     $html = view('pdf.sale_pdf')->render();
 
-        $pdf->loadHtml($html);
+    //     $pdf->loadHtml($html);
 
-        // Set paper size based on content length
-        $contentLength = strlen($html);
-        if ($contentLength > 5000) {
-            $pdf->setPaper('A3', 'landscape');
-        } else {
-            $pdf->setPaper('A4', 'landscape');
-        }
+    //     // Set paper size based on content length
+    //     $contentLength = strlen($html);
+    //     if ($contentLength > 5000) {
+    //         $pdf->setPaper('A3', 'landscape');
+    //     } else {
+    //         $pdf->setPaper('A4', 'landscape');
+    //     }
 
-        $pdf->render();
+    //     $pdf->render();
 
-        // Save the PDF to a file
-        $output = $pdf->output();
-        file_put_contents(public_path('pdf/' . $id . '.pdf'), $output);
+    //     // Save the PDF to a file
+    //     $output = $pdf->output();
+    //     file_put_contents(public_path('pdf/' . $id . '.pdf'), $output);
 
-        $company_id = $request->input('company');
-        $company = buyer::where('buyer_id', $company_id)->get();
-        foreach ($company as $key => $value) {
-            $email = $value['company_email'];
-        }
+    //     $company_id = $request->input('company');
+    //     $company = buyer::where('buyer_id', $company_id)->get();
+    //     foreach ($company as $key => $value) {
+    //         $email = $value['company_email'];
+    //     }
 
-        Mail::to($email)->send(new invoiceMail($id));
-        return $email;
-    }
+    //     Mail::to($email)->send(new invoiceMail($id));
+    //     return $email;
+    // }
     /**
      * Display a listing of the resource.
      *

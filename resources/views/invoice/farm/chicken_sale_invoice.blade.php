@@ -243,7 +243,7 @@
                 </div>
                 <div class="one  remark">
                     <label for="seller">Seller</label>
-                    <select name="company" class="company select-seller-buyer" required>
+                    <select name="seller" class="company select-seller-buyer" required>
 
                     </select>
                 </div>
@@ -264,8 +264,8 @@
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
-                    <label for="seller">Buyer</label>
-                    <select name="pur_company" class="select-seller-buyer-sec" required>
+                    <label for="buyer">Buyer</label>
+                    <select name="buyer" class="select-seller-buyer-sec" required>
 
                     </select>
                 </div>
@@ -1316,7 +1316,7 @@ display: flex;
 
             // Send an AJAX request
             $.ajax({
-                url: '/farm/add-sale-invoice', // Replace with your Laravel route or endpoint
+                url: '{{ Route("store_invoice_chicken") }}', // Replace with your Laravel route or endpoint
                 method: 'POST',
                 data: formData,
                 success: function(response) {

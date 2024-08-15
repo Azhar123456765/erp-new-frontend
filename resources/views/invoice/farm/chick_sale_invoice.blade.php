@@ -204,7 +204,7 @@
 
     .dup_invoice input {
         border: 1px solid;
-        width: 163px !important;
+        width: 123px !important;
         text-align: right !important;
     }
 
@@ -213,7 +213,7 @@
     }
 
     .total input {
-        width: 163px !important;
+        width: 123px !important;
     }
 
     .xl-width-inp {
@@ -229,10 +229,11 @@
             <div class="fields">
                 <div class="one">
                     <label for="Invoice">Invoice#</label>
-                    <input style="border: none !important; width: 219px !important;" type="text" id="invoice#"
-                        name="unique_id" value="<?php $year = date('Y');
+                    <input style="border: none !important; width: 219px !important;" type="text" id=""
+                        name="" value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
@@ -243,8 +244,8 @@
                         ?>" />
                 </div>
                 <div class="one  remark">
-                    <label for="seller">Seller</label>
-                    <select name="company" class="company select-buyer" required>
+                    <label for="seller">Supplier</label>
+                    <select name="seller" class="company select-buyer" required>
 
                     </select>
                 </div>
@@ -264,8 +265,8 @@
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
-                    <label for="seller">Buyer</label>
-                    <select name="pur_company" class="select-seller-buyer-sec" required>
+                    <label for="seller">Customer</label>
+                    <select name="buyer" class="select-seller-buyer-sec" required>
 
                     </select>
                 </div>
@@ -304,6 +305,31 @@
                     <label for="amount">Amount</label>
                     <input type="number" min="0.00" style="text-align: right;width: 190px !important;"
                         step="any" value="0.00" onchange='count()' id="amount" name="amount[]"
+                        class="xl-width-inp" />
+                </div>
+
+                {{-- PURCHASE --}}
+                <div class="div">
+                    <label for="pur_rate">Rate</label>
+                    <input type="number" id="pur_rate" name="pur_rate[]" />
+                </div>
+                <div class="div">
+                    <label for="pur_crate_type">Discount(%)</label>
+                    <input type="number" id="pur_discount" name="pur_discount[]" />
+                </div>
+                <div class="div">
+                    <label for="pur_bonus">Bonus(%)</label>
+                    <input type="number" min="0.00" step="any" placeholder="0.00" id="pur_bonus"
+                        name="pur_bonus[]" required />
+                </div>
+                <div class="div">
+                    <label for="pur_qty">Quantity</label>
+                    <input type="number" id="pur_qty" name="pur_qty[]" />
+                </div>
+                <div class="div">
+                    <label for="pur_amount">Amount</label>
+                    <input type="number" min="0.00" style="text-align: right;width: 190px !important;"
+                        step="any" value="0.00" onchange='count()' id="pur_amount" name="pur_amount[]"
                         class="xl-width-inp" />
                 </div>
             </div>
@@ -352,50 +378,29 @@
                 <div class="one" style="
                 margin-left: -136%;
             ">
-                    <label for="mor_cut"
-                        style="
+                    <label for="mor_cut" style="
         position: fixed;
         top: 95%;
         left: -1%;
     ">Total</label>
 
 
-                    <input type="number" step="any" name="rate_total" id="rate_total"
-                        style="
+                    <input type="number" step="any" name="qty_total" id="qty_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
-                left: 18%;
-            "=""="">
-                    <input type="number" step="any" name="discount_total" id="discount_total"
-                        style="
+                left: 26%;
+            " =""="">
+                    <input type="number" step="any" name="amount_total" id="amount_total" style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
-                left: 32.4%;
-            "=""="">
-                    <input type="number" step="any" name="bonus_total" id="bonus_total"
-                        style="
-                /* margin-left: 30%; */
-                position: fixed;
-                top: 95%;
-                left: 46.7%;
-            "=""="">
-                    <input type="number" step="any" name="qty_total" id="qty_total"
-                        style="
-    /* margin-left: 30%; */
-    position: fixed;
-    top: 95%;
-    left: 61%;
-"=""="">
-                    <input type="number" step="any" name="amount_total" id="amount_total"
-                        style="
-                /* margin-left: 30%; */
-                position: fixed;
-                top: 95%;
-                left: 75.2%;
+                left: 36.8%;
                 width: 190px !important;
-            "=""="">
+            " =""="">
+
+<input type="number" step="any" name="pur_qty_total" id="pur_qty_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;" =""="">
+<input type="number" step="any" name="pur_amount_total" id="pur_amount_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;" =""="">
 
                 </div>
 
@@ -462,10 +467,12 @@ display: flex;
     </a>
 
 
-    <a href="/sale_invoice_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
-        PDF
-    </a>
+    <button type="button" class="btn btn-secondary btn-sm d-none" id="sale_pdf" style="margin-left: 19px;">
+        SALE PDF
+    </button>
+    <button type="button" class="btn btn-secondary btn-sm d-none" id="purchase_pdf" style="margin-left: 19px;">
+        PURCHASE PDF
+    </button>
 
 
     <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;"
@@ -543,6 +550,28 @@ display: flex;
                     <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
+                </div>
+
+
+                <div class="div">
+                    <input  type="number" id="pur_rate` + counter + `" name="pur_rate[]" />
+                </div>
+
+                <div class="div">
+                    <input  type="number" id="pur_discount` + counter + `" name="pur_discount[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        step="any" placeholder="0.00" id="pur_bonus` + counter + `" name="pur_bonus[]" required />
+                </div>
+                <div class="div">
+                    <input  type="number" id="pur_qty` + counter + `"
+                        name="pur_qty[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
+                        id="pur_amount` + counter + `" name="pur_amount[]" class="xl-width-inp" />
                 </div>
             </div>
 
@@ -651,6 +680,27 @@ display: flex;
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>
+
+                <div class="div">
+                    <input  type="number" id="pur_rate` + counter + `" name="pur_rate[]" />
+                </div>
+
+                <div class="div">
+                    <input  type="number" id="pur_discount` + counter + `" name="pur_discount[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        step="any" placeholder="0.00" id="pur_bonus` + counter + `" name="pur_bonus[]" required />
+                </div>
+                <div class="div">
+                    <input  type="number" id="pur_qty` + counter + `"
+                        name="pur_qty[]" />
+                </div>
+                <div class="div">
+                    <input  type="number" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
+                        id="pur_amount` + counter + `" name="pur_amount[]" class="xl-width-inp" />
+                </div>
             </div>
 
 `;
@@ -688,13 +738,25 @@ display: flex;
             let discountAmount = (qty * rate) * (discount / 100);
             amount -= discountAmount;
 
+            let pur_qty = +$('#actual_qty').val();
+            let pur_rate = +$('#pur_rate').val();
+            let pur_discount = +$('#pur_discount').val();
+            let pur_bonus = +$('#pur_bonus').val();
+            let pur_bonusQty = (pur_qty) * (pur_bonus / 100);
+            pur_qty += pur_bonusQty;
+            let pur_amount = pur_qty * pur_rate;
+            let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
+            pur_amount -= pur_discountAmount;
+
             $('#qty').val(qty);
+            $('#pur_qty').val(pur_qty);
             $('#amount').val(amount);
+            $('#pur_amount').val(pur_amount);
 
             // CLONE
             for (let i = 1; i <= countera; i++) {
                 let actual_qty = +$('#actual_qty' + i).val();
-                let qty = +$('#qty' + i).val();
+                let qty = +$('#actual_qty' + i).val();
                 let rate = +$('#rate' + i).val();
                 let discount = +$('#discount' + i).val();
                 let bonus = +$('#bonus' + i).val();
@@ -703,28 +765,41 @@ display: flex;
                 let amount = qty * rate;
                 let discountAmount = (qty * rate) * (discount / 100);
                 amount -= discountAmount;
+
+                let pur_qty = +$('#actual_qty' + i).val();
+                let pur_rate = +$('#pur_rate' + i).val();
+                let pur_discount = +$('#pur_discount' + i).val();
+                let pur_bonus = +$('#pur_bonus' + i).val();
+                let pur_bonusQty = (pur_qty) * (pur_bonus / 100);
+                pur_qty += pur_bonusQty;
+                let pur_amount = pur_qty * pur_rate;
+                let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
+                pur_amount -= pur_discountAmount;
+
                 $('#qty' + i).val(qty);
+                $('#pur_qty' + i).val(pur_qty);
                 $('#amount' + i).val(amount);
+                $('#pur_amount' + i).val(pur_amount);
+                console.log(qty);
+                console.log(amount);
+                
             }
 
             // TOTAL
             let qty_total = +$('#qty').val();
-            let rate_total = +$('#rate').val();
-            let discount_total = +$('#discount').val();
-            let bonus_total = +$('#bonus').val();
             let amount_total = +$('#amount').val();
+            let pur_qty_total = +$('#pur_qty').val();
+            let pur_amount_total = +$('#pur_amount').val();
             for (let i = 1; i <= countera; i++) {
                 qty_total += +$('#qty' + i).val();
-                rate_total += +$('#rate' + i).val();
-                discount_total += +$('#discount' + i).val();
-                bonus_total += +$('#bonus' + i).val();
                 amount_total += +$('#amount' + i).val();
+                pur_qty_total += +$('#pur_qty' + i).val();
+                pur_amount_total += +$('#pur_amount' + i).val();
             }
             $('#qty_total').val(qty_total);
-            $('#rate_total').val(rate_total);
-            $('#discount_total').val(discount_total);
-            $('#bonus_total').val(bonus_total);
             $('#amount_total').val(amount_total);
+            $('#pur_qty_total').val(pur_qty_total);
+            $('#pur_amount_total').val(pur_amount_total);
 
         }
 
@@ -744,7 +819,7 @@ display: flex;
 
             // Send an AJAX request
             $.ajax({
-                url: '/farm/add-sale-invoice', // Replace with your Laravel route or endpoint
+                url: '{{ Route('store_invoice_chick') }}',
                 method: 'POST',
                 data: formData,
                 success: function(response) {
@@ -762,7 +837,7 @@ display: flex;
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: '/s_med_invoice_mail', // Replace with your Laravel route or endpoint
+                                url: '/s_med_invoice_mail',
                                 method: 'POST',
                                 data: formData,
                             })
@@ -771,6 +846,8 @@ display: flex;
                     // $("#btn").css("display", "none")
                     $(".edit").css("display", "block")
                     $("#btn").css("display", "none")
+                    $("#sale_pdf").removeClass("d-none");
+                    $("#purchase_pdf").removeClass("d-none");
 
 
 
@@ -780,6 +857,17 @@ display: flex;
                 },
             });
         })
+
+
+        $('#sale_pdf').click(function(event) {
+            event.preventDefault();
+
+            var unique_id = $("#unique_id").val();
+            var url = '{{ route('pdf_invoice_chick') }}' + '?id=' + unique_id;
+            window.open(url, '__blank')
+        });
+
+
         $(document).on('keydown', function(e) {
             if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
                 var link = document.querySelector('.add-more');
