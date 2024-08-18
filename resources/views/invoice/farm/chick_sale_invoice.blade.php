@@ -293,7 +293,6 @@
         <div class="invoice">
             @csrf
             <div class="dup_invoice" onchange="addInvoice()">
-                <div class="pur">
                 <div class="div   items">
                     <label for="item">Item</label>
                     <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
@@ -354,7 +353,6 @@
                         step="any" value="0.00" onchange='count()' id="pur_amount" name="pur_amount[]"
                         class="xl-width-inp" />
                 </div>
-            </div>
         </div>
 
 
