@@ -30,7 +30,7 @@
 
 
     .container {
-        transform: scale(0.75);
+        transform: scale(0.80);
     }
 
     input[type="number"] {
@@ -309,11 +309,11 @@
                 </div>
 
                 <div class="div">
-                    <label for="crate_type">Discount(%)</label>
+                    <label for="crate_type">Discount</label>
                     <input type="number" id="discount" name="discount[]" />
                 </div>
                 <div class="div">
-                    <label for="bonus">Bonus(%)</label>
+                    <label for="bonus">Bonus</label>
                     <input type="number" min="0.00" step="any" placeholder="0.00" id="bonus" name="bonus[]"
                         required />
                 </div>
@@ -334,11 +334,11 @@
                     <input type="number" id="pur_rate" name="pur_rate[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_crate_type">Discount(%)</label>
+                    <label for="pur_crate_type">Discount</label>
                     <input type="number" id="pur_discount" name="pur_discount[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_bonus">Bonus(%)</label>
+                    <label for="pur_bonus">Bonus</label>
                     <input type="number" min="0.00" step="any" placeholder="0.00" id="pur_bonus"
                         name="pur_bonus[]" required />
                 </div>
@@ -807,7 +807,7 @@ display: flex;
                 minimumInputLength: 2,
                 theme: 'classic',
                 width: '100%'
-            }); 
+            });
         }
 
         function total_calc() {
@@ -817,24 +817,26 @@ display: flex;
             let rate = +$('#rate').val();
             let discount = +$('#discount').val();
             let bonus = +$('#bonus').val();
-            let bonusQty = (qty) * (bonus / 100);
-            qty += bonusQty;
+            let bonusQty = qty + bonus;
+            // qty += bonusQty;
             let amount = qty * rate;
-            let discountAmount = (qty * rate) * (discount / 100);
-            amount -= discountAmount;
+            // let discountAmount = (qty * rate) * (discount / 100);
+            // amount -= discountAmount;
+            amount -= discount;
 
             let pur_qty = +$('#actual_qty').val();
             let pur_rate = +$('#pur_rate').val();
             let pur_discount = +$('#pur_discount').val();
             let pur_bonus = +$('#pur_bonus').val();
-            let pur_bonusQty = (pur_qty) * (pur_bonus / 100);
-            pur_qty += pur_bonusQty;
+            let pur_bonusQty = pur_qty + pur_bonus;
+            // pur_qty += pur_bonusQty;
             let pur_amount = pur_qty * pur_rate;
-            let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
-            pur_amount -= pur_discountAmount;
+            // let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
+            // pur_amount -= pur_discountAmount;
+            pur_amount -= pur_discount;
 
-            $('#qty').val(qty);
-            $('#pur_qty').val(pur_qty);
+            $('#qty').val(bonusQty);
+            $('#pur_qty').val(pur_bonusQty);
             $('#amount').val(amount);
             $('#pur_amount').val(pur_amount);
 
@@ -845,24 +847,26 @@ display: flex;
                 let rate = +$('#rate' + i).val();
                 let discount = +$('#discount' + i).val();
                 let bonus = +$('#bonus' + i).val();
-                let bonusQty = (qty) * (bonus / 100);
-                qty += bonusQty;
+                let bonusQty = qty + bonus;
+                // qty += bonusQty;
                 let amount = qty * rate;
-                let discountAmount = (qty * rate) * (discount / 100);
-                amount -= discountAmount;
+                // let discountAmount = (qty * rate) * (discount / 100);
+                // amount -= discountAmount;
+                amount -= discount;
 
                 let pur_qty = +$('#actual_qty' + i).val();
                 let pur_rate = +$('#pur_rate' + i).val();
                 let pur_discount = +$('#pur_discount' + i).val();
                 let pur_bonus = +$('#pur_bonus' + i).val();
-                let pur_bonusQty = (pur_qty) * (pur_bonus / 100);
-                pur_qty += pur_bonusQty;
+                let pur_bonusQty = pur_qty + pur_bonus;
+                // pur_qty += pur_bonusQty;
                 let pur_amount = pur_qty * pur_rate;
-                let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
-                pur_amount -= pur_discountAmount;
+                // let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
+                // pur_amount -= pur_discountAmount;
+                pur_amount -= pur_discount;
 
-                $('#qty' + i).val(qty);
-                $('#pur_qty' + i).val(pur_qty);
+                $('#qty' + i).val(bonusQty);
+                $('#pur_qty' + i).val(pur_bonusQty);
                 $('#amount' + i).val(amount);
                 $('#pur_amount' + i).val(pur_amount);
                 console.log(qty);

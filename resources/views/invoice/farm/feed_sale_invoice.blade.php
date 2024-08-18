@@ -30,7 +30,7 @@
 
 
     .container {
-        transform: scale(0.75);
+        transform: scale(0.80);
     }
 
     input[type="number"] {
@@ -258,8 +258,8 @@
                         ?>" />
                 </div>
                 <div class="one  remark">
-                    <label for="seller">Seller</label>
-                    <select name="company" class="company select-buyer" required>
+                    <label for="seller">Supplier</label>
+                    <select name="seller" class="company select-buyer" required>
 
                     </select>
                 </div>
@@ -279,8 +279,8 @@
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
-                    <label for="seller">Buyer</label>
-                    <select name="pur_company" class="select-seller-buyer-sec" required>
+                    <label for="seller">Customer</label>
+                    <select name="buyer" class="select-seller-buyer-sec" required>
 
                     </select>
                 </div>

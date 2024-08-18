@@ -30,7 +30,7 @@
 
 
     .container {
-        transform: scale(0.75);
+        transform: scale(0.80);
     }
 
     input[type="number"] {
@@ -265,7 +265,7 @@
                         ?>" />
                 </div>
                 <div class="one  remark">
-                    <label for="seller">Seller</label>
+                    <label for="seller">Supplier</label>
                     <select name="seller" class="company select-seller-buyer" required>
 
                     </select>
@@ -287,7 +287,7 @@
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
-                    <label for="buyer">Buyer</label>
+                    <label for="buyer">Customer</label>
                     <select name="buyer" class="select-seller-buyer-sec" required>
 
                     </select>
@@ -1229,10 +1229,10 @@ display: flex;
             let feed_cut = +$("#feed_cut").val();
             let mor_cut = +$("#mor_cut").val();
 
-            let crate_cut_val = +crate_qty / 2
-            $("#crate_cut").val(crate_cut_val);
 
-            let crate_cut = $("#crate_cut").val();
+            let crate_cut_val = +crate_qty / 2;
+            let crate_cut = crate_cut_val;
+
             let gross_weight = +$("#gross_weight").val();
             let total_cut = feed_cut + mor_cut + crate_cut;
             let n_weight = gross_weight - total_cut;
@@ -1251,6 +1251,8 @@ display: flex;
 
             $("#rate").val(rate);
             $("#pur_rate").val(pur_rate);
+            $("#crate_cut").val(crate_cut_val);
+            $("#pur_crate_cut").val(crate_cut_val);
             $("#n_weight").val(n_weight);
             $("#pur_n_weight").val(pur_n_weight);
             $("#avg").val(avg);
