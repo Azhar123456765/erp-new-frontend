@@ -204,7 +204,7 @@
 
     .dup_invoice input {
         border: 1px solid;
-        width: 123px !important;
+        width: 108px !important;
         text-align: right !important;
     }
 
@@ -213,11 +213,25 @@
     }
 
     .total input {
-        width: 123px !important;
+        width: 108px !important;
     }
 
     .xl-width-inp {
         width: 90px !important;
+    }
+
+    .dup_invoice .div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dup_invoice .div label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 <div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
@@ -278,6 +292,12 @@
         <div class="invoice">
             @csrf
             <div class="dup_invoice" onchange="addInvoice()">
+                <div class="div   items">
+                    <label for="item">Item</label>
+                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
                 <div class="div">
                     <label for="actual_qty">Actual Quantity</label>
                     <input type="number" id="actual_qty" name="actual_qty[]" />
@@ -378,29 +398,34 @@
                 <div class="one" style="
                 margin-left: -136%;
             ">
-                    <label for="mor_cut" style="
+                    <label for="mor_cut"
+                        style="
         position: fixed;
         top: 95%;
         left: -1%;
     ">Total</label>
 
 
-                    <input type="number" step="any" name="qty_total" id="qty_total" style="
+                    <input type="number" step="any" name="qty_total" id="qty_total"
+                        style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 26%;
-            " =""="">
-                    <input type="number" step="any" name="amount_total" id="amount_total" style="
+            "=""="">
+                    <input type="number" step="any" name="amount_total" id="amount_total"
+                        style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 36.8%;
                 width: 190px !important;
-            " =""="">
+            "=""="">
 
-<input type="number" step="any" name="pur_qty_total" id="pur_qty_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;" =""="">
-<input type="number" step="any" name="pur_amount_total" id="pur_amount_total" style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;" =""="">
+                    <input type="number" step="any" name="pur_qty_total" id="pur_qty_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;"=""="">
+                    <input type="number" step="any" name="pur_amount_total" id="pur_amount_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;"=""="">
 
                 </div>
 
@@ -526,6 +551,11 @@ display: flex;
 
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
+    <div class="div   items">
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
                 <div class="div">
                     <input  type="number" id="actual_qty` + counter + `"
                         name="actual_qty[]" />
@@ -599,13 +629,35 @@ display: flex;
             }
 
             $(document).ready(function() {
+
                 $("input").on('input', function() {
                     total_calc();
                 });
-                // Initialize Select2 for the desired select elements
-                $('.select').select2({
+                $('.select-products').select2({
+                    ajax: {
+                        url: '{{ route('select2.products') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: item.product_name,
+                                        id: item.product_id,
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 2,
                     theme: 'classic',
-                    width: 'resolve',
+                    width: '100%'
                 });
                 $(".select2-container--open .select2-search__field").focus();
 
@@ -655,6 +707,11 @@ display: flex;
             for (let i = 1; i <= counter; i++) {
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
+         <div class="div   items">
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
                 <div class="div">
                     <input  type="number" id="actual_qty` + counter + `"
                         name="actual_qty[]" />
@@ -723,6 +780,34 @@ display: flex;
                     total_calc();
                 });
             });
+
+
+            $('.select-products').select2({
+                ajax: {
+                    url: '{{ route('select2.products') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.product_name,
+                                    id: item.product_id,
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
+                minimumInputLength: 2,
+                theme: 'classic',
+                width: '100%'
+            }); 
         }
 
         function total_calc() {
@@ -782,7 +867,7 @@ display: flex;
                 $('#pur_amount' + i).val(pur_amount);
                 console.log(qty);
                 console.log(amount);
-                
+
             }
 
             // TOTAL

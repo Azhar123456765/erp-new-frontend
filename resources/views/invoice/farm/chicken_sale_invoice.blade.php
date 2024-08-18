@@ -195,6 +195,10 @@
         width: 159px !important;
     }
 
+    .items .select2-container--classic {
+        width: 125px !important;
+    }
+
     /* .fields input{
     padding-left: 25%;
   }
@@ -204,7 +208,12 @@
 
     .dup_invoice input {
         border: 1px solid;
-        width: 63px !important;
+        width: 62px !important;
+    }
+
+    .dup_invoice select {
+        border: 1px solid;
+        width: 83px !important;
     }
 
     .dup_invoice input[id="amount"] {
@@ -212,11 +221,25 @@
     }
 
     .total input {
-        width: 63px !important;
+        width: 62px !important;
     }
 
     .xl-width-inp {
         width: 90px !important;
+    }
+
+    .dup_invoice .div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dup_invoice .div label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
 </style>
 <div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
@@ -280,14 +303,9 @@
                 <div class="div   items">
                     <label for="item">Item</label>
                     <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
-                        class="item0">
-                        <option value="000">Chickens</option>
-                        <option value="111">Chicks</option>
-                        <option value="222">Feed</option>
+                        class="item0 select-products">
                     </select>
                 </div>
-                <script></script>
-
                 <div class="div">
                     <label for="rate_type">Rate Type</label>
                     <input type="text" style="text-align:center !important;" id="rate_type" name="rate_type[]" />
@@ -670,16 +688,11 @@ display: flex;
 
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
-<div class="div  items">
-            <select name="item[]" id="item"  style="height: 28px" onchange="addInvoice2(` + counter +
-                    `)"  class=' clone_item ` + counter +
-                    ` '>
-           <option value="000">Chickens</option>
-<option value="111">Chicks</option>
-<option value="222">Feed</option>
-            </select>
-        </div>
-
+ <div class="div   items">
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
         <div class="div">
             <input    type="text"style="text-align:center !important;"    id="rate_type` +
                     counter + `" name="rate_type[]" />
@@ -838,9 +851,31 @@ display: flex;
                     total_calc();
                 });
                 // Initialize Select2 for the desired select elements
-                $('.select').select2({
+                $('.select-products').select2({
+                    ajax: {
+                        url: '{{ route('select2.products') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: item.product_name,
+                                        id: item.product_id,
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 2,
                     theme: 'classic',
-                    width: 'resolve',
+                    width: '100%'
                 });
                 $(".select2-container--open .select2-search__field").focus();
 
@@ -892,16 +927,11 @@ display: flex;
 
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
-<div class="div  items">
-            <select name="item[]" id="item"  style="height: 28px" onchange="addInvoice2(` + counter +
-                    `)"  class=' clone_item ` + counter +
-                    ` '>
-           <option value="000">Chickens</option>
-<option value="111">Chicks</option>
-<option value="222">Feed</option>
-            </select>
-        </div>
-
+ <div class="div   items">
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
         <div class="div">
             <input    type="text"style="text-align:center !important;"    id="rate_type` +
                     counter + `" name="rate_type[]" />
@@ -1068,11 +1098,31 @@ display: flex;
                 $("input").on('input', function() {
                     total_calc();
                 });
-                // Initialize Select2 for the desired select elements
-                $('.select').select2({
+                $('.select-products').select2({
+                    ajax: {
+                        url: '{{ route('select2.products') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: item.product_name,
+                                        id: item.product_id,
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 2,
                     theme: 'classic',
-
-                    width: 'resolve',
+                    width: '100%'
                 });
 
                 var selectedOption = $("#item").find('option:selected');
@@ -1168,6 +1218,7 @@ display: flex;
 
         function total_calc() {
             // GENERAL
+            let crate_qty = +$("#crate_qty").val();
             let actual_rate = +$("#actual_rate").val();
             let rate_diff = +$("#rate_diff").val();
             let rate = actual_rate - rate_diff;
@@ -1177,7 +1228,11 @@ display: flex;
 
             let feed_cut = +$("#feed_cut").val();
             let mor_cut = +$("#mor_cut").val();
-            let crate_cut = +$("#crate_cut").val();
+
+            let crate_cut_val = +crate_qty / 2
+            $("#crate_cut").val(crate_cut_val);
+
+            let crate_cut = $("#crate_cut").val();
             let gross_weight = +$("#gross_weight").val();
             let total_cut = feed_cut + mor_cut + crate_cut;
             let n_weight = gross_weight - total_cut;
@@ -1204,6 +1259,7 @@ display: flex;
 
             // CLONE
             for (let i = 1; i <= countera; i++) {
+                let crate_qty = +$("#crate_qty" + i).val();
                 let actual_rate = +$("#actual_rate" + i).val();
                 let rate_diff = +$("#rate_diff" + i).val();
                 let rate = actual_rate - rate_diff;
@@ -1213,6 +1269,10 @@ display: flex;
 
                 let feed_cut = +$("#feed_cut" + i).val();
                 let mor_cut = +$("#mor_cut" + i).val();
+
+                let crate_cut_val = +crate_qty / 2
+                $("#crate_cut" + i).val(crate_cut_val);
+
                 let crate_cut = +$("#crate_cut" + i).val();
                 let gross_weight = +$("#gross_weight" + i).val();
                 let total_cut = feed_cut + mor_cut + crate_cut;
@@ -1316,7 +1376,7 @@ display: flex;
 
             // Send an AJAX request
             $.ajax({
-                url: '{{ Route("store_invoice_chicken") }}', // Replace with your Laravel route or endpoint
+                url: '{{ Route('store_invoice_chicken') }}', // Replace with your Laravel route or endpoint
                 method: 'POST',
                 data: formData,
                 success: function(response) {

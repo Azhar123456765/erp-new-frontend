@@ -219,6 +219,20 @@
     .xl-width-inp {
         width: 90px !important;
     }
+
+    .dup_invoice .div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dup_invoice .div label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
 </style>
 <div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
 ">
@@ -278,6 +292,12 @@
         <div class="invoice">
             @csrf
             <div class="dup_invoice" onchange="addInvoice()">
+                <div class="div   items">
+                    <label for="item">Item</label>
+                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
                 <div class="div">
                     <label for="qty">Quantity</label>
                     <input type="number" id="qty" name="qty[]" />
@@ -525,6 +545,11 @@ display: flex;
 
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
+         <div class="div   items">
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
                 <div class="div">
                     <input  type="number" id="qty` + counter + `"
                         name="qty[]" />
@@ -596,10 +621,31 @@ display: flex;
                 $("input").on('input', function() {
                     total_calc();
                 });
-                // Initialize Select2 for the desired select elements
-                $('.select').select2({
+                $('.select-products').select2({
+                    ajax: {
+                        url: '{{ route('select2.products') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: item.product_name,
+                                        id: item.product_id,
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 2,
                     theme: 'classic',
-                    width: 'resolve',
+                    width: '100%'
                 });
                 $(".select2-container--open .select2-search__field").focus();
 
@@ -649,6 +695,11 @@ display: flex;
             for (let i = 1; i <= counter; i++) {
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
+         <div class="div   items">
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                        class="item0 select-products">
+                    </select>
+                </div>
                 <div class="div">
                     <input  type="number" id="qty` + counter + `"
                         name="qty[]" />
@@ -712,6 +763,33 @@ display: flex;
             $(document).ready(function() {
                 $("input").on('input', function() {
                     total_calc();
+                });
+
+                $('.select-products').select2({
+                    ajax: {
+                        url: '{{ route('select2.products') }}',
+                        dataType: 'json',
+                        delay: 250,
+                        data: function(params) {
+                            return {
+                                q: params.term
+                            };
+                        },
+                        processResults: function(data) {
+                            return {
+                                results: $.map(data, function(item) {
+                                    return {
+                                        text: item.product_name,
+                                        id: item.product_id,
+                                    };
+                                })
+                            };
+                        },
+                        cache: true
+                    },
+                    minimumInputLength: 2,
+                    theme: 'classic',
+                    width: '100%'
                 });
             });
         }
