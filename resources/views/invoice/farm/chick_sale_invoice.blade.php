@@ -234,11 +234,12 @@
         justify-content: center;
     }
 </style>
+<h5 style="text-align: center;">Chick Invoice (FARM MODULE)</h5>
+
 <div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Invoice (FARM MODULE)</h3>
-        <h5 style="text-align: end;">Chick Invoice (FARM MODULE)</h5>
         <div class="top">
             <div class="fields">
                 <div class="one">
@@ -292,6 +293,7 @@
         <div class="invoice">
             @csrf
             <div class="dup_invoice" onchange="addInvoice()">
+                <div class="pur">
                 <div class="div   items">
                     <label for="item">Item</label>
                     <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
