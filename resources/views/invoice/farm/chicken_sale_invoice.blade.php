@@ -30,7 +30,7 @@
 
 
     .container {
-        transform: scale(0.80);
+        transform: scale(0.78);
     }
 
     input[type="number"] {
@@ -42,10 +42,10 @@
         width: 71px;
     }
 
-    label {
+label {
         margin: 3px;
-        font-weight: 900;
-        font-size: medium;
+        font-weight: bolder;
+        font-size: large;
     }
 
     .top label {
@@ -244,10 +244,19 @@
 </style>
 <h5 style="text-align: center;">Chciken Invoice (FARM MODULE)</h5>
 
-<div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
+<div class="container" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
+<h6 style="
+position: absolute;
+top: 35%;
+left: 15%;
+">Supplier</h6>
+<h6 style="
+position: absolute;
+top: 35%;
+right: 15%;
+">Customer</h6>
     <form id="form">
-        <h3 style="text-align: center;">Invoice (FARM MODULE)</h3>
         <div class="top">
             <div class="fields">
                 <div class="one">

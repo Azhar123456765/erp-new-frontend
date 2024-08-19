@@ -30,7 +30,7 @@
 
 
     .container {
-        transform: scale(0.80);
+        transform: scale(0.78);
     }
 
     input[type="number"] {
@@ -42,10 +42,10 @@
         width: 71px;
     }
 
-    label {
+label {
         margin: 3px;
-        font-weight: 900;
-        font-size: medium;
+        font-weight: bolder;
+        font-size: large;
     }
 
     .top label {
@@ -236,10 +236,19 @@
 </style>
 <h5 style="text-align: center;">Chick Invoice (FARM MODULE)</h5>
 
-<div class="container" style="margin-top: -90px; padding-top: 5px;        overflow-x: visible;
+<div class="container" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
+<h6 style="
+position: absolute;
+top: 35%;
+left: 15%;
+">Supplier</h6>
+<h6 style="
+position: absolute;
+top: 35%;
+right: 15%;
+">Customer</h6>
     <form id="form">
-        <h3 style="text-align: center;">Invoice (FARM MODULE)</h3>
         <div class="top">
             <div class="fields">
                 <div class="one">
@@ -284,6 +293,8 @@
                     <select name="buyer" class="select-seller-buyer-sec" required>
 
                     </select>
+
+
                 </div>
             </div>
         </div>
@@ -353,6 +364,7 @@
                         step="any" value="0.00" onchange='count()' id="pur_amount" name="pur_amount[]"
                         class="xl-width-inp" />
                 </div>
+            </div>
         </div>
 
 
@@ -552,7 +564,7 @@ display: flex;
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
     <div class="div   items">
-                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                    <select name="item[]" id="item` + counter + `" style="height: 28px" onchange="addInvoice2()" required
                         class="item0 select-products">
                     </select>
                 </div>
@@ -708,7 +720,7 @@ display: flex;
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
          <div class="div   items">
-                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                    <select name="item[]" id="item` + counter + `" style="height: 28px" onchange="addInvoice2()" required
                         class="item0 select-products">
                     </select>
                 </div>
