@@ -171,7 +171,7 @@ text-align:right !important;
         /* margin-top: 5%; */
         display: flex;
         flex-direction: row;
-        width: 100%;
+        width: 101%;
         justify-content: space-around !important;
     }
 

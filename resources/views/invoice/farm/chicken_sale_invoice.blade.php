@@ -42,7 +42,7 @@
         width: 71px;
     }
 
-label {
+    label {
         margin: 3px;
         font-weight: bolder;
         font-size: large;
@@ -116,7 +116,7 @@ label {
         /* margin-top: 5%; */
         display: flex;
         flex-direction: row;
-        width: 100%;
+        width: 101%;
         justify-content: space-around !important;
     }
 
@@ -246,12 +246,12 @@ label {
 
 <div class="container" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
-<h6 style="
+    <h6 style="
 position: absolute;
 top: 35%;
 left: 15%;
 ">Supplier</h6>
-<h6 style="
+    <h6 style="
 position: absolute;
 top: 35%;
 right: 15%;
@@ -574,70 +574,60 @@ right: 15%;
         margin-top: 5px;
     }
 </style>
-<div class="options"
-    style="
-display: flex;
-    /* justify-content: center; */
-    margin-top: -4%;
-    flex-direction: column;
-    position:absolute;
-    width: 8%;
-    margin-right: 85%;
-    ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="bt"
+<div class="row m-5 mt-5 pt-5 justify-content-center align-items-center" style="gap: 30px;">
+
+    <button type="submit" class="btn px-3 p-2 btn-secondary btn-sm submit" id="bt"
         style="padding: 2px; margin-left: 19px;">
         submit
     </button>
     <br>
 
-    <button class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;"
-        onclick="
-            var str = $(`[name=\'unique_id\']`).val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-    window.location.href = newUrl">
+
+    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
         Previous
     </button>
 
-    <button class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;"
-        onclick="
-      var str = $(`[name=\'unique_id\']`).val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-    window.location.href = newUrl
-    ">
+
+    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
         Next
     </button>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-2 btn-secondary btn-sm">
         Edit
     </a>
-
-    <a href="/s_med_invoice" class="edit add-more  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
+    <a href="/s_med_invoice" class="edit add-more  btn px-3 p-2 btn-secondary btn-sm">
         Add More
     </a>
 
-
-    <a href="/sale_invoice_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
-        PDF
-    </a>
-
-
-    <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;"
-        onclick="
-    
-    window.location.reload()
-    ">
-        Revert
+    <button type="button" class="btn px-3 p-2 btn-secondary btn-sm" id="sale_pdf">
+        SALE PDF
     </button>
 
+    <button type="button" class="btn px-3 p-2 btn-secondary btn-sm" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
 </div>
 
 

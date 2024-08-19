@@ -42,7 +42,7 @@
         width: 71px;
     }
 
-label {
+    label {
         margin: 3px;
         font-weight: bolder;
         font-size: large;
@@ -116,7 +116,7 @@ label {
         /* margin-top: 5%; */
         display: flex;
         flex-direction: row;
-        width: 100%;
+        width: 101%;
         justify-content: space-around !important;
     }
 
@@ -238,12 +238,12 @@ label {
 
 <div class="container" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
-<h6 style="
+    <h6 style="
 position: absolute;
 top: 35%;
 left: 15%;
 ">Supplier</h6>
-<h6 style="
+    <h6 style="
 position: absolute;
 top: 35%;
 right: 15%;
@@ -309,22 +309,23 @@ right: 15%;
                 </div>
                 <div class="div">
                     <label for="qty">Quantity</label>
-                    <input type="number" id="qty" name="qty[]" />
+                    <input type="number" oninput="$('#pur_qty').val(this.value)" id="qty" name="qty[]" />
                 </div>
 
                 <div class="div">
                     <label for="rate">Rate</label>
-                    <input type="number" id="rate" name="rate[]" />
+                    <input type="number" oninput="$('#pur_rate').val(this.value)" id="rate" name="rate[]" />
                 </div>
 
                 <div class="div">
                     <label for="crate_type">Discount(%)</label>
-                    <input type="number" id="discount" name="discount[]" />
+                    <input type="number" oninput="$('#pur_discount').val(this.value)" id="discount"
+                        name="discount[]" />
                 </div>
                 <div class="div">
                     <label for="bonus">Bonus</label>
-                    <input type="number" min="0.00" step="any" placeholder="0.00" id="bonus" name="bonus[]"
-                        required />
+                    <input type="number" min="0.00" step="any" placeholder="0.00"
+                        oninput="$('#pur_bonus').val(this.value)" id="bonus" name="bonus[]" required />
                 </div>
                 <div class="div">
                     <label for="amount">Amount</label>
@@ -447,70 +448,60 @@ right: 15%;
         margin-top: 5px;
     }
 </style>
-<div class="options"
-    style="
-display: flex;
-    /* justify-content: center; */
-    margin-top: -4%;
-    flex-direction: column;
-    position:absolute;
-    width: 8%;
-    margin-right: 85%;
-    ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="bt"
+<div class="row m-5 mt-5 pt-5 justify-content-center align-items-center" style="gap: 30px;">
+
+    <button type="submit" class="btn px-3 p-2 btn-secondary btn-sm submit" id="bt"
         style="padding: 2px; margin-left: 19px;">
         submit
     </button>
     <br>
 
-    <button class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;"
-        onclick="
-            var str = $(`[name=\'unique_id\']`).val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-    window.location.href = newUrl">
+
+    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
         Previous
     </button>
 
-    <button class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;"
-        onclick="
-      var str = $(`[name=\'unique_id\']`).val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-    window.location.href = newUrl
-    ">
+
+    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
         Next
     </button>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-2 btn-secondary btn-sm">
         Edit
     </a>
-
-    <a href="/s_med_invoice" class="edit add-more  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
+    <a href="/s_med_invoice" class="edit add-more  btn px-3 p-2 btn-secondary btn-sm">
         Add More
     </a>
 
-
-    <a href="/sale_invoice_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
-        PDF
-    </a>
-
-
-    <button class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;"
-        onclick="
-    
-    window.location.reload()
-    ">
-        Revert
+    <button type="button" class="btn px-3 p-2 btn-secondary btn-sm" id="sale_pdf">
+        SALE PDF
     </button>
 
+    <button type="button" class="btn px-3 p-2 btn-secondary btn-sm" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
 </div>
 
 
@@ -560,20 +551,20 @@ display: flex;
                     </select>
                 </div>
                 <div class="div">
-                    <input  type="number" id="qty` + counter + `"
+                    <input  type="number" oninput="$('#pur_qty` + counter + `').val(this.value)" id="qty` + counter + `"
                         name="qty[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="rate` + counter + `" name="rate[]" />
+                    <input  type="number" oninput="$('#pur_rate` + counter + `').val(this.value)"  id="rate` + counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="discount` + counter + `" name="discount[]" />
+                    <input  type="number" oninput="$('#pur_discount` + counter + `').val(this.value)" id="discount` + counter + `" name="discount[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
-                        step="any" placeholder="0.00" id="bonus` + counter + `" name="bonus[]" required />
+                        step="any" placeholder="0.00" oninput="$('#pur_bonus` + counter + `').val(this.value)" id="bonus` + counter + `" name="bonus[]" required />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
@@ -703,6 +694,7 @@ display: flex;
 
             for (let i = 1; i <= counter; i++) {
                 var clonedFields = `
+
     <div class="dup_invoice" onchange="addInvoice2()">
          <div class="div   items">
                     <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
@@ -710,28 +702,27 @@ display: flex;
                     </select>
                 </div>
                 <div class="div">
-                    <input  type="number" id="qty` + counter + `"
+                    <input  type="number" oninput="$('#pur_qty` + counter + `').val(this.value)" id="qty` + counter + `"
                         name="qty[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="rate` + counter + `" name="rate[]" />
+                    <input  type="number" oninput="$('#pur_rate` + counter + `').val(this.value)"  id="rate` + counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="discount` + counter + `" name="discount[]" />
+                    <input  type="number" oninput="$('#pur_discount` + counter + `').val(this.value)" id="discount` + counter + `" name="discount[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
-                        step="any" placeholder="0.00" id="bonus` + counter + `" name="bonus[]" required />
+                        step="any" placeholder="0.00" oninput="$('#pur_bonus` + counter + `').val(this.value)" id="bonus` + counter + `" name="bonus[]" required />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
                         id="amount` + counter + `" name="amount[]" class="xl-width-inp" />
                 </div>
-
-
+                
                 <div class="div">
                     <input  type="number" id="pur_qty` + counter + `"
                         name="pur_qty[]" />
