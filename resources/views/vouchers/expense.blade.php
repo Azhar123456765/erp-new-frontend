@@ -107,7 +107,7 @@ text-align:right !important;
         /* margin-top: 5%; */
         display: flex;
         flex-direction: row;
-        width: 101%;
+        width: 103%;
         justify-content: space-around !important;
     }
 
@@ -126,12 +126,20 @@ text-align:right !important;
         margin-left: -22%;
     }
 
-    .select2-container--classic {
+   .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
+    }
+
+    .select2-dropdown {
+        width: 300px !important;
+    }
+
+    .select2-container--classic .select2-search--dropdown .select2-search__field {
+        width: 100% !important;
     }
 
 
@@ -381,15 +389,7 @@ text-align:right !important;
 </div>
 
 </div>
-<style>
-    .options a {
-        margin-top: 5px;
-    }
 
-    .options button {
-        margin-top: 5px;
-    }
-</style>
 <div class="options"
     style="
 display: flex;
@@ -398,13 +398,13 @@ display: flex;
     width: 8%;
     margin-right: 85%;
     ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;">
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
         submit
     </button>
     <br>
 
     <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
-        style="padding: 2px; margin-left: 19px;"
+        style=""
         onclick="
         var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
@@ -416,7 +416,7 @@ window.location.href = newUrl">
     </button>
 
     <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
-        style="padding: 2px; margin-left: 19px;"
+        style=""
         onclick="
   var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
@@ -444,7 +444,7 @@ window.location.href = newUrl
     </a>
 
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;"
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style=""
         onclick="
     
     window.location.reload()

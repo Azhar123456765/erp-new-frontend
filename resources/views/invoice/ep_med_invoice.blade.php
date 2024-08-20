@@ -150,7 +150,7 @@ text-align:right !important;
         /* margin-top: 5%; */
         display: flex;
         flex-direction: row;
-        width: 101%;
+        width: 103%;
         justify-content: space-around !important;
     }
 
@@ -169,12 +169,20 @@ text-align:right !important;
         height: 27px !important;
     }
 
-    .select2-container--classic {
+   .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
+    }
+
+    .select2-dropdown {
+        width: 300px !important;
+    }
+
+    .select2-container--classic .select2-search--dropdown .select2-search__field {
+        width: 100% !important;
     }
 
     .fields {
@@ -725,15 +733,7 @@ right: 2%;
 
 
 </div>
-<style>
-    .options a {
-        margin-top: 5px;
-    }
 
-    .options button {
-        margin-top: 5px;
-    }
-</style>
 <div class="options" style="
 display: flex;
     /* justify-content: center; */
@@ -743,12 +743,12 @@ display: flex;
     width: 8%;
     margin-right: 85%;
     ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;">
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
         Update
     </button>
     <br>
     
-<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
         var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
 var firstPart = parts.slice(0, -1).join('-');
@@ -758,7 +758,7 @@ window.location.href = newUrl">
     Previous
 </button>
 
-<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
   var str = $(`[name=\'unique_id\']`).val();
 var parts = str.split('-');
 var firstPart = parts.slice(0, -1).join('-');
@@ -768,7 +768,7 @@ window.location.href = newUrl
 ">
     Next
 </button>
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+    <button type="submit" class="btn btn-secondary btn-sm  submit" style="" onclick="
     
     window.location.reload()
     ">

@@ -37,9 +37,9 @@
         text-align: right !important;
     }
 
-    * input {
-        border: 1px solid gray !important;
-        width: 71px;
+    * input,
+    select {
+        font-weight: 500;
     }
 
     label {
@@ -122,7 +122,7 @@
         /* margin-top: 5%; */
         display: flex;
         flex-direction: row;
-        width: 101%;
+        width: 103%;
         justify-content: space-around !important;
     }
 
@@ -136,12 +136,25 @@
         height: 27px !important;
     }
 
-    .select2-container--classic {
+
+   .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
+    }
+
+    .select2-dropdown {
+        width: 300px !important;
+    }
+
+    .select2-container--classic .select2-search--dropdown .select2-search__field {
+        width: 100% !important;
+    }
+
+    .select2-dropdown {
+        width: 300px !important;
     }
 
     #form {
@@ -452,25 +465,21 @@ right: 15%;
         </div>
 
 </div>
-<style>
-    .options a {
-        margin-top: 5px;
-    }
+<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
+    data-bs-target="#imageModal">
+    Attachment
+</button>
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
-    .options button {
-        margin-top: 5px;
-    }
-</style>
-<div class="row m-5 mt-5 pt-5 justify-content-center align-items-center" style="gap: 30px;">
-
-    <button type="submit" class="btn px-3 p-2 btn-secondary btn-sm submit" id="bt"
-        style="padding: 2px; margin-left: 19px;">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt"
+        style="">
         submit
     </button>
     <br>
 
 
-    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
                 var str = $(`[name=\'unique_id\']`).val();
         var parts = str.split('-');
         var firstPart = parts.slice(0, -1).join('-');
@@ -481,7 +490,8 @@ right: 15%;
     </button>
 
 
-    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" id="btn" style="padding: 2px; margin-left: 19px;" onclick="
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
           var str = $(`[name=\'unique_id\']`).val();
         var parts = str.split('-');
         var firstPart = parts.slice(0, -1).join('-');
@@ -492,24 +502,25 @@ right: 15%;
         Next
     </button>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-2 btn-secondary btn-sm">
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm">
         Edit
     </a>
-    <a href="/s_med_invoice" class="edit add-more  btn px-3 p-2 btn-secondary btn-sm">
+    <a href="/s_med_invoice" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm">
         Add More
     </a>
 
-    <button type="button" class="btn px-3 p-2 btn-secondary btn-sm" id="sale_pdf">
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="sale_pdf">
         SALE PDF
     </button>
 
-    <button type="button" class="btn px-3 p-2 btn-secondary btn-sm" id="purchase_pdf">
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="purchase_pdf">
         PURCHASE PDF
     </button>
 
 
 
-    <button class="btn px-3 p-2 btn-secondary btn-sm  submit" style="padding: 2px; margin-left: 19px;" onclick="
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
         
         window.location.reload()
         ">
@@ -542,11 +553,74 @@ right: 15%;
 </div>
 
 
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row p-2">
+                    <div class="col-lg-9 col-md-12 p-2">
+                        <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
+                                class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="row justify-content-start">
+                            <div class="mb-3">
+                                <input type="file" class="form-control" name="attachment" id="attachment"
+                                    style="
+    height: max-content !important;
+" />
+                            </div>
+                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
+                                onclick="document.getElementById('attachment').value = ''; 
+                 document.getElementById('imagePreview').style.display = 'none';
+                 document.getElementById('imagePreview').src = '';
+                 document.getElementById('imageAnchor').href = '';">
+                                REMOVE
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 
 
 @push('s_script')
     <script>
+        document.getElementById('attachment').addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the uploaded file
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('imagePreview');
+                const a = document.getElementById('imageAnchor');
+
+                // Set the href of the anchor to the image's data URL
+                a.href = e.target.result;
+
+                // Set the src of the img to the image's data URL
+                img.src = e.target.result;
+
+                // Show the image
+                img.style.display = 'block';
+            };
+
+            // Check if a file is selected, then read it
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
         var counter = 1
         var countera = 0
 
@@ -1017,4 +1091,9 @@ right: 15%;
         });
     </script>
 @endpush
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
+crossorigin="anonymous"
+></script>
 @endsection
