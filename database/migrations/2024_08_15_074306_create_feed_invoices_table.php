@@ -16,7 +16,8 @@ class CreateFeedInvoicesTable extends Migration
         Schema::create('feed_invoices', function (Blueprint $table) {
             $table->id();
             $table->text('unique_id');
-            $table->text('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('item');
             $table->date('date');
             $table->unsignedBigInteger('sales_officer')->nullable();
             $table->unsignedBigInteger('buyer');
@@ -29,22 +30,25 @@ class CreateFeedInvoicesTable extends Migration
             $table->integer('bonus');
             $table->integer('amount');
 
-            $table->integer('pur_rate');
-            $table->integer('pur_qty');
-            $table->integer('pur_discount');
-            $table->integer('pur_bonus');
-            $table->integer('pur_amount');
+            $table->integer('sale_rate');
+            $table->integer('sale_qty');
+            $table->integer('sale_discount');
+            $table->integer('sale_bonus');
+            $table->integer('sale_amount');
 
-            $table->integer('rate_total');
-            $table->integer('discount_total');
-            $table->integer('bonus_total');
             $table->integer('qty_total');
             $table->integer('amount_total');
+            $table->integer('sale_qty_total');
+            $table->integer('sale_amount_total');
+
+
+            $table->text('attachment')->nullable();
 
             $table->foreign('buyer')->references('buyer_id')->on('buyer')->restrictOnDelete();
-            $table->foreign('seller')->references('seller_id')->on('seller')->restrictOnDelete();
+            $table->foreign('seller')->references('buyer_id')->on('buyer')->restrictOnDelete();
             $table->foreign('sales_officer')->references('sales_officer_id')->on('sales_officer')->restrictOnDelete();
-            // $table->foreign('users')->references('user_id')->on('user_id')->restrictOnDelete();
+            $table->foreign('user_id')->references('user_id')->on('users')->restrictOnDelete();
+            $table->foreign('item')->references('product_id')->on('products')->restrictOnDelete();
             $table->timestamps();
         });
     }

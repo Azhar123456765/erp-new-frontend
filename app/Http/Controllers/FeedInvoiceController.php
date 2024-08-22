@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\feedInvoice;
+use Illuminate\Support\Facades\DB;
+use App\Models\users;
 use Illuminate\Http\Request;
 
 class FeedInvoiceController extends Controller
@@ -35,7 +37,67 @@ class FeedInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        $user_id = session()->get('user_id')['user_id'];
+        users::where("user_id", $user_id)->update([
+            'no_records' => DB::raw("no_records + " . 1)
+        ]);
+        // $income = new Income;
+        // $income->category_id = $request['unique_id'];
+        // $income->category = 'Chick Invoice';
+        // $income->amount = $request['amount_paid'];
+        // $income->save(); 
+        // $array = $request['amount'];
+        // $filteredArray = array_filter($array, function ($value) {
+        //     return $value > 0;
+        // });
+
+        $arrayLength = count(array_filter($request['item']));
+
+        for ($i = 0; $i < $arrayLength; $i++) {
+
+            $invoice = new feedInvoice;
+
+            $invoice->unique_id = $request['unique_id'] ?? 000;
+            $invoice->user_id = $user_id;
+            $invoice->item = $request['item']["$i"];
+            $invoice->date = $request['date'] ?? 000;
+            $invoice->seller = $request['seller'];
+            $invoice->buyer = $request['buyer'];
+            $invoice->sales_officer = $request['sales_officer'] ?? null;
+            $invoice->remark = $request['remark'] ?? 000;
+
+            $invoice->rate = $request['rate']["$i"] ?? 000;
+            $invoice->qty = $request['qty']["$i"] ?? 000;
+            $invoice->discount = $request['discount']["$i"] ?? 000;
+            $invoice->bonus = $request['bonus']["$i"] ?? 000;
+            $invoice->amount = $request['amount']["$i"] ?? 000;
+
+            $invoice->sale_rate = $request['sale_rate']["$i"] ?? 000;
+            $invoice->sale_qty = $request['sale_qty']["$i"] ?? 000;
+            $invoice->sale_discount = $request['sale_discount']["$i"] ?? 000;
+            $invoice->sale_bonus = $request['sale_bonus']["$i"] ?? 000;
+            $invoice->sale_amount = $request['sale_amount']["$i"] ?? 000;
+
+            $invoice->qty_total = $request['qty_total'] ?? 000;
+            $invoice->amount_total = $request['amount_total'] ?? 000;
+            $invoice->sale_qty_total = $request['sale_qty_total'] ?? 000;
+            $invoice->sale_amount_total = $request['sale_amount_total'] ?? 000;
+
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = null;
+            }
+
+            $invoice->attachment = $attachmentPath;
+
+            $invoice->save();
+        }
+
+        $data = 'Invoices added successfully!';
+        return response()->json($data);
     }
 
     /**

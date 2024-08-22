@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\chickenInvoice;
+use App\Models\feedInvoice;
 use Illuminate\Http\Request;
 
 use Dompdf\Dompdf;
@@ -29,7 +31,7 @@ use PurchaseInvoice;
 
 class pdfController extends Controller
 {
-        
+
 
         public function test_pdf(Request $post)
         {
@@ -64,7 +66,8 @@ class pdfController extends Controller
                                         $subQuery->select(DB::raw('MIN(id)'))
                                                 ->from('sell_invoice')
                                                 ->groupBy('unique_id');
-                                });;
+                                });
+                                ;
 
                                 if ($account) {
                                         $query->where('account', $account);
@@ -83,7 +86,8 @@ class pdfController extends Controller
                                         $subQuery->select(DB::raw('MIN(id)'))
                                                 ->from('receipt_vouchers')
                                                 ->groupBy('unique_id');
-                                });;
+                                });
+                                ;
 
 
                                 if ($account) {
@@ -323,8 +327,8 @@ class pdfController extends Controller
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'credit' => $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' => $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
@@ -384,8 +388,8 @@ class pdfController extends Controller
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'credit' => $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' => $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'qty_total' => $ledgerDatasi->sum('qty_total'),
                                 'dis_total' => $ledgerDatasi->sum('dis_total'),
@@ -445,8 +449,8 @@ class pdfController extends Controller
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'credit' => $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' => $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'qty_total' => $ledgerDatasi->sum('qty_total'),
                                 'dis_total' => $ledgerDatasi->sum('dis_total'),
@@ -541,8 +545,8 @@ class pdfController extends Controller
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'credit' => $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' => $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
@@ -598,8 +602,8 @@ class pdfController extends Controller
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                'credit' => $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' => $ledgerDatasi->sum('amount_total'),
                                 'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                 'qty_total' => $ledgerDatasi->sum('qty_total'),
                                 'dis_total' => $ledgerDatasi->sum('dis_total'),
@@ -698,8 +702,8 @@ class pdfController extends Controller
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'credit' => $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
                                         'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -755,8 +759,8 @@ class pdfController extends Controller
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'credit' => $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
                                         'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -786,7 +790,8 @@ class pdfController extends Controller
                         } else {
                                 $pdf->setPaper('A4', 'portrait');
                         }
-                        $pdf->render();;
+                        $pdf->render();
+                        ;
                         session()->forget('Data');
 
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
@@ -854,8 +859,8 @@ class pdfController extends Controller
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'credit' => $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
                                         'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -911,8 +916,8 @@ class pdfController extends Controller
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'credit' => $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
                                         'balance_amount' => $ledgerDatasi->sum('amount_total'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -942,7 +947,8 @@ class pdfController extends Controller
                         } else {
                                 $pdf->setPaper('A4', 'portrait');
                         }
-                        $pdf->render();;
+                        $pdf->render();
+                        ;
                         session()->forget('Data');
 
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
@@ -1050,9 +1056,9 @@ class pdfController extends Controller
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                        'debit' =>  $ledgerDatasi->sum('previous_balance'),
+                                        'credit' => $ledgerDatasi->sum('amount_paid'),
+                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
+                                        'debit' => $ledgerDatasi->sum('previous_balance'),
                                         'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -1121,9 +1127,9 @@ class pdfController extends Controller
 
                                 $data = [
                                         'invoice' => $ledgerDatasi,
-                                        'credit' =>  $ledgerDatasi->sum('invoice.balance_amount') - $ledgerDatasi->sum('amount'),
-                                        'total_amount' =>  $ledgerDatasi->sum('amount'),
-                                        'debit' =>  $balance,
+                                        'credit' => $ledgerDatasi->sum('invoice.balance_amount') - $ledgerDatasi->sum('amount'),
+                                        'total_amount' => $ledgerDatasi->sum('amount'),
+                                        'debit' => $balance,
                                         'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -1211,7 +1217,7 @@ class pdfController extends Controller
                                         'ledgerDatapv' => $ledgerDatapv,
                                         'credit' => $credit,
                                         'debit' => $debit,
-                                        'total_amount' =>  $ledgerDatasi->sum('amount_total'),
+                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
                                         'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -1242,7 +1248,8 @@ class pdfController extends Controller
                         } else {
                                 $pdf->setPaper('A4', 'portrait');
                         }
-                        $pdf->render();;
+                        $pdf->render();
+                        ;
                         session()->forget('Data');
 
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
@@ -1303,9 +1310,9 @@ class pdfController extends Controller
 
                         $data = [
                                 'invoice' => $ledgerDatasi,
-                                'credit' =>  $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' =>  $ledgerDatasi->sum('amount_total'),
-                                'debit' =>  $balance,
+                                'credit' => $ledgerDatasi->sum('amount_paid'),
+                                'total_amount' => $ledgerDatasi->sum('amount_total'),
+                                'debit' => $balance,
                                 'balance_amount' => $ledgerDatasi->sum('balance_amount'),
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
@@ -1336,7 +1343,8 @@ class pdfController extends Controller
                         } else {
                                 $pdf->setPaper('A4', 'portrait');
                         }
-                        $pdf->render();;
+                        $pdf->render();
+                        ;
                         session()->forget('Data');
 
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
@@ -1344,7 +1352,7 @@ class pdfController extends Controller
         }
 
 
-        public function pdf_limit(Request  $post, $view)
+        public function pdf_limit(Request $post, $view)
         {
 
                 if (!session()->exists('pdf_data')) {
@@ -1426,7 +1434,7 @@ class pdfController extends Controller
 
 
 
-        public function pdf(Request  $post, $view)
+        public function pdf(Request $post, $view)
         {
 
                 if (!session()->has('pdf_data')) {
@@ -1751,7 +1759,7 @@ class pdfController extends Controller
 
 
 
-        public function pdf_all(Request  $post)
+        public function pdf_all(Request $post)
         {
 
 
@@ -2122,15 +2130,64 @@ class pdfController extends Controller
 
 
 
-        function invoice_chick(Request $request, $id=null)
+        function invoice_chicken(Request $request, $id, $method)
         {
-                
-
-                session()->flash("pdf_data", $request->all());
+                $single_data = ChickenInvoice::where('unique_id', $id)->first();
+                $data = ChickenInvoice::where('unique_id', $id)->get();
+                session()->flash("pdf_data", $data);
+                session()->flash("single_pdf_data", $single_data);
 
                 $pdf = new Dompdf();
 
-                $html = view('pdf.invoice_chick')->render();
+                $html = view('pdf.farm.invoice_chicken', compact('method'))->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+        }
+        function invoice_chick(Request $request, $id, $method)
+        {
+                $single_data = feedInvoice::where('unique_id', $id)->first();
+                $data = feedInvoice::where('unique_id', $id)->get();
+                session()->flash("pdf_data", $data);
+                session()->flash("single_pdf_data", $single_data);
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.farm.invoice_chick', compact('method'))->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+        }
+        function invoice_feed(Request $request, $id, $method)
+        {
+                $single_data = feedInvoice::where('unique_id', $id)->first();
+                $data = feedInvoice::where('unique_id', $id)->get();
+                session()->flash("pdf_data", $data);
+                session()->flash("single_pdf_data", $single_data);
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.farm.invoice_feed', compact('method'))->render();
 
                 $pdf->loadHtml($html);
 

@@ -56,12 +56,12 @@ class ChickenInvoiceController extends Controller
         // $income->category = 'Chick Invoice';
         // $income->amount = $request['amount_paid'];
         // $income->save(); 
-        $array = $request['amount'];
-        $filteredArray = array_filter($array, function ($value) {
-            return $value > 0;
-        });
+        // $array = $request['amount'];
+        // $filteredArray = array_filter($array, function ($value) {
+        //     return $value > 0;
+        // });
 
-        $arrayLength = count(array_filter($request['vehicle_no']));
+        $arrayLength = count(array_filter($request['item']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
 
@@ -69,9 +69,10 @@ class ChickenInvoiceController extends Controller
 
             $invoice->unique_id = $request['unique_id'] ?? null;
             $invoice->user_id = $user_id;
+            $invoice->item = $request['item']["$i"];
             $invoice->date = $request['date'] ?? null;
-            $invoice->seller = substr($request['seller'], 0, -1);
-            $invoice->buyer = substr($request['buyer'], 0, -1);
+            $invoice->seller = $request['seller'];
+            $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->remark = $request['remark'] ?? null;
 
@@ -89,14 +90,14 @@ class ChickenInvoiceController extends Controller
             $invoice->rate_diff = $request['rate_diff']["$i"] ?? null;
             $invoice->rate = $request['rate']["$i"] ?? null;
             $invoice->amount = $request['amount']["$i"] ?? null;
-            $invoice->pur_feed_cut = $request['pur_feed_cut']["$i"] ?? null;
-            $invoice->pur_more_cut = $request['pur_mor_cut']["$i"] ?? null;
-            $invoice->pur_crate_cut = $request['pur_crate_cut']["$i"] ?? null;
-            $invoice->pur_net_weight = $request['pur_n_weight']["$i"] ?? null;
-            $invoice->pur_rate_diff = $request['pur_rate_diff']["$i"] ?? null;
-            $invoice->pur_rate = $request['pur_rate']["$i"] ?? null;
-            $invoice->pur_amount = $request['pur_amount']["$i"] ?? null;
-            $invoice->avg = $request['avg']["$i"] ?? null;
+            $invoice->sale_feed_cut = $request['sale_feed_cut']["$i"] ?? null;
+            $invoice->sale_more_cut = $request['sale_mor_cut']["$i"] ?? null;
+            $invoice->sale_crate_cut = $request['sale_crate_cut']["$i"] ?? null;
+            $invoice->sale_net_weight = $request['sale_n_weight']["$i"] ?? null;
+            $invoice->sale_rate_diff = $request['sale_rate_diff']["$i"] ?? null;
+            $invoice->sale_rate = $request['sale_rate']["$i"] ?? null;
+            $invoice->sale_amount = $request['sale_amount']["$i"] ?? null;
+            $invoice->avg = $request['avg']["$i"] ?? 0;
 
             $invoice->crate_qty_total = $request['crate_qty_total'] ?? null;
             $invoice->hen_qty_total = $request['hen_qty_total'] ?? null;
@@ -106,11 +107,20 @@ class ChickenInvoiceController extends Controller
             $invoice->crate_cut_total = $request['crate_cut_total'] ?? null;
             $invoice->n_weight_total = $request['n_weight_total'] ?? null;
             $invoice->amount_total = $request['amount_total'] ?? null;
-            $invoice->pur_feed_cut_total = $request['pur_feed_cut_total'] ?? null;
-            $invoice->pur_mor_cut_total = $request['pur_mor_cut_total'] ?? null;
-            $invoice->pur_crate_cut_total = $request['pur_crate_cut_total'] ?? null;
-            $invoice->pur_n_weight_total = $request['pur_n_weight_total'] ?? null;
-            $invoice->pur_amount_total = $request['pur_amount_total'] ?? null;
+            $invoice->sale_feed_cut_total = $request['sale_feed_cut_total'] ?? null;
+            $invoice->sale_mor_cut_total = $request['sale_mor_cut_total'] ?? null;
+            $invoice->sale_crate_cut_total = $request['sale_crate_cut_total'] ?? null;
+            $invoice->sale_n_weight_total = $request['sale_n_weight_total'] ?? null;
+            $invoice->sale_amount_total = $request['sale_amount_total'] ?? null;
+
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = null;
+            }
+
+            $invoice->attachment = $attachmentPath;
 
             $invoice->save();
         }

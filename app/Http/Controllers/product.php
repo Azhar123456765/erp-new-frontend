@@ -292,52 +292,39 @@ class product extends Controller
 
     function data_product()
     {
-        $product = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
-            ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
-            ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-            ->get();
+        $product = products::orderByDesc('id');
         return DataTables::of($product)->make(true);
     }
     function view_product(Request $request)
     {
+
         $category = product_category::all();
-        $sub_category = product_sub_category::all();
+        // $sub_category = product_sub_category::all();
         $company = product_company::all();
         $type = product_type::all();
-        $search = $request->input('search');
+        // $search = $request->input('search');
 
-        $product_code = $request['code'] ?? null;
-
-        if ($product_code != null) {
-            $users = products::where('product_id', $product_code)->leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
-                ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
-                ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-                ->paginate(15);
-        } else {
-            $users = products::leftJoin('product_company', 'products.company', '=', 'product_company.product_company_id')
-                ->leftJoin('product_category', 'category', '=', 'product_category.product_category_id')
-                ->leftJoin('product_type', 'products.product_type', '=', 'product_type.product_type_id')
-                ->paginate(15);
-        }
-        $data = compact('users', 'category', 'sub_category', 'company', 'type', 'product_code');
+        // $product_code = $request['code'] ?? null;
 
 
-        if ($search) {
-            $users = product_company::where('company_name', 'like', '%' . $search . '%')->get();
-            $data = compact('users');
-            $view = view('load.product.company', $data)->render();
-            return response()->json(['view' => $view]);
-        } elseif ($request->ajax()) {
-            $view = view('load.product.company', $data)->render();
-            return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
-        }
+        $products = products::orderByDesc('id');
+
+        // if ($search) {
+        //     $users = product_company::where('company_name', 'like', '%' . $search . '%')->get();
+        //     $data = compact('users');
+        //     $view = view('load.product.company', $data)->render();
+        //     return response()->json(['view' => $view]);
+        // } elseif ($request->ajax()) {
+        //     $view = view('load.product.company', $data)->render();
+        //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        // }
 
 
-        if ($request->ajax()) {
-            $view = view('load.product.company', $data)->render();
-            return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
-        }
-        return view('products')->with($data);
+        // if ($request->ajax()) {
+        //     $view = view('load.product.company', $data)->render();
+        //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        // }
+        return view('products', compact('products', 'category', 'company', 'type'));
     }
 
     function add_product(Request $request)

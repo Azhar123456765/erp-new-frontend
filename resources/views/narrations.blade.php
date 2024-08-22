@@ -74,8 +74,7 @@
     </div><!-- /.modal-dialog -->
 </div>
 
-@foreach ($narration
-s as $row)
+@foreach ($narrations as $row)
     <div class="modal fade" id="edit_modal{{ $row->id }}">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">

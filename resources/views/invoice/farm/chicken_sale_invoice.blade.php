@@ -283,10 +283,11 @@ right: 15%;
             <div class="fields">
                 <div class="one">
                     <label for="Invoice">Invoice#</label>
-                    <input style="border: none !important; width: 219px !important;" type="text" id="invoice#"
-                        name="unique_id" value="<?php $year = date('Y');
+                    <input style="border: none !important; width: 219px !important;" type="text" id=""
+                        name="" value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
@@ -298,7 +299,7 @@ right: 15%;
                 </div>
                 <div class="one  remark">
                     <label for="seller">Supplier</label>
-                    <select name="seller" class="company select-seller-buyer" required>
+                    <select name="seller" class="company select-buyer" required>
 
                     </select>
                 </div>
@@ -313,14 +314,14 @@ right: 15%;
                     </select>
 
                 </div>
-                <input type="hidden" name="unique_id" value="<?php echo $rand; ?>">
+
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
                     <label for="buyer">Customer</label>
-                    <select name="buyer" class="select-seller-buyer-sec" required>
+                    <select name="buyer" class="select-buyer" required>
 
                     </select>
                 </div>
@@ -362,13 +363,13 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <label for="pur_qty">Hen Qty</label>
+                    <label for="sale_qty">Hen Qty</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="hen_qty" name="hen_qty[]" />
                 </div>
 
                 <div class="div">
-                    <label for="pur_qty">Gross Weight</label>
+                    <label for="sale_qty">Gross Weight</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="gross_weight" name="gross_weight[]" />
                 </div>
@@ -418,28 +419,28 @@ right: 15%;
                         step="any" value="0.00" id="amount" name="amount[]" class="xl-width-inp" />
                 </div>
                 <div class="div">
-                    <label for="pur_dis">Feed Cut</label>
+                    <label for="sale_dis">Feed Cut</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
-                        id="pur_feed_cut" name="pur_feed_cut[]" />
+                        id="sale_feed_cut" name="sale_feed_cut[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_mor_cut">Mor Cut</label>
+                    <label for="sale_mor_cut">Mor Cut</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
-                        id="pur_mor_cut" name="pur_mor_cut[]" />
+                        id="sale_mor_cut" name="sale_mor_cut[]" />
                 </div>
 
                 <div class="div">
-                    <label for="pur_crate_cut">Crate Cut</label>
+                    <label for="sale_crate_cut">Crate Cut</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
-                        id="pur_crate_cut" name="pur_crate_cut[]" />
+                        id="sale_crate_cut" name="sale_crate_cut[]" />
                 </div>
 
 
 
                 <div class="div">
-                    <label for="pur_n_weight">N.Weight</label>
+                    <label for="sale_n_weight">N.Weight</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
-                        id="pur_n_weight" name="pur_n_weight[]" />
+                        id="sale_n_weight" name="sale_n_weight[]" />
                 </div>
                 <div class="div">
                     <label for="avg">&nbsp; AVG</label>
@@ -447,19 +448,19 @@ right: 15%;
                         id="avg" name="avg[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_rate_diff">Rate Diff</label>
+                    <label for="sale_rate_diff">Rate Diff</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
-                        id="pur_rate_diff" name="pur_rate_diff[]" />
+                        id="sale_rate_diff" name="sale_rate_diff[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_rate">Rate</label>
+                    <label for="sale_rate">Rate</label>
                     <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
-                        id="pur_rate" name="pur_rate[]" />
+                        id="sale_rate" name="sale_rate[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_amount">Amount</label>
+                    <label for="sale_amount">Amount</label>
                     <input type="number" min="0.00" style="text-align: right;width: 90px !important;"
-                        step="any" value="0.00" id="pur_amount" name="pur_amount[]" class="xl-width-inp" />
+                        step="any" value="0.00" id="sale_amount" name="sale_amount[]" class="xl-width-inp" />
                 </div>
 
             </div>
@@ -568,15 +569,15 @@ right: 15%;
 "=""="">
                     <input type="number" step="any" name="amount_total" id="amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;width: 90px !important;left: 62.4%;"=""="">
-                    <input type="number" step="any" name="pur_feed_cut_total" id="pur_feed_cut_total"
+                    <input type="number" step="any" name="sale_feed_cut_total" id="sale_feed_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 70.4%;"=""="">
-                    <input type="number" step="any" name="pur_mor_cut_total" id="pur_mor_cut_total"
+                    <input type="number" step="any" name="sale_mor_cut_total" id="sale_mor_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 75.9%;"=""="">
-                    <input type="number" step="any" name="pur_crate_cut_total" id="pur_crate_cut_total"
+                    <input type="number" step="any" name="sale_crate_cut_total" id="sale_crate_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 81.3%;"=""="">
-                    <input type="number" step="any" name="pur_n_weight_total" id="pur_n_weight_total"
+                    <input type="number" step="any" name="sale_n_weight_total" id="sale_n_weight_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 86.9%;"=""="">
-                    <input type="number" step="any" name="pur_amount_total" id="pur_amount_total"
+                    <input type="number" step="any" name="sale_amount_total" id="sale_amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 108.8%;width: 90px !important;"=""="">
 
 
@@ -591,103 +592,6 @@ right: 15%;
     data-bs-target="#imageModal">
     Attachment
 </button>
-<div class="row m-5  justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
-
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
-        submit
-    </button>
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
-        Previous
-    </button>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
-        Next
-    </button>
-
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm">
-        Edit
-    </a>
-    <a href="/s_med_invoice" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm">
-        Add More
-    </a>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="sale_pdf">
-        SALE PDF
-    </button>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="purchase_pdf">
-        PURCHASE PDF
-    </button>
-
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
-        onclick="
-        
-        window.location.reload()
-        ">
-        Revert
-    </button>
-</div>
-
-
-</form>
-</div>
-
-<div class="img"
-    style="
-    position: absolute;
-    top: 77%;
-    left: 19.5%;
-    width: 217px;
-    height: 191px;
-    ">
-    <a href="" target="_blank" class="p-img">
-        <img src="g" alt="Product  does not have any img or an error occur"
-            style="
-    width: 100%;
-    height:100%;
-    display:none;
-" id="p-img">
-
-    </a>
-</div>
-
-
-<div class="flex justify-center items-center" style="display: none">
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert"
-        style="
-            position: fixed;
-            top: 79%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 32%;
-            opacity: 0.75;
-        ">
-        <span class="show1"></span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-</div>
-
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -729,7 +633,66 @@ right: 15%;
     </div>
 </div>
 
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
+        submit
+    </button>
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
+        Previous
+    </button>
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
+        Next
+    </button>
+
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="edit">
+        Edit
+    </a>
+    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+        Add More
+    </a>
+
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
+        SALE PDF
+    </button>
+
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
+</div>
+
+
+</form>
+</div>
 
 @push('s_script')
     <script>
@@ -770,7 +733,7 @@ right: 15%;
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
  <div class="div   items">
-                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" 
                         class="item0 select-products">
                     </select>
                 </div>
@@ -794,7 +757,7 @@ right: 15%;
         <div class="div">
             <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_qty` +
                     counter +
-                    `" name="crate_qty[]" required/>
+                    `" name="crate_qty[]" />
         </div>
 
         <div class="div">
@@ -858,27 +821,27 @@ right: 15%;
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00" id="pur_feed_cut` + counter + `"
-                name="pur_feed_cut[]" />
+                style="text-align: right;" step="any" value="0.00" id="sale_feed_cut` + counter + `"
+                name="sale_feed_cut[]" />
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00" id="pur_mor_cut` + counter + `"
-                name="pur_mor_cut[]" />
+                style="text-align: right;" step="any" value="0.00" id="sale_mor_cut` + counter + `"
+                name="sale_mor_cut[]" />
         </div>
-
-        <div class="div">
-            <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00"
-                id="pur_crate_cut` + counter + `"  name="pur_crate_cut[]" />
-        </div>
-
-
 
         <div class="div">
             <input  type="number" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
-                id="pur_n_weight` + counter + `"  name="pur_n_weight[]" />
+                id="sale_crate_cut` + counter + `"  name="sale_crate_cut[]" />
+        </div>
+
+
+
+        <div class="div">
+            <input  type="number" min="0.00"
+                style="text-align: right;" step="any" value="0.00"
+                id="sale_n_weight` + counter + `"  name="sale_n_weight[]" />
         </div>
          <div class="div">
             <input  type="number" min="0.00" style="text-align: right;"
@@ -887,19 +850,19 @@ right: 15%;
         <div class="div">
             <input  type="number" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
-                id="pur_rate_diff` + counter + `"  name="pur_rate_diff[]" />
+                id="sale_rate_diff` + counter + `"  name="sale_rate_diff[]" />
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00" id="pur_rate` + counter +
+                style="text-align: right;" step="any" value="0.00" id="sale_rate` + counter +
                     `"
-                 name="pur_rate[]" />
+                 name="sale_rate[]" />
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;width: 90px !important;" step="any" value="0.00" id="pur_amount` +
+                style="text-align: right;width: 90px !important;" step="any" value="0.00" id="sale_amount` +
                     counter + `"
-                 name="pur_amount[]" class="xl-width-inp"/>
+                 name="sale_amount[]" class="xl-width-inp"/>
         </div>
         
 </div>
@@ -966,8 +929,8 @@ right: 15%;
                     'unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
 
-                var pInput = $('#pur_price');
-                pInput.val(selectedOption.data('pur_price'));
+                var pInput = $('#sale_price');
+                pInput.val(selectedOption.data('sale_price'));
 
 
                 $('.avail_stock').css("display", "block")
@@ -1009,7 +972,7 @@ right: 15%;
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2(` + counter + `)">
  <div class="div   items">
-                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" required
+                    <select name="item[]" id="item` + counter + ` style="height: 28px" onchange="addInvoice2()" 
                         class="item0 select-products">
                     </select>
                 </div>
@@ -1033,7 +996,7 @@ right: 15%;
         <div class="div">
             <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_qty` +
                     counter +
-                    `" name="crate_qty[]" required/>
+                    `" name="crate_qty[]" />
         </div>
 
         <div class="div">
@@ -1097,27 +1060,27 @@ right: 15%;
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00" id="pur_feed_cut` + counter + `"
-                name="pur_feed_cut[]" />
+                style="text-align: right;" step="any" value="0.00" id="sale_feed_cut` + counter + `"
+                name="sale_feed_cut[]" />
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00" id="pur_mor_cut` + counter + `"
-                name="pur_mor_cut[]" />
+                style="text-align: right;" step="any" value="0.00" id="sale_mor_cut` + counter + `"
+                name="sale_mor_cut[]" />
         </div>
-
-        <div class="div">
-            <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00"
-                id="pur_crate_cut` + counter + `"  name="pur_crate_cut[]" />
-        </div>
-
-
 
         <div class="div">
             <input  type="number" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
-                id="pur_n_weight` + counter + `"  name="pur_n_weight[]" />
+                id="sale_crate_cut` + counter + `"  name="sale_crate_cut[]" />
+        </div>
+
+
+
+        <div class="div">
+            <input  type="number" min="0.00"
+                style="text-align: right;" step="any" value="0.00"
+                id="sale_n_weight` + counter + `"  name="sale_n_weight[]" />
         </div>
          <div class="div">
             <input  type="number" min="0.00" style="text-align: right;"
@@ -1126,19 +1089,19 @@ right: 15%;
         <div class="div">
             <input  type="number" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
-                id="pur_rate_diff` + counter + `"  name="pur_rate_diff[]" />
+                id="sale_rate_diff` + counter + `"  name="sale_rate_diff[]" />
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;" step="any" value="0.00" id="pur_rate` + counter +
+                style="text-align: right;" step="any" value="0.00" id="sale_rate` + counter +
                     `"
-                 name="pur_rate[]" />
+                 name="sale_rate[]" />
         </div>
         <div class="div">
             <input  type="number" min="0.00"
-                style="text-align: right;width: 90px !important;" step="any" value="0.00" id="pur_amount` +
+                style="text-align: right;width: 90px !important;" step="any" value="0.00" id="sale_amount` +
                     counter + `"
-                 name="pur_amount[]" class="xl-width-inp"/>
+                 name="sale_amount[]" class="xl-width-inp"/>
         </div>
         
 </div>
@@ -1212,8 +1175,8 @@ right: 15%;
                     'unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
 
-                var pInput = $('#pur_price');
-                pInput.val(selectedOption.data('pur_price'));
+                var pInput = $('#sale_price');
+                pInput.val(selectedOption.data('sale_price'));
 
 
 
@@ -1252,9 +1215,9 @@ right: 15%;
                     unitInput.val(selectedOption2.data(
                         'unit'
                     )); // Set the value of the unit input field to the data-unit value of the selected option
-                    var pInput = $('#pur_price' + index);
+                    var pInput = $('#sale_price' + index);
                     pInput.val(selectedOption2.data(
-                        'pur_price'
+                        'sale_price'
                     )); // Set the value of the unit input field to the data-unit value of the selected option
 
                     imgSrc = selectedOption2.data('img');
@@ -1286,9 +1249,9 @@ right: 15%;
                     )); // Set the value of the unit input field to the data-unit value of the selected option
 
 
-                    var pInput = $('#pur_price' + index);
+                    var pInput = $('#sale_price' + index);
                     pInput.val(selectedOption.data(
-                        'pur_price'
+                        'sale_price'
                     )); // Set the value of the unit input field to the data-unit value of the selected option
 
                 }
@@ -1304,8 +1267,8 @@ right: 15%;
             let rate_diff = +$("#rate_diff").val();
             let rate = actual_rate - rate_diff;
 
-            let pur_rate_diff = +$("#pur_rate_diff").val();
-            let pur_rate = actual_rate - pur_rate_diff;
+            let sale_rate_diff = +$("#sale_rate_diff").val();
+            let sale_rate = actual_rate - sale_rate_diff;
 
             let feed_cut = +$("#feed_cut").val();
             let mor_cut = +$("#mor_cut").val();
@@ -1318,27 +1281,27 @@ right: 15%;
             let total_cut = feed_cut + mor_cut + crate_cut;
             let n_weight = gross_weight - total_cut;
 
-            let pur_feed_cut = +$("#pur_feed_cut").val();
-            let pur_mor_cut = +$("#pur_mor_cut").val();
-            let pur_crate_cut = +$("#pur_crate_cut").val();
-            let pur_total_cut = pur_feed_cut + pur_mor_cut + pur_crate_cut;
-            let pur_n_weight = gross_weight - pur_total_cut;
+            let sale_feed_cut = +$("#sale_feed_cut").val();
+            let sale_mor_cut = +$("#sale_mor_cut").val();
+            let sale_crate_cut = +$("#sale_crate_cut").val();
+            let sale_total_cut = sale_feed_cut + sale_mor_cut + sale_crate_cut;
+            let sale_n_weight = gross_weight - sale_total_cut;
 
             let hen_qty = +$("#hen_qty").val();
             let avg = gross_weight / hen_qty;
 
             let amount = n_weight * rate;
-            let pur_amount = pur_n_weight * pur_rate;
+            let sale_amount = sale_n_weight * sale_rate;
 
             $("#rate").val(rate);
-            $("#pur_rate").val(pur_rate);
+            $("#sale_rate").val(sale_rate);
             $("#crate_cut").val(crate_cut_val);
-            $("#pur_crate_cut").val(crate_cut_val);
+            $("#sale_crate_cut").val(crate_cut_val);
             $("#n_weight").val(n_weight);
-            $("#pur_n_weight").val(pur_n_weight);
+            $("#sale_n_weight").val(sale_n_weight);
             $("#avg").val(avg);
             $("#amount").val(amount);
-            $("#pur_amount").val(pur_amount);
+            $("#sale_amount").val(sale_amount);
 
             // CLONE
             for (let i = 1; i <= countera; i++) {
@@ -1347,8 +1310,8 @@ right: 15%;
                 let rate_diff = +$("#rate_diff" + i).val();
                 let rate = actual_rate - rate_diff;
 
-                let pur_rate_diff = +$("#pur_rate_diff" + i).val();
-                let pur_rate = actual_rate - pur_rate_diff;
+                let sale_rate_diff = +$("#sale_rate_diff" + i).val();
+                let sale_rate = actual_rate - sale_rate_diff;
 
                 let feed_cut = +$("#feed_cut" + i).val();
                 let mor_cut = +$("#mor_cut" + i).val();
@@ -1361,25 +1324,25 @@ right: 15%;
                 let total_cut = feed_cut + mor_cut + crate_cut;
                 let n_weight = gross_weight - total_cut;
 
-                let pur_feed_cut = +$("#pur_feed_cut" + i).val();
-                let pur_mor_cut = +$("#pur_mor_cut" + i).val();
-                let pur_crate_cut = +$("#pur_crate_cut" + i).val();
-                let pur_total_cut = pur_feed_cut + pur_mor_cut + pur_crate_cut;
-                let pur_n_weight = gross_weight - pur_total_cut;
+                let sale_feed_cut = +$("#sale_feed_cut" + i).val();
+                let sale_mor_cut = +$("#sale_mor_cut" + i).val();
+                let sale_crate_cut = +$("#sale_crate_cut" + i).val();
+                let sale_total_cut = sale_feed_cut + sale_mor_cut + sale_crate_cut;
+                let sale_n_weight = gross_weight - sale_total_cut;
 
                 let hen_qty = +$("#hen_qty" + i).val();
                 let avg = gross_weight / hen_qty;
 
                 let amount = n_weight * rate;
-                let pur_amount = pur_n_weight * pur_rate;
+                let sale_amount = sale_n_weight * sale_rate;
 
                 $("#rate" + i).val(rate);
-                $("#pur_rate" + i).val(pur_rate);
+                $("#sale_rate" + i).val(sale_rate);
                 $("#n_weight" + i).val(n_weight);
-                $("#pur_n_weight" + i).val(pur_n_weight);
+                $("#sale_n_weight" + i).val(sale_n_weight);
                 $("#avg" + i).val(avg);
                 $("#amount" + i).val(amount);
-                $("#pur_amount" + i).val(pur_amount);
+                $("#sale_amount" + i).val(sale_amount);
             }
 
             // TOTAL
@@ -1391,11 +1354,11 @@ right: 15%;
             let crate_cut_total = +$("#crate_cut").val();
             let n_weight_total = +$("#n_weight").val();
             let amount_total = +$("#amount").val();
-            let pur_feed_cut_total = +$("#pur_feed_cut").val();
-            let pur_mor_cut_total = +$("#pur_mor_cut").val();
-            let pur_crate_cut_total = +$("#pur_crate_cut").val();
-            let pur_n_weight_total = +$("#pur_n_weight").val();
-            let pur_amount_total = +$("#pur_amount").val();
+            let sale_feed_cut_total = +$("#sale_feed_cut").val();
+            let sale_mor_cut_total = +$("#sale_mor_cut").val();
+            let sale_crate_cut_total = +$("#sale_crate_cut").val();
+            let sale_n_weight_total = +$("#sale_n_weight").val();
+            let sale_amount_total = +$("#sale_amount").val();
 
             for (let i = 1; i <= countera; i++) {
                 crate_qty_total += +$("#crate_qty" + i).val();
@@ -1406,11 +1369,11 @@ right: 15%;
                 crate_cut_total += +$("#crate_cut" + i).val();
                 n_weight_total += +$("#n_weight" + i).val();
                 amount_total += +$("#amount" + i).val();
-                pur_feed_cut_total += +$("#pur_feed_cut" + i).val();
-                pur_mor_cut_total += +$("#pur_mor_cut" + i).val();
-                pur_crate_cut_total += +$("#pur_crate_cut" + i).val();
-                pur_n_weight_total += +$("#pur_n_weight" + i).val();
-                pur_amount_total += +$("#pur_amount" + i).val();
+                sale_feed_cut_total += +$("#sale_feed_cut" + i).val();
+                sale_mor_cut_total += +$("#sale_mor_cut" + i).val();
+                sale_crate_cut_total += +$("#sale_crate_cut" + i).val();
+                sale_n_weight_total += +$("#sale_n_weight" + i).val();
+                sale_amount_total += +$("#sale_amount" + i).val();
 
             }
             console.log(feed_cut_total);
@@ -1422,11 +1385,11 @@ right: 15%;
             $("#crate_cut_total").val(crate_cut_total);
             $("#n_weight_total").val(n_weight_total);
             $("#amount_total").val(amount_total);
-            $("#pur_feed_cut_total").val(pur_feed_cut_total);
-            $("#pur_mor_cut_total").val(pur_mor_cut_total);
-            $("#pur_crate_cut_total").val(pur_crate_cut_total);
-            $("#pur_n_weight_total").val(pur_n_weight_total);
-            $("#pur_amount_total").val(pur_amount_total);
+            $("#sale_feed_cut_total").val(sale_feed_cut_total);
+            $("#sale_mor_cut_total").val(sale_mor_cut_total);
+            $("#sale_crate_cut_total").val(sale_crate_cut_total);
+            $("#sale_n_weight_total").val(sale_n_weight_total);
+            $("#sale_amount_total").val(sale_amount_total);
 
         }
     </script>
@@ -1450,18 +1413,19 @@ right: 15%;
         });
 
 
-
         $('#form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
-            var formData = $("#form").serialize();
+            // Create a FormData object
+            var formData = new FormData(this);
 
             // Send an AJAX request
             $.ajax({
-                url: '{{ Route('store_invoice_chicken') }}', // Replace with your Laravel route or endpoint
+                url: '{{ Route('store_invoice_chicken') }}',
                 method: 'POST',
                 data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
                 success: function(response) {
                     // Handle the response
 
@@ -1477,24 +1441,60 @@ right: 15%;
                     }).then((result) => {
                         if (result.isConfirmed) {
                             $.ajax({
-                                url: '/s_med_invoice_mail', // Replace with your Laravel route or endpoint
+                                url: '/s_med_invoice_mail',
                                 method: 'POST',
                                 data: formData,
-                            })
+                                contentType: false, // Ensure these are set for the second AJAX call
+                                processData: false,
+                                success: function(mailResponse) {
+                                    // Handle the success of sending the email
+                                },
+                                error: function(mailError) {
+                                    // Handle the error of sending the email
+                                }
+                            });
                         }
                     });
-                    // $("#btn").css("display", "none")
-                    $(".edit").css("display", "block")
-                    $("#btn").css("display", "none")
 
-
-
+                    // Show or hide elements as needed
+                    $(".edit").css("display", "block");
+                    $("#btn").css("display", "none");
+                    $("#edit").removeClass("disabled");
+                    $("#add_more").removeClass("disabled");
+                    $("#sale_pdf").removeClass("disabled");
+                    $("#purchase_pdf").removeClass("disabled");
                 },
                 error: function(error) {
                     // Handle the error
-                },
+                }
             });
-        })
+        });
+
+
+        $('#sale_pdf').click(function(event) {
+            if (!$(this).hasClass('disabled')) {
+
+                event.preventDefault();
+                // var formData = $("#form").serialize();
+                var unique_id = $("#unique_id").val();
+                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 0]) }}'.replace(':unique_id', unique_id);
+
+                window.open(url, '__blank')
+            }
+        });
+        $('#purchase_pdf').click(function(event) {
+            if (!$(this).hasClass('disabled')) {
+
+                event.preventDefault();
+                // var formData = $("#form").serialize();
+                var unique_id = $("#unique_id").val();
+                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 1]) }}'.replace(':unique_id', unique_id);
+
+                window.open(url, '__blank')
+            }
+        });
+
+
         $(document).on('keydown', function(e) {
             if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
                 var link = document.querySelector('.add-more');

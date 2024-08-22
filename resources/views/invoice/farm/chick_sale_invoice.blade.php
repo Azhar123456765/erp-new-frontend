@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Sale Invoice') @section('content')
+@extends('master') @section('title', 'Chick Invoice ') @section('content')
 
 <head>
 
@@ -137,7 +137,7 @@
     }
 
 
-   .select2-container--classic {
+    .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -267,7 +267,7 @@ position: absolute;
 top: 35%;
 right: 15%;
 ">Customer</h6>
-    <form id="form">
+    <form id="form" enctype="multipart/form-data">
         <div class="top">
             <div class="fields">
                 <div class="one">
@@ -302,7 +302,7 @@ right: 15%;
                     </select>
 
                 </div>
-                <input type="hidden" name="unique_id" value="<?php echo $rand; ?>">
+
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
@@ -336,18 +336,18 @@ right: 15%;
 
                 <div class="div">
                     <label for="rate">Rate</label>
-                    <input type="number" oninput="$('#pur_rate').val(this.value)" id="rate" name="rate[]" />
+                    <input type="number" oninput="$('#sale_rate').val(this.value)" id="rate" name="rate[]" />
                 </div>
 
                 <div class="div">
                     <label for="crate_type">Discount</label>
-                    <input type="number" oninput="$('#pur_discount').val(this.value)" id="discount"
+                    <input type="number" oninput="$('#sale_discount').val(this.value)" id="discount"
                         name="discount[]" />
                 </div>
                 <div class="div">
                     <label for="bonus">Bonus</label>
                     <input type="number" min="0.00" step="any" placeholder="0.00"
-                        oninput="$('#pur_bonus').val(this.value)" id="bonus" name="bonus[]" required />
+                        oninput="$('#sale_bonus').val(this.value)" id="bonus" name="bonus[]" required />
                 </div>
                 <div class="div">
                     <label for="qty">Quantity</label>
@@ -362,26 +362,26 @@ right: 15%;
 
                 {{-- PURCHASE --}}
                 <div class="div">
-                    <label for="pur_rate">Rate</label>
-                    <input type="number" id="pur_rate" name="pur_rate[]" />
+                    <label for="sale_rate">Rate</label>
+                    <input type="number" id="sale_rate" name="sale_rate[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_crate_type">Discount</label>
-                    <input type="number" id="pur_discount" name="pur_discount[]" />
+                    <label for="sale_crate_type">Discount</label>
+                    <input type="number" id="sale_discount" name="sale_discount[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_bonus">Bonus</label>
-                    <input type="number" min="0.00" step="any" placeholder="0.00" id="pur_bonus"
-                        name="pur_bonus[]" required />
+                    <label for="sale_bonus">Bonus</label>
+                    <input type="number" min="0.00" step="any" placeholder="0.00" id="sale_bonus"
+                        name="sale_bonus[]" required />
                 </div>
                 <div class="div">
-                    <label for="pur_qty">Quantity</label>
-                    <input type="number" id="pur_qty" name="pur_qty[]" />
+                    <label for="sale_qty">Quantity</label>
+                    <input type="number" id="sale_qty" name="sale_qty[]" />
                 </div>
                 <div class="div">
-                    <label for="pur_amount">Amount</label>
+                    <label for="sale_amount">Amount</label>
                     <input type="number" min="0.00" style="text-align: right;width: 190px !important;"
-                        step="any" value="0.00" onchange='count()' id="pur_amount" name="pur_amount[]"
+                        step="any" value="0.00" onchange='count()' id="sale_amount" name="sale_amount[]"
                         class="xl-width-inp" />
                 </div>
             </div>
@@ -454,9 +454,9 @@ right: 15%;
                 width: 190px !important;
             "=""="">
 
-                    <input type="number" step="any" name="pur_qty_total" id="pur_qty_total"
+                    <input type="number" step="any" name="sale_qty_total" id="sale_qty_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;"=""="">
-                    <input type="number" step="any" name="pur_amount_total" id="pur_amount_total"
+                    <input type="number" step="any" name="sale_amount_total" id="sale_amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;"=""="">
 
                 </div>
@@ -469,90 +469,6 @@ right: 15%;
     data-bs-target="#imageModal">
     Attachment
 </button>
-<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
-
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt"
-        style="">
-        submit
-    </button>
-    <br>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
-        Previous
-    </button>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
-        Next
-    </button>
-
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm">
-        Edit
-    </a>
-    <a href="/s_med_invoice" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm">
-        Add More
-    </a>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="sale_pdf">
-        SALE PDF
-    </button>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="purchase_pdf">
-        PURCHASE PDF
-    </button>
-
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
-        onclick="
-        
-        window.location.reload()
-        ">
-        Revert
-    </button>
-</div>
-
-
-</form>
-</div>
-
-
-
-
-<div class="flex justify-center items-center" style="display: none">
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert"
-        style="
-            position: fixed;
-            top: 79%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 32%;
-            opacity: 0.75;
-        ">
-        <span class="show1"></span>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-            <span aria-hidden="true">×</span>
-        </button>
-    </div>
-</div>
-
-
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -593,8 +509,67 @@ right: 15%;
         </div>
     </div>
 </div>
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
+
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
+        submit
+    </button>
+    <br>
 
 
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
+        Previous
+    </button>
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
+        Next
+    </button>
+
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
+        Edit
+    </a>
+    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+        Add More
+    </a>
+
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
+        SALE PDF
+    </button>
+
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
+</div>
+
+
+</form>
+</div>
 
 @push('s_script')
     <script>
@@ -633,7 +608,7 @@ right: 15%;
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
     <div class="div   items">
-                    <select name="item[]" id="item` + counter + `" style="height: 28px" onchange="addInvoice2()" required
+                    <select name="item[]" id="item` + counter + `" style="height: 28px" onchange="addInvoice2()"
                         class="item0 select-products">
                     </select>
                 </div>
@@ -643,17 +618,18 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <input  type="number" oninput="$('#pur_rate` + counter + `').val(this.value)" id="rate` + counter + `" name="rate[]" />
+                    <input  type="number" oninput="$('#sale_rate` + counter + `').val(this.value)" id="rate` +
+                    counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" oninput="$('#pur_discount` + counter + `').val(this.value)" id="discount` +
+                    <input  type="number" oninput="$('#sale_discount` + counter + `').val(this.value)" id="discount` +
                     counter + `" name="discount[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
-                        step="any" placeholder="0.00" oninput="$('#pur_bonus` + counter +
-                    `').val(this.value)" id="bonus` + counter + `" name="bonus[]" required />
+                        step="any" placeholder="0.00" oninput="$('#sale_bonus` + counter +
+                    `').val(this.value)" id="bonus` + counter + `" name="bonus[]" />
                 </div>
                 <div class="div">
                     <input  type="number" id="qty` + counter + `"
@@ -667,24 +643,24 @@ right: 15%;
 
 
                 <div class="div">
-                    <input  type="number" id="pur_rate` + counter + `" name="pur_rate[]" />
+                    <input  type="number" id="sale_rate` + counter + `" name="sale_rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="pur_discount` + counter + `" name="pur_discount[]" />
+                    <input  type="number" id="sale_discount` + counter + `" name="sale_discount[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
-                        step="any" placeholder="0.00" id="pur_bonus` + counter + `" name="pur_bonus[]" required />
+                        step="any" placeholder="0.00" id="sale_bonus` + counter + `" name="sale_bonus[]" required />
                 </div>
                 <div class="div">
-                    <input  type="number" id="pur_qty` + counter + `"
-                        name="pur_qty[]" />
+                    <input  type="number" id="sale_qty` + counter + `"
+                        name="sale_qty[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
-                        id="pur_amount` + counter + `" name="pur_amount[]" class="xl-width-inp" />
+                        id="sale_amount` + counter + `" name="sale_amount[]" class="xl-width-inp" />
                 </div>
             </div>
 
@@ -750,8 +726,8 @@ right: 15%;
                     'unit')); // Set the value of the unit input field to the data-unit value of the selected option
 
 
-                var pInput = $('#pur_price');
-                pInput.val(selectedOption.data('pur_price'));
+                var pInput = $('#sale_price');
+                pInput.val(selectedOption.data('sale_price'));
 
 
                 $('.avail_stock').css("display", "block")
@@ -791,7 +767,7 @@ right: 15%;
                 var clonedFields = `
     <div class="dup_invoice" onchange="addInvoice2()">
          <div class="div   items">
-                    <select name="item[]" id="item` + counter + `" style="height: 28px" onchange="addInvoice2()" required
+                    <select name="item[]" id="item` + counter + `" style="height: 28px" onchange="addInvoice2()"
                         class="item0 select-products">
                     </select>
                 </div>
@@ -801,17 +777,18 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <input  type="number" oninput="$('#pur_rate` + counter + `').val(this.value)" id="rate` + counter + `" name="rate[]" />
+                    <input  type="number" oninput="$('#sale_rate` + counter + `').val(this.value)" id="rate` +
+                    counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" oninput="$('#pur_discount` + counter + `').val(this.value)" id="discount` +
+                    <input  type="number" oninput="$('#sale_discount` + counter + `').val(this.value)" id="discount` +
                     counter + `" name="discount[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
-                        step="any" placeholder="0.00" oninput="$('#pur_bonus` + counter +
-                    `').val(this.value)" id="bonus` + counter + `" name="bonus[]" required />
+                        step="any" placeholder="0.00" oninput="$('#sale_bonus` + counter +
+                    `').val(this.value)" id="bonus` + counter + `" name="bonus[]" />
                 </div>
                 <div class="div">
                     <input  type="number" id="qty` + counter + `"
@@ -824,24 +801,24 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="pur_rate` + counter + `" name="pur_rate[]" />
+                    <input  type="number" id="sale_rate` + counter + `" name="sale_rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" id="pur_discount` + counter + `" name="pur_discount[]" />
+                    <input  type="number" id="sale_discount` + counter + `" name="sale_discount[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
-                        step="any" placeholder="0.00" id="pur_bonus` + counter + `" name="pur_bonus[]" required />
+                        step="any" placeholder="0.00" id="sale_bonus` + counter + `" name="sale_bonus[]" required />
                 </div>
                 <div class="div">
-                    <input  type="number" id="pur_qty` + counter + `"
-                        name="pur_qty[]" />
+                    <input  type="number" id="sale_qty` + counter + `"
+                        name="sale_qty[]" />
                 </div>
                 <div class="div">
                     <input  type="number" min="0.00"
                         style="text-align: right;width: 190px !important;" step="any" value="0.00" onchange='count()'
-                        id="pur_amount` + counter + `" name="pur_amount[]" class="xl-width-inp" />
+                        id="sale_amount` + counter + `" name="sale_amount[]" class="xl-width-inp" />
                 </div>
             </div>
 
@@ -909,21 +886,21 @@ right: 15%;
             // amount -= discountAmount;
             amount -= discount;
 
-            let pur_qty = +$('#actual_qty').val();
-            let pur_rate = +$('#pur_rate').val();
-            let pur_discount = +$('#pur_discount').val();
-            let pur_bonus = +$('#pur_bonus').val();
-            let pur_bonusQty = pur_qty + pur_bonus;
-            // pur_qty += pur_bonusQty;
-            let pur_amount = pur_qty * pur_rate;
-            // let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
-            // pur_amount -= pur_discountAmount;
-            pur_amount -= pur_discount;
+            let sale_qty = +$('#actual_qty').val();
+            let sale_rate = +$('#sale_rate').val();
+            let sale_discount = +$('#sale_discount').val();
+            let sale_bonus = +$('#sale_bonus').val();
+            let sale_bonusQty = sale_qty + sale_bonus;
+            // sale_qty += sale_bonusQty;
+            let sale_amount = sale_qty * sale_rate;
+            // let sale_discountAmount = (sale_qty * sale_rate) * (sale_discount / 100);
+            // sale_amount -= sale_discountAmount;
+            sale_amount -= sale_discount;
 
             $('#qty').val(bonusQty);
-            $('#pur_qty').val(pur_bonusQty);
+            $('#sale_qty').val(sale_bonusQty);
             $('#amount').val(amount);
-            $('#pur_amount').val(pur_amount);
+            $('#sale_amount').val(sale_amount);
 
             // CLONE
             for (let i = 1; i <= countera; i++) {
@@ -939,21 +916,21 @@ right: 15%;
                 // amount -= discountAmount;
                 amount -= discount;
 
-                let pur_qty = +$('#actual_qty' + i).val();
-                let pur_rate = +$('#pur_rate' + i).val();
-                let pur_discount = +$('#pur_discount' + i).val();
-                let pur_bonus = +$('#pur_bonus' + i).val();
-                let pur_bonusQty = pur_qty + pur_bonus;
-                // pur_qty += pur_bonusQty;
-                let pur_amount = pur_qty * pur_rate;
-                // let pur_discountAmount = (pur_qty * pur_rate) * (pur_discount / 100);
-                // pur_amount -= pur_discountAmount;
-                pur_amount -= pur_discount;
+                let sale_qty = +$('#actual_qty' + i).val();
+                let sale_rate = +$('#sale_rate' + i).val();
+                let sale_discount = +$('#sale_discount' + i).val();
+                let sale_bonus = +$('#sale_bonus' + i).val();
+                let sale_bonusQty = sale_qty + sale_bonus;
+                // sale_qty += sale_bonusQty;
+                let sale_amount = sale_qty * sale_rate;
+                // let sale_discountAmount = (sale_qty * sale_rate) * (sale_discount / 100);
+                // sale_amount -= sale_discountAmount;
+                sale_amount -= sale_discount;
 
                 $('#qty' + i).val(bonusQty);
-                $('#pur_qty' + i).val(pur_bonusQty);
+                $('#sale_qty' + i).val(sale_bonusQty);
                 $('#amount' + i).val(amount);
-                $('#pur_amount' + i).val(pur_amount);
+                $('#sale_amount' + i).val(sale_amount);
                 console.log(qty);
                 console.log(amount);
 
@@ -962,18 +939,18 @@ right: 15%;
             // TOTAL
             let qty_total = +$('#qty').val();
             let amount_total = +$('#amount').val();
-            let pur_qty_total = +$('#pur_qty').val();
-            let pur_amount_total = +$('#pur_amount').val();
+            let sale_qty_total = +$('#sale_qty').val();
+            let sale_amount_total = +$('#sale_amount').val();
             for (let i = 1; i <= countera; i++) {
                 qty_total += +$('#qty' + i).val();
                 amount_total += +$('#amount' + i).val();
-                pur_qty_total += +$('#pur_qty' + i).val();
-                pur_amount_total += +$('#pur_amount' + i).val();
+                sale_qty_total += +$('#sale_qty' + i).val();
+                sale_amount_total += +$('#sale_amount' + i).val();
             }
             $('#qty_total').val(qty_total);
             $('#amount_total').val(amount_total);
-            $('#pur_qty_total').val(pur_qty_total);
-            $('#pur_amount_total').val(pur_amount_total);
+            $('#sale_qty_total').val(sale_qty_total);
+            $('#sale_amount_total').val(sale_amount_total);
 
         }
 
@@ -988,14 +965,16 @@ right: 15%;
         $('#form').submit(function(event) {
             event.preventDefault();
 
-            // Get the form data
-            var formData = $("#form").serialize();
+            // Create a FormData object
+            var formData = new FormData(this);
 
             // Send an AJAX request
             $.ajax({
                 url: '{{ Route('store_invoice_chick') }}',
                 method: 'POST',
                 data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
                 success: function(response) {
                     // Handle the response
 
@@ -1014,32 +993,55 @@ right: 15%;
                                 url: '/s_med_invoice_mail',
                                 method: 'POST',
                                 data: formData,
-                            })
+                                contentType: false, // Ensure these are set for the second AJAX call
+                                processData: false,
+                                success: function(mailResponse) {
+                                    // Handle the success of sending the email
+                                },
+                                error: function(mailError) {
+                                    // Handle the error of sending the email
+                                }
+                            });
                         }
                     });
-                    // $("#btn").css("display", "none")
-                    $(".edit").css("display", "block")
-                    $("#btn").css("display", "none")
-                    $("#sale_pdf").removeClass("d-none");
-                    $("#purchase_pdf").removeClass("d-none");
 
-
-
+                    // Show or hide elements as needed
+                    $(".edit").css("display", "block");
+                    $("#btn").css("display", "none");
+                    $("#edit").removeClass("disabled");
+                    $("#add_more").removeClass("disabled");
+                    $("#sale_pdf").removeClass("disabled");
+                    $("#purchase_pdf").removeClass("disabled");
                 },
                 error: function(error) {
                     // Handle the error
-                },
+                }
             });
-        })
+        });
+
 
 
         $('#sale_pdf').click(function(event) {
-            event.preventDefault();
+            if (!$(this).hasClass('disabled')) {
 
-            // var unique_id = $("#unique_id").val();
-            var formData = $("#form").serialize();
-            var url = '{{ route('pdf_invoice_chick') }}' + '?id=null' + formData;
-            window.open(url, '__blank')
+                event.preventDefault();
+                // var formData = $("#form").serialize();
+                var unique_id = $("#unique_id").val();
+                var url = '{{ route('pdf_invoice_chick', [':unique_id', 0]) }}'.replace(':unique_id', unique_id);
+
+                window.open(url, '__blank')
+            }
+        });
+        $('#purchase_pdf').click(function(event) {
+            if (!$(this).hasClass('disabled')) {
+
+                event.preventDefault();
+                // var formData = $("#form").serialize();
+                var unique_id = $("#unique_id").val();
+                var url = '{{ route('pdf_invoice_chick', [':unique_id', 1]) }}'.replace(':unique_id', unique_id);
+
+                window.open(url, '__blank')
+            }
         });
 
 
@@ -1091,9 +1093,7 @@ right: 15%;
         });
     </script>
 @endpush
-<script
-src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
-integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
-crossorigin="anonymous"
-></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+</script>
 @endsection

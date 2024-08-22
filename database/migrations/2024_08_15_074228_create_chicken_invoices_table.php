@@ -16,7 +16,8 @@ class CreateChickenInvoicesTable extends Migration
         Schema::create('chicken_invoices', function (Blueprint $table) {
             $table->id();
             $table->text('unique_id');
-            $table->text('user_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('item');
             $table->date('date');
             $table->unsignedBigInteger('sales_officer')->nullable();
             $table->unsignedBigInteger('buyer');
@@ -39,13 +40,13 @@ class CreateChickenInvoicesTable extends Migration
             $table->integer('rate');
             $table->integer('amount');
 
-            $table->integer('pur_feed_cut');
-            $table->integer('pur_more_cut');
-            $table->integer('pur_crate_cut');
-            $table->integer('pur_net_weight');
-            $table->integer('pur_rate_diff');
-            $table->integer('pur_rate');
-            $table->integer('pur_amount');
+            $table->integer('sale_feed_cut');
+            $table->integer('sale_more_cut');
+            $table->integer('sale_crate_cut');
+            $table->integer('sale_net_weight');
+            $table->integer('sale_rate_diff');
+            $table->integer('sale_rate');
+            $table->integer('sale_amount');
 
             $table->integer('avg');
 
@@ -57,16 +58,19 @@ class CreateChickenInvoicesTable extends Migration
             $table->integer('crate_cut_total');
             $table->integer('n_weight_total');
             $table->integer('amount_total');
-            $table->integer('pur_feed_cut_total');
-            $table->integer('pur_mor_cut_total');
-            $table->integer('pur_crate_cut_total');
-            $table->integer('pur_n_weight_total');
-            $table->integer('pur_amount_total');
+            $table->integer('sale_feed_cut_total');
+            $table->integer('sale_mor_cut_total');
+            $table->integer('sale_crate_cut_total');
+            $table->integer('sale_n_weight_total');
+            $table->integer('sale_amount_total');
+
+            $table->text('attachment')->nullable();
 
             $table->foreign('buyer')->references('buyer_id')->on('buyer')->restrictOnDelete();
-            $table->foreign('seller')->references('seller_id')->on('seller')->restrictOnDelete();
+            $table->foreign('seller')->references('buyer_id')->on('buyer')->restrictOnDelete();
             $table->foreign('sales_officer')->references('sales_officer_id')->on('sales_officer')->restrictOnDelete();
-            // $table->foreign('users')->references('user_id')->on('user_id')->restrictOnDelete();
+            $table->foreign('user_id')->references('user_id')->on('users')->restrictOnDelete();
+            $table->foreign('item')->references('product_id')->on('products')->restrictOnDelete();
             $table->timestamps();
         });
     }

@@ -5,6 +5,7 @@ use App\Http\Controllers\ChickInvoiceController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseVoucherController;
 use App\Http\Controllers\FarmDailyReportController;
+use App\Http\Controllers\FeedInvoiceController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\NarrationController;
 use App\Http\Controllers\select2Controller;
@@ -242,10 +243,11 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("invoice_chicken");
         Route::post('/add-invoice-chicken', [ChickenInvoiceController::class, 'store'])->name("store_invoice_chicken");
 
-        Route::get('/add-invoice-chick', [SaleInvoiceController::class, 'create_farm_chick'])->name("invoice_chick");
+        Route::get('/add-invoice-chick', [ChickInvoiceController::class, 'create'])->name("invoice_chick");
         Route::post('/add-invoice-chick', [ChickInvoiceController::class, 'store'])->name("store_invoice_chick");
 
         Route::get('/add-invoice-feed', [SaleInvoiceController::class, 'create_farm_feed'])->name("invoice_feed");
+        Route::post('/add-invoice-feed', [FeedInvoiceController::class, 'store'])->name("store_invoice_feed");
 
 
         Route::get('/narrations', [NarrationController::class, 'index'])->name("narrations");
@@ -257,7 +259,9 @@ Route::middleware('userAuth')->group(function () {
         Route::post('/update-daily-report/id={id?}', [NarrationController::class, 'update'])->name("update_daily_report");
 
         Route::prefix('pdf')->group(function () {
-            Route::get('/invoice-chick/{id?}', [pdfController::class, 'invoice_chick'])->name("pdf_invoice_chick");
+            Route::get('/invoice-chicken/{id?}/{method?}', [pdfController::class, 'invoice_chicken'])->name("pdf_invoice_chicken");
+            Route::get('/invoice-chick/{id?}/{method?}', [pdfController::class, 'invoice_chick'])->name("pdf_invoice_chick");
+            Route::get('/invoice-feed/{id?}/{method?}', [pdfController::class, 'invoice_feed'])->name("pdf_invoice_feed");
         });
 
     });
