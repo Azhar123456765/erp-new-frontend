@@ -26,7 +26,14 @@ class FeedInvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $count = feedInvoice::whereIn('feed_invoices.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('feed_invoices')
+                ->groupBy('unique_id');
+        })->count();
+
+        $data = compact('count');
+        return view('invoice.farm.feed_sale_invoice')->with($data);
     }
 
     /**
