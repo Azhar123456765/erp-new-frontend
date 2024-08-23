@@ -89,7 +89,7 @@
         transform: scale(0.75);
     }
 
-input[type="number"]{
+input[type="number" step="any"]{
 text-align:right !important;
 }
 
@@ -396,7 +396,7 @@ text-align:right !important;
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>amount"  type="number" min="0.00" style="text-align: right;" step="any" value="{{$invoice_row->amount}}" onchange='total_amount()' id="amount" name="amount[]" />
+                    <input class="<?php echo $counter; ?>amount"  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="{{$invoice_row->amount}}" onchange='total_amount()' id="amount" name="amount[]" />
                 </div>
             </div>
 
@@ -438,7 +438,7 @@ text-align:right !important;
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount1" name="amount[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount1" name="amount[]" />
                 </div>
             </div>
 
@@ -489,7 +489,7 @@ text-align:right !important;
 margin-left: 0%;
 ">
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total" id="amount_total" style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any" name="amount_total" id="amount_total" style="
 margin-left: 185%;
 text-align:end;
 " readonly value="{{$sinvoice_row->amount_total}}">
@@ -680,7 +680,7 @@ window.location.href = newUrl
 </div>
 
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 
@@ -786,7 +786,7 @@ window.location.href = newUrl
 </div>
 
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+<input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 

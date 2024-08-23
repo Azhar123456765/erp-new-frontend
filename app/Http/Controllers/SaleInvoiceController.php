@@ -229,7 +229,7 @@ class SaleInvoiceController extends Controller
         $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
-        return view('invoice.farm.chicken_sale_invoice')->with($data);
+        return view('invoice.farm.chicken_invoice')->with($data);
     }
     public function create_farm_chick()
     {
@@ -249,7 +249,7 @@ class SaleInvoiceController extends Controller
         $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
-        return view('invoice.farm.chick_sale_invoice')->with($data);
+        return view('invoice.farm.chick_invoice')->with($data);
     }
     public function create_farm_feed()
     {
@@ -269,7 +269,7 @@ class SaleInvoiceController extends Controller
         $account = accounts::all();
 
         $data = compact('seller', 'sales_officer', 'product', 'warehouse', 'sell_invoice', 'account', 'count');
-        return view('invoice.farm.feed_sale_invoice')->with($data);
+        return view('invoice.farm.feed_invoice')->with($data);
     }
 
 

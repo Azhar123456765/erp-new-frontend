@@ -33,7 +33,7 @@
                 </div>
                 <div class="form-group">
                     <div class="input-group">
-                        <input type="number" id="" name="phone_number" placeholder="phone number" class="form-control" required>
+                        <input type="number" step="any" id="" name="phone_number" placeholder="phone number" class="form-control" required>
                         <div class="input-group-addon">
                             <i class=" -phone"></i>
                         </div>

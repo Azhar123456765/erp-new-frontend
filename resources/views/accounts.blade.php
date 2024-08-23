@@ -100,16 +100,16 @@
 
                         <div class="form-group">
                             <label for="username">Qty</label>
-                            <input type="number" class="form-control" id="account" name="account_qty">
+                            <input type="number" step="any" class="form-control" id="account" name="account_qty">
                         </div>
 
                         <div class="form-group">
                             <label for="username">Debit</label>
-                            <input type="number" class="form-control" id="account" name="account_debit">
+                            <input type="number" step="any" class="form-control" id="account" name="account_debit">
                         </div>
                         <div class="form-group">
                             <label for="username">Credit</label>
-                            <input type="number" class="form-control" id="account" name="account_credit">
+                            <input type="number" step="any" class="form-control" id="account" name="account_credit">
                         </div>
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
 
@@ -142,16 +142,16 @@
 
                         <div class="form-group">
                             <label for="username">Qty</label>
-                            <input type="number" class="form-control" id="account" name="account_qty" value="{{$row->account_qty}}">
+                            <input type="number" step="any" class="form-control" id="account" name="account_qty" value="{{$row->account_qty}}">
                         </div>
 
                         <div class="form-group">
                             <label for="username">Debit</label>
-                            <input type="number" class="form-control" id="account" name="account_debit" value="{{$row->account_debit}}">
+                            <input type="number" step="any" class="form-control" id="account" name="account_debit" value="{{$row->account_debit}}">
                         </div>
                         <div class="form-group">
                             <label for="username">Credit</label>
-                            <input type="number" class="form-control" id="account" name="account_credit" value="{{$row->account_credit}}">
+                            <input type="number" step="any" class="form-control" id="account" name="account_credit" value="{{$row->account_credit}}">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>

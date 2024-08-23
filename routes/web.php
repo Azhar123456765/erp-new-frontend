@@ -242,9 +242,11 @@ Route::middleware('userAuth')->group(function () {
     Route::prefix('farm')->group(function () {
         Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("invoice_chicken");
         Route::post('/add-invoice-chicken', [ChickenInvoiceController::class, 'store'])->name("store_invoice_chicken");
+        Route::get('/edit-invoice-chicken', [ChickenInvoiceController::class, 'edit'])->name("edit_invoice_chicken");
 
         Route::get('/add-invoice-chick', [ChickInvoiceController::class, 'create'])->name("invoice_chick");
         Route::post('/add-invoice-chick', [ChickInvoiceController::class, 'store'])->name("store_invoice_chick");
+        Route::get('/edit-invoice-chick/{id?}', [ChickInvoiceController::class, 'edit'])->name("edit_invoice_chick");
 
         Route::get('/add-invoice-feed', [FeedInvoiceController::class, 'create'])->name("invoice_feed");
         Route::post('/add-invoice-feed', [FeedInvoiceController::class, 'store'])->name("store_invoice_feed");
@@ -265,6 +267,10 @@ Route::middleware('userAuth')->group(function () {
         });
 
     });
+    Route::get('/test_pdf', function () {
+        return view('pdf.farm.test_pdf');
+    });
+
 });
 
 

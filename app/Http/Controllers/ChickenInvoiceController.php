@@ -35,7 +35,7 @@ class ChickenInvoiceController extends Controller
         })->count();
 
         $data = compact('count');
-        return view('invoice.farm.chicken_sale_invoice')->with($data);
+        return view('invoice.farm.chicken_invoice')->with($data);
     }
 
     /**

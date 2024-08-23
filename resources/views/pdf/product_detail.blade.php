@@ -55,15 +55,15 @@
                 <div class="row">
                     <div class="col">
                         <label for="purchase_price">Purchase Price:</label>
-                        <input readonly type="number" id="purchase_price" name="purchase_price" class="form-control " value="{{ $row->purchase_price ?? '' }}">
+                        <input readonly type="number" step="any" id="purchase_price" name="purchase_price" class="form-control " value="{{ $row->purchase_price ?? '' }}">
                     </div>
                     <div class="col">
                         <label for="sale_price">Sale Price:</label>
-                        <input readonly type="number" id="sale_price" name="sale_price" class="form-control " value="{{ $row->product_sale_price ?? '' }}">
+                        <input readonly type="number" step="any" id="sale_price" name="sale_price" class="form-control " value="{{ $row->product_sale_price ?? '' }}">
                     </div>
                     <div class="col">
                         <label for="opening_pur_price">Opening Purchase Price:</label>
-                        <input readonly type="number" id="opening_pur_price" name="opening_pur_price" class="form-control " value="{{ $row->opening_pur_price ?? '' }}">
+                        <input readonly type="number" step="any" id="opening_pur_price" name="opening_pur_price" class="form-control " value="{{ $row->opening_pur_price ?? '' }}">
                     </div>
                 </div>
             </div>
@@ -71,15 +71,15 @@
                 <div class="row">
                     <div class="col">
                         <label for="opening_quantity">Opening Quantity:</label>
-                        <input readonly type="number" id="opening_quantity" name="opening_quantity" class="form-control " value="{{ $row->opening_quantity ?? 0 }}">
+                        <input readonly type="number" step="any" id="opening_quantity" name="opening_quantity" class="form-control " value="{{ $row->opening_quantity ?? 0 }}">
                     </div>
                     <div class="col">
                         <label for="avg_pur_price">Average Purchase Price:</label>
-                        <input readonly type="number" id="avg_pur_price" name="avg_pur_price" class="form-control " value="{{ $row->avg_pur_price ?? '' }}">
+                        <input readonly type="number" step="any" id="avg_pur_price" name="avg_pur_price" class="form-control " value="{{ $row->avg_pur_price ?? '' }}">
                     </div>
                     <div class="col">
                         <label for="overhead_exp">Overhead Expense:</label>
-                        <input readonly type="number" id="overhead_exp" name="overhead_exp" class="form-control " value="{{ $row->overhead_exp ?? '' }}">
+                        <input readonly type="number" step="any" id="overhead_exp" name="overhead_exp" class="form-control " value="{{ $row->overhead_exp ?? '' }}">
                     </div>
                 </div>
             </div>
@@ -87,15 +87,15 @@
                 <div class="row">
                     <div class="col">
                         <label for="overhead_price_pur">Overhead Price Purchase:</label>
-                        <input readonly type="number" id="overhead_price_pur" name="overhead_price_pur" class="form-control " value="{{ $row->overhead_price_pur ?? '' }}">
+                        <input readonly type="number" step="any" id="overhead_price_pur" name="overhead_price_pur" class="form-control " value="{{ $row->overhead_price_pur ?? '' }}">
                     </div>
                     <div class="col">
                         <label for="overhead_price_avg">Overhead Price Average:</label>
-                        <input readonly type="number" id="overhead_price_avg" name="overhead_price_avg" class="form-control " value="{{ $row->overhead_price_avg ?? '' }}">
+                        <input readonly type="number" step="any" id="overhead_price_avg" name="overhead_price_avg" class="form-control " value="{{ $row->overhead_price_avg ?? '' }}">
                     </div>
                     <div class="col">
                         <label for="pur_price_plus_oh">Purchase Price + Overhead:</label>
-                        <input readonly type="number" id="pur_price_plus_oh" name="pur_price_plus_oh" class="form-control " value="{{ $row->pur_price_plus_oh ?? '' }}">
+                        <input readonly type="number" step="any" id="pur_price_plus_oh" name="pur_price_plus_oh" class="form-control " value="{{ $row->pur_price_plus_oh ?? '' }}">
                     </div>
                 </div>
             </div>
@@ -103,7 +103,7 @@
                 <div class="row">
                     <div class="col">
                         <label for="avg_price_plus_oh">Average Price + Overhead:</label>
-                        <input readonly type="number" id="avg_price_plus_oh" name="avg_price_plus_oh" class="form-control " value="{{ $row->avg_price_plus_oh ?? '' }}">
+                        <input readonly type="number" step="any" id="avg_price_plus_oh" name="avg_price_plus_oh" class="form-control " value="{{ $row->avg_price_plus_oh ?? '' }}">
                     </div>
                     <div class="col">
                         <label for="inactive_item">Inactive Item:</label>

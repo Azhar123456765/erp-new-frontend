@@ -71,22 +71,22 @@
                         </div>
                         <div class="form-group">
                             <label for="username">hen deaths</label>
-                            <input type="number" class="form-control" id="hen_deaths" name="hen_deaths"
+                            <input type="number" step="any" class="form-control" id="hen_deaths" name="hen_deaths"
                                 placeholder="" required>
                         </div>
                         <div class="form-group">
                             <label for="username">Feed consumed (Kg)</label>
-                            <input type="number" class="form-control" id="feed_consumed" name="feed_consumed"
+                            <input type="number" step="any" class="form-control" id="feed_consumed" name="feed_consumed"
                                 placeholder="" required>
                         </div>
                         <div class="form-group">
                             <label for="username">Water consumed (liters)</label>
-                            <input type="number" class="form-control" id="water_consumed" name="water_consumed"
+                            <input type="number" step="any" class="form-control" id="water_consumed" name="water_consumed"
                                 placeholder="" required>
                         </div>
                         <div class="form-group">
                             <label for="username">Extra expense(optional)</label>
-                            <input type="number" class="form-control" id="extra_expense" name="extra_expense"
+                            <input type="number" step="any" class="form-control" id="extra_expense" name="extra_expense"
                                 placeholder="">
                         </div>
 
@@ -113,22 +113,22 @@
                             @csrf
                             <div class="form-group">
                             <label for="username">hen deaths</label>
-                            <input type="number" class="form-control" id="hen_deaths" name="hen_deaths"
+                            <input type="number" step="any" class="form-control" id="hen_deaths" name="hen_deaths"
                                 placeholder="" required value="{{ $row->hen_deaths }}">
                         </div>
                         <div class="form-group">
                             <label for="username">Feed consumed (Kg)</label>
-                            <input type="number" class="form-control" id="feed_consumed" name="feed_consumed"
+                            <input type="number" step="any" class="form-control" id="feed_consumed" name="feed_consumed"
                                 placeholder="" required value="{{ $row->feed_consumed }}">
                         </div>
                         <div class="form-group">
                             <label for="username">Water consumed (liters)</label>
-                            <input type="number" class="form-control" id="water_consumed" name="water_consumed"
+                            <input type="number" step="any" class="form-control" id="water_consumed" name="water_consumed"
                                 placeholder="" required value="{{ $row->water_consumed }}">
                         </div>
                         <div class="form-group">
                             <label for="username">Extra expense(optional)</label>
-                            <input type="number" class="form-control" id="extra_expense" name="extra_expense"
+                            <input type="number" step="any" class="form-control" id="extra_expense" name="extra_expense"
                                 placeholder="" value="{{ $row->extra_expense }}">
                         </div>
 

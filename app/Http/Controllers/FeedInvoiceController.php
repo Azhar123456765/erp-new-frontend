@@ -33,7 +33,7 @@ class FeedInvoiceController extends Controller
         })->count();
 
         $data = compact('count');
-        return view('invoice.farm.feed_sale_invoice')->with($data);
+        return view('invoice.farm.feed_invoice')->with($data);
     }
 
     /**

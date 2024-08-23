@@ -68,7 +68,7 @@
         transform: scale(0.75);
     }
 
-input[type="number"]{
+input[type="number" step="any"]{
 text-align:right !important;
 }
 
@@ -421,29 +421,29 @@ text-align:right !important;
 
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>pur_price" type="number" min="0.00" style="text-align:right !important;" step='any' id="pur_price" value="{{$invoice_row->pur_price}}" name="pur_price[]" required onchange="count();  total_amount();" />
+                    <input class="<?php echo $counter; ?>pur_price" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' id="pur_price" value="{{$invoice_row->pur_price}}" name="pur_price[]" required onchange="count();  total_amount();" />
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>pur_qty" type="number" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->pur_qty}}" id="pur_qty" name="pur_qty[]" onchange='qty(); per_unit();' />
+                    <input class="<?php echo $counter; ?>pur_qty" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->pur_qty}}" id="pur_qty" name="pur_qty[]" onchange='qty(); per_unit();' />
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>return_qty" type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00"  id="return_qty" name="return_qty[]" />
+                    <input class="<?php echo $counter; ?>return_qty" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="0.00"  id="return_qty" name="return_qty[]" />
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>dis_per" type="number" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->discount}}" id="dis_per" name="dis_per[]" onchange='discount();  total_amount();' />
+                    <input class="<?php echo $counter; ?>dis_per" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->discount}}" id="dis_per" name="dis_per[]" onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
-                    <input class="<?php echo $counter; ?>dis_amount" type="number" min="0.00" style="text-align:right !important;" step='any' id="dis_amount" name="dis_amount[]" value="{{$invoice_row->dis_amount}}" onchange='discount();  total_amount();' />
+                    <input class="<?php echo $counter; ?>dis_amount" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' id="dis_amount" name="dis_amount[]" value="{{$invoice_row->dis_amount}}" onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
-                    <input class="<?php echo $counter; ?>exp_unit" type="number" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->exp_unit}}" id="exp_unit" name="exp_unit[]" />
+                    <input class="<?php echo $counter; ?>exp_unit" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="{{$invoice_row->exp_unit}}" id="exp_unit" name="exp_unit[]" />
                 </div>
 
                 <div class="div">
-                    <input class="<?php echo $counter; ?>amount" type="number" min="0.00" style="text-align:right !important;" step='any' onchange='count()' id="amount" readonly name="amount[]" value="{{$invoice_row->amount}}" />
+                    <input class="<?php echo $counter; ?>amount" type="number" step="any" min="0.00" style="text-align:right !important;" step='any' onchange='count()' id="amount" readonly name="amount[]" value="{{$invoice_row->amount}}" />
                 </div>
 
 
@@ -487,27 +487,27 @@ text-align:right !important;
 
 
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price1" name="pur_price[]" required onchange='count2();  total_amount();' />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price1" name="pur_price[]" required onchange='count2();  total_amount();' />
                 </div>
 
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty1" name="pur_qty[]" onchange='qty(); per_unit2();' />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty1" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per1" name="dis_per[]" onchange='discount2();  total_amount();' />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per1" name="dis_per[]" onchange='discount2();  total_amount();' />
                 </div>
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount1" name="dis_amount[]" onchange='discount();  total_amount();' />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount1" name="dis_amount[]" onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
                 </div>
 
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount1" name="amount[]" />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount1" name="amount[]" />
                 </div>
             </div>
         </div>
@@ -558,13 +558,13 @@ text-align:right !important;
             margin-left: 0%;
         ">
                     <label for="exp_unit">Total</label>
-                    <input type="number" step="any" id="qty_total" name="qty_total" style="
+                    <input type="number" step="any" step="any" id="qty_total" name="qty_total" style="
                         margin-left: 44%;
         " readonly="" value="{{$sinvoice_row->qty_total}}">
-                    <input type="number" step="any" id="dis_total" name="dis_total" style="
+                    <input type="number" step="any" step="any" id="dis_total" name="dis_total" style="
             margin-left: 30.2%;
         " readonly="" value="{{$sinvoice_row->dis_total}}">
-                    <input type="number" step="any" id="amount_total" name="amount_total" style="
+                    <input type="number" step="any" step="any" id="amount_total" name="amount_total" style="
                 margin-left: 30%;
             " readonly="" value="{{$sinvoice_row->amount_total}}">
 
@@ -662,11 +662,11 @@ position: fixed;
 bottom: 0.2% !important;
 right: 2%;
 ">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="freight" value="{{$row->freight}}" id="freight">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="0.1" name="sales_tax" value="{{$row->sales_tax}}" id="sales_tax">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="ad_sales_tax" value="{{$row->ad_sales_tax}}" id="ad_sales_tax">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="bank" value="{{$row->bank}}" id="bank">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any" name="other_expense" value="{{$row->other_expense}}" id="other_expense">
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" name="freight" value="{{$row->freight}}" id="freight">
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="0.1" name="sales_tax" value="{{$row->sales_tax}}" id="sales_tax">
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" name="ad_sales_tax" value="{{$row->ad_sales_tax}}" id="ad_sales_tax">
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" name="bank" value="{{$row->bank}}" id="bank">
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" name="other_expense" value="{{$row->other_expense}}" id="other_expense">
 
                     </div>
 
@@ -903,25 +903,25 @@ window.location.href = newUrl
                 
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price` + counter + `" name="pur_price[]" required onchange='count2();  total_amount();'/>
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price` + counter + `" name="pur_price[]" required onchange='count2();  total_amount();'/>
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
                 </div>
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount` + counter + `" name="dis_amount[]" onchange='discount();  total_amount();' />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount` + counter + `" name="dis_amount[]" onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
                 </div>
     </div>
 
@@ -1062,25 +1062,25 @@ window.location.href = newUrl
                 
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price` + counter + `" name="pur_price[]" required onchange='count2();  total_amount();'/>
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_price` + counter + `" name="pur_price[]" required onchange='count2();  total_amount();'/>
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="pur_qty` + counter + `" name="pur_qty[]" onchange='qty(); per_unit2();' />
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="dis_per` + counter + `" name="dis_per[]" onchange='discount2();  total_amount();'  />
                 </div>
                 <div class="div">
-                    <input type="number" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount` + counter + `" name="dis_amount[]" onchange='discount();  total_amount();' />
+                    <input type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value="0.00" id="dis_amount` + counter + `" name="dis_amount[]" onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' id="exp_unit" name="exp_unit[]" />
                 </div>
 
                 <div class="div">
-                    <input   type="number" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
+                    <input   type="number" step="any" min="0.00" style="text-align:right !important;" step='any' value='0.00' onchange='count();  total_amount();' id="amount` + counter + `" name="amount[]"/>
                 </div>
     </div>
 

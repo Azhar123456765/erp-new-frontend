@@ -30,7 +30,7 @@
         transform: scale(0.75);
     }
 
-input[type="number"]{
+input[type="number" step="any"]{
 text-align:right !important;
 }
 
@@ -334,47 +334,47 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="price">Sale Price</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" placeholder="0.00" id="sale_price"
                         name="sale_price[]" required onchange="count();  total_amount();" />
                 </div>
 
                 <div class="div">
                     <label for="pur_qty">Sale Qty</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" id="sale_qty" name="sale_qty[]"
                         onchange='qty(); per_unit();' />
                 </div>
 
                 <div class="div">
                     <label for="pur_qty">Bonus Qty</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" id="bonus_qty"
                         name="bonus_qty[]" />
                 </div>
 
                 <div class="div">
                     <label for="dis">Dis(%)</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" id="dis_per" name="dis_per[]"
                         onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
                     <label for="dis">Dis Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" id="dis_amount"
                         name="dis_amount[]" onchange='discount();  total_amount();' />
                 </div>
                 <div class="div">
                     <label for="exp_unit">Exp/Unit</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" id="exp_unit"
                         name="exp_unit[]" />
                 </div>
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" onchange='count()' id="amount"
                         readonly name="amount[]" />
                 </div>
@@ -425,15 +425,15 @@ text-align:right !important;
             margin-left: 0%;
         ">
                     <label for="exp_unit">Total</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="qty_total"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any" name="qty_total"
                         id="qty_total" style="
                         margin-left: 30.25%;
         " readonly>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="dis_total"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any" name="dis_total"
                         id="dis_total" style="
             margin-left: 60%;
         " readonly>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" name="amount_total"
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any" name="amount_total"
                         id="amount_total" style="
             margin-left: 30%;
         " readonly>
@@ -498,18 +498,18 @@ text-align:right !important;
         bottom: 0.2% !important;
         right: 2%;
     ">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                             style="text-align: right;" step="any" name="previous_balance" value="0.00"
                             id="debit" readonly>
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                             style="text-align: right;" step="any" name="cartage" value="0.00" id="cartage">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                             style="text-align: right;" step="any" name="grand_total" value="0.00"
                             id="grand_total" readonly>
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                             style="text-align: right;" step="any" name="amount_paid" value="0.00"
                             id="credit">
-                        <input onkeydown="handleKeyPress(event)" type="number" min="0.00"
+                        <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
                             style="text-align: right;" step="any" name="balance_amount" value="0.00"
                             id="balance_amount" readonly>
 
@@ -739,41 +739,41 @@ display: flex;
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` +
+                    <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` +
                 counter +
                 `" name="sale_price[]" required onchange='count2();  total_amount();'/>
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` +
+                    <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` +
                 counter +
                 `" name="sale_qty[]" onchange='qty(); per_unit();' />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="bonus_qty" name="bonus_qty[]" />
+                    <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="bonus_qty" name="bonus_qty[]" />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` +
+                    <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` +
                 counter +
                 `" name="dis_per[]" onchange='discount2();  total_amount();'  />
                 </div>
 
                 <div class="div">
-                    <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` +
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` +
                 counter +
                 `"name="dis_amount[]" onchange='discount();  total_amount();' />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` +
+                    <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` +
                 counter +
                 `" name="exp_unit[]" />
                 </div>
 
                 <div class="div">
-                    <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` +
+                    <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` +
                 counter + `" name="amount[]"/>
                 </div>
     </div>
@@ -890,41 +890,41 @@ display: flex;
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` +
+            <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_price` +
                 counter +
                 `" name="sale_price[]" required onchange='count2();  total_amount();'/>
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` +
+            <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="sale_qty` +
                 counter +
                 `" name="sale_qty[]" onchange='qty(); per_unit();' />
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="bonus_qty" name="bonus_qty[]" />
+            <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="bonus_qty" name="bonus_qty[]" />
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` +
+            <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="dis_per` +
                 counter +
                 `" name="dis_per[]" onchange='discount2();  total_amount();'  />
         </div>
 
         <div class="div">
-            <input onkeydown="handleKeyPress(event)" type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` +
+            <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any"  value="0.00" id="dis_amount` +
                 counter +
                 `"name="dis_amount[]" onchange='discount();  total_amount();' />
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` +
+            <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="exp_unit` +
                 counter +
                 `" name="exp_unit[]" />
         </div>
 
         <div class="div">
-            <input  onkeydown="handleKeyPress(event)"  type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` +
+            <input  onkeydown="handleKeyPress(event)"  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' onchange='count();  total_amount();' id="amount` +
                 counter + `" name="amount[]"/>
         </div>
 </div>

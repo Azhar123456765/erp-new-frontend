@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\chickenInvoice;
+use App\Models\ChickInvoice;
 use App\Models\feedInvoice;
 use Illuminate\Http\Request;
 
@@ -2156,8 +2157,8 @@ class pdfController extends Controller
         }
         function invoice_chick(Request $request, $id, $method)
         {
-                $single_data = feedInvoice::where('unique_id', $id)->first();
-                $data = feedInvoice::where('unique_id', $id)->get();
+                $single_data = ChickInvoice::where('unique_id', $id)->first();
+                $data = ChickInvoice::where('unique_id', $id)->get();
                 session()->flash("pdf_data", $data);
                 session()->flash("single_pdf_data", $single_data);
 

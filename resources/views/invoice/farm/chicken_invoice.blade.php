@@ -33,7 +33,7 @@
         transform: scale(0.78);
     }
 
-    input[type="number"] {
+    input[type="number" step="any"] {
         text-align: right !important;
     }
 
@@ -264,7 +264,7 @@
         justify-content: center;
     }
 </style>
-<h5 style="text-align: center;">Chciken Invoice (FARM MODULE)</h5>
+<h5 style="text-align: center;">ChickenInvoice (FARM MODULE)</h5>
 
 <div class="container" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
@@ -358,41 +358,41 @@ right: 15%;
 
                 <div class="div">
                     <label for="price">Crate Qty</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" placeholder="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" placeholder="0.00"
                         id="crate_qty" name="crate_qty[]" required />
                 </div>
 
                 <div class="div">
                     <label for="sale_qty">Hen Qty</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="hen_qty" name="hen_qty[]" />
                 </div>
 
                 <div class="div">
                     <label for="sale_qty">Gross Weight</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="gross_weight" name="gross_weight[]" />
                 </div>
 
                 <div class="div">
                     <label for="dis">Actual Rate</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="actual_rate" name="actual_rate[]" />
                 </div>
                 <div class="div">
                     <label for="dis">Feed Cut</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="feed_cut" name="feed_cut[]" />
                 </div>
                 <div class="div">
                     <label for="mor_cut">Mor Cut</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="mor_cut" name="mor_cut[]" />
                 </div>
 
                 <div class="div">
                     <label for="crate_cut">Crate Cut</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="crate_cut" name="crate_cut[]" />
                 </div>
 
@@ -400,38 +400,38 @@ right: 15%;
 
                 <div class="div">
                     <label for="n_weight">N.Weight</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="n_weight" name="n_weight[]" readonly />
                 </div>
                 <div class="div">
                     <label for="rate_diff">Rate Diff</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="rate_diff" name="rate_diff[]" />
                 </div>
                 <div class="div">
                     <label for="rate">Rate</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="rate" name="rate[]" />
                 </div>
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input type="number" min="0.00" style="text-align: right;width: 90px !important;"
+                    <input type="number" step="any" min="0.00" style="text-align: right;width: 90px !important;"
                         step="any" value="0.00" id="amount" name="amount[]" class="xl-width-inp" />
                 </div>
                 <div class="div">
                     <label for="sale_dis">Feed Cut</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="sale_feed_cut" name="sale_feed_cut[]" />
                 </div>
                 <div class="div">
                     <label for="sale_mor_cut">Mor Cut</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="sale_mor_cut" name="sale_mor_cut[]" />
                 </div>
 
                 <div class="div">
                     <label for="sale_crate_cut">Crate Cut</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="sale_crate_cut" name="sale_crate_cut[]" />
                 </div>
 
@@ -439,27 +439,27 @@ right: 15%;
 
                 <div class="div">
                     <label for="sale_n_weight">N.Weight</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="sale_n_weight" name="sale_n_weight[]" />
                 </div>
                 <div class="div">
                     <label for="avg">&nbsp; AVG</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="avg" name="avg[]" />
                 </div>
                 <div class="div">
                     <label for="sale_rate_diff">Rate Diff</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="sale_rate_diff" name="sale_rate_diff[]" />
                 </div>
                 <div class="div">
                     <label for="sale_rate">Rate</label>
-                    <input type="number" min="0.00" style="text-align: right;" step="any" value="0.00"
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00"
                         id="sale_rate" name="sale_rate[]" />
                 </div>
                 <div class="div">
                     <label for="sale_amount">Amount</label>
-                    <input type="number" min="0.00" style="text-align: right;width: 90px !important;"
+                    <input type="number" step="any" min="0.00" style="text-align: right;width: 90px !important;"
                         step="any" value="0.00" id="sale_amount" name="sale_amount[]" class="xl-width-inp" />
                 </div>
 
@@ -515,21 +515,21 @@ right: 15%;
         top: 95%;
         left: -1%;
     ">Total</label>
-                    <input type="number" step="any" name="crate_qty_total" id="crate_qty_total"
+                    <input type="number" step="any" step="any" name="crate_qty_total" id="crate_qty_total"
                         style="
                             /* margin-left: 2%; */
                             position: fixed;
                             top: 95%;
                             left: 7%;
             "=""="">
-                    <input type="number" step="any" name="hen_qty_total" id="hen_qty_total"
+                    <input type="number" step="any" step="any" name="hen_qty_total" id="hen_qty_total"
                         style="
                 /* margin-left: 52%; */
                 position: fixed;
                 top: 95%;
                 left: 12.5%;
             "=""="">
-                    <input type="number" step="any" name="gross_weight_total" id="gross_weight_total"
+                    <input type="number" step="any" step="any" name="gross_weight_total" id="gross_weight_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
@@ -539,45 +539,45 @@ right: 15%;
 
 
 
-                    <input type="number" step="any" name="feed_cut_total" id="feed_cut_total"
+                    <input type="number" step="any" step="any" name="feed_cut_total" id="feed_cut_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 29%;
             "=""="">
-                    <input type="number" step="any" name="mor_cut_total" id="mor_cut_total"
+                    <input type="number" step="any" step="any" name="mor_cut_total" id="mor_cut_total"
                         style="
             /* margin-left: 30%; */
             position: fixed;
             top: 95%;
             left: 34.7%;
         "=""="">
-                    <input type="number" step="any" name="crate_cut_total" id="crate_cut_total"
+                    <input type="number" step="any" step="any" name="crate_cut_total" id="crate_cut_total"
                         style="
         /* margin-left: 30%; */
         position: fixed;
         top: 95%;
         left: 40.4%;
     "=""="">
-                    <input type="number" step="any" name="n_weight_total" id="n_weight_total"
+                    <input type="number" step="any" step="any" name="n_weight_total" id="n_weight_total"
                         style="
     /* margin-left: 30%; */
     position: fixed;
     top: 95%;
     left: 46%;
 "=""="">
-                    <input type="number" step="any" name="amount_total" id="amount_total"
+                    <input type="number" step="any" step="any" name="amount_total" id="amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;width: 90px !important;left: 62.4%;"=""="">
-                    <input type="number" step="any" name="sale_feed_cut_total" id="sale_feed_cut_total"
+                    <input type="number" step="any" step="any" name="sale_feed_cut_total" id="sale_feed_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 70.4%;"=""="">
-                    <input type="number" step="any" name="sale_mor_cut_total" id="sale_mor_cut_total"
+                    <input type="number" step="any" step="any" name="sale_mor_cut_total" id="sale_mor_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 75.9%;"=""="">
-                    <input type="number" step="any" name="sale_crate_cut_total" id="sale_crate_cut_total"
+                    <input type="number" step="any" step="any" name="sale_crate_cut_total" id="sale_crate_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 81.3%;"=""="">
-                    <input type="number" step="any" name="sale_n_weight_total" id="sale_n_weight_total"
+                    <input type="number" step="any" step="any" name="sale_n_weight_total" id="sale_n_weight_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 86.9%;"=""="">
-                    <input type="number" step="any" name="sale_amount_total" id="sale_amount_total"
+                    <input type="number" step="any" step="any" name="sale_amount_total" id="sale_amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 108.8%;width: 90px !important;"=""="">
 
 
@@ -755,83 +755,83 @@ right: 15%;
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_qty` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_qty` +
                     counter +
                     `" name="crate_qty[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="hen_qty` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="hen_qty` +
                     counter +
                     `" name="hen_qty[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="gross_weight` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="gross_weight` +
                     counter +
                     `" name="gross_weight[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="actual_rate` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="actual_rate` +
                     counter +
                     `" name="actual_rate[]"  />
         </div>
 
         <div class="div">
-            <input  type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="feed_cut` +
+            <input  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value="0.00" id="feed_cut` +
                     counter +
                     `"name="feed_cut[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="mor_cut` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="mor_cut` +
                     counter +
                     `" name="mor_cut[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_cut` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_cut` +
                     counter + `" name="crate_cut[]"/>
         </div>
 
 
 <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="n_weight` + counter + `"
                  name="n_weight[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="rate_diff` +
                     counter + `"
                  name="rate_diff[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="rate` + counter +
                     `"
                  name="rate[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;width: 90px !important;" step="any" value="0.00" id="amount` +
                     counter + `"
                  name="amount[]"  class="xl-width-inp"/>
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="sale_feed_cut` + counter + `"
                 name="sale_feed_cut[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="sale_mor_cut` + counter + `"
                 name="sale_mor_cut[]" />
         </div>
 
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
                 id="sale_crate_cut` + counter + `"  name="sale_crate_cut[]" />
         </div>
@@ -839,27 +839,27 @@ right: 15%;
 
 
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
                 id="sale_n_weight` + counter + `"  name="sale_n_weight[]" />
         </div>
          <div class="div">
-            <input  type="number" min="0.00" style="text-align: right;"
+            <input  type="number" step="any" min="0.00" style="text-align: right;"
                 step="any" value="0.00" id="avg` + counter + `" name="avg[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
                 id="sale_rate_diff` + counter + `"  name="sale_rate_diff[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="sale_rate` + counter +
                     `"
                  name="sale_rate[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;width: 90px !important;" step="any" value="0.00" id="sale_amount` +
                     counter + `"
                  name="sale_amount[]" class="xl-width-inp"/>
@@ -994,83 +994,83 @@ right: 15%;
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_qty` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="crate_qty` +
                     counter +
                     `" name="crate_qty[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="hen_qty` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="hen_qty` +
                     counter +
                     `" name="hen_qty[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="gross_weight` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="gross_weight` +
                     counter +
                     `" name="gross_weight[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="actual_rate` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="actual_rate` +
                     counter +
                     `" name="actual_rate[]"  />
         </div>
 
         <div class="div">
-            <input  type="number" min="0.00" style="text-align: right;" step="any"  value="0.00" id="feed_cut` +
+            <input  type="number" step="any" min="0.00" style="text-align: right;" step="any"  value="0.00" id="feed_cut` +
                     counter +
                     `"name="feed_cut[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00' id="mor_cut` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00' id="mor_cut` +
                     counter +
                     `" name="mor_cut[]" />
         </div>
 
         <div class="div">
-            <input    type="number" min="0.00" style="text-align: right;" step="any"  value='0.00'   total_amount();' id="crate_cut` +
+            <input    type="number" step="any" min="0.00" style="text-align: right;" step="any"  value='0.00'   total_amount();' id="crate_cut` +
                     counter + `" name="crate_cut[]"/>
         </div>
 
 
 <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="n_weight` + counter + `"
                  name="n_weight[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="rate_diff` +
                     counter + `"
                  name="rate_diff[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="rate` + counter +
                     `"
                  name="rate[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;width: 90px !important;" step="any" value="0.00" id="amount` +
                     counter + `"
                  name="amount[]"  class="xl-width-inp"/>
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="sale_feed_cut` + counter + `"
                 name="sale_feed_cut[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="sale_mor_cut` + counter + `"
                 name="sale_mor_cut[]" />
         </div>
 
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
                 id="sale_crate_cut` + counter + `"  name="sale_crate_cut[]" />
         </div>
@@ -1078,27 +1078,27 @@ right: 15%;
 
 
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
                 id="sale_n_weight` + counter + `"  name="sale_n_weight[]" />
         </div>
          <div class="div">
-            <input  type="number" min="0.00" style="text-align: right;"
+            <input  type="number" step="any" min="0.00" style="text-align: right;"
                 step="any" value="0.00" id="avg` + counter + `" name="avg[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00"
                 id="sale_rate_diff` + counter + `"  name="sale_rate_diff[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;" step="any" value="0.00" id="sale_rate` + counter +
                     `"
                  name="sale_rate[]" />
         </div>
         <div class="div">
-            <input  type="number" min="0.00"
+            <input  type="number" step="any" min="0.00"
                 style="text-align: right;width: 90px !important;" step="any" value="0.00" id="sale_amount` +
                     counter + `"
                  name="sale_amount[]" class="xl-width-inp"/>

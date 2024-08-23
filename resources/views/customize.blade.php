@@ -52,7 +52,7 @@
                 <div class="row">
                     <div class="col-md-6">
                         <label for="">Phone Number</label>
-                        <input type="number" name="phone_number" id="email" class="form-control" value="{{$row->phone_number}}" required>
+                        <input type="number" step="any" name="phone_number" id="email" class="form-control" value="{{$row->phone_number}}" required>
                     </div>
                     <div class="col-md-6">
                         <label for="">Email address</label>

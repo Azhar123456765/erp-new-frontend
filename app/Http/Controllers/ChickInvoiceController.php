@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\buyer;
 use App\Models\ChickInvoice;
+use App\Models\products;
+use App\Models\sales_officer;
 use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use Illuminate\Http\Request;
@@ -33,7 +36,7 @@ class ChickInvoiceController extends Controller
         })->count();
 
         $data = compact('count');
-        return view('invoice.farm.chick_sale_invoice')->with($data);
+        return view('invoice.farm.chick_invoice')->with($data);
     }
 
     /**
@@ -124,9 +127,19 @@ class ChickInvoiceController extends Controller
      * @param  \App\Models\ChickInvoice  $chickInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(ChickInvoice $chickInvoice)
+    public function edit(Request $request, $id)
     {
-        //
+        $count = ChickInvoice::whereIn('chick_invoices.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('chick_invoices')
+                ->groupBy('unique_id');
+        })->count();
+        $product = products::all();
+        $seller = buyer::all();
+        $sales_officer = sales_officer::all();
+        $invoice = ChickInvoice::where('unique_id', $id)->get();
+        $single_invoice = ChickInvoice::where('unique_id', $id)->first();
+        return view('invoice.farm.edit_chick_invoice', compact('invoice', 'single_invoice', 'seller', 'product', 'sales_officer'));
     }
 
     /**

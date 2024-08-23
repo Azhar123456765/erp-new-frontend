@@ -32,7 +32,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" target class="btn btn-primary" id="btn">Submit</button>
@@ -61,7 +61,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -91,7 +91,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -120,7 +120,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -149,7 +149,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -181,7 +181,7 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -1223,7 +1223,7 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="username">GR No</label>
-                            <input type="number" min="1" class="form-control" id="invoice" name="limit" required
+                            <input type="number" step="any" min="1" class="form-control" id="invoice" name="limit" required
                                 value="">
                         </div>
 

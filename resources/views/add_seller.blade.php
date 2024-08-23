@@ -76,7 +76,7 @@
             <div class="form-group">
             <label for="">Debit</label>
                 <div class="input-group">
-                    <input type="number" id="username2" name="debit" placeholder="debit" class="form-control" value="0.00">
+                    <input type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control" value="0.00">
                     <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>
@@ -86,7 +86,7 @@
             <div class="form-group">
             <label for="">Credit</label>
                 <div class="input-group">
-                    <input type="number" id="username2" name="credit" placeholder="Credit" class="form-control" value="0.00">
+                    <input type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control" value="0.00">
                     <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>

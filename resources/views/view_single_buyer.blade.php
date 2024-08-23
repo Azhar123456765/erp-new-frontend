@@ -88,7 +88,7 @@
             <div class="form-group">
                 <label for="">Debit</label>
                 <div class="input-group">
-                    <p type="number" id="username2" name="debit" placeholder="debit" class="form-control " value="{{$row->debit}}" value="0.00">
+                    <p type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control " value="{{$row->debit}}" value="0.00">
            {{$row->debit}}                  </p>                                        <div class="input-group-addon">
                         <i class="fa fa-building"></i>
                     </div>
@@ -104,7 +104,7 @@
             <div class="form-group">
                 <label for="">Credit</label>
                 <div class="input-group">
-                    <p type="number" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
+                    <p type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
            {{$row->credit}}                  </p>                                   
                 <div class="input-group-addon">
                         <i class="fa fa-building"></i>
