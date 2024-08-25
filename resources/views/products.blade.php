@@ -31,9 +31,6 @@
                         <th>product type</th>
                         <th>product category</th>
                         <th>purchase Price</th>
-                        <th>Qr Code</th>
-                        <th>Created At</th>
-                        <th>Updated At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -242,14 +239,6 @@
                 { data: 'type', name: 'type' },
                 { data: 'category_name', name: 'category_name' },
                 { data: 'purchase_price', name: 'purchase_price' },
-                {
-                    data: null,
-                    render: function (data, type, row) {
-                        return `undefined`;
-                    }
-                },
-                { data: 'created_at', name: 'created_at' },
-                { data: 'updated_at', name: 'updated_at' },
 
                 {
                     data: null,

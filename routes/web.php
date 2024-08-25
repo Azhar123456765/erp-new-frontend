@@ -186,9 +186,10 @@ Route::middleware('userAuth')->group(function () {
         Route::post('/add_product_type', [product::class, 'add_product_type']);
         Route::post('/edit_product_type{id}', [product::class, 'edit_product_type']);
         Route::get('/products', [product::class, 'view_product']);
-        Route::get('/tmp', [product::class, 'tmp']);
+        // Route::get('/tmp', [product::class, 'tmp']);
         Route::get('/data-product', [product::class, 'data_product']);
         Route::post('/add_product_form', [product::class, 'add_product']);
+        Route::get('/edit_product/{id?}', [product::class, 'edit'])->name('edit.product');
         Route::post('/edit_product{id}', [product::class, 'edit_product']);
     });
 

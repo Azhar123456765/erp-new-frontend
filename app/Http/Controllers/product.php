@@ -292,7 +292,7 @@ class product extends Controller
 
     function data_product()
     {
-        $product = products::orderByDesc('id');
+        $product = products::orderByDesc('product_id');
         return DataTables::of($product)->make(true);
     }
     function view_product(Request $request)
@@ -325,6 +325,38 @@ class product extends Controller
         //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
         // }
         return view('products', compact('products', 'category', 'company', 'type'));
+    }
+
+    function edit(Request $request)
+    {
+
+        $category = product_category::all();
+        // $sub_category = product_sub_category::all();
+        $company = product_company::all();
+        $type = product_type::all();
+        // $search = $request->input('search');
+
+        // $product_code = $request['code'] ?? null;
+
+
+        $products = products::orderByDesc('id');
+
+        // if ($search) {
+        //     $users = product_company::where('company_name', 'like', '%' . $search . '%')->get();
+        //     $data = compact('users');
+        //     $view = view('load.product.company', $data)->render();
+        //     return response()->json(['view' => $view]);
+        // } elseif ($request->ajax()) {
+        //     $view = view('load.product.company', $data)->render();
+        //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        // }
+
+
+        // if ($request->ajax()) {
+        //     $view = view('load.product.company', $data)->render();
+        //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
+        // }
+        return view('edit_product', compact('products', 'category', 'company', 'type'));
     }
 
     function add_product(Request $request)

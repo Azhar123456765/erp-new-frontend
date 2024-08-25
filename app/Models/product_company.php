@@ -11,9 +11,9 @@ class product_company extends Model
     protected $guarded = [];
 
     public $table = 'product_company';
-    public $id = 'id';
+    public $id = 'product_company_id';
     function product()
     {
-        return $this->hasOne(products::class, 'product_company', 'product_company_id');
+        return $this->hasOne(products::class, 'company', 'product_company_id');
     }
 }
