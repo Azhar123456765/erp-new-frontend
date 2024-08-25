@@ -539,7 +539,7 @@ right: 15%;
         id="edit">
         Edit
     </a>
-    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+    <a href="{{ Route('feed_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
         Add More
     </a>
 
@@ -998,6 +998,7 @@ right: 15%;
                     });
 
                     // Show or hide elements as needed
+                    $("#bt").addClass("disabled");
                     $(".edit").css("display", "block");
                     $("#btn").css("display", "none");
                     $("#edit").removeClass("disabled");

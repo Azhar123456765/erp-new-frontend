@@ -24,45 +24,45 @@ class CreateChickenInvoicesTable extends Migration
             $table->unsignedBigInteger('seller');
             $table->text('remark')->nullable();
 
-            $table->integer('rate_type')->nullable();
-            $table->integer('vehicle_no')->nullable();
-            $table->integer('crate_type')->nullable();
-            $table->integer('crate_qty')->nullable();
-            $table->integer('hen_qty');
-            $table->integer('gross_weight');
-            $table->integer('actual_rate');
+            $table->text('rate_type')->nullable();
+            $table->text('vehicle_no')->nullable();
+            $table->text('crate_type')->nullable();
+            $table->float('crate_qty')->nullable();
+            $table->float('hen_qty');
+            $table->float('gross_weight');
+            $table->float('actual_rate');
 
-            $table->integer('feed_cut');
-            $table->integer('more_cut');
-            $table->integer('crate_cut');
-            $table->integer('net_weight');
-            $table->integer('rate_diff');
-            $table->integer('rate');
-            $table->integer('amount');
+            $table->float('feed_cut');
+            $table->float('more_cut');
+            $table->float('crate_cut');
+            $table->float('net_weight');
+            $table->float('rate_diff');
+            $table->float('rate');
+            $table->float('amount');
 
-            $table->integer('sale_feed_cut');
-            $table->integer('sale_more_cut');
-            $table->integer('sale_crate_cut');
-            $table->integer('sale_net_weight');
-            $table->integer('sale_rate_diff');
-            $table->integer('sale_rate');
-            $table->integer('sale_amount');
+            $table->float('sale_feed_cut');
+            $table->float('sale_more_cut');
+            $table->float('sale_crate_cut');
+            $table->float('sale_net_weight');
+            $table->float('sale_rate_diff');
+            $table->float('sale_rate');
+            $table->float('sale_amount');
 
-            $table->integer('avg');
+            $table->float('avg');
 
-            $table->integer('crate_qty_total');
-            $table->integer('hen_qty_total');
-            $table->integer('gross_weight_total');
-            $table->integer('feed_cut_total');
-            $table->integer('mor_cut_total');
-            $table->integer('crate_cut_total');
-            $table->integer('n_weight_total');
-            $table->integer('amount_total');
-            $table->integer('sale_feed_cut_total');
-            $table->integer('sale_mor_cut_total');
-            $table->integer('sale_crate_cut_total');
-            $table->integer('sale_n_weight_total');
-            $table->integer('sale_amount_total');
+            $table->float('crate_qty_total');
+            $table->float('hen_qty_total');
+            $table->float('gross_weight_total');
+            $table->float('feed_cut_total');
+            $table->float('mor_cut_total');
+            $table->float('crate_cut_total');
+            $table->float('n_weight_total');
+            $table->float('amount_total');
+            $table->float('sale_feed_cut_total');
+            $table->float('sale_mor_cut_total');
+            $table->float('sale_crate_cut_total');
+            $table->float('sale_n_weight_total');
+            $table->float('sale_amount_total');
 
             $table->text('attachment')->nullable();
 

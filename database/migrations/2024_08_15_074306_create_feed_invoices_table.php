@@ -24,22 +24,22 @@ class CreateFeedInvoicesTable extends Migration
             $table->unsignedBigInteger('seller');
             $table->text('remark')->nullable();
 
-            $table->integer('rate');
-            $table->integer('qty');
-            $table->integer('discount');
-            $table->integer('bonus');
-            $table->integer('amount');
+            $table->float('rate');
+            $table->float('qty');
+            $table->float('discount');
+            $table->float('bonus');
+            $table->float('amount');
 
-            $table->integer('sale_rate');
-            $table->integer('sale_qty');
-            $table->integer('sale_discount');
-            $table->integer('sale_bonus');
-            $table->integer('sale_amount');
+            $table->float('sale_rate');
+            $table->float('sale_qty');
+            $table->float('sale_discount');
+            $table->float('sale_bonus');
+            $table->float('sale_amount');
 
-            $table->integer('qty_total');
-            $table->integer('amount_total');
-            $table->integer('sale_qty_total');
-            $table->integer('sale_amount_total');
+            $table->float('qty_total');
+            $table->float('amount_total');
+            $table->float('sale_qty_total');
+            $table->float('sale_amount_total');
 
 
             $table->text('attachment')->nullable();
