@@ -309,7 +309,7 @@
                                                 @foreach ($company as $companyRow)
                                                 <option value="{{ $companyRow->product_company_id}}" {{ (($companyRow->
                                                     product->
-                                                    product_company ?? null) == $companyRow->product_company_id) ? 'selected' :
+                                                    company ?? null) == $companyRow->product_company_id) ? 'selected' :
                                                     ''}}>{{ $companyRow->company_name}}</option>
                                                 @endforeach
                                             </select>
@@ -329,7 +329,7 @@
                                             <select name="category" id="category" class="form-control ">
                                                 @foreach ($category as $categoryRow)
                                                 <option value="{{ $categoryRow->product_category_id}}" {{ ($categoryRow->
-                                                    product_category_id == ($categoryRow->product->product_category ?? null)) ?
+                                                    product_category_id == ($categoryRow->product->category ?? null)) ?
                                                     'selected' : ''}}>{{ $categoryRow->category_name}}</option>
                                                 @endforeach
                                             </select>

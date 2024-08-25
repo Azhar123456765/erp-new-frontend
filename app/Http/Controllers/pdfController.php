@@ -161,7 +161,7 @@ class pdfController extends Controller
                                         'type' => $type
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         } elseif ($type == 2) {
                                 $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate]);
 
@@ -242,7 +242,7 @@ class pdfController extends Controller
                                         'ledgerDatapv' => $ledgerDatapv,
                                         'type' => $type
                                 ];
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         }
                 }
 
@@ -292,51 +292,83 @@ class pdfController extends Controller
 
 
 
-                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
-                                ->whereIn('sell_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('sell_invoice')
-                                                ->groupBy('unique_id');
-                                });
-
+                        $chickenInvoice = chickenInvoice::query();
                         if ($customer) {
-                                $query->where('company', $customer);
+                                $chickenInvoice->where('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
-                                $query->where('sales_officer', $salesOfficer);
+                                $chickenInvoice->where('sales_officer', $salesOfficer);
                         }
-
-                        if ($warehouse) {
-                                $query->where('warehouse', $warehouse);
-                        }
-
                         if ($product_category) {
                                 $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
+                                $chickenInvoice->whereIn('item', $productIds);
                         }
 
                         if ($product_company) {
                                 $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
+                                $chickenInvoice->whereIn('item', $productIds);
                         }
                         if ($product) {
-                                $query->where('item', $product);
+                                $chickenInvoice->where('item', $product);
                         }
 
-                        $ledgerDatasi = $query->get();
+                        $chickInvoice = ChickInvoice::query();
+                        if ($customer) {
+                                $chickInvoice->where('buyer', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickInvoice->where('item', $product);
+                        }
+
+                        $feedInvoice = feedInvoice::query();
+                        if ($customer) {
+                                $feedInvoice->where('buyer', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $feedInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $feedInvoice->where('item', $product);
+                        }
+
+                        $chickenData = $chickenInvoice->get();
+                        $chickData = $chickInvoice->get();
+                        $feedData = $feedInvoice->get();
 
                         $data = [
-                                'invoice' => $ledgerDatasi,
-                                'credit' => $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' => $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                'chickenData' => $chickenData,
+                                'chickData' => $chickData,
+                                'feedData' => $feedData,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
                                 'type' => $type,
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 } elseif ($type == 2) {
 
                         $startDate = $request->input('start_date');
@@ -400,7 +432,7 @@ class pdfController extends Controller
                                 'type' => $type,
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 } elseif ($type == 3) {
 
                         $startDate = $request->input('start_date');
@@ -461,7 +493,7 @@ class pdfController extends Controller
                                 'type' => $type,
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -554,7 +586,7 @@ class pdfController extends Controller
                                 'type' => $type,
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 } elseif ($type == 2) {
 
                         $startDate = $request->input('start_date');
@@ -614,7 +646,7 @@ class pdfController extends Controller
                                 'type' => $type,
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -666,52 +698,83 @@ class pdfController extends Controller
 
 
 
-                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate])
-                                        ->whereIn('purchase_invoice.id', function ($subQuery) {
-                                                $subQuery->select(DB::raw('MIN(id)'))
-                                                        ->from('purchase_invoice')
-                                                        ->groupBy('unique_id');
-                                        });
-
+                                $chickenInvoice = chickenInvoice::query();
                                 if ($supplier) {
-                                        $query->where('company', $supplier);
+                                        $chickenInvoice->where('supplier', $supplier);
                                 }
 
                                 if ($salesOfficer) {
-                                        $query->where('sales_officer', $salesOfficer);
+                                        $chickenInvoice->where('sales_officer', $salesOfficer);
                                 }
-
-                                if ($warehouse) {
-                                        $query->where('warehouse', $warehouse);
-                                }
-
                                 if ($product_category) {
-                                        //I want to get data where category
                                         $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                        $query->whereIn('item', $productIds);
+                                        $chickenInvoice->whereIn('item', $productIds);
                                 }
 
                                 if ($product_company) {
                                         $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                        $query->whereIn('item', $productIds);
+                                        $chickenInvoice->whereIn('item', $productIds);
                                 }
                                 if ($product) {
-                                        $query->where('item', $product);
+                                        $chickenInvoice->where('item', $product);
                                 }
 
-                                $ledgerDatasi = $query->get();
+                                $chickInvoice = ChickInvoice::query();
+                                if ($supplier) {
+                                        $chickInvoice->where('supplier', $supplier);
+                                }
+
+                                if ($salesOfficer) {
+                                        $chickInvoice->where('sales_officer', $salesOfficer);
+                                }
+                                if ($product_category) {
+                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                        $chickInvoice->whereIn('item', $productIds);
+                                }
+
+                                if ($product_company) {
+                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                        $chickInvoice->whereIn('item', $productIds);
+                                }
+                                if ($product) {
+                                        $chickInvoice->where('item', $product);
+                                }
+
+                                $feedInvoice = feedInvoice::query();
+                                if ($supplier) {
+                                        $feedInvoice->where('supplier', $supplier);
+                                }
+
+                                if ($salesOfficer) {
+                                        $feedInvoice->where('sales_officer', $salesOfficer);
+                                }
+                                if ($product_category) {
+                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                        $feedInvoice->whereIn('item', $productIds);
+                                }
+
+                                if ($product_company) {
+                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                        $feedInvoice->whereIn('item', $productIds);
+                                }
+                                if ($product) {
+                                        $feedInvoice->where('item', $product);
+                                }
+
+                                $chickenData = $chickenInvoice->get();
+                                $chickData = $chickInvoice->get();
+                                $feedData = $feedInvoice->get();
 
                                 $data = [
-                                        'invoice' => $ledgerDatasi,
-                                        'credit' => $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
-                                        'balance_amount' => $ledgerDatasi->sum('amount_total'),
+                                        'chickenData' => $chickenData,
+                                        'chickData' => $chickData,
+                                        'feedData' => $feedData,
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
                                         'type' => $type,
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         } elseif ($type == 2) {
                                 $startDate = $request->input('start_date');
                                 $endDate = $request->input('end_date');
@@ -768,7 +831,7 @@ class pdfController extends Controller
                                         'type' => $type,
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         }
                 }
 
@@ -868,7 +931,7 @@ class pdfController extends Controller
                                         'type' => $type,
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         } elseif ($type == 2) {
                                 $startDate = $request->input('start_date');
                                 $endDate = $request->input('end_date');
@@ -925,7 +988,7 @@ class pdfController extends Controller
                                         'type' => $type,
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         }
                 }
 
@@ -1068,7 +1131,7 @@ class pdfController extends Controller
 
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         }
 
                         if ($type == 2) {
@@ -1139,7 +1202,7 @@ class pdfController extends Controller
 
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         }
 
                         $type = $request->input('type');
@@ -1226,7 +1289,7 @@ class pdfController extends Controller
                                         'type' => $type,
                                 ];
 
-                                session()->put('Data', $data);
+                                session()->flash('Data', $data);
                         }
                 }
 
@@ -1322,7 +1385,7 @@ class pdfController extends Controller
 
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -1366,44 +1429,44 @@ class pdfController extends Controller
 
                                 $pdf = users::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Users");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Users");
                         } elseif ($view == 'supplier') {
 
                                 $pdf = seller::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Suppliers");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Suppliers");
                         } elseif ($view == 'buyer') {
 
                                 $pdf = buyer::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Buyers");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Buyers");
                         } elseif ($view == 'zone') {
 
                                 $pdf = zone::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "zones");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "zones");
                         } elseif ($view == 'warehouse') {
 
                                 $pdf = warehouse::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Warehouses");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Warehouses");
                         } elseif ($view == 'sales_officer') {
 
                                 $pdf = sales_officer::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "sales officers");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "sales officers");
                         } elseif ($view == 'account') {
 
                                 $pdf = accounts::limit($limit)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Accounts");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Accounts");
                         }
                 }
 
@@ -1444,44 +1507,44 @@ class pdfController extends Controller
 
                                 $pdf = users::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Users");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Users");
                         } elseif ($view == 'supplier') {
 
                                 $pdf = seller::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Suppliers");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Suppliers");
                         } elseif ($view == 'buyer') {
 
                                 $pdf = buyer::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Buyers");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Buyers");
                         } elseif ($view == 'zone') {
 
                                 $pdf = zone::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "zones");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "zones");
                         } elseif ($view == 'warehouse') {
 
                                 $pdf = warehouse::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Warehouses");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Warehouses");
                         } elseif ($view == 'sales_officer') {
 
                                 $pdf = sales_officer::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "sales officers");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "sales officers");
                         } elseif ($view == 'account') {
 
                                 $pdf = accounts::limit(500)->get();
 
-                                session()->put("pdf_data", $pdf);
-                                session()->put("pdf_title", "Accounts");
+                                session()->flash("pdf_data", $pdf);
+                                session()->flash("pdf_title", "Accounts");
                         }
                 }
 
@@ -1563,7 +1626,7 @@ class pdfController extends Controller
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
                         ];
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -1665,7 +1728,7 @@ class pdfController extends Controller
                                 'type' => 1,
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -1721,7 +1784,7 @@ class pdfController extends Controller
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
                         ];
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -1797,8 +1860,8 @@ class pdfController extends Controller
                         ->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id')
                         ->limit(1)->get();
 
-                session()->put("sale_invoice_pdf_data", $sell_invoice);
-                session()->put("s_sale_invoice_pdf_data", $s_sell_invoice);
+                session()->flash("sale_invoice_pdf_data", $sell_invoice);
+                session()->flash("s_sale_invoice_pdf_data", $s_sell_invoice);
 
 
 
@@ -1840,8 +1903,8 @@ class pdfController extends Controller
                         ->leftJoin('products', 'purchase_invoice.item', '=', 'products.product_id')
                         ->limit(1)->get();
 
-                session()->put("purchase_invoice_pdf_data", $purchase_invoice);
-                session()->put("s_purchase_invoice_pdf_data", $s_purchase_invoice);
+                session()->flash("purchase_invoice_pdf_data", $purchase_invoice);
+                session()->flash("s_purchase_invoice_pdf_data", $s_purchase_invoice);
 
 
 
@@ -1889,8 +1952,8 @@ class pdfController extends Controller
                         ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
                         ->limit(1)->get();
 
-                session()->put("p_voucher_pdf_data", $p_voucher);
-                session()->put("s_p_voucher_pdf_data", $s_p_voucher);
+                session()->flash("p_voucher_pdf_data", $p_voucher);
+                session()->flash("s_p_voucher_pdf_data", $s_p_voucher);
 
 
 
@@ -1931,8 +1994,8 @@ class pdfController extends Controller
                         ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
-                session()->put("receipt_vouchers_pdf_data", $receipt_vouchers);
-                session()->put("s_receipt_vouchers_pdf_data", $s_receipt_vouchers);
+                session()->flash("receipt_vouchers_pdf_data", $receipt_vouchers);
+                session()->flash("s_receipt_vouchers_pdf_data", $s_receipt_vouchers);
 
 
 
@@ -1962,7 +2025,7 @@ class pdfController extends Controller
         {
                 $product = products::where("product_id", $id)->get();
 
-                session()->put("product", $product);
+                session()->flash("product", $product);
 
                 $views = $id;
 
@@ -2027,7 +2090,7 @@ class pdfController extends Controller
                                 'type' => $type ?? null
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
@@ -2100,7 +2163,7 @@ class pdfController extends Controller
                                 'type' => $type ?? null
                         ];
 
-                        session()->put('Data', $data);
+                        session()->flash('Data', $data);
                 }
 
 
