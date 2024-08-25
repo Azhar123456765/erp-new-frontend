@@ -44,7 +44,7 @@ class FeedInvoiceController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $user_id = session()->get('user_id')['user_id'];
         users::where("user_id", $user_id)->update([
             'no_records' => DB::raw("no_records + " . 1)
