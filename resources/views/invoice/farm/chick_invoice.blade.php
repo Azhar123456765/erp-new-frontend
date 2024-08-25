@@ -498,6 +498,7 @@ right: 15%;
                             </div>
                             <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
                                 onclick="document.getElementById('attachment').value = ''; 
+                  document.getElementById('attachment').value = 'none';
                  document.getElementById('imagePreview').style.display = 'none';
                  document.getElementById('imagePreview').src = '';
                  document.getElementById('imageAnchor').href = '';">
@@ -941,9 +942,6 @@ right: 15%;
                 $('#sale_qty' + i).val(sale_bonusQty);
                 $('#amount' + i).val(amount);
                 $('#sale_amount' + i).val(sale_amount);
-                console.log(qty);
-                console.log(amount);
-
             }
 
             // TOTAL

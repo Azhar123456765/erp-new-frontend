@@ -305,7 +305,8 @@ right: 15%;
 
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" type="text" id="remark" name="remark" />
+                    <input style="width: 219px !important;" type="text" id="remark" name="remark"
+                        value="{{ $single_invoice->remark }}" />
                 </div>
                 <div class="one  remark">
                     <label for="seller">Customer</label>
@@ -328,8 +329,8 @@ right: 15%;
                 <div class="dup_invoice" onchange="addInvoice2()">
                     <div class="div   items">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="item">Item</label>
-                        <select name="item[]" id="item{{ $counter }}" style="height: 28px" onchange="addInvoice()" required
-                             class="item0 select-products">
+                        <select name="item[]" id="item{{ $counter }}" style="height: 28px"
+                            onchange="addInvoice2()" required class="item0 select-products">
                             <option value="{{ $row->product->product_id }}" selected>
                                 {{ $row->product->product_name }}</option>
                         </select>
@@ -337,25 +338,27 @@ right: 15%;
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="actual_qty">Actual Quantity</label>
                         <input type="number" step="any" id="actual_qty{{ $counter }}" name="actual_qty[]"
-                            value="{{ $row->qty - $row->bonus }}" />
+                            value="{{ $row->qty / (1 + $row->bonus / 100) }}" />
                     </div>
 
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="rate">Rate</label>
-                        <input type="number" step="any" oninput="$('#sale_rate').val(this.value)" id="rate{{ $counter }}"
+                        <input type="number" step="any"
+                            oninput="$('#sale_rate{{ $counter }}').val(this.value)" id="rate{{ $counter }}"
                             name="rate[]" value="{{ $row->rate }}" />
                     </div>
 
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="crate_type">Discount</label>
-                        <input type="number" step="any" oninput="$('#sale_discount').val(this.value)"
+                        <input type="number" step="any"
+                            oninput="$('#sale_discount{{ $counter }}').val(this.value)"
                             id="discount{{ $counter }}" name="discount[]" value="{{ $row->discount }}" />
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="bonus">Bonus</label>
                         <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                            oninput="$('#sale_bonus').val(this.value)" id="bonus{{ $counter }}" name="bonus[]"
-                             value="{{ $row->bonus }}" />
+                            oninput="$('#sale_bonus{{ $counter }}').val(this.value)"
+                            id="bonus{{ $counter }}" name="bonus[]" value="{{ $row->bonus }}" />
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="qty">Quantity</label>
@@ -364,9 +367,10 @@ right: 15%;
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="amount">Amount</label>
-                        <input type="number" step="any" min="0.00" style="text-align: right;width: 190px !important;"
-                            step="any" onchange='count()' id="amount{{ $counter }}" name="amount[]"
-                            class="xl-width-inp" value="{{ $row->amount }}" />
+                        <input type="number" step="any" min="0.00"
+                            style="text-align: right;width: 190px !important;" step="any" onchange='count()'
+                            id="amount{{ $counter }}" name="amount[]" class="xl-width-inp"
+                            value="{{ $row->amount }}" />
                     </div>
 
                     {{-- PURCHASE --}}
@@ -377,13 +381,13 @@ right: 15%;
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_crate_type">Discount</label>
-                        <input type="number" step="any" id="sale_discount{{ $counter }}" name="sale_discount[]"
-                            value="{{ $row->sale_discount }}" />
+                        <input type="number" step="any" id="sale_discount{{ $counter }}"
+                            name="sale_discount[]" value="{{ $row->sale_discount }}" />
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_bonus">Bonus</label>
                         <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                            id="sale_bonus{{ $counter }}" name="sale_bonus[]" 
+                            id="sale_bonus{{ $counter }}" name="sale_bonus[]"
                             value="{{ $row->sale_bonus }}" />
                     </div>
                     <div class="div">
@@ -393,9 +397,10 @@ right: 15%;
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_amount">Amount</label>
-                        <input type="number" step="any" min="0.00" style="text-align: right;width: 190px !important;"
-                            step="any" onchange='count()' id="sale_amount{{ $counter }}"
-                            name="sale_amount[]" class="xl-width-inp" value="{{ $row->sale_amount }}" />
+                        <input type="number" step="any" min="0.00"
+                            style="text-align: right;width: 190px !important;" step="any" onchange='count()'
+                            id="sale_amount{{ $counter }}" name="sale_amount[]" class="xl-width-inp"
+                            value="{{ $row->sale_amount }}" />
                     </div>
                 </div>
                 @php
@@ -404,8 +409,8 @@ right: 15%;
             @endforeach
             <div class="dup_invoice" onchange="addInvoice2()">
                 <div class="div   items">
-                    <select name="item[]" id="item{{ $counter }}" style="height: 28px"
-                        onchange="addInvoice()"  class="item0 select-products">
+                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2()"
+                        class="item0 select-products">
                     </select>
                 </div>
                 <div class="div">
@@ -414,26 +419,28 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <input type="number" step="any" oninput="$('#sale_rate').val(this.value)" id="rate{{ $counter }}"
+                    <input type="number" step="any"
+                        oninput="$('#sale_rate{{ $counter }}').val(this.value)" id="rate{{ $counter }}"
                         name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input type="number" step="any" oninput="$('#sale_discount').val(this.value)"
+                    <input type="number" step="any"
+                        oninput="$('#sale_discount{{ $counter }}').val(this.value)"
                         id="discount{{ $counter }}" name="discount[]" />
                 </div>
                 <div class="div">
                     <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                        oninput="$('#sale_bonus').val(this.value)" id="bonus{{ $counter }}" name="bonus[]"
-                         />
+                        oninput="$('#sale_bonus{{ $counter }}').val(this.value)" id="bonus{{ $counter }}"
+                        name="bonus[]" />
                 </div>
                 <div class="div">
                     <input type="number" step="any" id="qty{{ $counter }}" name="qty[]" />
                 </div>
                 <div class="div">
-                    <input type="number" step="any" min="0.00" style="text-align: right;width: 190px !important;"
-                        step="any" value="0.00" onchange='count()' id="amount{{ $counter }}"
-                        name="amount[]" class="xl-width-inp" />
+                    <input type="number" step="any" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                        onchange='count()' id="amount{{ $counter }}" name="amount[]" class="xl-width-inp" />
                 </div>
 
                 {{-- PURCHASE --}}
@@ -441,19 +448,21 @@ right: 15%;
                     <input type="number" step="any" id="sale_rate{{ $counter }}" name="sale_rate[]" />
                 </div>
                 <div class="div">
-                    <input type="number" step="any" id="sale_discount{{ $counter }}" name="sale_discount[]" />
+                    <input type="number" step="any" id="sale_discount{{ $counter }}"
+                        name="sale_discount[]" />
                 </div>
                 <div class="div">
                     <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                        id="sale_bonus{{ $counter }}" name="sale_bonus[]"  />
+                        id="sale_bonus{{ $counter }}" name="sale_bonus[]" />
                 </div>
                 <div class="div">
                     <input type="number" step="any" id="sale_qty{{ $counter }}" name="sale_qty[]" />
                 </div>
                 <div class="div">
-                    <input type="number" step="any" min="0.00" style="text-align: right;width: 190px !important;"
-                        step="any" value="0.00" onchange='count()' id="sale_amount{{ $counter }}"
-                        name="sale_amount[]" class="xl-width-inp" />
+                    <input type="number" step="any" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                        onchange='count()' id="sale_amount{{ $counter }}" name="sale_amount[]"
+                        class="xl-width-inp" />
                 </div>
             </div>
         </div>
@@ -510,6 +519,7 @@ right: 15%;
 
 
                     <input type="number" step="any" step="any" name="qty_total" id="qty_total"
+                        value="{{ $single_invoice->qty_total }}"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
@@ -517,6 +527,7 @@ right: 15%;
                 left: 26%;
             "=""="">
                     <input type="number" step="any" step="any" name="amount_total" id="amount_total"
+                        value="{{ $single_invoice->amount_total }}"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
@@ -526,9 +537,12 @@ right: 15%;
             "=""="">
 
                     <input type="number" step="any" step="any" name="sale_qty_total" id="sale_qty_total"
-                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;"=""="">
-                    <input type="number" step="any" step="any" name="sale_amount_total" id="sale_amount_total"
-                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;"=""="">
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;"=""=""
+                        value="{{ $single_invoice->sale_qty_total }}">
+                    <input type="number" step="any" step="any" name="sale_amount_total"
+                        id="sale_amount_total"
+                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;"=""=""
+                        value="{{ $single_invoice->sale_amount_total }}">
 
                 </div>
 
@@ -553,20 +567,26 @@ right: 15%;
             <div class="modal-body">
                 <div class="row p-2">
                     <div class="col-lg-9 col-md-12 p-2">
-                        <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
-                                class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
+                        <a href="#" id="imageAnchor" target="_blank"><img
+                                src="{{ asset($single_invoice->attachment) }}" alt="img" class="img-fluid"
+                                id="imagePreview" style="object-fit: fill;">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-12">
                         <div class="row justify-content-start">
                             <div class="mb-3">
                                 <input type="file" class="form-control" name="attachment" id="attachment"
+                                    value="{{ $single_invoice->attachment }}"
                                     style="
     height: max-content !important;
 " />
+                                <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
+                                    value="{{ $single_invoice->attachment }}"
+                                    />
                             </div>
                             <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
-                                onclick="document.getElementById('attachment').value = ''; 
+                                onclick=" 
+                  document.getElementById('attachment').value = '';
                  document.getElementById('imagePreview').style.display = 'none';
                  document.getElementById('imagePreview').src = '';
                  document.getElementById('imageAnchor').href = '';">
@@ -583,7 +603,7 @@ right: 15%;
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
-        submit
+        Update
     </button>
     <br>
 
@@ -612,23 +632,17 @@ right: 15%;
         Next
     </button>
 
-    <a href="/es_med_invoice_id={{ $rand }}"
-        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
-        Edit
-    </a>
-    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
         Add More
     </a>
 
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="sale_pdf">
         SALE PDF
     </button>
 
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="purchase_pdf">
         PURCHASE PDF
     </button>
-
-
 
     <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
         onclick="
@@ -690,12 +704,14 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_rate` + counter + `').val(this.value)" id="rate` +
+                    <input  type="number" step="any" oninput="$('#sale_rate` + counter +
+                    `').val(this.value)" id="rate` +
                     counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_discount` + counter + `').val(this.value)" id="discount` +
+                    <input  type="number" step="any" oninput="$('#sale_discount` + counter +
+                    `').val(this.value)" id="discount` +
                     counter + `" name="discount[]" />
                 </div>
                 <div class="div">
@@ -874,12 +890,14 @@ right: 15%;
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_rate` + counter + `').val(this.value)" id="rate` +
+                    <input  type="number" step="any" oninput="$('#sale_rate` + counter +
+                    `').val(this.value)" id="rate` +
                     counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_discount` + counter + `').val(this.value)" id="discount` +
+                    <input  type="number" step="any" oninput="$('#sale_discount` + counter +
+                    `').val(this.value)" id="discount` +
                     counter + `" name="discount[]" />
                 </div>
                 <div class="div">
@@ -930,33 +948,6 @@ right: 15%;
                     counter++
                     countera++
                     $(".invoice").append(clonedFields);
-
-                    $('.select-products').select2({
-                ajax: {
-                    url: '{{ route('select2.products') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.product_name,
-                                    id: item.product_id,
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                },
-                minimumInputLength: 2,
-                theme: 'classic',
-                width: '100%'
-            }); 
                 }
             }
             var one = one
@@ -1033,38 +1024,38 @@ right: 15%;
                 let rate = +$('#rate' + i).val();
                 let discount = +$('#discount' + i).val();
                 let bonus = +$('#bonus' + i).val();
-                let bonusQty = qty + bonus;
+                let bonusQty = qty + (qty * bonus / 100);
                 // qty += bonusQty;
+                rate -= discount;
+
                 let amount = qty * rate;
                 // let discountAmount = (qty * rate) * (discount / 100);
                 // amount -= discountAmount;
-                amount -= discount;
+                // amount -= discount;
 
                 let sale_qty = +$('#actual_qty' + i).val();
                 let sale_rate = +$('#sale_rate' + i).val();
                 let sale_discount = +$('#sale_discount' + i).val();
                 let sale_bonus = +$('#sale_bonus' + i).val();
-                let sale_bonusQty = sale_qty + sale_bonus;
+                let sale_bonusQty = sale_qty + (sale_qty * sale_bonus / 100);
+                sale_rate -= sale_discount;
                 // sale_qty += sale_bonusQty;
                 let sale_amount = sale_qty * sale_rate;
                 // let sale_discountAmount = (sale_qty * sale_rate) * (sale_discount / 100);
                 // sale_amount -= sale_discountAmount;
-                sale_amount -= sale_discount;
+                // sale_amount -= sale_discount;
 
                 $('#qty' + i).val(bonusQty);
                 $('#sale_qty' + i).val(sale_bonusQty);
                 $('#amount' + i).val(amount);
                 $('#sale_amount' + i).val(sale_amount);
-                console.log(qty);
-                console.log(amount);
-
             }
 
             // TOTAL
-            // let qty_total = +$('#qty').val();
-            // let amount_total = +$('#amount').val();
-            // let sale_qty_total = +$('#sale_qty').val();
-            // let sale_amount_total = +$('#sale_amount').val();
+            let qty_total = 0;
+            let amount_total = 0;
+            let sale_qty_total = 0;
+            let sale_amount_total = 0;
             for (let i = 1; i <= countera; i++) {
                 qty_total += +$('#qty' + i).val();
                 amount_total += +$('#amount' + i).val();
@@ -1092,9 +1083,10 @@ right: 15%;
             // Create a FormData object
             var formData = new FormData(this);
 
-            // Send an AJAX request
+            var unique_id = $("#unique_id").val();
             $.ajax({
-                url: '{{ Route('store_invoice_chick') }}',
+                url: '{{ Route('update_invoice_chick', [':unique_id']) }}'.replace(':unique_id',
+                    unique_id),
                 method: 'POST',
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
@@ -1129,13 +1121,7 @@ right: 15%;
                         }
                     });
 
-                    // Show or hide elements as needed
-                    $(".edit").css("display", "block");
-                    $("#btn").css("display", "none");
-                    $("#edit").removeClass("disabled");
-                    $("#add_more").removeClass("disabled");
-                    $("#sale_pdf").removeClass("disabled");
-                    $("#purchase_pdf").removeClass("disabled");
+                    $("#submit").css("display", "none");
                 },
                 error: function(error) {
                     // Handle the error

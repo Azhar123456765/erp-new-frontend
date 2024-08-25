@@ -247,6 +247,7 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/add-invoice-chick', [ChickInvoiceController::class, 'create'])->name("invoice_chick");
         Route::post('/add-invoice-chick', [ChickInvoiceController::class, 'store'])->name("store_invoice_chick");
         Route::get('/edit-invoice-chick/{id?}', [ChickInvoiceController::class, 'edit'])->name("edit_invoice_chick");
+        Route::post('/update-invoice-chick/{id?}', [ChickInvoiceController::class, 'update'])->name("update_invoice_chick");
 
         Route::get('/add-invoice-feed', [FeedInvoiceController::class, 'create'])->name("invoice_feed");
         Route::post('/add-invoice-feed', [FeedInvoiceController::class, 'store'])->name("store_invoice_feed");

@@ -619,6 +619,7 @@ right: 15%;
                             </div>
                             <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
                                 onclick="document.getElementById('attachment').value = ''; 
+                  document.getElementById('attachment').value = 'none';
                  document.getElementById('imagePreview').style.display = 'none';
                  document.getElementById('imagePreview').src = '';
                  document.getElementById('imageAnchor').href = '';">
