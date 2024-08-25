@@ -39,13 +39,13 @@ class PaymentVoucherController extends Controller
      */
     public function create()
     {
-       
+
         $seller = seller::all();
         $buyer = buyer::all();
 
         $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::all();
+        $sales_officer = sales_officer::all();
 
         $account = accounts::all();
         $count = p_voucher::whereIn('payment_voucher.id', function ($query2) {
@@ -66,10 +66,11 @@ class PaymentVoucherController extends Controller
      */
     public function store(Request $request)
     {
+        // dd($request);
         $invoiceData = $request->all();
         $lastChar = substr($request['company'], -1);
 
-        $expense =  new Expense;
+        $expense = new Expense;
         $expense->category_id = $invoiceData['unique_id'];
         $expense->category = 'Payment Voucher';
         $expense->company_id = $invoiceData['company'];
@@ -82,7 +83,7 @@ class PaymentVoucherController extends Controller
 
         $amount = $request['amount_total'];
 
-    
+
         $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -112,15 +113,7 @@ class PaymentVoucherController extends Controller
             $invoice->qty_total = $invoiceData['qty_total'] ?? null;
             $invoice->dis_total = $invoiceData['dis_total'] ?? null;
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
-            
-            
-            $lastChar = substr($request['company'], -1);
-            if ($lastChar === 'S') {
-                $invoice->company_ref = "S";
-            } elseif ($lastChar === 'B') {
-                $invoice->company_ref = "B";
-            }
-
+            $invoice->company_ref = "B";
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
@@ -161,7 +154,7 @@ class PaymentVoucherController extends Controller
 
         $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::all();
+        $sales_officer = sales_officer::all();
 
         $p_voucher = p_voucher::where("unique_id", $id)
             ->get();
@@ -195,7 +188,7 @@ class PaymentVoucherController extends Controller
             'amount' => $request['amount_total'],
             'company_id' => $request['company']
         ]);
-      
+
         $invoiceData = $request->all();
         $company = substr($invoiceData['company'], 0, -1);
         $arrayLength = count(array_filter($invoiceData['narration']));

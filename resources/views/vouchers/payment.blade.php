@@ -1,19 +1,4 @@
 @extends('master') @section('title','Payment Voucher') @section('content')
-
-<head>
-
-    <head>
-        <!-- Include other necessary scripts and stylesheets -->
-        <!-- Include Select2 CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
-        <!-- Include jQuery library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        <!-- Include Select2 JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    </head>
-</head>
 <style>
     @media (max-width: 755px) {
         body {
@@ -293,30 +278,14 @@ text-align:right !important;
 
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company" required>
-                        <option></option>
-                        @foreach ($seller as $row)
-                        <option value="{{ $row->seller_id }}S" data-debit="{{ $row->debit }}">
-                            {{ $row->company_name }} (Supplier)
-                        </option>
-                        @endforeach
-                        @foreach ($buyer as $row)
-                        <option value="{{ $row->buyer_id }}B" data-debit="{{ $row->debit }}">
-                            {{ $row->company_name }} (Customer)
-                        </option>
-                        @endforeach
+                    <select name="company" id="seller" class="company select-buyer" required>
                     </select>
                 </div>
 
                 <div class="one  remark">
                     <label for="seller">Sales Ofiicer</label>
-                    <select name="sales_officer" id="sales_officer" class="sales_officer" required>
-                        <option></option>
-                        @foreach ($sales_officer as $row)
-                        <option value="{{ $row->sales_officer_id }}" {{$row->sales_officer_id == 1 ? 'selected' : ''}}>
-                            {{ $row->sales_officer_name }}
-                        </option>
-                        @endforeach
+                    <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer">
+                       
                     </select>
                 </div>
             </div>
@@ -434,61 +403,64 @@ text-align:right !important;
 </div>
 
 </div>
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: -110px !important;">
 
-<div class="options" style="
-display: flex;
-    flex-direction: column;
-    position:absolute;
-    width: 8%;
-    margin-right: 85%;
-    ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
         submit
     </button>
     <br>
-    
-<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
-        var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-window.location.href = newUrl">
-    Previous
-</button>
 
-<button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
-  var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-window.location.href = newUrl
-">
-    Next
-</button>
 
-    <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
+        Previous
+    </button>
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
+        Next
+    </button>
+
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="edit">
         Edit
     </a>
-
-
-    <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="add_more">
         Add More
     </a>
 
-    <a href="/pv_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
-        PDF
-    </a>
-
-
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="" onclick="
-    
-    window.location.reload()
-    ">
-        Revert
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
+        SALE PDF
     </button>
 
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
 </div>
 
 
@@ -513,16 +485,17 @@ window.location.href = newUrl
         </button>
     </div>
 </div>
+@push('s_script')
 
 <script>
-    $(document).change(function() {
-        total_amount();
-        $('.select2').select2({
-            theme: 'classic',
-            width: 'resolve',
-        });
-        5
-    })
+    // $(document).change(function() {
+    //     total_amount();
+    //     $('.select2').select2({
+    //         theme: 'classic',
+    //         width: 'resolve',
+    //     });
+    //     5
+    // })
 
 
 
@@ -777,16 +750,16 @@ window.location.href = newUrl
 <script>
     $(".cash_bank option").click(function() {
         // Initialize Select2 for the desired select elements
-        $("select").select2();
+        // $("select").select2();
 
         // Initialize other select elements if necessary
     });
 
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
-        $("select").select2({
-            maximumSelectionLength: 100,
-        });
+        // $("select").select2({
+        //     maximumSelectionLength: 100,
+        // });
 
 
         // Initialize other select elements if necessary
@@ -869,5 +842,5 @@ window.location.href = newUrl
     });
 
 </script>
-
+@endpush
 @endsection

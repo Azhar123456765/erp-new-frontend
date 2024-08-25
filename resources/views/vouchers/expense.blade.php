@@ -25,9 +25,9 @@
         transform: scale(0.75);
     }
 
-input[type="number" step="any"]{
-text-align:right !important;
-}
+    input[type="number" step="any"] {
+        text-align: right !important;
+    }
 
     * input {
         border: 1px solid gray !important;
@@ -126,7 +126,7 @@ text-align:right !important;
         margin-left: -22%;
     }
 
-   .select2-container--classic {
+    .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -233,8 +233,8 @@ text-align:right !important;
             <div class="fields">
 
                 <div class="one  remark">
-                    <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company select-seller-buyer" required>
+                    <label for="seller">Party</label>
+                    <select name="company" id="seller" class="company select-buyer" required>
                         {{-- <option></option>
                         @foreach ($seller as $row)
                             <option value="{{ $row->seller_id }}S">
@@ -251,7 +251,7 @@ text-align:right !important;
 
                 <div class="one  remark">
                     <label for="seller">Sales Ofiicer</label>
-                    <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer" required>
+                    <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer">
                         <option></option>
                         @foreach ($sales_officer as $row)
                             <option value="{{ $row->sales_officer_id }}"
@@ -322,8 +322,9 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;"
-                        step="any" value="0.00" onchange='total_amount()' id="amount" name="amount[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" onchange='total_amount()'
+                        id="amount" name="amount[]" />
                 </div>
             </div>
         </div>
@@ -372,12 +373,12 @@ text-align:right !important;
             margin-left: 0%;
         ">
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any" name="amount_total"
-                        id="amount_total" style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any"
+                        name="amount_total" id="amount_total"
+                        style="
             margin-left: 183%;
             text-align:end;
-        "
-                        readonly>
+        " readonly>
 
                 </div>
 
@@ -389,72 +390,65 @@ text-align:right !important;
 </div>
 
 </div>
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: -110px !important;">
 
-<div class="options"
-    style="
-display: flex;
-    flex-direction: column;
-    position:absolute;
-    width: 8%;
-    margin-right: 85%;
-    ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
         submit
     </button>
     <br>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
-        style=""
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
         onclick="
-        var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-window.location.href = newUrl">
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
         Previous
     </button>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
-        style=""
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
         onclick="
-  var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-window.location.href = newUrl
-">
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
         Next
     </button>
 
-    <a href="/ep_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
+    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="edit">
         Edit
     </a>
-
-
-    <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="add_more">
         Add More
     </a>
 
-    <a href="/pv_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
-        PDF
-    </a>
-
-
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style=""
-        onclick="
-    
-    window.location.reload()
-    ">
-        Revert
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
+        SALE PDF
     </button>
 
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
 </div>
-
-
 </form>
 </div>
 

@@ -109,11 +109,7 @@ class ReceiptVoucherController extends Controller
             $amount = $request['amount']["$i"];
             $amount_total = $request['amount_total'];
             $lastChar = substr($request['company'], -1);
-            if ($lastChar === 'S') {
-                $invoice->company_ref = "S";
-            } elseif ($lastChar === 'B') {
                 $invoice->company_ref = "B";
-            }
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;

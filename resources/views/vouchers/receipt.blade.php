@@ -1,19 +1,5 @@
-@extends('master') @section('title','Reciept Voucher') @section('content')
+@extends('master') @section('title', 'Reciept Voucher') @section('content')
 
-<head>
-
-    <head>
-        <!-- Include other necessary scripts and stylesheets -->
-        <!-- Include Select2 CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
-        <!-- Include jQuery library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        <!-- Include Select2 JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    </head>
-</head> 
 <style>
     @media (max-width: 755px) {
         body {
@@ -89,9 +75,9 @@
         transform: scale(0.75);
     }
 
-input[type="number" step="any"]{
-text-align:right !important;
-}
+    input[type="number" step="any"] {
+        text-align: right !important;
+    }
 
     * input {
         border: 1px solid gray !important;
@@ -190,7 +176,7 @@ text-align:right !important;
         margin-left: -22%;
     }
 
-   .select2-container--classic {
+    .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -265,23 +251,26 @@ text-align:right !important;
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <input  style="border: none !important;" style="border: none !important;" readonly type="date" id="date" name="date" value="<?php
-                                                                                                                                                                                    $currentDate = date('Y-m-d');
-                                                                                                                                                                                    echo $currentDate;
-                                                                                                                                                                                    ?>" />
+                    <input style="border: none !important;" style="border: none !important;" readonly type="date"
+                        id="date" name="date" value="<?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                        ?>" />
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input  style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
-                                                                                                                                                            $lastTwoWords = substr($year, -2);
-                                                                                                                                                            echo $rand = 'RV' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly
+                        value="<?php $year = date('Y');
+                        $lastTwoWords = substr($year, -2);
+                        echo $rand = 'RV' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
-                    <input  style="width: 219px !important; border: none !important;" type="date" id="date" name="date" value="<?php
-                                                                                                                                                                $currentDate = date('Y-m-d');
-                                                                                                                                                                echo $currentDate;
-                                                                                                                                                                ?>" />
+                    <input style="width: 219px !important; border: none !important;" type="date" id="date"
+                        name="date" value="<?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                        ?>" />
                 </div>
 
 
@@ -292,29 +281,12 @@ text-align:right !important;
 
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="company" class="company" required onchange="companyInvoice()">
-                        <option></option>
-                        @foreach ($seller as $row)
-                        <option value="{{ $row->seller_id }}S">
-                            {{ $row->company_name }} ( Supplier )
-                        </option>
-                        @endforeach
-                        @foreach ($buyer as $row)
-                        <option value="{{ $row->buyer_id }}B" data-debit="{{ $row->debit }}" data-id="{{ $row->buyer_id }}">
-                            {{ $row->company_name }} ( Customer )
-                        </option>
-                        @endforeach
+                    <select name="company" id="company" class="company select-buyer" required onchange="companyInvoice()">
                     </select>
                 </div>
                 <div class="one  remark">
                     <label for="">Sales Officer</label>
-                    <select name="sales_officer" id="sales_officer" class="sales_officer" required>
-                        <option></option>
-                        @foreach ($sales_officer as $row)
-                        <option value="{{ $row->sales_officer_id }}">
-                            {{ $row->sales_officer_name }}
-                        </option>
-                        @endforeach
+                    <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer" >
                     </select>
                 </div>
 
@@ -324,12 +296,12 @@ text-align:right !important;
 
                 <div class="one">
                     <label for="Invoice">Ref No</label>
-                    <input style="width: 219px !important;"  type="text" id="ref_no" name="ref_no" />
+                    <input style="width: 219px !important;" type="text" id="ref_no" name="ref_no" />
                 </div>
 
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;"  type="text" id="remark" name="remark" />
+                    <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
             </div>
         </div>
@@ -343,7 +315,7 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 289px !important;"  type="text" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;" type="text" id="narration" name="narration[]" />
                 </div>
 
                 <div class="div">
@@ -355,11 +327,12 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="dis">Cheque No (s)</label>
-                    <input  type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
+                    <input type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
                 </div>
                 <div class="div">
                     <label for="dis">Cheque Date</label>
-                    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
+                    <input type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00"
+                        id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
                     <label>Cash/Bank Account</label>
@@ -367,7 +340,7 @@ text-align:right !important;
                         <option></option>
 
                         @foreach ($account as $row)
-                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                            <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
                         @endforeach
 
                     </select>
@@ -375,7 +348,8 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount" name="amount[]" />
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any"
+                        value="0.00" onchange='total_amount()' id="amount" name="amount[]" />
                 </div>
             </div>
         </div>
@@ -424,7 +398,8 @@ text-align:right !important;
             margin-left: 0%;
         ">
 
-                    <input  type="number" step="any" step="any" name="amount_total" id="amount_total" style="
+                    <input type="number" step="any" step="any" name="amount_total" id="amount_total"
+                        style="
             margin-left: 183%;
             text-align:end;
         " readonly>
@@ -450,61 +425,66 @@ text-align:right !important;
 </div>
 
 </div>
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: -110px !important;">
 
-<div class="options" style="
-display: flex;
-    flex-direction: column;
-    position:absolute;
-    width: 8%;
-    margin-right: 85%;
-    ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
         submit
     </button>
     <br>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
-        var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-window.location.href = newUrl">
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
         Previous
     </button>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
-  var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/er_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-window.location.href = newUrl
-">
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
         Next
     </button>
-    <a href="/er_voucher_id={{ $rand }}" class="edit  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
+
+    <a href="/es_med_invoice_id={{ $rand }}"
+        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
     </a>
-
-
-    <a href="/r_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px;">
+    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="add_more">
         Add More
     </a>
 
-    <a href="/rv_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
-        PDF
-    </a>
-
-
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="" onclick="
-    
-    window.location.reload()
-    ">
-        Revert
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
+        SALE PDF
     </button>
 
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
+        PURCHASE PDF
+    </button>
+
+
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
+        
+        window.location.reload()
+        ">
+        Revert
+    </button>
 </div>
+
 
 
 </form>
@@ -514,7 +494,8 @@ window.location.href = newUrl
 
 
 <div class="flex justify-center items-center" style="display: none">
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert" style="
+    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert"
+        style="
             position: fixed;
             top: 79%;
             left: 50%;
@@ -528,15 +509,11 @@ window.location.href = newUrl
         </button>
     </div>
 </div>
+@push('s_script')
 
 <script>
     $(document).change(function() {
         total_amount();
-        $('.select2').select2({
-            theme: 'classic',
-            width: 'resolve',
-        });
-
         var company = $("#company").find('option:selected');
         var id = company.data('id')
         $.ajax({
@@ -550,8 +527,10 @@ window.location.href = newUrl
                 let select = document.getElementById('invoice_no2');
                 data.forEach(item => {
                     let option = document.createElement('option');
-                    option.value = item.unique_id; // Assuming 'id' is the identifier in your data
-                    option.text = item.unique_id; // Assuming 'name' is the value you want to display
+                    option.value = item
+                    .unique_id; // Assuming 'id' is the identifier in your data
+                    option.text = item
+                    .unique_id; // Assuming 'name' is the value you want to display
                     select.appendChild(option);
                 });
             },
@@ -602,7 +581,8 @@ window.location.href = newUrl
 
 
 <div class="div">
-    <input style="width: 289px !important;"  type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+    <input style="width: 289px !important;"  type="text" id="narration` + counter +
+                `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 <div class="div">
@@ -614,10 +594,13 @@ window.location.href = newUrl
                     </select>
                 </div>
 <div class="div">
-    <input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]"  onchange="addInvoice2(` + counter + `)"/>
+    <input  type="text" min="0.00" step="any" id="cheque_no` + counter +
+                `" name="cheque_no[]"  onchange="addInvoice2(` + counter + `)"/>
 </div>
 <div class="div">
-    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter + `" name="cheque_date[]"  />
+    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
+                counter +
+                `" name="cheque_date[]"  />
 </div>
 <div class="div">
     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -631,7 +614,8 @@ window.location.href = newUrl
 </div>
 
 <div class="div">
-    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+                counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 
@@ -706,7 +690,8 @@ window.location.href = newUrl
 
 
 <div class="div">
-<input style="width: 289px !important;"  type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+<input style="width: 289px !important;"  type="text" id="narration` + counter +
+                `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
@@ -720,10 +705,12 @@ window.location.href = newUrl
                 </div>
 
 <div class="div">
-<input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]" onchange="addInvoice2(` + counter + `)" />
+<input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]" onchange="addInvoice2(` +
+                counter + `)" />
 </div>
 <div class="div">
-<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter + `" name="cheque_date[]"  />
+<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter +
+                `" name="cheque_date[]"  />
 </div>
 <div class="div">
 <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -831,16 +818,13 @@ window.location.href = newUrl
 <script>
     $(".cash_bank option").click(function() {
         // Initialize Select2 for the desired select elements
-        $("select").select2();
 
         // Initialize other select elements if necessary
     });
 
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
-        $("select").select2({
-            maximumSelectionLength: 100,
-        });
+      
 
 
         // Initialize other select elements if necessary
@@ -910,7 +894,8 @@ window.location.href = newUrl
                 data.forEach(item => {
                     let option = document.createElement('option');
                     option.value = item.unique_id; // Assuming 'id' is the identifier in your data
-                    option.text = item.unique_id; // Assuming 'name' is the value you want to display
+                    option.text = item
+                    .unique_id; // Assuming 'name' is the value you want to display
                     select.appendChild(option);
                 });
 
@@ -961,5 +946,5 @@ window.location.href = newUrl
         }
     });
 </script>
-
+@endpush
 @endsection
