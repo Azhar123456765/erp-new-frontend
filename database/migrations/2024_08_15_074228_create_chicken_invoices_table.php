@@ -27,42 +27,42 @@ class CreateChickenInvoicesTable extends Migration
             $table->text('rate_type')->nullable();
             $table->text('vehicle_no')->nullable();
             $table->text('crate_type')->nullable();
-            $table->float('crate_qty')->nullable();
-            $table->float('hen_qty');
-            $table->float('gross_weight');
-            $table->float('actual_rate');
+            $table->decimal('crate_qty', 15, 2)->nullable();
+            $table->decimal('hen_qty', 15, 2);
+            $table->decimal('gross_weight', 15, 2);
+            $table->decimal('actual_rate', 15, 2);
 
-            $table->float('feed_cut');
-            $table->float('more_cut');
-            $table->float('crate_cut');
-            $table->float('net_weight');
-            $table->float('rate_diff');
-            $table->float('rate');
-            $table->float('amount');
+            $table->decimal('feed_cut', 15, 2);
+            $table->decimal('more_cut', 15, 2);
+            $table->decimal('crate_cut', 15, 2);
+            $table->decimal('net_weight', 15, 2);
+            $table->decimal('rate_diff', 15, 2);
+            $table->decimal('rate', 15, 2);
+            $table->decimal('amount', 15, 2);
 
-            $table->float('sale_feed_cut');
-            $table->float('sale_more_cut');
-            $table->float('sale_crate_cut');
-            $table->float('sale_net_weight');
-            $table->float('sale_rate_diff');
-            $table->float('sale_rate');
-            $table->float('sale_amount');
+            $table->decimal('sale_feed_cut', 15, 2);
+            $table->decimal('sale_more_cut', 15, 2);
+            $table->decimal('sale_crate_cut', 15, 2);
+            $table->decimal('sale_net_weight', 15, 2);
+            $table->decimal('sale_rate_diff', 15, 2);
+            $table->decimal('sale_rate', 15, 2);
+            $table->decimal('sale_amount', 15, 2);
 
-            $table->float('avg');
+            $table->decimal('avg', 15, 2);
 
-            $table->float('crate_qty_total');
-            $table->float('hen_qty_total');
-            $table->float('gross_weight_total');
-            $table->float('feed_cut_total');
-            $table->float('mor_cut_total');
-            $table->float('crate_cut_total');
-            $table->float('n_weight_total');
-            $table->float('amount_total');
-            $table->float('sale_feed_cut_total');
-            $table->float('sale_mor_cut_total');
-            $table->float('sale_crate_cut_total');
-            $table->float('sale_n_weight_total');
-            $table->float('sale_amount_total');
+            $table->decimal('crate_qty_total', 15, 2);
+            $table->decimal('hen_qty_total', 15, 2);
+            $table->decimal('gross_weight_total', 15, 2);
+            $table->decimal('feed_cut_total', 15, 2);
+            $table->decimal('mor_cut_total', 15, 2);
+            $table->decimal('crate_cut_total', 15, 2);
+            $table->decimal('n_weight_total', 15, 2);
+            $table->decimal('amount_total', 15, 2);
+            $table->decimal('sale_feed_cut_total', 15, 2);
+            $table->decimal('sale_mor_cut_total', 15, 2);
+            $table->decimal('sale_crate_cut_total', 15, 2);
+            $table->decimal('sale_n_weight_total', 15, 2);
+            $table->decimal('sale_amount_total', 15, 2);
 
             $table->text('attachment')->nullable();
 

@@ -539,7 +539,7 @@ right: 15%;
         id="edit">
         Edit
     </a>
-    <a href="{{ Route('feed_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+    <a href="{{ Route('invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
         Add More
     </a>
 

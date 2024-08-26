@@ -276,7 +276,7 @@ right: 15%;
                         name="" value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
-                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $count + 1 }}" />
+                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $rand = $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
@@ -520,35 +520,19 @@ right: 15%;
     <br>
 
 
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
+    <a href="{{ Route('edit_invoice_chick', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
-    </button>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
+    </a>
+    <a href="{{ Route('edit_invoice_chick', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
-    </button>
+    </a>
 
     <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="edit">
         Edit
     </a>
-    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="add_more">
         Add More
     </a>
 
@@ -1003,8 +987,8 @@ right: 15%;
                                 url: '/s_med_invoice_mail',
                                 method: 'POST',
                                 data: formData,
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
+                                contentType: false, // Prevent jQuery from setting the content type
+                                processData: false, // Prevent jQuery from processing the data
                                 contentType: false, // Ensure these are set for the second AJAX call
                                 processData: false,
                                 success: function(mailResponse) {
@@ -1025,8 +1009,8 @@ right: 15%;
                     $("#add_more").removeClass("disabled");
                     $("#sale_pdf").removeClass("disabled");
                     $("#purchase_pdf").removeClass("disabled");
-                    
-                   
+
+
                 },
                 error: function(error) {
                     // Handle the error

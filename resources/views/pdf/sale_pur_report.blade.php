@@ -142,6 +142,9 @@
                 </tbody>
             </table>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
+                    style="color: green;"><b>{{ $chickenData->sum('sale_amount') }}</b></span>
+            </h3>
+            <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
                     style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
             </h3>
         @endif
@@ -221,7 +224,10 @@
                 </tbody>
             </table>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $chickData->sum('sale_amount') }}</b></span>
+            </h3>
+            <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
+                    style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
             </h3>
         @endif
         @if (count($feedData) > 0)
@@ -277,34 +283,37 @@
 
                             <td style="text-align: left
                             ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td>
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td>
-                                            <span>{{ $row->discount }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->bonus }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                        </td>
+                                <span>{{ $row->supplier->company_name }}</span>
+                            </td>
+                            <td>
+                                <span>{{ $row->rate }}</span>
+                            </td>
+                            <td>
+                                <span>{{ $row->discount }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->bonus }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->qty }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->amount }}</span>
+                            </td>
                         </tr>
                     @endforeach
 
                 </tbody>
             </table>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $feedData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $feedData->sum('sale_amount') }}</b></span>
+            </h3>
+            <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
+                    style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
             </h3>
         @endif
         <h3 style="text-align:right; border:none;"><b>Grand Total:&nbsp;&nbsp;</b><span
-                style="color: green;"><b>{{ $feedData->sum('amount') + $chickData->sum('amount') + $chickenData->sum('amount') }}</b></span>
+                style="color: green;"><b>{{ $feedData->sum('amount') + $chickData->sum('amount') + $chickenData->sum('sale_amount') }}</b></span>
         </h3>
     @elseif($type == 2)
         <h2 style="text-align: center;">Sale Report (Detail Wise)</h2>
