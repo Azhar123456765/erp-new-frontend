@@ -61,6 +61,9 @@
     $chickData = session()->get('Data')['chickData'];
     $feedData = session()->get('Data')['feedData'];
     
+    // $grand_total = 0;
+    $total_amount = 0;
+    $total_sale_amount = 0;
     ?>
 
 
@@ -119,7 +122,7 @@
                                 <span>{{ $row->sale_rate }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $row->sale_amount }}</span>
+                                <span>{{ $total_sale_amount += $row->sale_amount }}</span>
                             </td>
 
 
@@ -134,7 +137,7 @@
                                 <span>{{ $row->rate }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $row->amount }}</span>
+                                <span>{{ $total_amount += $row->amount }}</span>
                             </td>
                         </tr>
                     @endforeach
@@ -142,12 +145,16 @@
                 </tbody>
             </table>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickenData->sum('sale_amount') }}</b></span>
+                    style="color: green;"><b>{{ $total_sale_amount }}</b></span>
             </h3>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $total_amount }}</b></span>
             </h3>
         @endif
+        @php
+            $total_amount = 0;
+            $total_sale_amount = 0;
+        @endphp
         @if (count($chickData) > 0)
             <h4>Chicks</h4>
             <table>
@@ -196,7 +203,7 @@
                                 <span>{{ $row->sale_qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $row->sale_amount }}</span>
+                                <span>{{ $total_sale_amount += $row->sale_amount }}</span>
                             </td>
 
                             <td style="text-align: left
@@ -216,7 +223,7 @@
                                 <span>{{ $row->qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $row->amount }}</span>
+                                <span>{{ $total_amount += $row->amount }}</span>
                             </td>
                         </tr>
                     @endforeach
@@ -224,12 +231,16 @@
                 </tbody>
             </table>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickData->sum('sale_amount') }}</b></span>
+                    style="color: green;"><b>{{ $total_sale_amount }}</b></span>
             </h3>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $total_amount }}</b></span>
             </h3>
         @endif
+        @php
+        $total_amount = 0;
+        $total_sale_amount = 0;
+    @endphp
         @if (count($feedData) > 0)
             <h4>Feed</h4>
             <table>
@@ -278,7 +289,7 @@
                                 <span>{{ $row->sale_qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $row->sale_amount }}</span>
+                                <span>{{ $total_sale_amount += $row->sale_amount }}</span>
                             </td>
 
                             <td style="text-align: left
@@ -298,7 +309,7 @@
                                 <span>{{ $row->qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $row->amount }}</span>
+                                <span>{{ $total_amount += $row->amount }}</span>
                             </td>
                         </tr>
                     @endforeach
@@ -306,10 +317,10 @@
                 </tbody>
             </table>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $feedData->sum('sale_amount') }}</b></span>
+                    style="color: green;"><b>{{ $total_sale_amount }}</b></span>
             </h3>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $feedData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $total_amount }}</b></span>
             </h3>
         @endif
         <h3 style="text-align:right; border:none;"><b>Grand Total:&nbsp;&nbsp;</b><span
@@ -389,7 +400,7 @@
                         <span>{{ $row->dis_amount }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>{{ $row->amount }}</span>
+                        <span>{{ $total_amount += $row->amount }}</span>
                     </td>
                 </tr>
                 <?php
@@ -402,7 +413,8 @@
                         {{ $row->unique_id }} Total:</td>
                     <td style="text-align:center;  background-color: lightgray;">{{ $row->qty_total }}</td>
                     <td style="text-align:center; background-color: lightgray;">{{ $row->dis_total }}</td>
-                    <td style="text-align:right; background-color: lightgray;">{{ $row->amount_total }}</td>
+                    <td style="text-align:right; background-color: lightgray;">{{ $total_amount += $row->amount_total }}
+                    </td>
                 </tr>
             </tfoot>
             <?php
@@ -498,7 +510,7 @@
                         <span>{{ $row->dis_amount }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>{{ $row->amount }}</span>
+                        <span>{{ $total_amount += $row->amount }}</span>
                     </td>
                 </tr>
                 <?php
