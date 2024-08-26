@@ -100,7 +100,7 @@ $feedData = session()->get('Data')['feedData'];
                         </td>
                         <td style="text-align: left
         ;">
-                            <span>{{ $row->customer->company_name }}</span>
+                            <span>{{ $row->supplier->company_name }}</span>
                         </td>
                         <td>
                             <span>{{ $row->crate_qty }}</span>
@@ -152,7 +152,7 @@ $feedData = session()->get('Data')['feedData'];
                         </td>
                         <td style="text-align: left
         ;">
-                            <span>{{ $row->customer->company_name }}</span>
+                            <span>{{ $row->supplier->company_name }}</span>
                         </td>
                         <td>
                             <span>{{ $row->rate }}</span>
@@ -204,7 +204,7 @@ $feedData = session()->get('Data')['feedData'];
                         </td>
                         <td style="text-align: left
         ;">
-                            <span>{{ $row->customer->company_name }}</span>
+                            <span>{{ $row->supplier->company_name }}</span>
                         </td>
                         <td>
                             <span>{{ $row->rate }}</span>

@@ -122,7 +122,8 @@
                                 <span>{{ $row->sale_rate }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $total_sale_amount += $row->sale_amount }}</span>
+                                <span>{{ $row->sale_amount }}</span>
+                                @php $total_sale_amount += $row->sale_amount; @endphp
                             </td>
 
 
@@ -137,7 +138,8 @@
                                 <span>{{ $row->rate }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $total_amount += $row->amount }}</span>
+                                <span>{{ $row->amount }}</span>
+                                @php $total_amount += $row->amount; @endphp
                             </td>
                         </tr>
                     @endforeach
@@ -203,7 +205,8 @@
                                 <span>{{ $row->sale_qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $total_sale_amount += $row->sale_amount }}</span>
+                                <span>{{ $row->sale_amount }}</span>
+                                @php $total_sale_amount += $row->sale_amount; @endphp
                             </td>
 
                             <td style="text-align: left
@@ -223,7 +226,8 @@
                                 <span>{{ $row->qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $total_amount += $row->amount }}</span>
+                                <span>{{ $row->amount }}</span>
+                                @php $total_amount += $row->amount; @endphp
                             </td>
                         </tr>
                     @endforeach
@@ -238,9 +242,9 @@
             </h3>
         @endif
         @php
-        $total_amount = 0;
-        $total_sale_amount = 0;
-    @endphp
+            $total_amount = 0;
+            $total_sale_amount = 0;
+        @endphp
         @if (count($feedData) > 0)
             <h4>Feed</h4>
             <table>
@@ -289,7 +293,8 @@
                                 <span>{{ $row->sale_qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $total_sale_amount += $row->sale_amount }}</span>
+                                <span>{{ $row->sale_amount }}</span>
+                                @php $total_sale_amount += $row->sale_amount; @endphp
                             </td>
 
                             <td style="text-align: left
@@ -309,7 +314,8 @@
                                 <span>{{ $row->qty }}</span>
                             </td>
                             <td style="text-align:right;">
-                                <span>{{ $total_amount += $row->amount }}</span>
+                                <span>{{ $row->amount }}</span>
+                                @php $total_amount += $row->amount; @endphp
                             </td>
                         </tr>
                     @endforeach
@@ -400,7 +406,8 @@
                         <span>{{ $row->dis_amount }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>{{ $total_amount += $row->amount }}</span>
+                        <span>{{ $row->amount }}</span>
+                        @php $total_amount += $row->amount; @endphp
                     </td>
                 </tr>
                 <?php
@@ -510,7 +517,8 @@
                         <span>{{ $row->dis_amount }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>{{ $total_amount += $row->amount }}</span>
+                        <span>{{ $row->amount }}</span>
+                        @php $total_amount += $row->amount; @endphp
                     </td>
                 </tr>
                 <?php
