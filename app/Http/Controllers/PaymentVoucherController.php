@@ -68,7 +68,7 @@ class PaymentVoucherController extends Controller
     {
         // dd($request);
         $invoiceData = $request->all();
-        $lastChar = substr($request['company'], -1);
+        $lastChar = $request['company'];
 
         $expense = new Expense;
         $expense->category_id = $invoiceData['unique_id'];
@@ -78,7 +78,7 @@ class PaymentVoucherController extends Controller
         $expense->amount = $request['amount_total'];
         $expense->save();
 
-        $company = substr($invoiceData['company'], 0, -1);
+        $company = $request['company'];
 
 
         $amount = $request['amount_total'];
@@ -120,7 +120,14 @@ class PaymentVoucherController extends Controller
             $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = $request->input('old_attachment');
+            }
 
+            $invoice->attachment = $attachmentPath;
             $invoice->save();
         }
 
@@ -149,18 +156,8 @@ class PaymentVoucherController extends Controller
     public function edit(Request $request, $id)
     {
 
-        $seller = seller::all();
-        $buyer = buyer::all();
-
-        $warehouse = warehouse::all();
-
-        $sales_officer = sales_officer::all();
-
         $p_voucher = p_voucher::where("unique_id", $id)
             ->get();
-
-
-
         $sp_voucher = p_voucher::where([
 
             "unique_id" => $id
@@ -168,7 +165,7 @@ class PaymentVoucherController extends Controller
 
         $account = accounts::all();
 
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'p_voucher', 'sp_voucher');
+        $data = compact('account', 'p_voucher', 'sp_voucher');
         return view('vouchers.e_payment')->with($data);
     }
 
@@ -190,7 +187,7 @@ class PaymentVoucherController extends Controller
         ]);
 
         $invoiceData = $request->all();
-        $company = substr($invoiceData['company'], 0, -1);
+        $company = $invoiceData['company'];
         $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -209,14 +206,16 @@ class PaymentVoucherController extends Controller
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
 
-            $lastChar = substr($request['company'], -1);
-            if ($lastChar === 'S') {
-                $invoice->company_ref = "S";
-            } elseif ($lastChar === 'B') {
-                $invoice->company_ref = "B";
-            }
+            $lastChar = $request['company'];
+            $invoice->company_ref = "B";
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
-
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = $request->input('old_attachment');
+            }
+            $invoice->attachment = $attachmentPath;
 
             $invoice->save();
         }

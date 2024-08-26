@@ -1467,7 +1467,7 @@ window.location.href = newUrl
         qty();
         per_unit2();
         // Get the form data
-        var formData = $("#form").serialize();
+        var formData = new FormData(this);
 
         // Send an AJAX request
         $.ajax({
@@ -1477,6 +1477,8 @@ window.location.href = newUrl
 
             method: 'POST',
             data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
             success: function(response) {
                 // Handle the response
 

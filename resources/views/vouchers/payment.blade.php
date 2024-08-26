@@ -1,4 +1,4 @@
-@extends('master') @section('title','Payment Voucher') @section('content')
+@extends('master') @section('title', 'Payment Voucher') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -74,9 +74,9 @@
         transform: scale(0.75);
     }
 
-input[type="number" step="any"]{
-text-align:right !important;
-}
+    input[type="number" step="any"] {
+        text-align: right !important;
+    }
 
     * input {
         border: 1px solid gray !important;
@@ -175,7 +175,7 @@ text-align:right !important;
         margin-left: -22%;
     }
 
-   .select2-container--classic {
+    .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -251,23 +251,27 @@ text-align:right !important;
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" style="border: none !important;" readonly type="date" id="date" value="<?php
-                                                                                                                                                                                    $currentDate = date('Y-m-d');
-                                                                                                                                                                                    echo $currentDate;
-                                                                                                                                                                                    ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;"
+                        style="border: none !important;" readonly type="date" id="date"
+                        value="<?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                        ?>" />
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
-                                                                                                                                                            $lastTwoWords = substr($year, -2);
-                                                                                                                                                            echo $rand = 'PV' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text"
+                        id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
+                        $lastTwoWords = substr($year, -2);
+                        echo $rand = 'PV' . '-' . $year . '-' . $count + 1; ?>" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date" id="date" name="date" value="<?php
-                                                                                                                                        $currentDate = date('Y-m-d');
-                                                                                                                                        echo $currentDate;
-                                                                                                                                        ?>" />
+                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date"
+                        id="date" name="date" value="<?php
+                        $currentDate = date('Y-m-d');
+                        echo $currentDate;
+                        ?>" />
                 </div>
 
 
@@ -285,7 +289,6 @@ text-align:right !important;
                 <div class="one  remark">
                     <label for="seller">Sales Ofiicer</label>
                     <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer">
-                       
                     </select>
                 </div>
             </div>
@@ -299,7 +302,8 @@ text-align:right !important;
                 </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text" id="remark" name="remark" />
+                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text"
+                        id="remark" name="remark" />
                 </div>
             </div>
         </div>
@@ -313,17 +317,21 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text"
+                        id="narration" name="narration[]" />
                 </div>
 
 
                 <div class="div">
                     <label for="dis">Cheque No (s)</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
+                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no"
+                        name="cheque_no[]" />
                 </div>
                 <div class="div">
                     <label for="dis">Cheque Date</label>
-                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
+                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00"
+                        style="width: 131px !important;" step="any" value="0.00" id="cheque_date"
+                        name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
                     <label>Cash/Bank Account</label>
@@ -331,7 +339,7 @@ text-align:right !important;
                         <option></option>
 
                         @foreach ($account as $row)
-                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                            <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
                         @endforeach
 
                     </select>
@@ -339,7 +347,9 @@ text-align:right !important;
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount" name="amount[]" />
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
+                        style="text-align: right;" step="any" value="0.00" onchange='total_amount()'
+                        id="amount" name="amount[]" />
                 </div>
             </div>
         </div>
@@ -388,7 +398,9 @@ text-align:right !important;
             margin-left: 0%;
         ">
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any" name="amount_total" id="amount_total" style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any"
+                        name="amount_total" id="amount_total"
+                        style="
             margin-left: 183%;
             text-align:end;
         " readonly>
@@ -403,9 +415,56 @@ text-align:right !important;
 </div>
 
 </div>
+<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
+    data-bs-target="#imageModal" style="
+    margin-top: -17%;
+">
+    Attachment
+</button>
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row p-2">
+                    <div class="col-lg-9 col-md-12 p-2">
+                        <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
+                                class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="row justify-content-start">
+                            <div class="mb-3">
+                                <input type="file" class="form-control" name="attachment" id="attachment"
+                                    style="
+    height: max-content !important;
+" />
+                            </div>
+                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
+                                onclick="
+                  document.getElementById('attachment').value = '';
+                 document.getElementById('imagePreview').style.display = 'none';
+                 document.getElementById('imagePreview').src = '';
+                 document.getElementById('imageAnchor').href = '';">
+                                REMOVE
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: -110px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
     <br>
@@ -435,22 +494,17 @@ text-align:right !important;
         Next
     </button>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
+    <a href="/ep_voucher_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="edit">
         Edit
     </a>
-    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
-        id="add_more">
+    <a href="/r_voucher" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
         Add More
     </a>
 
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
-        SALE PDF
-    </button>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
-        PURCHASE PDF
-    </button>
+    <a href="/pv_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm disabled" id="pdf">
+        PDF
+    </a>
 
 
 
@@ -471,7 +525,8 @@ text-align:right !important;
 
 
 <div class="flex justify-center items-center" style="display: none">
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert" style="
+    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert"
+        style="
             position: fixed;
             top: 79%;
             left: 50%;
@@ -485,17 +540,36 @@ text-align:right !important;
         </button>
     </div>
 </div>
+
 @push('s_script')
+    <script>
+        document.getElementById('attachment').addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the uploaded file
+            const reader = new FileReader();
 
-<script>
-    // $(document).change(function() {
-    //     total_amount();
-    //     $('.select2').select2({
-    //         theme: 'classic',
-    //         width: 'resolve',
-    //     });
-    //     5
-    // })
+            reader.onload = function(e) {
+                const img = document.getElementById('imagePreview');
+                const a = document.getElementById('imageAnchor');
+
+                // Set the href of the anchor to the image's data URL
+                a.href = e.target.result;
+
+                // Set the src of the img to the image's data URL
+                img.src = e.target.result;
+
+                // Show the image
+                img.style.display = 'block';
+            };
+
+            // Check if a file is selected, then read it
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+        $(document).change(function() {
+            total_amount();
+
+        })
 
 
 
@@ -509,43 +583,48 @@ text-align:right !important;
 
 
 
-    function handleKeyPress(event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent the default behavior (e.g., form submission)
-            const currentElement = event.target;
-            const focusableElements = getFocusableElements();
-            const currentIndex = focusableElements.indexOf(currentElement);
-            const nextIndex = (currentIndex + 1) % focusableElements.length;
-            focusableElements[nextIndex].focus();
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default behavior (e.g., form submission)
+                const currentElement = event.target;
+                const focusableElements = getFocusableElements();
+                const currentIndex = focusableElements.indexOf(currentElement);
+                const nextIndex = (currentIndex + 1) % focusableElements.length;
+                focusableElements[nextIndex].focus();
+            }
         }
-    }
 
 
 
 
-    var counter = 1
-    var countera = 0
-    var stop = 0
+        var counter = 1
+        var countera = 0
+        var stop = 0
 
-    function addInvoice(one) {
+        function addInvoice(one) {
 
-        for (let i = 1; i <= counter; i++) {
+            for (let i = 1; i <= counter; i++) {
 
 
-            var clonedFields = `
+                var clonedFields = `
             <div class="dup_invoice" >
 
 
 <div class="div">
-    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter +
+                    `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]"  onchange="addInvoice2(` + counter + `)"/>
+    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter +
+                    `" name="cheque_no[]"  onchange="addInvoice2(` + counter +
+                    `)"/>
 </div>
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter + `" name="cheque_date[]"  />
+    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
+                    counter +
+                    `" name="cheque_date[]"  />
 </div>
 <div class="div">
     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -559,7 +638,8 @@ text-align:right !important;
 </div>
 
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+                    counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 
@@ -568,53 +648,54 @@ text-align:right !important;
 
 
 
-        }
-
-        let amount = $("#cheque_no").val()
-        let narration = $("#narration").val()
-        if (!$("#narration").hasClass('check')) {
-
-
-            if (amount > 0 && narration != '') {
-
-                $("#narration").addClass("check")
-                console.log(counter + "first");
-
-
-                counter++
-                countera++
-
-
-                $(".invoice").append(clonedFields);
-
             }
+
+            let amount = $("#cheque_no").val()
+            let narration = $("#narration").val()
+            if (!$("#narration").hasClass('check')) {
+
+
+                if (amount > 0 && narration != '') {
+
+                    $("#narration").addClass("check")
+                    console.log(counter + "first");
+
+
+                    counter++
+                    countera++
+
+
+                    $(".invoice").append(clonedFields);
+
+                }
+            }
+
+            // let amount2 = $("#amount" + counter).val()
+            // let narration2 = $("#narration" + counter).val()
+
+            // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
+
+
+            //     if (narration2 != '') {
+
+            //         $("#narration" + counter).addClass("check")
+
+
+
+            //         counter++
+            //         countera++
+
+
+            //         $(".invoice").append(clonedFields);
+
+            //     }
+
+            // }
+
+
+
         }
 
-        // let amount2 = $("#amount" + counter).val()
-        // let narration2 = $("#narration" + counter).val()
-
-        // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
-
-
-        //     if (narration2 != '') {
-
-        //         $("#narration" + counter).addClass("check")
-
-
-
-        //         counter++
-        //         countera++
-
-
-        //         $(".invoice").append(clonedFields);
-
-        //     }
-
-        // }
-
-
-
-    }
 
 
 
@@ -623,26 +704,30 @@ text-align:right !important;
 
 
 
+        function addInvoice2(one) {
 
-    function addInvoice2(one) {
-
-        for (let i = 1; i <= counter; i++) {
+            for (let i = 1; i <= counter; i++) {
 
 
-            var clonedFields = `
+                var clonedFields = `
     <div class="dup_invoice" >
 
 
 <div class="div">
-<input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+<input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter +
+                    `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]" onchange="addInvoice2(` + counter + `)" />
+<input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter +
+                    `" name="cheque_no[]" onchange="addInvoice2(` + counter +
+                    `)" />
 </div>
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter + `" name="cheque_date[]"  />
+<input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
+                    counter +
+                    `" name="cheque_date[]"  />
 </div>
 <div class="div">
 <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -656,7 +741,8 @@ text-align:right !important;
 </div>
 
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+<input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+                    counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 
@@ -665,59 +751,60 @@ text-align:right !important;
 
 
 
-        }
-
-
-
-
-        counter = counter - 1
-        let amount2 = $("#cheque_no" + counter).val()
-        console.log(counter);
-        let narration2 = $("#narration" + counter).val()
-        if (!$("#narration" + counter).hasClass('check')) {
-
-
-            if (amount2 != '' && narration2 != '') {
-
-                $("#narration" + countera).addClass("check")
-
-                console.log(counter);
-                console.log(countera);
-
-                counter++
-                countera++
-
-
-                $(".invoice").append(clonedFields);
-
             }
+
+
+
+
+            counter = counter - 1
+            let amount2 = $("#cheque_no" + counter).val()
+            console.log(counter);
+            let narration2 = $("#narration" + counter).val()
+            if (!$("#narration" + counter).hasClass('check')) {
+
+
+                if (amount2 != '' && narration2 != '') {
+
+                    $("#narration" + countera).addClass("check")
+
+                    console.log(counter);
+                    console.log(countera);
+
+                    counter++
+                    countera++
+
+
+                    $(".invoice").append(clonedFields);
+
+                }
+            }
+
+            counter = counter + 1
+            // let amount2 = $("#amount" + counter).val()
+            // let narration2 = $("#narration" + counter).val()
+
+            // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
+
+
+            //     if (narration2 != '') {
+
+            //         $("#narration" + counter).addClass("check")
+
+
+
+            //         counter++
+            //         countera++
+
+
+            //         $(".invoice").append(clonedFields);
+
+            //     }
+
+            // }
+
+
         }
 
-        counter = counter + 1
-        // let amount2 = $("#amount" + counter).val()
-        // let narration2 = $("#narration" + counter).val()
-
-        // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
-
-
-        //     if (narration2 != '') {
-
-        //         $("#narration" + counter).addClass("check")
-
-
-
-        //         counter++
-        //         countera++
-
-
-        //         $(".invoice").append(clonedFields);
-
-        //     }
-
-        // }
-
-
-    }
 
 
 
@@ -734,113 +821,113 @@ text-align:right !important;
 
 
 
+        function total_amount() {
+            var atotal = parseFloat($("#amount").val());
 
-    function total_amount() {
-        var atotal = parseFloat($("#amount").val());
+            console.log(atotal);
+            for (let i = 1; i <= countera; i++) {
+                let amount1 = parseFloat($("#amount" + i).val());
+                atotal += amount1;
+            }
 
-        console.log(atotal);
-        for (let i = 1; i <= countera; i++) {
-            let amount1 = parseFloat($("#amount" + i).val());
-            atotal += amount1;
+            $("#amount_total").val(atotal);
         }
+    </script>
+    <script>
+        $(".cash_bank option").click(function() {
+            // Initialize Select2 for the desired select elements
+            // Initialize other select elements if necessary
+        });
 
-        $("#amount_total").val(atotal);
-    }
-</script>
-<script>
-    $(".cash_bank option").click(function() {
-        // Initialize Select2 for the desired select elements
-        // $("select").select2();
-
-        // Initialize other select elements if necessary
-    });
-
-    $(document).ready(function() {
-        // Initialize Select2 for the desired select elements
-        // $("select").select2({
-        //     maximumSelectionLength: 100,
-        // });
-
-
-        // Initialize other select elements if necessary
-    });
-
-    $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-    });
+        $(document).ready(function() {
+            // Initialize Select2 for the desired select elements
 
 
 
-    $('#form').submit(function(event) {
-        event.preventDefault();
+            // Initialize other select elements if necessary
+        });
 
-        // Get the form data
-        var formData = $("#form").serialize();
-
-        // Send an AJAX request
-        $.ajax({
-            url: '/p_voucher_form', // Replace with your Laravel route or endpoint
-            method: 'POST',
-            data: formData,
-            success: function(response) {
-                // Handle the response
-
-                Swal.fire({
-                    icon: 'success',
-                    title: response,
-                    timer: 1900 // Automatically close after 3 seconds
-                });
-                $(".submit").css("display", "none")
-                $(".edit").css("display", "block")
-                $(".add-more").css("display", "block")
-                $(".pdf").css("display", "block")
-
-
-
-            },
-            error: function(error) {
-                // Handle the error
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
-    })
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
-            var link = document.querySelector('.add-more');
-            window.location.href = link.href;
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
-            var link = document.querySelector('.pdf');
-            window.location.href = link.href;
-        }
-    });
 
 
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
-            var str = $('[name=\'unique_id\']').val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-    window.location.href = newUrl;
-        }
-    });
 
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
-            var str = $('[name=\'unique_id\']').val();
-    var parts = str.split('-');
-    var firstPart = parts.slice(0, -1).join('-');
-    var lastPart = parts[parts.length - 1];
-    var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-    window.location.href = newUrl;
-        }
-    });
+        $('#form').submit(function(event) {
+            event.preventDefault();
 
-</script>
+            // Get the form data
+            var formData = new FormData(this);
+
+            // Send an AJAX request
+            $.ajax({
+                url: '/p_voucher_form', // Replace with your Laravel route or endpoint
+                method: 'POST',
+                data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
+                success: function(response) {
+                    // Handle the response
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        timer: 1900 // Automatically close after 3 seconds
+                    });
+                    $("#submit").addClass("disabled");
+                    $("#edit").removeClass("disabled");
+                    $("#pdf").removeClass("disabled");
+
+
+
+                },
+                error: function(error) {
+                    // Handle the error
+                },
+            });
+        })
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+                var link = document.querySelector('.add-more');
+                window.location.href = link.href;
+            }
+        });
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+                var link = document.querySelector('.pdf');
+                window.location.href = link.href;
+            }
+        });
+
+
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+                var str = $('[name=\'unique_id\']').val();
+                var parts = str.split('-');
+                var firstPart = parts.slice(0, -1).join('-');
+                var lastPart = parts[parts.length - 1];
+                var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+                window.location.href = newUrl;
+            }
+        });
+
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+                var str = $('[name=\'unique_id\']').val();
+                var parts = str.split('-');
+                var firstPart = parts.slice(0, -1).join('-');
+                var lastPart = parts[parts.length - 1];
+                var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+                window.location.href = newUrl;
+            }
+        });
+    </script>
 @endpush
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+</script>
 @endsection

@@ -1306,13 +1306,15 @@ window.location.href = newUrl
         event.preventDefault();
 
         // Get the form data
-        var formData = $("#form").serialize();
+        var formData = new FormData(this);
 
         // Send an AJAX request
         $.ajax({
             url: '/arp_med_invoice_form', // Replace with your Laravel route or endpoint
             method: 'POST',
             data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
             success: function(response) {
                 // Handle the response
 

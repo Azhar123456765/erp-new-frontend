@@ -1,19 +1,4 @@
-@extends('master') @section('title','Payment Voucher (EDIT)') @section('content')
-
-<head>
-
-    <head>
-        <!-- Include other necessary scripts and stylesheets -->
-        <!-- Include Select2 CSS -->
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-
-        <!-- Include jQuery library -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-        <!-- Include Select2 JS -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    </head>
-</head>
+@extends('master') @section('title', 'Payment Voucher (EDIT)') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -89,9 +74,9 @@
         transform: scale(0.75);
     }
 
-input[type="number" step="any"]{
-text-align:right !important;
-}
+    input[type="number" step="any"] {
+        text-align: right !important;
+    }
 
     * input {
         border: 1px solid gray !important;
@@ -190,7 +175,7 @@ text-align:right !important;
         margin-left: -22%;
     }
 
-   .select2-container--classic {
+    .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -278,66 +263,56 @@ text-align:right !important;
 
         <h5 style="text-align: end;">Medician</h5>
         @foreach ($sp_voucher as $sinvoice_row)
+            <div class="top">
+                <div class="fields">
+                    <div class="one">
+                        <label for="Invoice">GR#</label>
+                        <input style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly
+                            value="{{ $sinvoice_row->unique_id }}" />
+                    </div>
+                    <div class="one">
+                        <label for="date">Date</label>
+                        <input style="border: none !important;" type="date" id="date" name="date"
+                            value="{{ $sinvoice_row->date }}" />
+                    </div>
 
-        <div class="top">
-            <div class="fields">
-                <div class="one">
-                    <label for="Invoice">GR#</label>
-                    <input  style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly value="{{$sinvoice_row->unique_id}}" />
-                </div>
-                <div class="one">
-                    <label for="date">Date</label>
-                    <input  style="border: none !important;" type="date" id="date" name="date" value="{{$sinvoice_row->date}}" />
-                </div>
 
 
-
-            </div>
-
-            <div class="fields">
-                <div class="one  remark">
-                    <label for="seller">Company</label>
-                    <select name="company" class="company" required>
-                        <option></option>
-                        @foreach ($seller as $row)
-                        <option value="{{ $row->seller_id }}S" data-debit="{{ $row->debit }}" {{ $row->seller_id .'S' == $sinvoice_row->company ?? $sinvoice_row->company_ref == 'S' ? 'selected' : '' }}>
-                            {{ $row->company_name }} (Supplier)
-                        </option>
-                        @endforeach
-                        @foreach ($buyer as $row)
-                        <option value="{{ $row->buyer_id }}B" data-debit="{{ $row->debit }}" {{ $row->buyer_id .'B' == $sinvoice_row->company ? 'selected' : '' }}>
-                            {{ $row->company_name }} (Customer)
-                        </option>
-                        @endforeach
-                    </select>
                 </div>
 
-                <div class="one  remark">
-                    <label for="seller">Sales Ofiicer</label>
-                    <select name="sales_officer" id="sales_officer" class="sales_officer" required>
-                        <option></option>
-                        @foreach ($sales_officer as $row)
-                        <option value="{{ $row->sales_officer_id }}" {{ $row->sales_officer_id == $sinvoice_row->sales_officer ? 'selected' : '' }}>
-                            {{ $row->sales_officer_name }}
-                        </option>
-                        @endforeach
-                    </select>
+
+                <div class="fields">
+                    <div class="one  remark">
+                        <label for="seller">Company</label>
+                        <select name="company" class="company select-buyer" required>
+                            <option value="{{ $sinvoice_row->buyer->buyer_id }}" selected>
+                                {{ $sinvoice_row->buyer->company_name }}</option>
+                        </select>
+                    </div>
+
+                    <div class="one  remark">
+                        <label for="seller">Sales Ofiicer</label>
+                        <select name="sales_officer" id="sales_officer" class="select-sales_officer">
+                            <option value="{{ $sinvoice_row->sales_officer->sales_officer_id ?? null }}" selected>
+                                {{ $sinvoice_row->sales_officer->sales_officer_name ?? null }}</option>
+                        </select>
+                    </div>
                 </div>
-            </div>
 
-            <div class="fields">
+                <div class="fields">
 
 
-                <div class="one">
-                    <label for="Invoice">Ref No</label>
-                    <input  type="text" id="ref_no" name="ref_no" value="{{$sinvoice_row->ref_no}}" />
-                </div>
-                <div class="one  remark">
-                    <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;"  type="text" id="remark" name="remark" value="{{$sinvoice_row->remark}}" />
+                    <div class="one">
+                        <label for="Invoice">Ref No</label>
+                        <input type="text" id="ref_no" name="ref_no" value="{{ $sinvoice_row->ref_no }}" />
+                    </div>
+                    <div class="one  remark">
+                        <label for="remark">Remarks</label>
+                        <input style="width: 219px !important;" type="text" id="remark" name="remark"
+                            value="{{ $sinvoice_row->remark }}" />
+                    </div>
                 </div>
             </div>
-        </div>
         @endforeach
 
         <br />
@@ -355,78 +330,85 @@ text-align:right !important;
 
             </div>
             @php
-            $counter = 1;
+                $counter = 1;
             @endphp
             @foreach ($p_voucher as $invoice_row)
+                @php
+                    $rand = $invoice_row->unique_id;
+                @endphp
 
-            @php
-            $rand = $invoice_row->unique_id;
-            @endphp
-
-            <div class="dup_invoice" onchange="addInvoice()">
+                <div class="dup_invoice" onchange="addInvoice()">
 
 
-                <div class="div">
-                    <input style="width: 289px !important;"  type="text" id="narration" name="narration[]" value="{{$invoice_row->narration}}" />
+                    <div class="div">
+                        <input style="width: 289px !important;" type="text" id="narration" name="narration[]"
+                            value="{{ $invoice_row->narration }}" />
+                    </div>
+
+
+                    <div class="div">
+                        <input type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]"
+                            value="{{ $invoice_row->cheque_no }}" />
+                    </div>
+                    <div class="div">
+                        <input type="date" min="0.00" style="width: 131px !important;" step="any"
+                            value="{{ $invoice_row->cheque_date }}" id="cheque_date" name="cheque_date[]"
+                            onchange='total_amount()' />
+                    </div>
+                    <div class="div">
+                        <select class="cash_bank" name="cash_bank[]" style="height: 28px">
+                            <option></option>
+
+                            @foreach ($account as $row)
+                                <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                            @endforeach
+
+                        </select>
+                    </div>
+
+                    <div class="div">
+                        <input class="<?php echo $counter; ?>amount" type="number" step="any" min="0.00"
+                            style="text-align: right;" step="any" value="{{ $invoice_row->amount }}"
+                            onchange='total_amount()' id="amount" name="amount[]" />
+                    </div>
                 </div>
 
 
-                <div class="div">
-                    <input  type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" value="{{$invoice_row->cheque_no}}" />
-                </div>
-                <div class="div">
-                    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="{{$invoice_row->cheque_date}}" id="cheque_date" name="cheque_date[]" onchange='total_amount()' />
-                </div>
-                <div class="div">
-                    <select class="cash_bank" name="cash_bank[]" style="height: 28px">
-                        <option></option>
 
-                        @foreach ($account as $row)
-                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-                        @endforeach
-
-                    </select>
-                </div>
-
-                <div class="div">
-                    <input class="<?php echo $counter; ?>amount"  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="{{$invoice_row->amount}}" onchange='total_amount()' id="amount" name="amount[]" />
-                </div>
-            </div>
-
-
-
-            @php
-            $counter++;
-            @endphp
+                @php
+                    $counter++;
+                @endphp
             @endforeach
 
             <div class="dup_invoice" onchange="addInvoice2()">
 
 
                 <div class="div">
-                    <input style="width: 289px !important;"  type="text" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;" type="text" id="narration" name="narration[]" />
                 </div>
 
 
                 <div class="div">
-                    <input  type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
+                    <input type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
                 </div>
                 <div class="div">
-                    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
+                    <input type="date" min="0.00" style="width: 131px !important;" step="any"
+                        value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
                     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
                         <option></option>
 
                         @foreach ($account as $row)
-                        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                            <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
                         @endforeach
 
                     </select>
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount1" name="amount[]" />
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any"
+                        value="0.00" onchange='total_amount()' id="amount1" name="amount[]" />
                 </div>
             </div>
 
@@ -470,78 +452,133 @@ text-align:right !important;
 
         </div>
         @foreach ($sp_voucher as $sinvoice_row)
-
-        <div class="total" style="margin-top: 2.25%;">
-            <div class="first">
-                <div class="one" style="
+            <div class="total" style="margin-top: 2.25%;">
+                <div class="first">
+                    <div class="one" style="
 margin-left: 0%;
 ">
 
-                    <input  type="number" step="any" step="any" name="amount_total" id="amount_total" style="
+                        <input type="number" step="any" step="any" name="amount_total" id="amount_total"
+                            style="
 margin-left: 185%;
 text-align:end;
-" readonly value="{{$sinvoice_row->amount_total}}">
+" readonly
+                            value="{{ $sinvoice_row->amount_total }}">
 
+                    </div>
+
+                    <br>
                 </div>
-
-                <br>
-            </div>
-            @endforeach
-
-        </div>
+        @endforeach
 
 </div>
 
-<div class="options" style="
-display: flex;
-    flex-direction: column;
-    position:absolute;
-    width: 8%;
-    margin-right: 85%;
-    ">
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
+</div>
+
+<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
+    data-bs-target="#imageModal"style="
+">
+    Attachment
+</button>
+@foreach ($sp_voucher as $sinvoice_row)
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row p-2">
+                        <div class="col-lg-9 col-md-12 p-2">
+                            <a href="#" id="imageAnchor" target="_blank"><img
+                                    src="{{ asset($sinvoice_row->attachment) }}" alt="img" class="img-fluid"
+                                    id="imagePreview" style="object-fit: fill;">
+                            </a>
+                        </div>
+                        <div class="col-lg-3 col-md-12">
+                            <div class="row justify-content-start">
+                                <div class="mb-3">
+                                    <input type="file" class="form-control" name="attachment" id="attachment"
+                                        value="{{ $sinvoice_row->attachment }}"
+                                        style="
+    height: max-content !important;
+" />
+                                    <input type="hidden" class="form-control" name="old_attachment"
+                                        id="old_attachment" value="{{ $sinvoice_row->attachment }}" />
+                                </div>
+                                <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
+                                    onclick=" 
+                  document.getElementById('attachment').value = '';
+                 document.getElementById('imagePreview').style.display = 'none';
+                 document.getElementById('imagePreview').src = '';
+                 document.getElementById('imageAnchor').href = '';">
+                                    REMOVE
+                                </button>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endforeach
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 100px !important;">
+
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         Update
     </button>
     <br>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
-        var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-window.location.href = newUrl">
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+                var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+        window.location.href = newUrl">
         Previous
     </button>
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
-  var str = $(`[name=\'unique_id\']`).val();
-var parts = str.split('-');
-var firstPart = parts.slice(0, -1).join('-');
-var lastPart = parts[parts.length - 1];
-var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-window.location.href = newUrl
-">
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
+        onclick="
+          var str = $(`[name=\'unique_id\']`).val();
+        var parts = str.split('-');
+        var firstPart = parts.slice(0, -1).join('-');
+        var lastPart = parts[parts.length - 1];
+        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+        window.location.href = newUrl
+        ">
         Next
     </button>
 
-    <a href="/p_voucher" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px;">
-        Add More
+
+    <a href="/p_voucher" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
+        Add New
     </a>
 
-    <a href="/pv_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px;">
+    <a href="/pv_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
         PDF
     </a>
 
 
-    <button type="submit" class="btn btn-secondary btn-sm  submit" style="" onclick="
-    
-    window.location.reload()
-    ">
+
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+        onclick="
+        
+        window.location.reload()
+        ">
         Revert
     </button>
-
 </div>
+
 
 
 </form>
@@ -551,7 +588,8 @@ window.location.href = newUrl
 
 
 <div class="flex justify-center items-center" style="display: none">
-    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert" style="
+    <div class="sufee-alert alert with-close alert-success alert-dismissible fade show text-center custom-alert"
+        style="
             position: fixed;
             top: 79%;
             left: 50%;
@@ -566,15 +604,35 @@ window.location.href = newUrl
     </div>
 </div>
 
-<script>
-    $(document).change(function() {
-        total_amount();
-        $('.select2').select2({
-            theme: 'classic',
-            width: 'resolve',
+@push('s_script')
+    <script>
+        document.getElementById('attachment').addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the uploaded file
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('imagePreview');
+                const a = document.getElementById('imageAnchor');
+
+                // Set the href of the anchor to the image's data URL
+                a.href = e.target.result;
+
+                // Set the src of the img to the image's data URL
+                img.src = e.target.result;
+
+                // Show the image
+                img.style.display = 'block';
+            };
+
+            // Check if a file is selected, then read it
+            if (file) {
+                reader.readAsDataURL(file);
+            }
         });
-        5
-    })
+        $(document).change(function() {
+            total_amount();
+
+        })
 
 
 
@@ -588,43 +646,47 @@ window.location.href = newUrl
 
 
 
-    function handleKeyPress(event) {
-        if (event.key === "Enter") {
-            event.preventDefault(); // Prevent the default behavior (e.g., form submission)
-            const currentElement = event.target;
-            const focusableElements = getFocusableElements();
-            const currentIndex = focusableElements.indexOf(currentElement);
-            const nextIndex = (currentIndex + 1) % focusableElements.length;
-            focusableElements[nextIndex].focus();
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default behavior (e.g., form submission)
+                const currentElement = event.target;
+                const focusableElements = getFocusableElements();
+                const currentIndex = focusableElements.indexOf(currentElement);
+                const nextIndex = (currentIndex + 1) % focusableElements.length;
+                focusableElements[nextIndex].focus();
+            }
         }
-    }
 
 
 
 
-    var counter = 2
-    var countera = 1
-    var stop = 0
+        var counter = 2
+        var countera = 1
+        var stop = 0
 
-    function addInvoice(one) {
+        function addInvoice(one) {
 
-        for (let i = 1; i <= counter; i++) {
+            for (let i = 1; i <= counter; i++) {
 
 
-            var clonedFields = `
+                var clonedFields = `
             <div class="dup_invoice" >
 
 
 <div class="div">
-    <input style="width: 289px !important;"  type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+    <input style="width: 289px !important;"  type="text" id="narration` + counter +
+                    `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
 <div class="div">
-    <input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]"  onchange="addInvoice2(` + counter + `)"/>
+    <input  type="text" min="0.00" step="any" id="cheque_no` + counter +
+                    `" name="cheque_no[]"  onchange="addInvoice2(` + counter + `)"/>
 </div>
 <div class="div">
-    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter + `" name="cheque_date[]"  />
+    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
+                    counter +
+                    `" name="cheque_date[]"  />
 </div>
 <div class="div">
     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -638,7 +700,8 @@ window.location.href = newUrl
 </div>
 
 <div class="div">
-    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+                    counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 
@@ -647,53 +710,54 @@ window.location.href = newUrl
 
 
 
-        }
-
-        let amount = $("#cheque_no").val()
-        let narration = $("#narration").val()
-        if (!$("#narration").hasClass('check')) {
-
-
-            if (amount > 0 && narration != '') {
-
-                $("#narration").addClass("check")
-                console.log(counter + "first");
-
-
-                counter++
-                countera++
-
-
-                $(".invoice").append(clonedFields);
-
             }
+
+            let amount = $("#cheque_no").val()
+            let narration = $("#narration").val()
+            if (!$("#narration").hasClass('check')) {
+
+
+                if (amount > 0 && narration != '') {
+
+                    $("#narration").addClass("check")
+                    console.log(counter + "first");
+
+
+                    counter++
+                    countera++
+
+
+                    $(".invoice").append(clonedFields);
+
+                }
+            }
+
+            // let amount2 = $("#amount" + counter).val()
+            // let narration2 = $("#narration" + counter).val()
+
+            // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
+
+
+            //     if (narration2 != '') {
+
+            //         $("#narration" + counter).addClass("check")
+
+
+
+            //         counter++
+            //         countera++
+
+
+            //         $(".invoice").append(clonedFields);
+
+            //     }
+
+            // }
+
+
+
         }
 
-        // let amount2 = $("#amount" + counter).val()
-        // let narration2 = $("#narration" + counter).val()
-
-        // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
-
-
-        //     if (narration2 != '') {
-
-        //         $("#narration" + counter).addClass("check")
-
-
-
-        //         counter++
-        //         countera++
-
-
-        //         $(".invoice").append(clonedFields);
-
-        //     }
-
-        // }
-
-
-
-    }
 
 
 
@@ -702,26 +766,28 @@ window.location.href = newUrl
 
 
 
+        function addInvoice2(one) {
 
-    function addInvoice2(one) {
-
-        for (let i = 1; i <= counter; i++) {
+            for (let i = 1; i <= counter; i++) {
 
 
-            var clonedFields = `
+                var clonedFields = `
     <div class="dup_invoice" >
 
 
 <div class="div">
-<input style="width: 289px !important;"  type="text" id="narration` + counter + `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
+<input style="width: 289px !important;"  type="text" id="narration` + counter +
+                    `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
 
 <div class="div">
-<input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]" onchange="addInvoice2(` + counter + `)" />
+<input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]" onchange="addInvoice2(` +
+                    counter + `)" />
 </div>
 <div class="div">
-<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter + `" name="cheque_date[]"  />
+<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter +
+                    `" name="cheque_date[]"  />
 </div>
 <div class="div">
 <select class="cash_bank" name="cash_bank[]" style="height: 28px">
@@ -735,40 +801,42 @@ window.location.href = newUrl
 </div>
 
 <div class="div">
-<input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` + counter + `"  style="text-align:end;" name="amount[]" />
+<input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+                    counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
 
 
 `;
 
-        }
-
-        counter = counter - 1
-        let amount2 = $("#cheque_no" + counter).val()
-        console.log(counter);
-        let narration2 = $("#narration" + counter).val()
-        if (!$("#narration" + counter).hasClass('check')) {
-
-
-            if (amount2 != '' && narration2 != '') {
-
-                $("#narration" + countera).addClass("check")
-
-                console.log(counter);
-                console.log(countera);
-
-                counter++
-                countera++
-
-
-                $(".invoice").append(clonedFields);
-
             }
+
+            counter = counter - 1
+            let amount2 = $("#cheque_no" + counter).val()
+            console.log(counter);
+            let narration2 = $("#narration" + counter).val()
+            if (!$("#narration" + counter).hasClass('check')) {
+
+
+                if (amount2 != '' && narration2 != '') {
+
+                    $("#narration" + countera).addClass("check")
+
+                    console.log(counter);
+                    console.log(countera);
+
+                    counter++
+                    countera++
+
+
+                    $(".invoice").append(clonedFields);
+
+                }
+            }
+
+            counter = counter + 1
         }
 
-        counter = counter + 1
-    }
 
 
 
@@ -785,112 +853,105 @@ window.location.href = newUrl
 
 
 
+        function total_amount() {
+            let count = <?php echo $counter; ?> - 1;
+            var atotal = 0;
+            for (let i = 1; i <= count; i++) {
+                let amount1 = parseInt($("." + i + "amount").val());
+                atotal += amount1;
+            }
 
-    function total_amount() {
-        let count = <?php echo $counter; ?> - 1;
-        var atotal = 0;
-        for (let i = 1; i <= count; i++) {
-            let amount1 = parseInt($("." + i + "amount").val());
-            atotal += amount1;
+            for (let i = 1; i <= countera; i++) {
+                let amount1 = parseFloat($("#amount" + i).val());
+                atotal += amount1;
+            }
+
+            $("#amount_total").val(atotal);
         }
+    </script>
+    <script>
+        $(".cash_bank option").click(function() {
+            // Initialize Select2 for the desired select elements
 
-        for (let i = 1; i <= countera; i++) {
-            let amount1 = parseFloat($("#amount" + i).val());
-            atotal += amount1;
-        }
+            // Initialize other select elements if necessary
+        });
 
-        $("#amount_total").val(atotal);
-    }
-</script>
-<script>
-    $(".cash_bank option").click(function() {
-        // Initialize Select2 for the desired select elements
-        $("select").select2();
+        $.ajaxSetup({
+            headers: {
+                "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+            },
+        });
 
-        // Initialize other select elements if necessary
-    });
 
-    $(document).ready(function() {
-        // Initialize Select2 for the desired select elements
-        $("select").select2({
-            maximumSelectionLength: 100,
+
+        $('#form').submit(function(event) {
+            event.preventDefault();
+
+            // Get the form data
+            var formData = new FormData(this);
+
+            // Send an AJAX request
+            $.ajax({
+                url: '/ep_voucher_form_id=<?php foreach ($sp_voucher as $key => $row) {
+                    echo $row->unique_id;
+                } ?>', // Replace with your Laravel route or endpoint
+                method: 'POST',
+                data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
+                success: function(response) {
+                    // Handle the response
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        timer: 1900 // Automatically close after 3 seconds
+                    });
+
+                },
+                error: function(error) {
+                    // Handle the error
+                },
+            });
+        })
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
+                var link = document.querySelector('.add-more');
+                window.location.href = link.href;
+            }
+        });
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
+                var link = document.querySelector('.pdf');
+                window.location.href = link.href;
+            }
         });
 
 
-        // Initialize other select elements if necessary
-    });
-
-    $.ajaxSetup({
-        headers: {
-            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-        },
-    });
-
-
-
-    $('#form').submit(function(event) {
-        event.preventDefault();
-
-        // Get the form data
-        var formData = $("#form").serialize();
-
-        // Send an AJAX request
-        $.ajax({
-            url: '/ep_voucher_form_id=<?php foreach ($sp_voucher as $key => $row) {
-                                            echo $row->unique_id;
-                                        } ?>', // Replace with your Laravel route or endpoint
-            method: 'POST',
-            data: formData,
-            success: function(response) {
-                // Handle the response
-
-                Swal.fire({
-                    icon: 'success',
-                    title: response,
-                    timer: 1900 // Automatically close after 3 seconds
-                });
-
-            },
-            error: function(error) {
-                // Handle the error
-            },
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
+                var str = $('[name=\'unique_id\']').val();
+                var parts = str.split('-');
+                var firstPart = parts.slice(0, -1).join('-');
+                var lastPart = parts[parts.length - 1];
+                var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+                window.location.href = newUrl;
+            }
         });
-    })
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
-            var link = document.querySelector('.add-more');
-            window.location.href = link.href;
-        }
-    });
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'p')) {
-            var link = document.querySelector('.pdf');
-            window.location.href = link.href;
-        }
-    });
 
-
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'n')) {
-            var str = $('[name=\'unique_id\']').val();
-            var parts = str.split('-');
-            var firstPart = parts.slice(0, -1).join('-');
-            var lastPart = parts[parts.length - 1];
-            var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-            window.location.href = newUrl;
-        }
-    });
-
-    $(document).on('keydown', function(e) {
-        if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
-            var str = $('[name=\'unique_id\']').val();
-            var parts = str.split('-');
-            var firstPart = parts.slice(0, -1).join('-');
-            var lastPart = parts[parts.length - 1];
-            var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-            window.location.href = newUrl;
-        }
-    });
+        $(document).on('keydown', function(e) {
+            if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'b')) {
+                var str = $('[name=\'unique_id\']').val();
+                var parts = str.split('-');
+                var firstPart = parts.slice(0, -1).join('-');
+                var lastPart = parts[parts.length - 1];
+                var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+                window.location.href = newUrl;
+            }
+        });
+    </script>
+@endpush
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
 </script>
-
 @endsection

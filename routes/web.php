@@ -214,6 +214,9 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/profit-led', [pdfController::class, 'profit_rep']);
         Route::get('/stock-report', [pdfController::class, 'stock_rep']);
         Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);
+
+        // NEW
+        Route::get('/sale-purchase-report', [pdfController::class, 'sale_pur_report'])->name('sale_pur.report');
     });
 
     Route::middleware(['selectPermission'])->group(function () {

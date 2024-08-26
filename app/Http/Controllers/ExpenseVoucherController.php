@@ -100,7 +100,14 @@ class ExpenseVoucherController extends Controller
             $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = $request->input('old_attachment');
+            }
 
+            $invoice->attachment = $attachmentPath;
             $invoice->save();
         }
 

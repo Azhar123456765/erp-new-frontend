@@ -14,11 +14,15 @@ class p_voucher extends Model
     {
         return $this->hasOne(seller::class, 'seller_id', 'company');
     }
-    function buyer()
+    function customer()
     {
         return $this->hasOne(buyer::class, 'buyer_id', "company");
     }
 
+    function sales_officer()
+    {
+        return $this->hasOne(sales_officer::class, 'sales_officer_id', "sales_officer");
+    }
     function accounts()
     {
         return $this->hasOne(accounts::class, 'account_id', "cash_bank");

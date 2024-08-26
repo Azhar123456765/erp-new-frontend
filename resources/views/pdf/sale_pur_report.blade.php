@@ -3,7 +3,9 @@
         table {
             border-collapse: collapse;
             width: 100%;
+            font-size: 13px;
         }
+
 
         th,
         td {
@@ -63,7 +65,7 @@
 
 
     @if ($type == 1)
-        <h2 style="text-align: center;">Sale Report</h2>
+        <h2 style="text-align: center;">Sale+Purchase Report</h2>
 
         <div class="row">
             <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
@@ -83,7 +85,12 @@
                         <th>Gross Weight</th>
                         <th>Net Weight</th>
                         <th>Rate</th>
-                        <th>total Amount</th>
+                        <th>Amount</th>
+
+                        <th>Supplier Name</th>
+                        <th>Net Weight</th>
+                        <th>Rate</th>
+                        <th>Amount</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -114,6 +121,21 @@
                             <td style="text-align:right;">
                                 <span>{{ $row->sale_amount }}</span>
                             </td>
+
+
+                            <td style="text-align: left
+                ;">
+                                <span>{{ $row->supplier->company_name }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->net_weight }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->rate }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->amount }}</span>
+                            </td>
                         </tr>
                     @endforeach
 
@@ -131,6 +153,13 @@
                         <th>Date</th>
                         <th>Invoice No</th>
                         <th>Customer Name</th>
+                        <th>Rate</th>
+                        <th>Discount</th>
+                        <th>Bonus</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+
+                        <th>Supplier Name</th>
                         <th>Rate</th>
                         <th>Discount</th>
                         <th>Bonus</th>
@@ -166,6 +195,26 @@
                             <td style="text-align:right;">
                                 <span>{{ $row->sale_amount }}</span>
                             </td>
+
+                            <td style="text-align: left
+                ;">
+                                <span>{{ $row->supplier->company_name }}</span>
+                            </td>
+                            <td>
+                                <span>{{ $row->rate }}</span>
+                            </td>
+                            <td>
+                                <span>{{ $row->discount }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->bonus }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->qty }}</span>
+                            </td>
+                            <td style="text-align:right;">
+                                <span>{{ $row->amount }}</span>
+                            </td>
                         </tr>
                     @endforeach
 
@@ -183,6 +232,13 @@
                         <th>Date</th>
                         <th>Invoice No</th>
                         <th>Customer Name</th>
+                        <th>Rate</th>
+                        <th>Discount</th>
+                        <th>Bonus</th>
+                        <th>Quantity</th>
+                        <th>Amount</th>
+
+                        <th>Supplier Name</th>
                         <th>Rate</th>
                         <th>Discount</th>
                         <th>Bonus</th>
@@ -218,6 +274,26 @@
                             <td style="text-align:right;">
                                 <span>{{ $row->sale_amount }}</span>
                             </td>
+
+                            <td style="text-align: left
+                            ;">
+                                            <span>{{ $row->supplier->company_name }}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{ $row->rate }}</span>
+                                        </td>
+                                        <td>
+                                            <span>{{ $row->discount }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->bonus }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->qty }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount }}</span>
+                                        </td>
                         </tr>
                     @endforeach
 

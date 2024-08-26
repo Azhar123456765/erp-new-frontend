@@ -507,7 +507,7 @@ right: 15%;
 
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
 
@@ -967,6 +967,8 @@ right: 15%;
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
                 processData: false, // Prevent jQuery from processing the data
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
                 success: function(response) {
                     // Handle the response
 
@@ -985,6 +987,8 @@ right: 15%;
                                 url: '/s_med_invoice_mail',
                                 method: 'POST',
                                 data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
                                 contentType: false, // Ensure these are set for the second AJAX call
                                 processData: false,
                                 success: function(mailResponse) {
@@ -998,7 +1002,7 @@ right: 15%;
                     });
 
                     // Show or hide elements as needed
-                    $("#bt").addClass("disabled");
+                    $("#submit").addClass("disabled");
                     $(".edit").css("display", "block");
                     $("#btn").css("display", "none");
                     $("#edit").removeClass("disabled");
@@ -1016,7 +1020,7 @@ right: 15%;
             if (!$(this).hasClass('disabled')) {
 
                 event.preventDefault();
-                // var formData = $("#form").serialize();
+                // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
                 var url = '{{ route('pdf_invoice_feed', [':unique_id', 0]) }}'.replace(':unique_id', unique_id);
 
@@ -1027,7 +1031,7 @@ right: 15%;
             if (!$(this).hasClass('disabled')) {
 
                 event.preventDefault();
-                // var formData = $("#form").serialize();
+                // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
                 var url = '{{ route('pdf_invoice_feed', [':unique_id', 1]) }}'.replace(':unique_id', unique_id);
 

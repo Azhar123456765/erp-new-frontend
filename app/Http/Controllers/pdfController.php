@@ -523,6 +523,11 @@ class pdfController extends Controller
         }
 
 
+
+
+
+
+
         public function sale_r_report(Request $request)
         {
 
@@ -1941,13 +1946,13 @@ class pdfController extends Controller
 
 
                 $p_voucher = p_voucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
+                        ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('pgroducts', 'payment_voucher.item', '=', 'products.product_id')
+                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
                         ->get();
 
                 $s_p_voucher = p_voucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'payment_voucher.company', '=', 'seller.seller_id')
+                        ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
                         ->limit(1)->get();
@@ -1975,7 +1980,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
 
 
@@ -2017,7 +2022,7 @@ class pdfController extends Controller
 
                 $pdf->render();
 
-                return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
 
 
@@ -2266,4 +2271,128 @@ class pdfController extends Controller
 
                 return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
+
+
+        public function sale_pur_report(Request $request)
+        {
+                $type = $request['type'];
+                if ($type == 1) {
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        // Retrieve form data
+                        $customer = $request->input('customer');
+                        $salesOfficer = $request->input('sales_officer');
+                        $warehouse = $request->input('warehouse');
+                        $product_category = $request->input('product_category');
+                        $product_company = $request->input('product_company');
+                        $product = $request->input('product');
+                        $product_id = null;
+
+
+
+                        $chickenInvoice = chickenInvoice::query();
+                        if ($customer) {
+                                $chickenInvoice->where('buyer', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickenInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickenInvoice->where('item', $product);
+                        }
+
+                        $chickInvoice = ChickInvoice::query();
+                        if ($customer) {
+                                $chickInvoice->where('buyer', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickInvoice->where('item', $product);
+                        }
+
+                        $feedInvoice = feedInvoice::query();
+                        if ($customer) {
+                                $feedInvoice->where('buyer', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $feedInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $feedInvoice->where('item', $product);
+                        }
+
+                        $chickenData = $chickenInvoice->get();
+                        $chickData = $chickInvoice->get();
+                        $feedData = $feedInvoice->get();
+
+                        $data = [
+                                'chickenData' => $chickenData,
+                                'chickData' => $chickData,
+                                'feedData' => $feedData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'type' => $type,
+                        ];
+
+                        session()->flash('Data', $data);
+                } 
+
+                if (session()->has('Data')) {
+
+                        $views = 'Sale + Purchase Report';
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.sale_pur_report')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                }
+        }
+
 }

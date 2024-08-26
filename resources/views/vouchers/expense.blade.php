@@ -390,9 +390,56 @@
 </div>
 
 </div>
+<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
+    data-bs-target="#imageModal" style="
+    margin-top: -17%;
+">
+    Attachment
+</button>
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row p-2">
+                    <div class="col-lg-9 col-md-12 p-2">
+                        <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
+                                class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="row justify-content-start">
+                            <div class="mb-3">
+                                <input type="file" class="form-control" name="attachment" id="attachment"
+                                    style="
+    height: max-content !important;
+" />
+                            </div>
+                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
+                                onclick="
+                  document.getElementById('attachment').value = '';
+                 document.getElementById('imagePreview').style.display = 'none';
+                 document.getElementById('imagePreview').src = '';
+                 document.getElementById('imageAnchor').href = '';">
+                                REMOVE
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: -110px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="bt" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
     <br>
@@ -426,7 +473,7 @@
         id="edit">
         Edit
     </a>
-    <a href="{{ Route('invoice_chick') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+    <a href="{{ Route('add_expense_voucher') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="add_more">
         Add More
     </a>
@@ -473,6 +520,30 @@
 </div>
 @push('s_script')
     <script>
+        document.getElementById('attachment').addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the uploaded file
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('imagePreview');
+                const a = document.getElementById('imageAnchor');
+
+                // Set the href of the anchor to the image's data URL
+                a.href = e.target.result;
+
+                // Set the src of the img to the image's data URL
+                img.src = e.target.result;
+
+                // Show the image
+                img.style.display = 'block';
+            };
+
+            // Check if a file is selected, then read it
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
+
         function handleKeyPress(event) {
             if (event.key === "Enter") {
                 event.preventDefault(); // Prevent the default behavior (e.g., form submission)
@@ -732,12 +803,16 @@
 
         $('#form').submit(function(event) {
             event.preventDefault();
-            var formData = $("#form").serialize();
+            var formData = new FormData(this);
 
             $.ajax({
                 url: '/expense-voucher',
                 method: 'POST',
                 data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
                 success: function(response) {
                     // Handle the response
 
@@ -796,4 +871,7 @@
         });
     </script>
 @endpush
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
+    integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
+</script>
 @endsection

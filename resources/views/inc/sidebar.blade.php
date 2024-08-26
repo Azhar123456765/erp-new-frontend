@@ -232,6 +232,12 @@ $target = null;
                                 <p>Reciept Voucher</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="{{ Route('add_expense_voucher') }}" class="nav-link{{ request()->routeIs('add_expense_voucher') ? ' active' : '' }}">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Expense Voucher</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -414,6 +420,13 @@ $target = null;
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="" data-toggle="modal" data-target="#sale-pur-report"
+                                        class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Sale+Purchase Report</p>
+                                    </a>
+                                </li>
                                 <li class="nav-item">
                                     <a href="" data-toggle="modal" data-target="#sale-report"
                                         class="nav-link">

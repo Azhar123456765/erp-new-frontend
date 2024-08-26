@@ -43,15 +43,12 @@ class ReceiptVoucherController extends Controller
     public function index()
     {
 
-        $seller = seller::all();
-        $buyer = buyer::all();
+        // $seller = seller::all();
+        // $buyer = buyer::all();
 
-        $warehouse = warehouse::all();
+        // $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::all();
-
-        $sell_invoice  = sell_invoice::all();
-
+        // $sales_officer = sales_officer::all();
         $account = accounts::all();
         $count = ReceiptVoucher::whereIn('receipt_vouchers.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
@@ -59,7 +56,7 @@ class ReceiptVoucherController extends Controller
                 ->groupBy('unique_id');
         })->count();
 
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'sell_invoice', 'count');
+        $data = compact('account', 'count');
         return view('vouchers.receipt')->with($data);
     }
 
@@ -86,7 +83,7 @@ class ReceiptVoucherController extends Controller
         $lastChar = substr($request['company'], -1);
 
         // Check if the last character is a letter using ctype_alpha
-        $income =  new Income;
+        $income = new Income;
         $income->category_id = $invoiceData['unique_id'];
         $income->category = 'Receipt Voucher';
         $income->amount = $request['amount_total'];
@@ -94,22 +91,22 @@ class ReceiptVoucherController extends Controller
 
 
 
-        $arrayLength = count($invoiceData['narration']);
+        $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
 
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $company = substr($invoiceData['company'], 0, -1);
+            $company = $invoiceData['company'];
             $invoice->company = $company;
 
-            
+
             $invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
             $amount = $request['amount']["$i"];
             $amount_total = $request['amount_total'];
             $lastChar = substr($request['company'], -1);
-                $invoice->company_ref = "B";
+            $invoice->company_ref = "B";
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
@@ -122,7 +119,14 @@ class ReceiptVoucherController extends Controller
             $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = $request->input('old_attachment');
+            }
 
+            $invoice->attachment = $attachmentPath;
             $invoice->save();
         }
 
@@ -149,12 +153,12 @@ class ReceiptVoucherController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $seller = seller::all();
-        $buyer = buyer::all();
+        // $seller = seller::all();
+        // $buyer = buyer::all();
 
-        $warehouse = warehouse::all();
+        // $warehouse = warehouse::all();
 
-        $sales_officer  = sales_officer::all();
+        // $sales_officer = sales_officer::all();
 
         $ReceiptVoucher = ReceiptVoucher::where("unique_id", $id)->get();
 
@@ -162,13 +166,13 @@ class ReceiptVoucherController extends Controller
             "unique_id" => $id
         ])->limit(1)->get();
 
-        foreach ($ReceiptVoucher as $key => $value) {
-            $company = $value->company;
-        }
+        // foreach ($ReceiptVoucher as $key => $value) {
+        //     $company = $value->company;
+        // }
 
         $account = accounts::all();
-        $invoices = sell_invoice::where('company', $company)->get();
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'ReceiptVoucher', 'sReceiptVoucher','invoices');
+        // $invoices = sell_invoice::where('company', $company)->get();
+        $data = compact('account', 'ReceiptVoucher', 'sReceiptVoucher');
         return view('vouchers.e_reciept')->with($data);
     }
 
@@ -186,7 +190,7 @@ class ReceiptVoucherController extends Controller
         Income::where('category_id', $id)->update([
             'amount' => $request['amount_total']
         ]);
-      
+
         $invoiceData = $request->all();
 
         $arrayLength = count(array_filter($invoiceData['narration']));
@@ -196,19 +200,15 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $company = substr($invoiceData['company'], 0, -1);
+            $company = $invoiceData['company'];
             $invoice->company = $company;
 
-            $lastChar = substr($request['company'], -1);
+            $lastChar = $request['company'];
 
             $invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
             $amount = $request['amount']["$i"];
             $amount_total = $request['amount_total'];
-            if ($lastChar === 'S') {
-                $invoice->company_ref = "S";
-            } elseif ($lastChar === 'B') {
-                $invoice->company_ref = "B";
-            }
+            $invoice->company_ref = "B";
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
@@ -222,6 +222,13 @@ class ReceiptVoucherController extends Controller
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
 
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = $request->input('old_attachment');
+            }
+            $invoice->attachment = $attachmentPath;
 
             $invoice->save();
         }

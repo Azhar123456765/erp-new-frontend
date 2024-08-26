@@ -2,240 +2,241 @@
 <html lang="en">
 
 <head>
-  <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <!-- Bootstrap CSS -->
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 
 <style>
-  input {
-    border: none !important;
-  }
+    input {
+        border: none !important;
+    }
 
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
 
-  th,
-  td {
-    border: 2px solid;
-    padding: 3px;
-  }
+    th,
+    td {
+        border: 2px solid;
+        padding: 3px;
+    }
 
-  .c th {
-    background-color: #f2f2f2;
-    text-align: center;
-  }
+    .c th {
+        background-color: #f2f2f2;
+        text-align: center;
+    }
 
-  .total-amount {
-    text-align: right;
-  }
+    .total-amount {
+        text-align: right;
+    }
 
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-  .logo {
-    width: 150px;
-    /* Adjust the logo width as needed */
-  }
+    .logo {
+        width: 150px;
+        /* Adjust the logo width as needed */
+    }
 
-  .address {
-    font-weight: normal;
-    text-align: right;
-  }
+    .address {
+        font-weight: normal;
+        text-align: right;
+    }
 
-  .pdf-time {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    font-size: 12px;
-    color: #999;
-  }
-
-
-
-
-  .first {
-    width: 100% !important;
-    display: flex;
-    justify-content: space-between;
-    padding: 3px;
-    width: 50%;
-  }
-
-  .left {
-    display: flex;
-    flex-direction: column;
-    padding: 3px;
-    border: 2px solid;
-    width: 50%;
-  }
-
-  .right {
-    display: flex;
-    flex-direction: column;
-    padding: 3px;
-    border: 2px solid;
-    width: 50%;
-  }
-
-  .form-group {
-    flex-direction: row !important;
-    display: flex;
-  }
-
-  .f .form-group {
-    width: 9%;
-  }
-
-  .first .form-group p {
-    padding-left: 7%;
-  }
-
-
-
-  .total {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    border: 2px solid;
-    margin-top: 2px;
-  }
-
-  .b {
-    position: absolute;
-    left: 31%;
-  }
-
-
-  h3 {
-    font-size: 1.55rem !important;
-  }
-
-  input {
-    border: none !important;
-  }
-
-
-
-  th {
-    background-color: #f2f2f2;
-  }
-
-  .header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-  }
-
-  .logo {
-    width: 150px;
-    /* Adjust the logo width as needed */
-  }
-
-  .address {
-    font-weight: normal;
-    text-align: right;
-  }
-
-  .pdf-time {
-    position: fixed;
-    bottom: 20px;
-    left: 20px;
-    font-size: 12px;
-    color: #999;
-  }
+    .pdf-time {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        font-size: 12px;
+        color: #999;
+    }
 
 
 
 
-  .first {
-    width: 100% !important;
-    display: flex;
-    justify-content: space-between;
-    padding: 3px;
-    width: 50%;
-  }
+    .first {
+        width: 100% !important;
+        display: flex;
+        justify-content: space-between;
+        padding: 3px;
+        width: 50%;
+    }
 
-  .left {
-    display: flex;
-    flex-direction: column;
-    padding: 3px;
-    border: 2px solid;
-    width: 50%;
-  }
+    .left {
+        display: flex;
+        flex-direction: column;
+        padding: 3px;
+        border: 2px solid;
+        width: 50%;
+    }
 
-  .right {
-    display: flex;
-    flex-direction: column;
-    padding: 3px;
-    border: 2px solid;
-    width: 50%;
-  }
+    .right {
+        display: flex;
+        flex-direction: column;
+        padding: 3px;
+        border: 2px solid;
+        width: 50%;
+    }
 
-  .form-group {
-    flex-direction: row !important;
-    display: flex;
-  }
+    .form-group {
+        flex-direction: row !important;
+        display: flex;
+    }
 
-  .f .form-group {
-    width: 33.33%;
-  }
+    .f .form-group {
+        width: 9%;
+    }
 
-  .first .form-group p {
-    padding-left: 7%;
-  }
-
-
-
-  .total {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    margin-top: 2px;
-  }
-
-  .b {
-    position: absolute;
-    left: 31%;
-  }
+    .first .form-group p {
+        padding-left: 7%;
+    }
 
 
-  h3 {
-    font-size: 1.55rem !important;
-  }
+
+    .total {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        border: 2px solid;
+        margin-top: 2px;
+    }
+
+    .b {
+        position: absolute;
+        left: 31%;
+    }
 
 
-  input {
-    border: 1px solid gray !important;
-    width: 71px;
-  }
+    h3 {
+        font-size: 1.55rem !important;
+    }
 
-  .a td {
-    width: 50%;
-  }
-
-  .a td {
-    width: 33.333%;
-  }
-
-  .total-amount {
-    background-color: lightgray;
-    border: 3px solid;
-  }
+    input {
+        border: none !important;
+    }
 
 
-  .sign {}
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
+
+    .logo {
+        width: 150px;
+        /* Adjust the logo width as needed */
+    }
+
+    .address {
+        font-weight: normal;
+        text-align: right;
+    }
+
+    .pdf-time {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        font-size: 12px;
+        color: #999;
+    }
+
+
+
+
+    .first {
+        width: 100% !important;
+        display: flex;
+        justify-content: space-between;
+        padding: 3px;
+        width: 50%;
+    }
+
+    .left {
+        display: flex;
+        flex-direction: column;
+        padding: 3px;
+        border: 2px solid;
+        width: 50%;
+    }
+
+    .right {
+        display: flex;
+        flex-direction: column;
+        padding: 3px;
+        border: 2px solid;
+        width: 50%;
+    }
+
+    .form-group {
+        flex-direction: row !important;
+        display: flex;
+    }
+
+    .f .form-group {
+        width: 33.33%;
+    }
+
+    .first .form-group p {
+        padding-left: 7%;
+    }
+
+
+
+    .total {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 2px;
+    }
+
+    .b {
+        position: absolute;
+        left: 31%;
+    }
+
+
+    h3 {
+        font-size: 1.55rem !important;
+    }
+
+
+    input {
+        border: 1px solid gray !important;
+        width: 71px;
+    }
+
+    .a td {
+        width: 50%;
+    }
+
+    .a td {
+        width: 33.333%;
+    }
+
+    .total-amount {
+        background-color: lightgray;
+        border: 3px solid;
+    }
+
+
+    .sign {}
 </style>
 
 
@@ -249,95 +250,90 @@ $sdata = session()->get('s_p_voucher_pdf_data');
 // $sales_officer_pdf_data = session()->get('sales_officer_pdf_data');
 // $seller_pdf_data = session()->get('seller_pdf_data');
 
-
 ?>
 
 @include('pdf.head_pdf')
 
 <h1 style="text-align: center; margin-bottom:5%;">Payment Voucher</h1>
 @foreach ($sdata as $row)
+    <table class="ab" style="padding: 5px;">
+        <tbody>
+            <tr>
+                <td>
+                    Voucher No: &nbsp;&nbsp;&nbsp; {{ $row->unique_id }}
+                </td>
+                <td>
+                    Date: &nbsp;&nbsp;&nbsp; {{ $row->date }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
 
-<table class="ab" style="padding: 5px;">
-  <tbody>
-    <tr>
-      <td>
-        Voucher No: &nbsp;&nbsp;&nbsp; {{$row->unique_id}}
-      </td>
-      <td>
-        Date: &nbsp;&nbsp;&nbsp; {{$row->date}}
-      </td>
-    </tr>
-  </tbody>
-</table>
+    <table class="a" style="padding: 5px;">
+        <tbody>
+            <tr>
+                <td>
+                    Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{ $row->company_name }}</span>
 
-<table class="a" style="padding: 5px;">
-  <tbody>
-    <tr>
-      <td>
-        Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{$row->company_ref == "B" ? $row->buyer->company_name : $row->supplier->company_name}}</span>
-      </td>
-      <td>Ref NO.:&nbsp;&nbsp;&nbsp;{{$row->ref_no}}</td>
-    </tr>
-  </tbody>
-</table>
-
+                </td>
+                <td>Ref NO.:&nbsp;&nbsp;&nbsp;{{ $row->ref_no }}</td>
+            </tr>
+        </tbody>
+    </table>
 @endforeach
 <br>
 <table class="c">
-  <thead>
-    <tr>
-      <th>S#</th>
-      <th>Narration</th>
-      <th>Cheque No</th>
-      <th>Cheque Date</th>
-      <th>Account</th>
-      <th>Amount</th>
-    </tr>
-  </thead>
-  <tbody>
-    <?php
-    $serialNumber = 1; // Initialize serial number counter
-    ?>
+    <thead>
+        <tr>
+            <th>S#</th>
+            <th>Narration</th>
+            <th>Cheque No</th>
+            <th>Cheque Date</th>
+            <th>Account</th>
+            <th>Amount</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php
+        $serialNumber = 1; // Initialize serial number counter
+        ?>
 
-    @foreach ($data as $row)
+        @foreach ($data as $row)
+            <tr>
+                <td style="text-align: center;">{{ $serialNumber }}</td>
+                <td>
+                    <span>{{ $row->narration }}</span>
 
-    <tr>
-      <td style="text-align: center;">{{$serialNumber}}</td>
-      <td>
-        <span>{{$row->narration}}</span>
+                </td>
+                <td style="text-align: center;">
+                    <span>{{ $row->cheque_no }}</span>
+                </td>
+                <td style="text-align: center;">
+                    <span>{{ $row->cheque_date }}</span>
+                </td>
+                <td style="text-align: right;">
+                    <span>{{ $row->account }}</span>
+                </td>
+                <td style="text-align: right;">
+                    <span>{{ $row->amount }}</span>
+                </td>
 
-      </td>
-      <td style="text-align: center;">
-        <span>{{$row->cheque_no}}</span>
-      </td>
-      <td style="text-align: center;">
-        <span>{{$row->cheque_date}}</span>
-      </td>
-      <td style="text-align: right;">
-        <span>{{$row->account}}</span>
-      </td>
-      <td style="text-align: right;">
-        <span>{{$row->amount}}</span>
-      </td>
+            </tr>
+            <?php
+            $serialNumber++; // Increment serial number after each ro
+            ?>
+        @endforeach
 
-    </tr>
-    <?php
-    $serialNumber++; // Increment serial number after each ro
-    ?>
-
+    </tbody>
+    @foreach ($sdata as $row)
+        <tfoot>
+            <tr>
+                <td colspan="5" style="text-align:right; border:none; "><b>Total:</b></td>
+                <td class="total-amount">{{ $row->amount_total }}</td>
+            </tr>
+        </tfoot>
     @endforeach
-
-  </tbody>
-  @foreach ($sdata as $row)
-
-  <tfoot>
-    <tr>
-      <td colspan="5" style="text-align:right; border:none; "><b>Total:</b></td>
-      <td class="total-amount">{{$row->amount_total}}</td>
-    </tr>
-  </tfoot>
-  @endforeach
-  <!-- <tfoot>
+    <!-- <tfoot>
       <tr>
         <td class="total-qty" style="
     position: absolute;
@@ -366,10 +362,16 @@ $sdata = session()->get('s_p_voucher_pdf_data');
 <div style="text-align: left; margin-top: 200px; " <p>Receiver's Name: ________________________</p>
 </div>
 <div style="text-align: right; margin-top: -150px;">
-  <p>Authorized Signature: _____________________</p>
+    <p>Authorized Signature: _____________________</p>
 </div>
 <!-- Authorized Signature Section -->
-
+@foreach ($sdata as $row)
+    <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
+        <img class="img-fluid"
+            style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+            src="{{ asset($row->attachment) }}">
+    </div>
+@endforeach
 
 </body>
 
@@ -395,7 +397,7 @@ $sdata = session()->get('s_p_voucher_pdf_data');
 </div>
 <br>
 <div class="pdf-time">
-  <?php echo "Generated on:" . ' ' . date('Y-m-d H:i:s'); ?>
+    <?php echo 'Generated on:' . ' ' . date('Y-m-d H:i:s'); ?>
 </div>
 
 </div>

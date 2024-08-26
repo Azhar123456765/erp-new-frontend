@@ -311,6 +311,8 @@
       type: "POST",
       url: "/p_chick_invoice_form",
       data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
       success: function(response) {
         // Handle the response
 

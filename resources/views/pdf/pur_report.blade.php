@@ -74,14 +74,6 @@ $feedData = session()->get('Data')['feedData'];
     <h3 style="text-align: right; "><?php echo date('l'); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
 @if ($type == 1)
-    <h2 style="text-align: center;">Purchase Report</h2>
-
-    <div class="row">
-        <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-            {{ $endDate }}</h4>
-        <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
-    </div>
-
     @if (count($chickenData) > 0)
         <h4>Chickens</h4>
         <table>
@@ -89,7 +81,7 @@ $feedData = session()->get('Data')['feedData'];
                 <tr>
                     <th>Date</th>
                     <th>Invoice No</th>
-                    <th>Customer Name</th>
+                    <th>Supplier Name</th>
                     <th>Crate Qty</th>
                     <th>Gross Weight</th>
                     <th>Net Weight</th>
@@ -130,7 +122,7 @@ $feedData = session()->get('Data')['feedData'];
 
             </tbody>
         </table>
-        <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
+        <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
                 style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
         </h3>
     @endif
@@ -141,7 +133,7 @@ $feedData = session()->get('Data')['feedData'];
                 <tr>
                     <th>Date</th>
                     <th>Invoice No</th>
-                    <th>Customer Name</th>
+                    <th>Supplier Name</th>
                     <th>Rate</th>
                     <th>Discount</th>
                     <th>Bonus</th>
@@ -182,7 +174,7 @@ $feedData = session()->get('Data')['feedData'];
 
             </tbody>
         </table>
-        <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
+        <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
                 style="color: green;"><b>{{ $chickData->sum('amount') }}</b></span>
         </h3>
     @endif
@@ -193,7 +185,7 @@ $feedData = session()->get('Data')['feedData'];
                 <tr>
                     <th>Date</th>
                     <th>Invoice No</th>
-                    <th>Customer Name</th>
+                    <th>Supplier Name</th>
                     <th>Rate</th>
                     <th>Discount</th>
                     <th>Bonus</th>
@@ -234,10 +226,13 @@ $feedData = session()->get('Data')['feedData'];
 
             </tbody>
         </table>
-        <h3 style="text-align:right; border:none;"><b>Total Amount Of Sales:&nbsp;&nbsp;</b><span
+        <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
                 style="color: green;"><b>{{ $feedData->sum('amount') }}</b></span>
         </h3>
     @endif
+    <h3 style="text-align:right; border:none;"><b>Grand Total:&nbsp;&nbsp;</b><span
+            style="color: green;"><b>{{ $feedData->sum('amount') + $chickData->sum('amount') + $chickenData->sum('amount') }}</b></span>
+    </h3>
 @elseif($type == 2)
     <table>
         <thead>

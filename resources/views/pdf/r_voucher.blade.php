@@ -276,7 +276,7 @@ $sdata = session()->get('s_receipt_vouchers_pdf_data');
   <tbody>
     <tr>
       <td>
-        Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{$row->company_ref == "B" ? $row->buyer->company_name : $row->supplier->company_name}}</span>
+        Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{$row->buyer->company_name}}</span>
 
       </td>
       <td>Ref NO.:&nbsp;&nbsp;&nbsp;{{$row->ref_no}}</td>
@@ -373,7 +373,13 @@ $sdata = session()->get('s_receipt_vouchers_pdf_data');
     <p>Authorized Signature: _____________________</p>
   </div>
 <!-- Authorized Signature Section -->
+@foreach ($sdata as $row)
 
+<div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
+  <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+      src="{{ asset($row->attachment) }}">
+</div>
+@endforeach
 
 </body>
 

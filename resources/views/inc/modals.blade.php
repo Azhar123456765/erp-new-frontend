@@ -508,7 +508,7 @@ text-align: center;
                             <div class="col-md">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control select-seller" name="customer" >
+                                    <select class="form-control select-buyer" name="customer" >
                                     </select>
                                 </div>
                             </div>
@@ -744,6 +744,128 @@ text-align: center;
                 <h4>Sale Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/sale-report">
+                        @csrf
+                        <div class="row" style="justify-content: space-between;">
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Customer</label>
+                                    <select class="form-control select-buyer" name="customer">
+                                        
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+                                        
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Warehouse</label>
+                                    <select class="select-warehouse form-control" name="warehouse">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="row" style="justify-content: space-between;">
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Category</label>
+                                    <select class="form-control select-product_category" name="product_category">
+                                        
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product Company</label>
+                                    <select class="form-control select-product_company" name="product_company">
+                                        
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md">
+                                <div class="form-group">
+                                    <label>Select Product</label>
+                                    <select class="form-control select-products" name="product">
+                                       
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md">
+                            <div class="form-group">
+                                <label>Select Type</label>
+                                <select class="form-control" name="type">
+                                    <option value="1">Summary</option>
+                                    <option value="2">invoice Wise</option>
+                                    <option value="3">Prodcut Wise</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <br>
+
+                        <div class="row" style="justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
+                                        required>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+            </div>
+            <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
+            </div>
+            </form>
+        </div>
+    </div>
+</div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+
+
+<div class="modal fade" id="sale-pur-report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led" style="height: 95vh;">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Sale And Purchase Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="{{Route('sale_pur.report')}}">
                         @csrf
                         <div class="row" style="justify-content: space-between;">
                             <div class="col-md">
