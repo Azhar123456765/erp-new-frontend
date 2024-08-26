@@ -276,7 +276,7 @@ right: 15%;
                         name="" value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'SI' . '-' . $year . '-' . $single_invoice->unique_id; ?>" />
-                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $single_invoice->unique_id }}" />
+                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $rand = $single_invoice->unique_id }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
