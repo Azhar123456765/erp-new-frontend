@@ -227,7 +227,7 @@
                     style="color: green;"><b>{{ $chickData->sum('sale_amount') }}</b></span>
             </h3>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $chickData->sum('amount') }}</b></span>
             </h3>
         @endif
         @if (count($feedData) > 0)
@@ -309,7 +309,7 @@
                     style="color: green;"><b>{{ $feedData->sum('sale_amount') }}</b></span>
             </h3>
             <h3 style="text-align:right; border:none;"><b>Total Amount Of Purchase:&nbsp;&nbsp;</b><span
-                    style="color: green;"><b>{{ $chickenData->sum('amount') }}</b></span>
+                    style="color: green;"><b>{{ $feedData->sum('amount') }}</b></span>
             </h3>
         @endif
         <h3 style="text-align:right; border:none;"><b>Grand Total:&nbsp;&nbsp;</b><span
