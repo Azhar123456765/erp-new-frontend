@@ -290,8 +290,8 @@
                     <div class="one  remark">
                         <label for="seller">Company</label>
                         <select name="company" class="company select-buyer" required>
-                            <option value="{{ $sinvoice_row->buyer->buyer_id }}" selected>
-                                {{ $sinvoice_row->buyer->company_name }}</option>
+                            <option value="{{ $sinvoice_row->customer->buyer_id }}" selected>
+                                {{ $sinvoice_row->customer->company_name }}</option>
                         </select>
                     </div>
 

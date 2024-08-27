@@ -166,7 +166,7 @@ class PaymentVoucherController extends Controller
         $account = accounts::all();
 
         $data = compact('account', 'p_voucher', 'sp_voucher');
-        return view('vouchers.e_expense')->with($data);
+        return view('vouchers.e_payment')->with($data);
     }
 
 

@@ -18,7 +18,7 @@ class ReceiptVoucher extends Model
     {
         return $this->hasOne(seller::class, 'seller_id', 'company');
     }
-    function buyer()
+    function customer()
     {
         return $this->hasOne(buyer::class, 'buyer_id', "company");
     }

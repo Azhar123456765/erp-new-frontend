@@ -114,7 +114,6 @@ Route::middleware('userAuth')->group(function () {
         Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
         Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
         Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
-        Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
         Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update']);
 
         Route::controller(ExpenseVoucherController::class)->group(function () {
