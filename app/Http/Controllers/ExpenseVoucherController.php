@@ -10,7 +10,7 @@ use App\Models\users;
 use App\Models\customization;
 use App\Models\buyer;
 use App\Models\Expense;
-use App\Models\p_voucher;
+use App\Models\e_voucher;
 use App\Models\sell_invoice;
 use App\Models\seller;
 use App\Models\sales_officer;
@@ -41,16 +41,15 @@ class ExpenseVoucherController extends Controller
      */
     public function create()
     {
-        $seller = seller::all();
-        $buyer = buyer::all();
-        $warehouse = warehouse::all();
-        $sales_officer = sales_officer::all();
         $account = accounts::all();
         $narrations = Narration::all();
+        $count = ExpenseVoucher::whereIn('expense_vouchers.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('expense_vouchers')
+                ->groupBy('unique_id');
+        })->count();
 
-        $count = 000000;
-
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'count', 'narrations');
+        $data = compact('account', 'count', 'narrations');
         return view('vouchers.expense')->with($data);
     }
 
@@ -63,17 +62,21 @@ class ExpenseVoucherController extends Controller
     public function store(Request $request)
     {
         $invoiceData = $request->all();
-        $lastChar = substr($request['company'], -1);
+        $lastChar = $request['company'];
 
         $expense = new Expense;
         $expense->category_id = $invoiceData['unique_id'];
-        $expense->category = 'Expense Voucher';
+        $expense->category = 'Payment Voucher';
         $expense->company_id = $invoiceData['company'];
         $expense->company_ref = $lastChar;
         $expense->amount = $request['amount_total'];
         $expense->save();
 
-        $company = substr($invoiceData['company'], 0, -1);
+        $company = $request['company'];
+
+
+        $amount = $request['amount_total'];
+
 
         $arrayLength = count(array_filter($invoiceData['narration']));
 
@@ -82,18 +85,13 @@ class ExpenseVoucherController extends Controller
             $invoice = new ExpenseVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->buyer = $company;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
+
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
+
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
-
-            $lastChar = substr($request['company'], -1);
-            if ($lastChar === 'S') {
-                $invoice->seller = $company;
-            } elseif ($lastChar === 'B') {
-                $invoice->buyer = $company;
-            }
-
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
@@ -132,9 +130,19 @@ class ExpenseVoucherController extends Controller
      * @param  \App\Models\ExpenseVoucher  $expenseVoucher
      * @return \Illuminate\Http\Response
      */
-    public function edit(ExpenseVoucher $expenseVoucher)
+    public function edit(Request $request, $id)
     {
-        //
+        $e_voucher = ExpenseVoucher::where("unique_id", $id)
+            ->get();
+        $se_voucher = ExpenseVoucher::where([
+
+            "unique_id" => $id
+        ])->limit(1)->get();
+
+        $account = accounts::all();
+
+        $data = compact('account', 'e_voucher', 'se_voucher');
+        return view('vouchers.e_expense')->with($data);
     }
 
     /**
@@ -144,9 +152,49 @@ class ExpenseVoucherController extends Controller
      * @param  \App\Models\ExpenseVoucher  $expenseVoucher
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, ExpenseVoucher $expenseVoucher)
+    public function update(Request $request, $id)
     {
-        //
+        ExpenseVoucher::where('unique_id', $id)->delete();
+
+        Expense::where('category_id', $id)->update([
+            'amount' => $request['amount_total'],
+            'company_id' => $request['company']
+        ]);
+
+        $invoiceData = $request->all();
+        $company = $invoiceData['company'];
+        $arrayLength = count(array_filter($invoiceData['narration']));
+
+        for ($i = 0; $i < $arrayLength; $i++) {
+
+            $invoice = new ExpenseVoucher;
+
+            $invoice->unique_id = $invoiceData['unique_id'] ?? null;
+            $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->buyer = $company ?? null;
+            $invoice->remark = $invoiceData['remark'] ?? null;
+            $invoice->date = $invoiceData['date'] ?? null;
+            $invoice->narration = $invoiceData['narration']["$i"] ?? null;
+            $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
+            $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
+            $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
+            $invoice->amount = $invoiceData['amount']["$i"] ?? null;
+            $invoice->ref_no = $invoiceData['ref_no'] ?? null;
+
+            $invoice->amount_total = $invoiceData['amount_total'] ?? null;
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = $request->input('old_attachment');
+            }
+            $invoice->attachment = $attachmentPath;
+
+            $invoice->save();
+        }
+
+        $data = 'Voucher added successfully!';
+        return response()->json($data);
     }
 
     /**

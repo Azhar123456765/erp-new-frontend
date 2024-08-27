@@ -268,8 +268,13 @@
                 <div class="fields">
                     <div class="one">
                         <label for="Invoice">GR#</label>
-                        <input style="border: none !important;" type="text" id="invoice#" name="unique_id" readonly
-                            value="{{ $sinvoice_row->unique_id }}" />
+                        <input style="border: none !important;" type="text" id="invoice#" readonly
+                            value="<?php $year = date('Y');
+                            $lastTwoWords = substr($year, -2);
+                            echo $rand = 'RV' . '-' . $year . '-' . $sinvoice_row->unique_id; ?>" />
+                        <input type="hidden" id="unique_id" name="unique_id"
+                            value="{{ $rand = $sinvoice_row->unique_id }}" />
+
                     </div>
                     <div class="one">
                         <label for="date">Date</label>
@@ -534,34 +539,12 @@ text-align:end;
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         Update
     </button>
-    <br>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
+    <a href="{{ Route('receipt_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
-    </button>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
+    </a>
+    <a href="{{ Route('receipt_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
-    </button>
-
-
+    </a>
     <a href="/r_voucher" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
         Add New
     </a>

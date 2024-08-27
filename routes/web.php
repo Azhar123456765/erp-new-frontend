@@ -108,11 +108,11 @@ Route::middleware('userAuth')->group(function () {
         // VOUCHERS
         Route::get('/p_voucher', [PaymentVoucherController::class, 'create']);
         Route::post('/p_voucher_form', [PaymentVoucherController::class, 'store']);
-        Route::get('/ep_voucher_id={id}', [PaymentVoucherController::class, 'edit']);
+        Route::get('/ep_voucher_id={id}', [PaymentVoucherController::class, 'edit'])->name('payment_voucher.edit');
         Route::post('/ep_voucher_form_id={id}', [PaymentVoucherController::class, 'update']);
         Route::get('/r_voucher', [ReceiptVoucherController::class, 'index']);
         Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
-        Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
+        Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
         Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
         Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit']);
         Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update']);
@@ -120,6 +120,8 @@ Route::middleware('userAuth')->group(function () {
         Route::controller(ExpenseVoucherController::class)->group(function () {
             Route::get('/expense-voucher', 'create')->name('add_expense_voucher');
             Route::post('/expense-voucher', 'store')->name('store_expense_voucher');
+            Route::get('/expense-voucher/{id}', 'edit')->name('edit_expense_voucher');
+            Route::post('/expense-voucher/{id}', 'update')->name('update_expense_voucher');
         });
 
         // INVOICES
@@ -202,6 +204,7 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
         Route::get('/pv_pdf_{id}', [pdfController::class, 'pv_pdf']);
         Route::get('/rv_pdf_{id}', [pdfController::class, 'rv_pdf']);
+        Route::get('/ev_pdf_{id}', [pdfController::class, 'ev_pdf']);
         Route::get('/p-voucher-report', [pdfController::class, 'p_voucher_report']);
         Route::get('/r-voucher-report', [pdfController::class, 'r_voucher_report']);
         Route::get('/gen-led', [pdfController::class, 'gen_led']);

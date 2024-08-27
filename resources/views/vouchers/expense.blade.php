@@ -213,9 +213,9 @@
                     <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text" readonly
                         value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
-                        echo $rand = 'PV' . '-' . $year . '-' . $count + 1; ?>" />
+                        echo $rand = 'EV' . '-' . $year . '-' . $count + 1; ?>" />
                     <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="hidden"
-                        id="invoice#" name="unique_id" readonly value="<?php echo $count + 1; ?>" />
+                        id="invoice#" name="unique_id" readonly value="{{ $rand = $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
@@ -235,30 +235,12 @@
                 <div class="one  remark">
                     <label for="seller">Party</label>
                     <select name="company" id="seller" class="company select-buyer" required>
-                        {{-- <option></option>
-                        @foreach ($seller as $row)
-                            <option value="{{ $row->seller_id }}S">
-                                {{ $row->company_name }} (Supplier)
-                            </option>
-                        @endforeach
-                        @foreach ($buyer as $row)
-                            <option value="{{ $row->buyer_id }}B">
-                                {{ $row->company_name }} (Customer)
-                            </option>
-                        @endforeach --}}
                     </select>
                 </div>
 
                 <div class="one  remark">
                     <label for="seller">Sales Ofiicer</label>
                     <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer">
-                        <option></option>
-                        @foreach ($sales_officer as $row)
-                            <option value="{{ $row->sales_officer_id }}"
-                                {{ $row->sales_officer_id == 1 ? 'selected' : '' }}>
-                                {{ $row->sales_officer_name }}
-                            </option>
-                        @endforeach
                     </select>
                 </div>
             </div>
@@ -442,32 +424,12 @@
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
-    <br>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
+    <a href="{{ Route('edit_expense_voucher', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
-    </button>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
+    </a>
+    <a href="{{ Route('edit_expense_voucher', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
-    </button>
+    </a>
 
     <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="edit">
@@ -478,14 +440,10 @@
         Add More
     </a>
 
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
-        SALE PDF
-    </button>
 
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
-        PURCHASE PDF
-    </button>
-
+    <a href="/ev_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
+        PDF
+    </a>
 
 
     <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
@@ -806,7 +764,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: '/expense-voucher',
+                url: '{{ Route('store_expense_voucher') }}',
                 method: 'POST',
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type

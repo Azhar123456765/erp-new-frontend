@@ -2026,6 +2026,47 @@ class pdfController extends Controller
         }
 
 
+        function ev_pdf(Request $post, $id)
+        {
+
+
+                $expense_vouchers = ExpenseVoucher::where("unique_id", $id)
+                        ->leftJoin('seller', 'expense_vouchers.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->get();
+
+                $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
+                        ->leftJoin('seller', 'expense_vouchers.company', '=', 'seller.seller_id')
+                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->limit(1)->get();
+
+                session()->flash("expense_vouchers_pdf_data", $expense_vouchers);
+                session()->flash("s_expense_vouchers_pdf_data", $s_expense_vouchers);
+
+
+
+
+                $views = $id;
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.e_voucher')->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+        }
+
+
         function product_detail(Request $request, $id)
         {
                 $product = products::where("product_id", $id)->get();
@@ -2368,7 +2409,7 @@ class pdfController extends Controller
                         ];
 
                         session()->flash('Data', $data);
-                } 
+                }
 
                 if (session()->has('Data')) {
 

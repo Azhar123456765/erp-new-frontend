@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Payment Voucher (EDIT)') @section('content')
+@extends('master') @section('title', 'Expense Voucher (EDIT)') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -259,10 +259,10 @@
 <div class="container" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
-        <h3 style="text-align: center;">Payment Voucher (EDIT)</h3>
+        <h3 style="text-align: center;">Expense Voucher (EDIT)</h3>
 
         <h5 style="text-align: end;">Medician</h5>
-        @foreach ($sp_voucher as $sinvoice_row)
+        @foreach ($se_voucher as $sinvoice_row)
             <div class="top">
                 <div class="fields">
                     <div class="one">
@@ -270,7 +270,7 @@
                         <input style="border: none !important;" type="text" id="invoice#" readonly
                             value="<?php $year = date('Y');
                             $lastTwoWords = substr($year, -2);
-                            echo $rand = 'PV' . '-' . $year . '-' . $sinvoice_row->unique_id; ?>" />
+                            echo $rand = 'EV' . '-' . $year . '-' . $sinvoice_row->unique_id; ?>" />
                         <input type="hidden" id="unique_id" name="unique_id"
                             value="{{ $rand = $sinvoice_row->unique_id }}" />
 
@@ -290,8 +290,8 @@
                     <div class="one  remark">
                         <label for="seller">Company</label>
                         <select name="company" class="company select-buyer" required>
-                            <option value="{{ $sinvoice_row->buyer->buyer_id }}" selected>
-                                {{ $sinvoice_row->buyer->company_name }}</option>
+                            <option value="{{ $sinvoice_row->customer->buyer_id }}" selected>
+                                {{ $sinvoice_row->customer->company_name }}</option>
                         </select>
                     </div>
 
@@ -337,7 +337,7 @@
             @php
                 $counter = 1;
             @endphp
-            @foreach ($p_voucher as $invoice_row)
+            @foreach ($e_voucher as $invoice_row)
                 @php
                     $rand = $invoice_row->unique_id;
                 @endphp
@@ -456,7 +456,7 @@
             </style>
 
         </div>
-        @foreach ($sp_voucher as $sinvoice_row)
+        @foreach ($se_voucher as $sinvoice_row)
             <div class="total" style="margin-top: 2.25%;">
                 <div class="first">
                     <div class="one" style="
@@ -485,7 +485,7 @@ text-align:end;
 ">
     Attachment
 </button>
-@foreach ($sp_voucher as $sinvoice_row)
+@foreach ($se_voucher as $sinvoice_row)
     <!-- Modal -->
     <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
@@ -538,19 +538,20 @@ text-align:end;
         Update
     </button>
 
-    <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('edit_expense_voucher', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
     </a>
-    <a href="{{ Route('payment_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('edit_expense_voucher', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
     </a>
 
 
-    <a href="/p_voucher" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
+    <a href="{{ Route('add_expense_voucher') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
+        id="add_more">
         Add New
     </a>
 
-    <a href="/pv_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
+    <a href="/ev_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
         PDF
     </a>
 
@@ -878,9 +879,7 @@ text-align:end;
 
             // Send an AJAX request
             $.ajax({
-                url: '/ep_voucher_form_id=<?php foreach ($sp_voucher as $key => $row) {
-                    echo $row->unique_id;
-                } ?>', // Replace with your Laravel route or endpoint
+                url: '{{ Route('update_expense_voucher', $rand) }}', // Replace with your Laravel route or endpoint
                 method: 'POST',
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
@@ -920,7 +919,7 @@ text-align:end;
                 var parts = str.split('-');
                 var firstPart = parts.slice(0, -1).join('-');
                 var lastPart = parts[parts.length - 1];
-                var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
+                var newUrl = '/ee_voucher_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
                 window.location.href = newUrl;
             }
         });
@@ -931,7 +930,7 @@ text-align:end;
                 var parts = str.split('-');
                 var firstPart = parts.slice(0, -1).join('-');
                 var lastPart = parts[parts.length - 1];
-                var newUrl = '/ep_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
+                var newUrl = '/ee_voucher_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
                 window.location.href = newUrl;
             }
         });

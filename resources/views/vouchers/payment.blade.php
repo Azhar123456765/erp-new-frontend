@@ -261,9 +261,10 @@
                 <div class="one">
                     <label for="Invoice">GR#</label>
                     <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text"
-                        id="invoice#" name="unique_id" readonly value="<?php $year = date('Y');
+                        id="invoice#" readonly value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'PV' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $rand = $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
@@ -470,29 +471,12 @@
     <br>
 
 
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
+    <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
-    </button>
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
+    </a>
+    <a href="{{ Route('payment_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
-    </button>
+    </a>
 
     <a href="/ep_voucher_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="edit">
