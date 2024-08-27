@@ -276,7 +276,7 @@ $sdata = session()->get('s_receipt_vouchers_pdf_data');
   <tbody>
     <tr>
       <td>
-        Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{$row->cusotmer->company_name}}</span>
+        Comapny Name: &nbsp;&nbsp;&nbsp; <span>{{$row->company_name}}</span>
 
       </td>
       <td>Ref NO.:&nbsp;&nbsp;&nbsp;{{$row->ref_no}}</td>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\chickenInvoice;
 use App\Models\ChickInvoice;
+use App\Models\ExpenseVoucher;
 use App\Models\feedInvoice;
 use Illuminate\Http\Request;
 
@@ -1990,13 +1991,13 @@ class pdfController extends Controller
 
 
                 $receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'receipt_vouchers.company', '=', 'seller.seller_id')
-                        ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'receipt_vouchers.company', '=', 'seller.seller_id')
-                        ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
                 session()->flash("receipt_vouchers_pdf_data", $receipt_vouchers);
@@ -2031,13 +2032,13 @@ class pdfController extends Controller
 
 
                 $expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'expense_vouchers.company', '=', 'seller.seller_id')
-                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                        ->leftJoin('seller', 'expense_vouchers.company', '=', 'seller.seller_id')
-                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
                 session()->flash("expense_vouchers_pdf_data", $expense_vouchers);
