@@ -276,7 +276,7 @@ right: 15%;
                         name="" value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
-                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $count + 1 }}" />
+                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $rand = $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
@@ -328,12 +328,14 @@ right: 15%;
                 </div>
                 <div class="div">
                     <label for="qty">Quantity</label>
-                    <input type="number" step="any" oninput="$('#sale_qty').val(this.value)" id="qty" name="qty[]" />
+                    <input type="number" step="any" oninput="$('#sale_qty').val(this.value)" id="qty"
+                        name="qty[]" />
                 </div>
 
                 <div class="div">
                     <label for="rate">Rate</label>
-                    <input type="number" step="any" oninput="$('#sale_rate').val(this.value)" id="rate" name="rate[]" />
+                    <input type="number" step="any" oninput="$('#sale_rate').val(this.value)" id="rate"
+                        name="rate[]" />
                 </div>
 
                 <div class="div">
@@ -348,9 +350,9 @@ right: 15%;
                 </div>
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input type="number" step="any" min="0.00" style="text-align: right;width: 190px !important;"
-                        step="any" value="0.00" onchange='count()' id="amount" name="amount[]"
-                        class="xl-width-inp" />
+                    <input type="number" step="any" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                        onchange='count()' id="amount" name="amount[]" class="xl-width-inp" />
                 </div>
 
 
@@ -368,14 +370,14 @@ right: 15%;
                 </div>
                 <div class="div">
                     <label for="sale_bonus">Bonus(%)</label>
-                    <input type="number" step="any" min="0.00" step="any" placeholder="0.00" id="sale_bonus"
-                        name="sale_bonus[]" required />
+                    <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
+                        id="sale_bonus" name="sale_bonus[]" required />
                 </div>
                 <div class="div">
                     <label for="sale_amount">Amount</label>
-                    <input type="number" step="any" min="0.00" style="text-align: right;width: 190px !important;"
-                        step="any" value="0.00" onchange='count()' id="sale_amount" name="sale_amount[]"
-                        class="xl-width-inp" />
+                    <input type="number" step="any" min="0.00"
+                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                        onchange='count()' id="sale_amount" name="sale_amount[]" class="xl-width-inp" />
                 </div>
             </div>
         </div>
@@ -449,7 +451,8 @@ right: 15%;
 
                     <input type="number" step="any" step="any" name="sale_qty_total" id="sale_qty_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 47.7%;"=""="">
-                    <input type="number" step="any" step="any" name="sale_amount_total" id="sale_amount_total"
+                    <input type="number" step="any" step="any" name="sale_amount_total"
+                        id="sale_amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 89.55%;width: 190px !important;"=""="">
 
                 </div>
@@ -511,35 +514,20 @@ right: 15%;
         submit
     </button>
 
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-                var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-        window.location.href = newUrl">
+    <a href="{{ Route('edit_invoice_feed', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
-    </button>
+    </a>
 
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" id="btn" style=""
-        onclick="
-          var str = $(`[name=\'unique_id\']`).val();
-        var parts = str.split('-');
-        var firstPart = parts.slice(0, -1).join('-');
-        var lastPart = parts[parts.length - 1];
-        var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
-        window.location.href = newUrl
-        ">
+    <a href="{{ Route('edit_invoice_feed', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
-    </button>
+    </a>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
-        id="edit">
+    <a href="{{ Route('edit_invoice_feed', $rand) }}"
+        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
     </a>
-    <a href="{{ Route('invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled" id="add_more">
+    <a href="{{ Route('invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+        id="add_more">
         Add More
     </a>
 
@@ -630,17 +618,20 @@ right: 15%;
                     </select>
                 </div>
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_qty` + counter + `').val(this.value)" id="qty` + counter + `"
+                    <input  type="number" step="any" oninput="$('#sale_qty` + counter + `').val(this.value)" id="qty` +
+                    counter + `"
                         name="qty[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_rate` + counter + `').val(this.value)"  id="rate` +
+                    <input  type="number" step="any" oninput="$('#sale_rate` + counter +
+                    `').val(this.value)"  id="rate` +
                     counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_discount` + counter + `').val(this.value)" id="discount` +
+                    <input  type="number" step="any" oninput="$('#sale_discount` + counter +
+                    `').val(this.value)" id="discount` +
                     counter + `" name="discount[]" />
                 </div>
                 <div class="div">
@@ -784,17 +775,20 @@ right: 15%;
                     </select>
                 </div>
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_qty` + counter + `').val(this.value)" id="qty` + counter + `"
+                    <input  type="number" step="any" oninput="$('#sale_qty` + counter + `').val(this.value)" id="qty` +
+                    counter + `"
                         name="qty[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_rate` + counter + `').val(this.value)"  id="rate` +
+                    <input  type="number" step="any" oninput="$('#sale_rate` + counter +
+                    `').val(this.value)"  id="rate` +
                     counter + `" name="rate[]" />
                 </div>
 
                 <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_discount` + counter + `').val(this.value)" id="discount` +
+                    <input  type="number" step="any" oninput="$('#sale_discount` + counter +
+                    `').val(this.value)" id="discount` +
                     counter + `" name="discount[]" />
                 </div>
                 <div class="div">
@@ -987,8 +981,8 @@ right: 15%;
                                 url: '/s_med_invoice_mail',
                                 method: 'POST',
                                 data: formData,
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
+                                contentType: false, // Prevent jQuery from setting the content type
+                                processData: false, // Prevent jQuery from processing the data
                                 contentType: false, // Ensure these are set for the second AJAX call
                                 processData: false,
                                 success: function(mailResponse) {

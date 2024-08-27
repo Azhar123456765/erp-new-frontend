@@ -67,51 +67,51 @@ class ChickenInvoiceController extends Controller
 
             $invoice = new chickenInvoice;
 
-            $invoice->unique_id = $request['unique_id'] ?? null;
+            $invoice->unique_id = $request['unique_id'] ?? 0;
             $invoice->user_id = $user_id;
             $invoice->item = $request['item']["$i"];
-            $invoice->date = $request['date'] ?? null;
+            $invoice->date = $request['date'] ?? 0;
             $invoice->seller = $request['seller'];
             $invoice->buyer = $request['buyer'];
-            $invoice->sales_officer = $request['sales_officer'] ?? null;
-            $invoice->remark = $request['remark'] ?? null;
+            $invoice->sales_officer = $request['sales_officer'] ?? 0;
+            $invoice->remark = $request['remark'] ?? 0;
 
-            $invoice->rate_type = $request['rate_type']["$i"] ?? null;
-            $invoice->vehicle_no = $request['vehicle_no']["$i"] ?? null;
-            $invoice->crate_type = $request['crate_type']["$i"] ?? null;
-            $invoice->crate_qty = $request['crate_qty']["$i"] ?? null;
-            $invoice->hen_qty = $request['hen_qty']["$i"] ?? null;
-            $invoice->gross_weight = $request['gross_weight']["$i"] ?? null;
-            $invoice->actual_rate = $request['actual_rate']["$i"] ?? null;
-            $invoice->feed_cut = $request['feed_cut']["$i"] ?? null;
-            $invoice->more_cut = $request['mor_cut']["$i"] ?? null;
-            $invoice->crate_cut = $request['crate_cut']["$i"] ?? null;
-            $invoice->net_weight = $request['n_weight']["$i"] ?? null;
-            $invoice->rate_diff = $request['rate_diff']["$i"] ?? null;
-            $invoice->rate = $request['rate']["$i"] ?? null;
-            $invoice->amount = $request['amount']["$i"] ?? null;
-            $invoice->sale_feed_cut = $request['sale_feed_cut']["$i"] ?? null;
-            $invoice->sale_more_cut = $request['sale_mor_cut']["$i"] ?? null;
-            $invoice->sale_crate_cut = $request['sale_crate_cut']["$i"] ?? null;
-            $invoice->sale_net_weight = $request['sale_n_weight']["$i"] ?? null;
-            $invoice->sale_rate_diff = $request['sale_rate_diff']["$i"] ?? null;
-            $invoice->sale_rate = $request['sale_rate']["$i"] ?? null;
-            $invoice->sale_amount = $request['sale_amount']["$i"] ?? null;
+            $invoice->rate_type = $request['rate_type']["$i"] ?? 0;
+            $invoice->vehicle_no = $request['vehicle_no']["$i"] ?? 0;
+            $invoice->crate_type = $request['crate_type']["$i"] ?? 0;
+            $invoice->crate_qty = $request['crate_qty']["$i"] ?? 0;
+            $invoice->hen_qty = $request['hen_qty']["$i"] ?? 0;
+            $invoice->gross_weight = $request['gross_weight']["$i"] ?? 0;
+            $invoice->actual_rate = $request['actual_rate']["$i"] ?? 0;
+            $invoice->feed_cut = $request['feed_cut']["$i"] ?? 0;
+            $invoice->more_cut = $request['mor_cut']["$i"] ?? 0;
+            $invoice->crate_cut = $request['crate_cut']["$i"] ?? 0;
+            $invoice->net_weight = $request['n_weight']["$i"] ?? 0;
+            $invoice->rate_diff = $request['rate_diff']["$i"] ?? 0;
+            $invoice->rate = $request['rate']["$i"] ?? 0;
+            $invoice->amount = $request['amount']["$i"] ?? 0;
+            $invoice->sale_feed_cut = $request['sale_feed_cut']["$i"] ?? 0;
+            $invoice->sale_more_cut = $request['sale_mor_cut']["$i"] ?? 0;
+            $invoice->sale_crate_cut = $request['sale_crate_cut']["$i"] ?? 0;
+            $invoice->sale_net_weight = $request['sale_n_weight']["$i"] ?? 0;
+            $invoice->sale_rate_diff = $request['sale_rate_diff']["$i"] ?? 0;
+            $invoice->sale_rate = $request['sale_rate']["$i"] ?? 0;
+            $invoice->sale_amount = $request['sale_amount']["$i"] ?? 0;
             $invoice->avg = $request['avg']["$i"] ?? 0;
 
-            $invoice->crate_qty_total = $request['crate_qty_total'] ?? null;
-            $invoice->hen_qty_total = $request['hen_qty_total'] ?? null;
-            $invoice->gross_weight_total = $request['gross_weight_total'] ?? null;
-            $invoice->feed_cut_total = $request['feed_cut_total'] ?? null;
-            $invoice->mor_cut_total = $request['mor_cut_total'] ?? null;
-            $invoice->crate_cut_total = $request['crate_cut_total'] ?? null;
-            $invoice->n_weight_total = $request['n_weight_total'] ?? null;
-            $invoice->amount_total = $request['amount_total'] ?? null;
-            $invoice->sale_feed_cut_total = $request['sale_feed_cut_total'] ?? null;
-            $invoice->sale_mor_cut_total = $request['sale_mor_cut_total'] ?? null;
-            $invoice->sale_crate_cut_total = $request['sale_crate_cut_total'] ?? null;
-            $invoice->sale_n_weight_total = $request['sale_n_weight_total'] ?? null;
-            $invoice->sale_amount_total = $request['sale_amount_total'] ?? null;
+            $invoice->crate_qty_total = $request['crate_qty_total'] ?? 0;
+            $invoice->hen_qty_total = $request['hen_qty_total'] ?? 0;
+            $invoice->gross_weight_total = $request['gross_weight_total'] ?? 0;
+            $invoice->feed_cut_total = $request['feed_cut_total'] ?? 0;
+            $invoice->mor_cut_total = $request['mor_cut_total'] ?? 0;
+            $invoice->crate_cut_total = $request['crate_cut_total'] ?? 0;
+            $invoice->n_weight_total = $request['n_weight_total'] ?? 0;
+            $invoice->amount_total = $request['amount_total'] ?? 0;
+            $invoice->sale_feed_cut_total = $request['sale_feed_cut_total'] ?? 0;
+            $invoice->sale_mor_cut_total = $request['sale_mor_cut_total'] ?? 0;
+            $invoice->sale_crate_cut_total = $request['sale_crate_cut_total'] ?? 0;
+            $invoice->sale_n_weight_total = $request['sale_n_weight_total'] ?? 0;
+            $invoice->sale_amount_total = $request['sale_amount_total'] ?? 0;
 
             $image = $request->file('attachment');
             if ($image) {
@@ -146,9 +146,11 @@ class ChickenInvoiceController extends Controller
      * @param  \App\Models\chickenInvoice  $chickenInvoice
      * @return \Illuminate\Http\Response
      */
-    public function edit(chickenInvoice $chickenInvoice)
+    public function edit(Request $request, $id)
     {
-        //
+        $invoice = chickenInvoice::where('unique_id', $id)->get();
+        $single_invoice = chickenInvoice::where('unique_id', $id)->first();
+        return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice'));
     }
 
     /**
@@ -158,9 +160,90 @@ class ChickenInvoiceController extends Controller
      * @param  \App\Models\chickenInvoice  $chickenInvoice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, chickenInvoice $chickenInvoice)
+    public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+        $user_id = session()->get('user_id')['user_id'];
+        chickenInvoice::where('unique_id', $id)->delete();
+        users::where("user_id", $user_id)->update([
+            'no_records' => DB::raw("no_records + " . 1)
+        ]);
+        // $income = new Income;
+        // $income->category_id = $request['unique_id'];
+        // $income->category = 'Chick Invoice';
+        // $income->amount = $request['amount_paid'];
+        // $income->save(); 
+        // $array = $request['amount'];
+        // $filteredArray = array_filter($array, function ($value) {
+        //     return $value > 0;
+        // });
+
+        $arrayLength = count(array_filter($request['item']));
+
+        for ($i = 0; $i < $arrayLength; $i++) {
+
+            $invoice = new chickenInvoice;
+
+            $invoice->unique_id = $request['unique_id'] ?? 0;
+            $invoice->user_id = $user_id;
+            $invoice->item = $request['item']["$i"];
+            $invoice->date = $request['date'] ?? 0;
+            $invoice->seller = $request['seller'];
+            $invoice->buyer = $request['buyer'];
+            $invoice->sales_officer = $request['sales_officer'] ?? null;
+            $invoice->remark = $request['remark'] ?? 0;
+
+            $invoice->rate_type = $request['rate_type']["$i"] ?? 0;
+            $invoice->vehicle_no = $request['vehicle_no']["$i"] ?? 0;
+            $invoice->crate_type = $request['crate_type']["$i"] ?? 0;
+            $invoice->crate_qty = $request['crate_qty']["$i"] ?? 0;
+            $invoice->hen_qty = $request['hen_qty']["$i"] ?? 0;
+            $invoice->gross_weight = $request['gross_weight']["$i"] ?? 0;
+            $invoice->actual_rate = $request['actual_rate']["$i"] ?? 0;
+            $invoice->feed_cut = $request['feed_cut']["$i"] ?? 0;
+            $invoice->more_cut = $request['mor_cut']["$i"] ?? 0;
+            $invoice->crate_cut = $request['crate_cut']["$i"] ?? 0;
+            $invoice->net_weight = $request['n_weight']["$i"] ?? 0;
+            $invoice->rate_diff = $request['rate_diff']["$i"] ?? 0;
+            $invoice->rate = $request['rate']["$i"] ?? 0;
+            $invoice->amount = $request['amount']["$i"] ?? 0;
+            $invoice->sale_feed_cut = $request['sale_feed_cut']["$i"] ?? 0;
+            $invoice->sale_more_cut = $request['sale_mor_cut']["$i"] ?? 0;
+            $invoice->sale_crate_cut = $request['sale_crate_cut']["$i"] ?? 0;
+            $invoice->sale_net_weight = $request['sale_n_weight']["$i"] ?? 0;
+            $invoice->sale_rate_diff = $request['sale_rate_diff']["$i"] ?? 0;
+            $invoice->sale_rate = $request['sale_rate']["$i"] ?? 0;
+            $invoice->sale_amount = $request['sale_amount']["$i"] ?? 0;
+            $invoice->avg = $request['avg']["$i"] ?? 0;
+
+            $invoice->crate_qty_total = $request['crate_qty_total'] ?? 0;
+            $invoice->hen_qty_total = $request['hen_qty_total'] ?? 0;
+            $invoice->gross_weight_total = $request['gross_weight_total'] ?? 0;
+            $invoice->feed_cut_total = $request['feed_cut_total'] ?? 0;
+            $invoice->mor_cut_total = $request['mor_cut_total'] ?? 0;
+            $invoice->crate_cut_total = $request['crate_cut_total'] ?? 0;
+            $invoice->n_weight_total = $request['n_weight_total'] ?? 0;
+            $invoice->amount_total = $request['amount_total'] ?? 0;
+            $invoice->sale_feed_cut_total = $request['sale_feed_cut_total'] ?? 0;
+            $invoice->sale_mor_cut_total = $request['sale_mor_cut_total'] ?? 0;
+            $invoice->sale_crate_cut_total = $request['sale_crate_cut_total'] ?? 0;
+            $invoice->sale_n_weight_total = $request['sale_n_weight_total'] ?? 0;
+            $invoice->sale_amount_total = $request['sale_amount_total'] ?? 0;
+
+            $image = $request->file('attachment');
+            if ($image) {
+                $attachmentPath = $image->store('attachments');
+            } else {
+                $attachmentPath = null;
+            }
+
+            $invoice->attachment = $attachmentPath;
+
+            $invoice->save();
+        }
+
+        $data = 'Invoices Updated successfully!';
+        return response()->json($data);
     }
 
     /**
