@@ -336,9 +336,6 @@
                 $counter = 1;
             @endphp
             @foreach ($ReceiptVoucher as $invoice_row)
-                @php
-                    $rand = $invoice_row->unique_id;
-                @endphp
 
                 <div class="dup_invoice" onchange="addInvoice()">
 
