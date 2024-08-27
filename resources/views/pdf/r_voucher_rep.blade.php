@@ -109,7 +109,7 @@ $lastChar = session()->get('Data')['lastChar'] ?? null;
                     </td>
                     <td>
                         <span>
-                            <?php echo $row->company_ref == 'S' ? $row->supplier->company_name : $row->buyer->company_name; ?>
+                            <?php echo $row->company_ref == 'S' ? $row->supplier->company_name : $row->cusotmer->company_name; ?>
                         </span>
                     </td>
                     <td style="text-align: left

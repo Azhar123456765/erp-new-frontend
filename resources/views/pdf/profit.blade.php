@@ -159,7 +159,7 @@ foreach ($name as $key => $value) {
                     <span><?php echo $row->unique_id; ?></span>
                 </td>
                 <td>
-                    <span>{{$row->company_ref == "B" ? $row->buyer->company_name : $row->supplier->company_name}}</span>
+                    <span>{{$row->company_ref == "B" ? $row->cusotmer->company_name : $row->supplier->company_name}}</span>
 
                 </td>
                 <td style="text-align: left
