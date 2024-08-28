@@ -71,13 +71,14 @@
         <h2 style="text-align: center;">Sale+Supplier Report</h2>
 
         <div class="row">
-            <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
+            <h4 style="text-align: center;">FROM:
+                {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
             <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
         </div>
 
         @if (count($chickenData) > 0)
-            <h4>Chickens</h4>
+            <h4><b>Chickens</b></h4>
             <table>
                 <thead>
                     <tr>
@@ -100,10 +101,10 @@
                     @foreach ($chickenData as $row)
                         <tr style="text-align: center;">
                             <td>
-                                <span>{{ $row->date }}</span>
+                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                             </td>
                             <td>
-                                <span>{{ $row->unique_id }}</span>
+                                <span>CK-{{ $row->unique_id }}</span>
                             </td>
                             <td style="text-align: left
                 ;">
@@ -158,23 +159,20 @@
             $total_sale_amount = 0;
         @endphp
         @if (count($chickData) > 0)
-            <h4>Chicks</h4>
+            <h4><b>Chicks</b></h4>
             <table>
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Invoice No</th>
                         <th>Customer Name</th>
+                        <th>Product Desc</th>
                         <th>Rate</th>
-                        <th>Discount</th>
-                        <th>Bonus</th>
                         <th>Quantity</th>
                         <th>Amount</th>
 
                         <th>Supplier Name</th>
                         <th>Rate</th>
-                        <th>Discount</th>
-                        <th>Bonus</th>
                         <th>Quantity</th>
                         <th>Amount</th>
                     </tr>
@@ -183,23 +181,21 @@
                     @foreach ($chickData as $row)
                         <tr style="text-align: center;">
                             <td>
-                                <span>{{ $row->date }}</span>
+                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                             </td>
                             <td>
-                                <span>{{ $row->unique_id }}</span>
+                                <span>C-{{ $row->unique_id }}</span>
                             </td>
                             <td style="text-align: left
                 ;">
                                 <span>{{ $row->customer->company_name }}</span>
                             </td>
+                            <td style="text-align: left
+                ;">
+                                <span>{{ $row->product->product_name }}</span>
+                            </td>
                             <td>
                                 <span>{{ $row->sale_rate }}</span>
-                            </td>
-                            <td>
-                                <span>{{ $row->sale_discount }}</span>
-                            </td>
-                            <td style="text-align:right;">
-                                <span>{{ $row->sale_bonus }}</span>
                             </td>
                             <td style="text-align:right;">
                                 <span>{{ $row->sale_qty }}</span>
@@ -215,12 +211,6 @@
                             </td>
                             <td>
                                 <span>{{ $row->rate }}</span>
-                            </td>
-                            <td>
-                                <span>{{ $row->discount }}</span>
-                            </td>
-                            <td style="text-align:right;">
-                                <span>{{ $row->bonus }}</span>
                             </td>
                             <td style="text-align:right;">
                                 <span>{{ $row->qty }}</span>
@@ -246,23 +236,21 @@
             $total_sale_amount = 0;
         @endphp
         @if (count($feedData) > 0)
-            <h4>Feed</h4>
+            <h4><b>Feed</b></h4>
             <table>
                 <thead>
                     <tr>
                         <th>Date</th>
                         <th>Invoice No</th>
                         <th>Customer Name</th>
+                        <th>Product Desc</th>
+
                         <th>Rate</th>
-                        <th>Discount</th>
-                        <th>Bonus</th>
                         <th>Quantity</th>
                         <th>Amount</th>
 
                         <th>Supplier Name</th>
                         <th>Rate</th>
-                        <th>Discount</th>
-                        <th>Bonus</th>
                         <th>Quantity</th>
                         <th>Amount</th>
                     </tr>
@@ -271,23 +259,21 @@
                     @foreach ($feedData as $row)
                         <tr style="text-align: center;">
                             <td>
-                                <span>{{ $row->date }}</span>
+                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                             </td>
                             <td>
-                                <span>{{ $row->unique_id }}</span>
+                                <span>F-{{ $row->unique_id }}</span>
                             </td>
                             <td style="text-align: left
                 ;">
                                 <span>{{ $row->customer->company_name }}</span>
                             </td>
+                            <td style="text-align: left
+                ;">
+                                <span>{{ $row->product->product_name }}</span>
+                            </td>
                             <td>
                                 <span>{{ $row->sale_rate }}</span>
-                            </td>
-                            <td>
-                                <span>{{ $row->sale_discount }}</span>
-                            </td>
-                            <td style="text-align:right;">
-                                <span>{{ $row->sale_bonus }}</span>
                             </td>
                             <td style="text-align:right;">
                                 <span>{{ $row->sale_qty }}</span>
@@ -303,12 +289,6 @@
                             </td>
                             <td>
                                 <span>{{ $row->rate }}</span>
-                            </td>
-                            <td>
-                                <span>{{ $row->discount }}</span>
-                            </td>
-                            <td style="text-align:right;">
-                                <span>{{ $row->bonus }}</span>
                             </td>
                             <td style="text-align:right;">
                                 <span>{{ $row->qty }}</span>
@@ -336,8 +316,9 @@
         <h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
         <div class="row">
-            <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
+            <h4 style="text-align: center;">FROM:
+                {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
             <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
         </div>
 
@@ -385,7 +366,7 @@
 
                 <tr style="text-align: center;">
                     <td>
-                        <span style="width:8px;">{{ $row->date }}</span>
+                        <span style="width:8px;">{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                     </td>
                     <td>
                         <span>{{ $row->unique_id }}</span>
@@ -446,8 +427,9 @@
         <h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
         <div class="row">
-            <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
+            <h4 style="text-align: center;">FROM:
+                {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
             <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
         </div>
 
@@ -499,7 +481,7 @@
 
                     </td>
                     <td>
-                        <span style="width:8px;">{{ $row->date }}</span>
+                        <span style="width:8px;">{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                     </td>
                     <td>
                         <span>{{ optional($row->customer)->company_name }}</span>

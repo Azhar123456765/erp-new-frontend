@@ -263,7 +263,7 @@ $sdata = session()->get('s_p_voucher_pdf_data');
                     Voucher No: &nbsp;&nbsp;&nbsp; {{ $row->unique_id }}
                 </td>
                 <td>
-                    Date: &nbsp;&nbsp;&nbsp; {{ $row->date }}
+                    Date: &nbsp;&nbsp;&nbsp; {{ (new DateTime($row->date))->format('d-m-Y') }}
                 </td>
             </tr>
         </tbody>

@@ -72,7 +72,7 @@
         </div>
 
         @if (count($chickenData) > 0)
-            <h4>Chickens</h4>
+            <h4><b>Chickens</b></h4>
             <table>
                 <thead>
                     <tr>
@@ -90,10 +90,10 @@
                     @foreach ($chickenData as $row)
                         <tr style="text-align: center;">
                             <td>
-                                <span>{{ $row->date }}</span>
+                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                             </td>
                             <td>
-                                <span>{{ $row->unique_id }}</span>
+                                <span>CK-{{ $row->unique_id }}</span>
                             </td>
                             <td style="text-align: left
                 ;">
@@ -124,7 +124,7 @@
             </h3>
         @endif
         @if (count($chickData) > 0)
-            <h4>Chicks</h4>
+            <h4><b>Chicks</b></h4>
             <table>
                 <thead>
                     <tr>
@@ -142,10 +142,10 @@
                     @foreach ($chickData as $row)
                         <tr style="text-align: center;">
                             <td>
-                                <span>{{ $row->date }}</span>
+                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                             </td>
                             <td>
-                                <span>{{ $row->unique_id }}</span>
+                                <span>C-{{ $row->unique_id }}</span>
                             </td>
                             <td style="text-align: left
                 ;">
@@ -176,7 +176,7 @@
             </h3>
         @endif
         @if (count($feedData) > 0)
-            <h4>Feed</h4>
+            <h4><b>Feed</b></h4>
             <table>
                 <thead>
                     <tr>
@@ -194,10 +194,10 @@
                     @foreach ($feedData as $row)
                         <tr style="text-align: center;">
                             <td>
-                                <span>{{ $row->date }}</span>
+                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                             </td>
                             <td>
-                                <span>{{ $row->unique_id }}</span>
+                                <span>F-{{ $row->unique_id }}</span>
                             </td>
                             <td style="text-align: left
                 ;">
@@ -283,7 +283,7 @@
 
                 <tr style="text-align: center;">
                     <td>
-                        <span style="width:8px;">{{ $row->date }}</span>
+                        <span style="width:8px;">{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                     </td>
                     <td>
                         <span>{{ $row->unique_id }}</span>
@@ -395,7 +395,7 @@
 
                     </td>
                     <td>
-                        <span style="width:8px;">{{ $row->date }}</span>
+                        <span style="width:8px;">{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                     </td>
                     <td>
                         <span>{{ optional($row->customer)->company_name }}</span>
