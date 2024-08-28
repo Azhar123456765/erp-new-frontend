@@ -356,9 +356,9 @@ class pdfController extends Controller
                                 $feedInvoice->where('item', $product);
                         }
 
-                        $chickenData = $chickenInvoice->get();
-                        $chickData = $chickInvoice->get();
-                        $feedData = $feedInvoice->get();
+                        $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
+                        $chickData = $chickInvoice->orderBy('date', 'asc')->get();
+                        $feedData = $feedInvoice->orderBy('date', 'asc')->get();
 
                         $data = [
                                 'chickenData' => $chickenData,
@@ -767,9 +767,9 @@ class pdfController extends Controller
                                         $feedInvoice->where('item', $product);
                                 }
 
-                                $chickenData = $chickenInvoice->get();
-                                $chickData = $chickInvoice->get();
-                                $feedData = $feedInvoice->get();
+                                $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
+                                $chickData = $chickInvoice->orderBy('date', 'asc')->get();
+                                $feedData = $feedInvoice->orderBy('date', 'asc')->get();
 
                                 $data = [
                                         'chickenData' => $chickenData,
@@ -2400,9 +2400,9 @@ class pdfController extends Controller
                                 $feedInvoice->where('item', $product);
                         }
 
-                        $chickenData = $chickenInvoice->get();
-                        $chickData = $chickInvoice->get();
-                        $feedData = $feedInvoice->get();
+                        $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
+                        $chickData = $chickInvoice->orderBy('date', 'asc')->get();
+                        $feedData = $feedInvoice->orderBy('date', 'asc')->get();
 
                         $data = [
                                 'chickenData' => $chickenData,

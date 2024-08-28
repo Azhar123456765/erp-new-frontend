@@ -19,7 +19,7 @@
                     <div class="ui">
                         <h1 class = "ui header pageTitle">{{ $method == 0 ? 'Sale' : 'Purchase' }} Invoice
                         </h1>
-                        <h4 class="ui sub header invDetails">NO: {{ $single_data['unique_id'] }} | Date:
+                        <h4 class="ui sub header invDetails">NO: CK-{{ $single_data['unique_id'] }} | Date:
                              {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
@@ -81,9 +81,9 @@
                             @foreach ($data as $row)
                                 <tr>
                                     <td>
-                                        Chicken
+                                        {{ $row->product->product_name }}
                                         <br>
-                                        <small class="text-muted">{{ $row->product->product_name }}</small>
+                                        <small class="text-muted"></small>
                                     </td>
                                     <td class="text-right">
                                         <span class="mono">{{ $row->sale_rate }}</span>
@@ -214,9 +214,9 @@
                             @foreach ($data as $row)
                                 <tr>
                                     <td>
-                                        Chicken
+                                        {{ $row->product->product_name }}
                                         <br>
-                                        <small class="text-muted">{{ $row->product->product_name }}</small>
+                                        <small class="text-muted"></small>
                                     </td>
                                     <td class="text-right">
                                         <span class="mono">{{ $row->rate }}</span>

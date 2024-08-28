@@ -19,8 +19,8 @@
                     <div class="ui">
                         <h1 class = "ui header pageTitle">{{ $method == 0 ? 'Sale' : 'Purchase' }} Invoice
                         </h1>
-                        <h4 class="ui sub header invDetails">NO: {{ $single_data['unique_id'] }} | Date:
-                             {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
+                        <h4 class="ui sub header invDetails">NO: F-{{ $single_data['unique_id'] }} | Date:
+                            {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">
@@ -72,9 +72,9 @@
                             @foreach ($data as $row)
                                 <tr>
                                     <td>
-                                        Chick
+                                        {{ $row->product->product_name }}
                                         <br>
-                                        <small class="text-muted">{{ $row->product->product_name }}</small>
+                                        <small class="text-muted"></small>
                                     </td>
                                     <td class="text-right">
                                         <span class="mono">{{ $row->sale_rate }}</span>
@@ -115,7 +115,8 @@
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
-                <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                <img class="img-fluid"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
@@ -165,9 +166,9 @@
                             @foreach ($data as $row)
                                 <tr>
                                     <td>
-                                        Chick
+                                        {{ $row->product->product_name }}
                                         <br>
-                                        <small class="text-muted">{{ $row->product->product_name }}</small>
+                                        <small class="text-muted"></small>
                                     </td>
                                     <td class="text-right">
                                         <span class="mono">{{ $row->rate }}</span>
@@ -208,7 +209,8 @@
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
-                <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                <img class="img-fluid"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
