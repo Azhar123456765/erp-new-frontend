@@ -150,7 +150,8 @@
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
-                <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                <img class="img-fluid"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
@@ -187,6 +188,10 @@
             <div class="ui segment itemscard">
                 <div class="content">
                     <table class="ui celled table">
+                        <div style="display:flex; justify-content:space-between;">
+                            <b>Actual Rate:&nbsp;&nbsp;{{ $single_data->actual_rate }}</b>
+                            <b>Cut Rate:&nbsp;&nbsp;{{ $single_data->avg }}</b>
+                        </div>
                         <thead>
                             <tr>
                                 <th>Item / Details</th>
@@ -278,7 +283,8 @@
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
-                <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                <img class="img-fluid"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>

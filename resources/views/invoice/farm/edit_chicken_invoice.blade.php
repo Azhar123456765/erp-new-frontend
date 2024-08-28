@@ -1478,7 +1478,7 @@ right: 15%;
                 event.preventDefault();
                 // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
-                var url = '{{ route('pdf_invoice_chick', [':unique_id', 0]) }}'.replace(':unique_id', unique_id);
+                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 0]) }}'.replace(':unique_id', unique_id);
 
                 window.open(url, '__blank')
             }
@@ -1489,7 +1489,7 @@ right: 15%;
                 event.preventDefault();
                 // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
-                var url = '{{ route('pdf_invoice_chick', [':unique_id', 1]) }}'.replace(':unique_id', unique_id);
+                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 1]) }}'.replace(':unique_id', unique_id);
 
                 window.open(url, '__blank')
             }
