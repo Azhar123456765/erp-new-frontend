@@ -305,10 +305,10 @@ right: 15%;
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                        <option value="{{ $single_invoice->sales_officer->sales_officer_id ?? null }}" selected>
-                            {{ $single_invoice->sales_officer->sales_officer_name ?? null }}</option>
+                       <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
+                        {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
                     </select>
-
+                    
                 </div>
 
                 <div class="one  remark">
@@ -815,14 +815,14 @@ right: 15%;
     <br>
 
 
-    <a href="{{ Route('edit_invoice_chick', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('edit_invoice_chicken', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
     </a>
-    <a href="{{ Route('edit_invoice_chick', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('edit_invoice_chicken', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
     </a>
 
-    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
+    <a href="{{ Route('invoice_chicken') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
         Add More
     </a>
 

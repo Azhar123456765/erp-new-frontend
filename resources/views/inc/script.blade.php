@@ -237,7 +237,7 @@
     <script>
         Swal.fire({
             icon: 'warning',
-            title: "{{ session('message') }}",
+            title: "{{ session('something_error') }}",
             toast: true,
             position: 'top-end',
             showConfirmButton: false,

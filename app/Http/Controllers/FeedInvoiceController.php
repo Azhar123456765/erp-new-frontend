@@ -115,7 +115,7 @@ class FeedInvoiceController extends Controller
      */
     public function show(feedInvoice $feedInvoice)
     {
-        //
+    //
     }
 
     /**
@@ -128,7 +128,12 @@ class FeedInvoiceController extends Controller
     {
         $invoice = feedInvoice::where('unique_id', $id)->get();
         $single_invoice = feedInvoice::where('unique_id', $id)->first();
-        return view('invoice.farm.edit_feed_invoice', compact('invoice', 'single_invoice'));
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_feed_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
     }
 
     /**

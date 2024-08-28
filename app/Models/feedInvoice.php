@@ -20,4 +20,8 @@ class feedInvoice extends Model
     {
         return $this->hasOne(buyer::class, 'buyer_id', 'seller');
     }
+    function officer()
+    {
+        return $this->hasOne(sales_officer::class, 'sales_officer_id', 'sales_officer');
+    }
 }

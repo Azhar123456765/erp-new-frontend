@@ -139,7 +139,12 @@ class ChickInvoiceController extends Controller
         $sales_officer = sales_officer::all();
         $invoice = ChickInvoice::where('unique_id', $id)->get();
         $single_invoice = ChickInvoice::where('unique_id', $id)->first();
-        return view('invoice.farm.edit_chick_invoice', compact('invoice', 'single_invoice', 'seller', 'product', 'sales_officer'));
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_chick_invoice', compact('invoice', 'single_invoice', 'seller', 'product', 'sales_officer'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
     }
 
     /**

@@ -298,8 +298,8 @@ right: 15%;
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                        <option value="{{ $single_invoice->sales_officer->sales_officer_id ?? null }}" selected>
-                            {{ $single_invoice->sales_officer->sales_officer_name ?? null }}</option>
+                       <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
+                        {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
                     </select>
 
                 </div>

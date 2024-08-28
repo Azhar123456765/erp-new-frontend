@@ -150,7 +150,12 @@ class ChickenInvoiceController extends Controller
     {
         $invoice = chickenInvoice::where('unique_id', $id)->get();
         $single_invoice = chickenInvoice::where('unique_id', $id)->first();
-        return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice'));
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
     }
 
     /**
