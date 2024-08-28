@@ -79,7 +79,11 @@
         }
 
         /* CUSTOME */
-        .full-width tr th{
+        th {
+            background: #e2e2e2 !important;
+        }
+
+        .full-width tr th {
             font-weight: 1000 !important;
         }
     </style>
