@@ -882,6 +882,9 @@ right: 15%;
                 $("input").on('input', function() {
                     total_calc();
                 });
+                $(document).on('click', function() {
+                    total_calc();
+                });
                 // Initialize Select2 for the desired select elements
                 $('.select-products').select2({
                     ajax: {
@@ -1128,6 +1131,9 @@ right: 15%;
 
             $(document).ready(function() {
                 $("input").on('input', function() {
+                    total_calc();
+                });
+                $(document).on('click', function() {
                     total_calc();
                 });
                 $('.select-products').select2({

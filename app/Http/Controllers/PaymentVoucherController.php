@@ -162,11 +162,13 @@ class PaymentVoucherController extends Controller
 
             "unique_id" => $id
         ])->limit(1)->get();
-
         $account = accounts::all();
-
-        $data = compact('account', 'p_voucher', 'sp_voucher');
-        return view('vouchers.e_payment')->with($data);
+        if (count($p_voucher) > 0) {
+            $data = compact('account', 'p_voucher', 'sp_voucher');
+            return view('vouchers.e_payment')->with($data);
+        } else {
+            return redirect()->route('payment_voucher.create');
+        }
     }
 
 

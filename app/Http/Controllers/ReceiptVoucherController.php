@@ -166,14 +166,16 @@ class ReceiptVoucherController extends Controller
             "unique_id" => $id
         ])->limit(1)->get();
 
-        // foreach ($ReceiptVoucher as $key => $value) {
-        //     $company = $value->company;
-        // }
-
         $account = accounts::all();
+
+        if (count($ReceiptVoucher) > 0) {
+            $data = compact('account', 'ReceiptVoucher', 'sReceiptVoucher');
+            return view('vouchers.e_reciept')->with($data);
+        } else {
+            return redirect()->route('receipt_voucher.create');
+        }
         // $invoices = sell_invoice::where('company', $company)->get();
-        $data = compact('account', 'ReceiptVoucher', 'sReceiptVoucher');
-        return view('vouchers.e_reciept')->with($data);
+
     }
 
     /**

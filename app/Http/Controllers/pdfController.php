@@ -1991,12 +1991,12 @@ class pdfController extends Controller
 
 
                 $receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
                 ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
                 ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
@@ -2032,12 +2032,12 @@ class pdfController extends Controller
 
 
                 $expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
                 ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
                 ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 

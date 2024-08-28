@@ -106,11 +106,11 @@ Route::middleware('userAuth')->group(function () {
 
     Route::middleware(['financePermission'])->group(function () {
         // VOUCHERS
-        Route::get('/p_voucher', [PaymentVoucherController::class, 'create']);
+        Route::get('/p_voucher', [PaymentVoucherController::class, 'create'])->name('payment_voucher.create');
         Route::post('/p_voucher_form', [PaymentVoucherController::class, 'store']);
         Route::get('/ep_voucher_id={id}', [PaymentVoucherController::class, 'edit'])->name('payment_voucher.edit');
         Route::post('/ep_voucher_form_id={id}', [PaymentVoucherController::class, 'update']);
-        Route::get('/r_voucher', [ReceiptVoucherController::class, 'index']);
+        Route::get('/r_voucher', [ReceiptVoucherController::class, 'index'])->name('receipt_voucher.create');
         Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
         Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
         Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);

@@ -682,6 +682,12 @@ right: 15%;
                 $("input").on('input', function() {
                     total_calc();
                 });
+                $(document).on('click', function() {
+                    total_calc();
+                });
+                $(document).on('click', function() {
+                    total_calc();
+                });
                 $('.select-products').select2({
                     ajax: {
                         url: '{{ route('select2.products') }}',
@@ -831,6 +837,9 @@ right: 15%;
             counter = counter + 1
             $(document).ready(function() {
                 $("input").on('input', function() {
+                    total_calc();
+                });
+                $(document).on('click', function() {
                     total_calc();
                 });
             });
