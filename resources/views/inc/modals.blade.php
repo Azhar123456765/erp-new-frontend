@@ -261,9 +261,9 @@
                 <div class="modal-body">
                     <form method="GET" action="/gen-led">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md-4">
+                            <div class="col-12-4">
                                 <div class="form-group">
                                     <label>Head Of Account</label>
                                     <select class="form-control" name="head_account" id="head_account"
@@ -284,7 +284,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-12-4">
 
                                 <div class="form-group">
                                     <label>Account</label>
@@ -296,7 +296,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md-4">
+                            <div class="col-12-4">
 
                                 <div class="form-group">
                                     <label>Sales Officer</label>
@@ -308,7 +308,7 @@
                             </div>
 
 
-                            <div class="col-md-4">
+                            <div class="col-12-4">
                                 <div class="form-group">
                                     <label>Company Type</label>
                                     <label for=""></label>
@@ -318,7 +318,7 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md-4">
+                            <div class="col-12-4">
                                 <div class="form-group">
                                     <label>Zone</label>
                                     <label for=""></label>
@@ -327,7 +327,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Type</label>
                                     <select class="form-control" name="type">
@@ -342,7 +342,7 @@
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -352,7 +352,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -377,15 +377,15 @@ text-align: center;
 
 <div class="modal fade" id="pur-r-report">
     <div class="modal-dialog">
-        <div class="modal-content gen-led" style="height: 95vh;">
+        <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Purchase Return Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/pur-r-report">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
                                     <select class="form-control select-seller" name="customer" >
@@ -393,7 +393,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -402,7 +402,7 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -414,9 +414,9 @@ text-align: center;
 
 
 
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
@@ -426,7 +426,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
@@ -436,7 +436,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
@@ -447,7 +447,7 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
@@ -463,7 +463,7 @@ text-align: center;
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -471,7 +471,7 @@ text-align: center;
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -497,15 +497,15 @@ text-align: center;
 
 <div class="modal fade" id="pur-report">
     <div class="modal-dialog">
-        <div class="modal-content gen-led" style="height: 95vh;">
+        <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Purchase Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/pur-report">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
                                     <select class="form-control select-buyer" name="customer" >
@@ -513,7 +513,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -522,7 +522,7 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -534,9 +534,9 @@ text-align: center;
 
 
 
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
@@ -546,7 +546,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
@@ -556,7 +556,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
@@ -567,7 +567,7 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
@@ -583,7 +583,7 @@ text-align: center;
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -591,7 +591,7 @@ text-align: center;
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -616,15 +616,15 @@ text-align: center;
 
 <div class="modal fade" id="sale-r-report">
     <div class="modal-dialog">
-        <div class="modal-content gen-led" style="height: 95vh;">
+        <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Sale Return Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/sale-r-report">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer">
@@ -634,7 +634,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -643,7 +643,7 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -655,9 +655,9 @@ text-align: center;
 
 
 
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
@@ -667,7 +667,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
@@ -677,7 +677,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
@@ -688,7 +688,7 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
@@ -704,7 +704,7 @@ text-align: center;
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -712,7 +712,7 @@ text-align: center;
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -738,15 +738,15 @@ text-align: center;
 
 <div class="modal fade" id="sale-report">
     <div class="modal-dialog">
-        <div class="modal-content gen-led" style="height: 95vh;">
+        <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Sale Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/sale-report">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer">
@@ -756,7 +756,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -765,7 +765,7 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -777,9 +777,9 @@ text-align: center;
 
 
 
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
@@ -789,7 +789,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
@@ -799,7 +799,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
@@ -810,7 +810,7 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
@@ -827,7 +827,7 @@ text-align: center;
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -835,7 +835,7 @@ text-align: center;
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -860,15 +860,15 @@ text-align: center;
 
 <div class="modal fade" id="sale-pur-report">
     <div class="modal-dialog">
-        <div class="modal-content gen-led" style="height: 95vh;">
+        <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Sale And Purchase Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="{{Route('sale_pur.report')}}">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer">
@@ -878,7 +878,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -887,7 +887,7 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -899,9 +899,9 @@ text-align: center;
 
 
 
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
@@ -911,7 +911,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
@@ -921,7 +921,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
@@ -932,7 +932,7 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="col-md">
+                        <div class="col-12">
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
@@ -949,7 +949,7 @@ text-align: center;
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -957,7 +957,7 @@ text-align: center;
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -989,8 +989,8 @@ text-align: center;
                 <div class="modal-body">
                     <form method="GET" action="/cus-led">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer" required>
@@ -999,7 +999,7 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label for="">Type</label>
                                     <select name="type" id="type">
@@ -1019,7 +1019,7 @@ text-align: center;
 margin-top:12%;
 text-align: center;
 ">
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1027,7 +1027,7 @@ text-align: center;
                                         required>
                                 </div>
                             </div>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -1061,9 +1061,9 @@ text-align: center;
                 <div class="modal-body">
                     <form method="GET" action="/supplier-led">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
                                     <select class="form-control select-seller" name="supplier" id="supplier">
@@ -1078,7 +1078,7 @@ text-align: center;
 ">
 
                             <br>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1088,7 +1088,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -1127,7 +1127,7 @@ margin-top:12%;
 text-align: center;
 ">
                             <br>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1137,7 +1137,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -1170,9 +1170,9 @@ text-align: center;
                 <div class="modal-body">
                     <form method="GET" action="/stock-report">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
+                        <div class="row" style="">
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label>Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -1180,7 +1180,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
@@ -1189,7 +1189,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
@@ -1199,7 +1199,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Product</label>
                                     <select class="form-control select-products" name="product" id="product">
@@ -1215,7 +1215,7 @@ margin-top:12%;
 text-align: center;
 ">
                             <br>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1225,7 +1225,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -1258,8 +1258,8 @@ text-align: center;
                 <div class="modal-body">
                     <form method="GET" action="/warehouse-report">
                         @csrf
-                        <div class="row" style="justify-content: space-between;">
-                            <div class="col-md">
+                        <div class="row" style="">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Warehouse</label>
                                     <select class="select-warehouse form-control" name="warehouse">
@@ -1273,7 +1273,7 @@ margin-top:12%;
 text-align: center;
 ">
                             <br>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1283,7 +1283,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -1427,7 +1427,7 @@ text-align: center;
                         @csrf
                         <div class="row justify-content-between">
 
-                            <div class="col-md-12">
+                            <div class="col-12-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
                                     <select class="form-control select-seller-buyer" name="company">
@@ -1437,7 +1437,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-12-12">
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
                                     <select class="form-control select-account" name="contra_account">
@@ -1446,7 +1446,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-12-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -1462,7 +1462,7 @@ text-align: center;
 ">
 
                             <br>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1472,7 +1472,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
@@ -1510,7 +1510,7 @@ text-align: center;
                         @csrf
                         <div class="row justify-content-between">
 
-                            <div class="col-md-12">
+                            <div class="col-12-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
                                     <select class="form-control select-seller-buyer" name="company">
@@ -1520,7 +1520,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-12-12">
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
                                     <select class="form-control select-account" name="contra_account">
@@ -1529,7 +1529,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-md-12">
+                            <div class="col-12-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -1545,7 +1545,7 @@ text-align: center;
 ">
 
                             <br>
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">From:</label>
 
@@ -1555,7 +1555,7 @@ text-align: center;
 
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>

@@ -233,7 +233,8 @@ $target = null;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{ Route('add_expense_voucher') }}" class="nav-link{{ request()->routeIs('add_expense_voucher') ? ' active' : '' }}">
+                            <a href="{{ Route('add_expense_voucher') }}"
+                                class="nav-link{{ request()->routeIs('add_expense_voucher') ? ' active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Expense Voucher</p>
                             </a>
@@ -303,7 +304,7 @@ $target = null;
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
@@ -352,9 +353,9 @@ $target = null;
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
@@ -383,9 +384,9 @@ $target = null;
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon fas fa-file"></i>
                                 <p>
@@ -409,69 +410,50 @@ $target = null;
                                     </a>
                                 </li>
                             </ul>
-                        </li>
+                        </li> --}}
 
                         <li class="nav-item">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fas fa-file"></i>
-                                <p>
-                                    Other Reports
-                                    <i class="right fas fa-angle-left"></i>
-                                </p>
+                            <a href="" data-toggle="modal" data-target="#sale-pur-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sale+Purchase Report</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#sale-pur-report"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sale+Purchase Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#sale-report"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sale Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#sale-r-report"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Sale Return Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#pur-report"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Purchase Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#pur-r-report"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Purchase Return Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#profit-led"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Profit Report</p>
-                                    </a>
-                                </li>
-                                <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#stock-report"
-                                        class="nav-link">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>Stock Report</p>
-                                    </a>
-                                </li>
-                            </ul>
                         </li>
-
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#sale-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sale Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#sale-r-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Sale Return Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#pur-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchase Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#pur-r-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Purchase Return Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#profit-led" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Profit Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#stock-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Stock Report</p>
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
