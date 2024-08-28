@@ -20,7 +20,7 @@
                         <h1 class = "ui header pageTitle">{{ $method == 0 ? 'Sale' : 'Purchase' }} Invoice
                         </h1>
                         <h4 class="ui sub header invDetails">NO: {{ $single_data['unique_id'] }} | Date:
-                             {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
+                            {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">
@@ -63,8 +63,8 @@
                             <tr>
                                 <th>Item / Details</th>
                                 <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Bonus</th>
                                 <th class="text-center colfix">Quantity</th>
-                                <th class="text-center colfix">Discount</th>
                                 <th class="text-center colfix">Amount</th>
                             </tr>
                         </thead>
@@ -82,12 +82,12 @@
                                         {{-- <small class="text-muted">Before Tax</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">{{ $row->sale_qty }}</span>
+                                        <span class="mono">{{ $row->sale_bonus }}</span>
                                         <br>
                                         {{-- <small class="text-muted">18 Units</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">-{{ $row->sale_discount }}Rs</span>
+                                        <span class="mono">-{{ $row->sale_qty }}Rs</span>
                                         <br>
                                         {{-- <small class="text-muted">Special -10%</small> --}}
                                     </td>
@@ -115,7 +115,8 @@
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
-                <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                <img class="img-fluid"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
@@ -156,8 +157,8 @@
                             <tr>
                                 <th>Item / Details</th>
                                 <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Bonus</th>
                                 <th class="text-center colfix">Quantity</th>
-                                <th class="text-center colfix">Discount</th>
                                 <th class="text-center colfix">Amount</th>
                             </tr>
                         </thead>
@@ -175,12 +176,12 @@
                                         {{-- <small class="text-muted">Before Tax</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">{{ $row->qty }}</span>
+                                        <span class="mono">{{ $row->bonus }}</span>
                                         <br>
                                         {{-- <small class="text-muted">18 Units</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">-{{ $row->discount }}Rs</span>
+                                        <span class="mono">-{{ $row->qty }}Rs</span>
                                         <br>
                                         {{-- <small class="text-muted">Special -10%</small> --}}
                                     </td>
@@ -208,7 +209,8 @@
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
-                <img class="img-fluid" style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                <img class="img-fluid"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>

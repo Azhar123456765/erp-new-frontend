@@ -77,6 +77,11 @@
         .pageTitle {
             margin-bottom: -1rem;
         }
+
+        /* CUSTOME */
+        .full-width tr th{
+            font-weight: 1000 !important;
+        }
     </style>
 </head>
 
