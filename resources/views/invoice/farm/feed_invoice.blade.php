@@ -526,7 +526,7 @@ right: 15%;
         class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
     </a>
-    <a href="{{ Route('invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
+    <a href="{{ Route('new_invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="add_more">
         Add More
     </a>
@@ -954,7 +954,8 @@ right: 15%;
 
 
 
-        $('#form').submit(function(event) {
+               $('#form').submit(function(event) {
+
             event.preventDefault();
 
             // Create a FormData object
@@ -972,33 +973,11 @@ right: 15%;
                 success: function(response) {
                     // Handle the response
 
+                   
                     Swal.fire({
-                        title: 'Send invoice to company email',
-                        text: 'Choose an action',
                         icon: 'success',
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        showDenyButton: true,
-                        confirmButtonText: 'Send',
-                        denyButtonText: 'Cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: '/s_med_invoice_mail',
-                                method: 'POST',
-                                data: formData,
-                                contentType: false, // Prevent jQuery from setting the content type
-                                processData: false, // Prevent jQuery from processing the data
-                                contentType: false, // Ensure these are set for the second AJAX call
-                                processData: false,
-                                success: function(mailResponse) {
-                                    // Handle the success of sending the email
-                                },
-                                error: function(mailError) {
-                                    // Handle the error of sending the email
-                                }
-                            });
-                        }
+                        title: response,
+                        timer: 1900 
                     });
 
                     // Show or hide elements as needed

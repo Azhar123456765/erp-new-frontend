@@ -109,12 +109,12 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/p_voucher', [PaymentVoucherController::class, 'create'])->name('payment_voucher.create');
         Route::post('/p_voucher_form', [PaymentVoucherController::class, 'store']);
         Route::get('/ep_voucher_id={id}', [PaymentVoucherController::class, 'edit'])->name('payment_voucher.edit');
-        Route::post('/ep_voucher_form_id={id}', [PaymentVoucherController::class, 'update']);
+        Route::post('/ep_voucher_form_id={id?}', [PaymentVoucherController::class, 'update'])->name('payment_voucher.update');
         Route::get('/r_voucher', [ReceiptVoucherController::class, 'index'])->name('receipt_voucher.create');
         Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
         Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
         Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
-        Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update']);
+        Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update'])->name('receipt_voucher.update');
 
         Route::controller(ExpenseVoucherController::class)->group(function () {
             Route::get('/expense-voucher', 'create')->name('add_expense_voucher');
@@ -246,17 +246,20 @@ Route::middleware('userAuth')->group(function () {
     // Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
 
     Route::prefix('farm')->group(function () {
-        Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("invoice_chicken");
+        Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create_first'])->name("invoice_chicken");
+        Route::get('/invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("new_invoice_chicken");
         Route::post('/add-invoice-chicken', [ChickenInvoiceController::class, 'store'])->name("store_invoice_chicken");
         Route::get('/edit-invoice-chicken/{id?}', [ChickenInvoiceController::class, 'edit'])->name("edit_invoice_chicken");
         Route::post('/edit-invoice-chicken/{id?}', [ChickenInvoiceController::class, 'update'])->name("update_invoice_chicken");
 
-        Route::get('/add-invoice-chick', [ChickInvoiceController::class, 'create'])->name("invoice_chick");
+        Route::get('/add-invoice-chick', [ChickInvoiceController::class, 'create_first'])->name("invoice_chick");
+        Route::get('/invoice-chick', [ChickInvoiceController::class, 'create'])->name("new_invoice_chick");
         Route::post('/add-invoice-chick', [ChickInvoiceController::class, 'store'])->name("store_invoice_chick");
         Route::get('/edit-invoice-chick/{id?}', [ChickInvoiceController::class, 'edit'])->name("edit_invoice_chick");
         Route::post('/update-invoice-chick/{id?}', [ChickInvoiceController::class, 'update'])->name("update_invoice_chick");
 
-        Route::get('/add-invoice-feed', [FeedInvoiceController::class, 'create'])->name("invoice_feed");
+        Route::get('/add-invoice-feed', [FeedInvoiceController::class, 'create_first'])->name("invoice_feed");
+        Route::get('/invoice-feed', [FeedInvoiceController::class, 'create'])->name("new_invoice_feed");
         Route::post('/add-invoice-feed', [FeedInvoiceController::class, 'store'])->name("store_invoice_feed");
         Route::get('/edit-invoice-feed/{id?}', [FeedInvoiceController::class, 'edit'])->name("edit_invoice_feed");
         Route::post('/update-invoice-feed/{id?}', [FeedInvoiceController::class, 'update'])->name("update_invoice_feed");

@@ -759,7 +759,8 @@
             },
         });
 
-        $('#form').submit(function(event) {
+               $('#form').submit(function(event) {
+
             event.preventDefault();
             var formData = new FormData(this);
 

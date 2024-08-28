@@ -602,8 +602,12 @@ right: 15%;
 </div>
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
+   <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
+    </button>
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
+        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
+        Edit
     </button>
     <br>
 
@@ -1066,7 +1070,8 @@ right: 15%;
 
 
 
-        $('#form').submit(function(event) {
+               $('#form').submit(function(event) {
+
             event.preventDefault();
 
             // Create a FormData object
@@ -1080,41 +1085,18 @@ right: 15%;
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
                 processData: false, // Prevent jQuery from processing the data
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
                 success: function(response) {
                     // Handle the response
 
+                   
                     Swal.fire({
-                        title: 'Send invoice to company email',
-                        text: 'Choose an action',
                         icon: 'success',
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        showDenyButton: true,
-                        confirmButtonText: 'Send',
-                        denyButtonText: 'Cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: '/s_med_invoice_mail',
-                                method: 'POST',
-                                data: formData,
-                                contentType: false, // Prevent jQuery from setting the content type
-                                processData: false, // Prevent jQuery from processing the data
-                                contentType: false, // Ensure these are set for the second AJAX call
-                                processData: false,
-                                success: function(mailResponse) {
-                                    // Handle the success of sending the email
-                                },
-                                error: function(mailError) {
-                                    // Handle the error of sending the email
-                                }
-                            });
-                        }
+                        title: response,
+                        timer: 1900 
                     });
 
-                    $("#submit").css("display", "none");
+                    $("#submit").attr('disabled', 'disabled');
+                    $('#edit').removeAttr('disabled');
                 },
                 error: function(error) {
                     // Handle the error

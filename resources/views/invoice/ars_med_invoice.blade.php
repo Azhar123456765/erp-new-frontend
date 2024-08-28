@@ -1252,7 +1252,8 @@ display: flex;
 
 
 
-    $('#form').submit(function(event) {
+           $('#form').submit(function(event) {
+
         event.preventDefault();
 
         // Get the form data

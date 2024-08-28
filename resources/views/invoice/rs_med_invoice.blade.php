@@ -1454,7 +1454,8 @@ window.location.href = newUrl
 
 
 
-    $('#form').submit(function(event) {
+           $('#form').submit(function(event) {
+
         event.preventDefault();
 
         count();

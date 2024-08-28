@@ -305,10 +305,10 @@ right: 15%;
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                       <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
-                        {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
+                        <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
+                            {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
                     </select>
-                    
+
                 </div>
 
                 <div class="one  remark">
@@ -522,7 +522,7 @@ right: 15%;
                 <div class="div">
                     <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="price">Crate Qty</label>
                     <input type="number" step="any" min="0.00" style="text-align: right;" step="any"
-                        placeholder="0.00" id="crate_qty{{ $counter }}" name="crate_qty[]" required />
+                        placeholder="0.00" id="crate_qty{{ $counter }}" name="crate_qty[]" />
                 </div>
 
                 <div class="div">
@@ -680,6 +680,7 @@ right: 15%;
         left: -1%;
     ">Total</label>
                     <input type="number" step="any" step="any" name="crate_qty_total" id="crate_qty_total"
+                        value="{{ $single_invoice->crate_qty_total }}"
                         style="
                             /* margin-left: 2%; */
                             position: fixed;
@@ -687,6 +688,7 @@ right: 15%;
                             left: 7%;
             "=""="">
                     <input type="number" step="any" step="any" name="hen_qty_total" id="hen_qty_total"
+                        value="{{ $single_invoice->hen_qty_total }}"
                         style="
                 /* margin-left: 52%; */
                 position: fixed;
@@ -694,7 +696,7 @@ right: 15%;
                 left: 12.5%;
             "=""="">
                     <input type="number" step="any" step="any" name="gross_weight_total"
-                        id="gross_weight_total"
+                        value="{{ $single_invoice->gross_weight_total }}" id="gross_weight_total"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
@@ -705,6 +707,7 @@ right: 15%;
 
 
                     <input type="number" step="any" step="any" name="feed_cut_total" id="feed_cut_total"
+                        value="{{ $single_invoice->feed_cut_total }}"
                         style="
                 /* margin-left: 30%; */
                 position: fixed;
@@ -712,6 +715,7 @@ right: 15%;
                 left: 29%;
             "=""="">
                     <input type="number" step="any" step="any" name="mor_cut_total" id="mor_cut_total"
+                        value="{{ $single_invoice->mor_cut_total }}"
                         style="
             /* margin-left: 30%; */
             position: fixed;
@@ -719,6 +723,7 @@ right: 15%;
             left: 34.7%;
         "=""="">
                     <input type="number" step="any" step="any" name="crate_cut_total" id="crate_cut_total"
+                        value="{{ $single_invoice->crate_cut_total }}"
                         style="
         /* margin-left: 30%; */
         position: fixed;
@@ -726,6 +731,7 @@ right: 15%;
         left: 40.4%;
     "=""="">
                     <input type="number" step="any" step="any" name="n_weight_total" id="n_weight_total"
+                        value="{{ $single_invoice->n_weight_total }}"
                         style="
     /* margin-left: 30%; */
     position: fixed;
@@ -733,21 +739,22 @@ right: 15%;
     left: 46%;
 "=""="">
                     <input type="number" step="any" step="any" name="amount_total" id="amount_total"
+                        value="{{ $single_invoice->amount_total }}"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;width: 90px !important;left: 62.4%;"=""="">
                     <input type="number" step="any" step="any" name="sale_feed_cut_total"
-                        id="sale_feed_cut_total"
+                        value="{{ $single_invoice->sale_feed_cut_total }}" id="sale_feed_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 70.4%;"=""="">
                     <input type="number" step="any" step="any" name="sale_mor_cut_total"
-                        id="sale_mor_cut_total"
+                        value="{{ $single_invoice->sale_mor_cut_total }}" id="sale_mor_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 75.9%;"=""="">
                     <input type="number" step="any" step="any" name="sale_crate_cut_total"
-                        id="sale_crate_cut_total"
+                        value="{{ $single_invoice->sale_crate_cut_total }}" id="sale_crate_cut_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 81.3%;"=""="">
                     <input type="number" step="any" step="any" name="sale_n_weight_total"
-                        id="sale_n_weight_total"
+                        value="{{ $single_invoice->sale_n_weight_total }}" id="sale_n_weight_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 86.9%;"=""="">
                     <input type="number" step="any" step="any" name="sale_amount_total"
-                        id="sale_amount_total"
+                        value="{{ $single_invoice->sale_amount_total }}" id="sale_amount_total"
                         style="/* margin-left: 30%; */position: fixed;top: 95%;left: 108.8%;width: 90px !important;"=""="">
 
 
@@ -809,8 +816,12 @@ right: 15%;
 </div>
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
+    </button>
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
+        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
+        Edit
     </button>
     <br>
 
@@ -822,7 +833,8 @@ right: 15%;
         Next
     </a>
 
-    <a href="{{ Route('invoice_chicken') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
+    <a href="{{ Route('new_invoice_chicken') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
+        id="add_more">
         Add More
     </a>
 
@@ -834,7 +846,7 @@ right: 15%;
         PURCHASE PDF
     </button>
 
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+    <button class="btn px-3 p-1 btn-secondary btn-sm  submit"
         onclick="
         
         window.location.reload()
@@ -908,7 +920,7 @@ right: 15%;
 <div class="div">
     <label class="{{ $counter > 1 ? 'd-none' : '' }}" for=" price">Crate Qty</label>
     <input type="number" step="any" min="0.00" style="text-align: right;" step="any" placeholder="0.00"
-        id="crate_qty` + counter + `" name="crate_qty[]" required />
+        id="crate_qty` + counter + `" name="crate_qty[]" />
 </div>
 
 <div class="div">
@@ -1169,7 +1181,7 @@ right: 15%;
 <div class="div">
     <label class="{{ $counter > 1 ? 'd-none' : '' }}" for=" price">Crate Qty</label>
     <input type="number" step="any" min="0.00" style="text-align: right;" step="any" placeholder="0.00"
-        id="crate_qty` + counter + `" name="crate_qty[]" required />
+        id="crate_qty` + counter + `" name="crate_qty[]" />
 </div>
 
 <div class="div">
@@ -1427,6 +1439,7 @@ right: 15%;
 
 
         $('#form').submit(function(event) {
+
             event.preventDefault();
 
             // Create a FormData object
@@ -1443,38 +1456,13 @@ right: 15%;
                 contentType: false, // Prevent jQuery from setting the content type
                 processData: false, // Prevent jQuery from processing the data
                 success: function(response) {
-                    // Handle the response
-
                     Swal.fire({
-                        title: 'Send invoice to company email',
-                        text: 'Choose an action',
                         icon: 'success',
-                        showCancelButton: false,
-                        showConfirmButton: true,
-                        showDenyButton: true,
-                        confirmButtonText: 'Send',
-                        denyButtonText: 'Cancel'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            $.ajax({
-                                url: '/s_med_invoice_mail',
-                                method: 'POST',
-                                data: formData,
-                                contentType: false, // Prevent jQuery from setting the content type
-                                processData: false, // Prevent jQuery from processing the data
-                                contentType: false, // Ensure these are set for the second AJAX call
-                                processData: false,
-                                success: function(mailResponse) {
-                                    // Handle the success of sending the email
-                                },
-                                error: function(mailError) {
-                                    // Handle the error of sending the email
-                                }
-                            });
-                        }
+                        title: response,
+                        timer: 1900 
                     });
-
-                    $("#submit").css("display", "none");
+                    $("#submit").attr('disabled', 'disabled');
+                    $('#edit').removeAttr('disabled');
                 },
                 error: function(error) {
                     // Handle the error

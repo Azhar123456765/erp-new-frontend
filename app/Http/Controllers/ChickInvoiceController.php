@@ -38,7 +38,17 @@ class ChickInvoiceController extends Controller
         $data = compact('count');
         return view('invoice.farm.chick_invoice')->with($data);
     }
-
+    public function create_first(Request $request)
+    {
+        $invoice = ChickInvoice::where('unique_id', 1)->get();
+        $single_invoice = ChickInvoice::where('unique_id', 1)->first();
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_chick_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -129,18 +139,10 @@ class ChickInvoiceController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $count = ChickInvoice::whereIn('chick_invoices.id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('chick_invoices')
-                ->groupBy('unique_id');
-        })->count();
-        $product = products::all();
-        $seller = buyer::all();
-        $sales_officer = sales_officer::all();
         $invoice = ChickInvoice::where('unique_id', $id)->get();
         $single_invoice = ChickInvoice::where('unique_id', $id)->first();
         if (count($invoice) > 0) {
-            return view('invoice.farm.edit_chick_invoice', compact('invoice', 'single_invoice', 'seller', 'product', 'sales_officer'));
+            return view('invoice.farm.edit_chick_invoice', compact('invoice', 'single_invoice'));
         } else {
             session()->flash('something_error', 'Invoice Not Found');
             return redirect()->back();

@@ -337,7 +337,6 @@
                 <div class="div">
                     <label>Cash/Bank Account</label>
                     <select class="cash_bank" name="cash_bank[]" style="height: 28px">
-                        <option></option>
 
                         @foreach ($account as $row)
                             <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
@@ -839,7 +838,8 @@
 
 
 
-        $('#form').submit(function(event) {
+               $('#form').submit(function(event) {
+
             event.preventDefault();
 
             // Get the form data

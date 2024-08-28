@@ -298,8 +298,8 @@
                     <div class="one  remark">
                         <label for="seller">Sales Ofiicer</label>
                         <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                             <option value="{{ $sinvoice_row->officer->sales_officer_id ?? null }}" selected>
-                        {{ $sinvoice_row->officer->sales_officer_name ?? null }}</option>
+                            <option value="{{ $sinvoice_row->officer->sales_officer_id ?? null }}" selected>
+                                {{ $sinvoice_row->officer->sales_officer_name ?? null }}</option>
                         </select>
                     </div>
                 </div>
@@ -338,7 +338,6 @@
                 $counter = 1;
             @endphp
             @foreach ($e_voucher as $invoice_row)
-
                 <div class="dup_invoice" onchange="addInvoice()">
 
 
@@ -362,7 +361,9 @@
                             <option></option>
 
                             @foreach ($account as $row)
-                                <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
+                                <option value="{{ $row->account_id }}"
+                                    {{ $invoice_row->cash_bank == $row->account_id ? 'selected' : '' }}>
+                                    {{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
@@ -531,8 +532,12 @@ text-align:end;
 @endforeach
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 100px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
+    </button>
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
+        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
+        Edit
     </button>
 
     <a href="{{ Route('edit_expense_voucher', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
@@ -589,6 +594,39 @@ text-align:end;
 </div>
 
 @push('s_script')
+    <script>
+        $('#form').submit(function(event) {
+
+            event.preventDefault();
+
+            // Get the form data
+            var formData = new FormData(this);
+
+            // Send an AJAX request
+            $.ajax({
+                url: '{{ Route('update_expense_voucher', $rand) }}', // Replace with your Laravel route or endpoint
+                method: 'POST',
+                data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
+                success: function(response) {
+                    // Handle the response
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        timer: 1900 // Automatically close after 3 seconds
+                    });
+                    $("#submit").attr('disabled', 'disabled');
+                    $('#edit').removeAttr('disabled');
+                    error: function(error) {
+                        // Handle the error
+                    },
+                }
+            });
+
+        })
+    </script>
     <script>
         document.getElementById('attachment').addEventListener('change', function(event) {
             const file = event.target.files[0]; // Get the uploaded file
@@ -868,34 +906,6 @@ text-align:end;
 
 
 
-        $('#form').submit(function(event) {
-            event.preventDefault();
-
-            // Get the form data
-            var formData = new FormData(this);
-
-            // Send an AJAX request
-            $.ajax({
-                url: '{{ Route('update_expense_voucher', $rand) }}', // Replace with your Laravel route or endpoint
-                method: 'POST',
-                data: formData,
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
-                success: function(response) {
-                    // Handle the response
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: response,
-                        timer: 1900 // Automatically close after 3 seconds
-                    });
-
-                },
-                error: function(error) {
-                    // Handle the error
-                },
-            });
-        })
         $(document).on('keydown', function(e) {
             if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
                 var link = document.querySelector('.add-more');

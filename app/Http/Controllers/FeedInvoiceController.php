@@ -36,6 +36,17 @@ class FeedInvoiceController extends Controller
         return view('invoice.farm.feed_invoice')->with($data);
     }
 
+    public function create_first(Request $request)
+    {
+        $invoice = feedInvoice::where('unique_id', 1)->get();
+        $single_invoice = feedInvoice::where('unique_id', 1)->first();
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_feed_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -115,7 +126,7 @@ class FeedInvoiceController extends Controller
      */
     public function show(feedInvoice $feedInvoice)
     {
-    //
+        //
     }
 
     /**

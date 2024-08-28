@@ -38,6 +38,18 @@ class ChickenInvoiceController extends Controller
         return view('invoice.farm.chicken_invoice')->with($data);
     }
 
+    public function create_first(Request $request)
+    {
+        $invoice = chickenInvoice::where('unique_id', 1)->get();
+        $single_invoice = chickenInvoice::where('unique_id', 1)->first();
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
