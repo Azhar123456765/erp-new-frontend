@@ -74,12 +74,7 @@ $type = session()->get('Data')['type'];
 ?>
 @include('pdf.head_pdf')
 
-<style>
-    * {
-        font-family: "Poppins", sans-serif !important;
-        font-size: 12px !important;
-    }
-</style>
+
 <h2 style="text-align: center;">Supplier Ledger</h2>
 <div class="col-md-3"></div>
 

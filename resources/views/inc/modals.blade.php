@@ -349,7 +349,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -357,7 +357,7 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}"
                                         id="" required>
                                 </div>
                             </div>
@@ -472,16 +472,16 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                    <input type="date" class="date" name="end_date" value=""
                                         id="" required>
                                 </div>
-                            </div>
+                            </div>{{$endDate}}
                         </div>
                 </div>
             </div>
@@ -594,13 +594,13 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}"
                                         id="" required>
                                 </div>
                             </div>
@@ -717,13 +717,13 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                    <input type="date" class="date" name="end_date" value="{{$endDate}}"
                                         id="" required>
                                 </div>
                             </div>
@@ -842,14 +842,14 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -975,14 +975,14 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1047,14 +1047,14 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1108,7 +1108,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -1117,7 +1117,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1159,7 +1159,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -1168,7 +1168,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1249,7 +1249,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -1258,7 +1258,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1309,7 +1309,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -1318,7 +1318,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1501,7 +1501,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -1510,7 +1510,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1586,7 +1586,7 @@ text-align: center;
                                     <label for="">From:</label>
 
                                     <input type="date" class="date" name="start_date"
-                                        value="{{ $startDate }}" id="" required>
+                                        value="{{$startDate}}" id="" required>
                                 </div>
 
                             </div>
@@ -1595,7 +1595,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">To:</label>
                                     <input type="date" class="date" name="end_date"
-                                        value="{{ $endDate }}" id="" required>
+                                        value="{{$endDate}}" id="" required>
                                 </div>
                             </div>
                         </div>

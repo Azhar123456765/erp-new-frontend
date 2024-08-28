@@ -31,6 +31,9 @@
     * {
         font-family: "Poppins", sans-serif !important;
     }
+    table{
+        font-size: 16px;
+    }
 </style>
 
 <head>

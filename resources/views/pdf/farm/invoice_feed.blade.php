@@ -20,7 +20,7 @@
                         <h1 class = "ui header pageTitle">{{ $method == 0 ? 'Sale' : 'Purchase' }} Invoice
                         </h1>
                         <h4 class="ui sub header invDetails">NO: {{ $single_data['unique_id'] }} | Date:
-                            {{ $single_data['date'] }}</h4>
+                             {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">

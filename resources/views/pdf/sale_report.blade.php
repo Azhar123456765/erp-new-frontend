@@ -66,8 +66,8 @@
         <h2 style="text-align: center;">Customer Report</h2>
 
         <div class="row">
-            <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                {{ $endDate }}</h4>
+            <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
             <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
         </div>
 
@@ -234,8 +234,8 @@
         <h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
         <div class="row">
-            <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                {{ $endDate }}</h4>
+            <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
             <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
         </div>
 
@@ -342,8 +342,8 @@
         <h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
         <div class="row">
-            <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                {{ $endDate }}</h4>
+            <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
             <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
         </div>
 

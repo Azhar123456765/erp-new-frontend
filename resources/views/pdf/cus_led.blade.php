@@ -67,12 +67,7 @@ $querypv = session()->get('Data')['ledgerDatapv'] ?? null;
 
 @include('pdf.head_pdf')
 
-<style>
-    * {
-        font-family: "Poppins", sans-serif !important;
-        font-size: 12px !important;
-    }
-</style>
+
 <h2 style="text-align: center;">Customer Ledger</h2>
 <div class="col-md-3"></div>
 

@@ -59,18 +59,13 @@ $feedData = session()->get('Data')['feedData'];
 ?>
 @include('pdf.head_pdf')
 
-<style>
-    * {
-        font-family: "Poppins", sans-serif !important;
-        font-size: 12px !important;
-    }
-</style>
-<h2 style="text-align: center;">Supplier Report</h2>
+
+<h2 style="text-align: center;">Purchase Report</h2>
 <div class="col-md-3"></div>
 
 <div class="row">
-    <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-        {{ $endDate }}</h4>
+    <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+        {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
     <h3 style="text-align: right; "><?php echo date('l'); ?>,<?php echo '  ' . date('d-m-Y'); ?></h3>
 </div>
 @if ($type == 1)
