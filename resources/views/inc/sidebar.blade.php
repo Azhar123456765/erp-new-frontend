@@ -415,13 +415,13 @@ $target = null;
                         <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#sale-pur-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Sale+Purchase Report</p>
+                                <p>Sale+Supplier Report</p>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#sale-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Sale Report</p>
+                                <p>Customer Report</p>
                             </a>
                         </li>
                         <li class="nav-item">
@@ -433,7 +433,7 @@ $target = null;
                         <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#pur-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
-                                <p>Purchase Report</p>
+                                <p>Supplier Report</p>
                             </a>
                         </li>
                         <li class="nav-item">

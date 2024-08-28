@@ -1,7 +1,7 @@
 @php
 
     $endDate = date('Y-m-d');
-    $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
+    $startDate = date('Y-m-d', strtotime('-1 year', strtotime($endDate)));
 @endphp
 <style>
     .date {
@@ -32,7 +32,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type"
+                                name="limit" required value="">
                         </div>
 
                         <button type="submit" target class="btn btn-primary" id="btn">Submit</button>
@@ -61,7 +62,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type"
+                                name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -91,7 +93,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type"
+                                name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -120,7 +123,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type"
+                                name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -149,7 +153,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type"
+                                name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -181,7 +186,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="username">No. Records</label>
-                            <input type="number" step="any" min="1" class="form-control" id="type" name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control" id="type"
+                                name="limit" required value="">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -199,11 +205,10 @@
 
 @php
 
-    $id = session()->get("user_id")['user_id'];
-    $theme_colors = App\Models\users::where("user_id", $id)->get();
+    $id = session()->get('user_id')['user_id'];
+    $theme_colors = App\Models\users::where('user_id', $id)->get();
 
     foreach ($theme_colors as $key => $value2) {
-
         $theme_color = $value2->theme;
     }
 
@@ -220,7 +225,7 @@
                         <div class="form-group">
                             <label for="username">Theme</label>
                             <input type="color" class="form-control" name="theme_color" style="min-height:10vh;"
-                                value="{{$theme_color}}">
+                                value="{{ $theme_color }}">
                         </div>
 
                         <button type="submit" class="btn btn-primary" id="btn">Submit</button>
@@ -245,11 +250,6 @@
 
     }
 
-    .gen-led {
-        width: 150%;
-        margin-left: -28%;
-        height: 70vh;
-    }
 </style>
 
 <div class="modal fade" id="gen-led">
@@ -302,7 +302,7 @@
                                     <label>Sales Officer</label>
                                     <label for=""></label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -322,7 +322,8 @@
                                 <div class="form-group">
                                     <label>Zone</label>
                                     <label for=""></label>
-                                    <select class="select-warehouse js-example-basic-multiple js-states form-control" name="warehouse">
+                                    <select class="select-warehouse js-example-basic-multiple js-states form-control"
+                                        name="warehouse">
                                     </select>
                                 </div>
                             </div>
@@ -338,7 +339,8 @@
                             </div>
                         </div>
 
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -346,8 +348,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -355,7 +357,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
@@ -388,7 +391,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control select-seller" name="customer" >
+                                    <select class="form-control select-seller" name="customer">
                                     </select>
                                 </div>
                             </div>
@@ -397,7 +400,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -420,7 +423,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
-                                        
+
 
                                     </select>
                                 </div>
@@ -430,7 +433,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -440,7 +443,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
-                                       
+
 
                                     </select>
                                 </div>
@@ -459,7 +462,8 @@ text-align: center;
 
                         <br>
 
-                        <div class="row" style="justify-content: space-between;
+                        <div class="row"
+                            style="justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -467,14 +471,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
@@ -500,7 +505,7 @@ text-align: center;
         <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Purchase Report</h4>
+                <h4>Supplier Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/pur-report">
                         @csrf
@@ -508,7 +513,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control select-buyer" name="customer" >
+                                    <select class="form-control select-buyer" name="customer">
                                     </select>
                                 </div>
                             </div>
@@ -517,7 +522,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -540,7 +545,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
-                                        
+
 
                                     </select>
                                 </div>
@@ -550,7 +555,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -560,7 +565,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
-                                       
+
 
                                     </select>
                                 </div>
@@ -579,7 +584,8 @@ text-align: center;
 
                         <br>
 
-                        <div class="row" style="justify-content: space-between;
+                        <div class="row"
+                            style="justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -587,14 +593,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
@@ -628,7 +635,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -638,7 +645,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -661,7 +668,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
-                                        
+
 
                                     </select>
                                 </div>
@@ -671,7 +678,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -681,7 +688,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
-                                       
+
 
                                     </select>
                                 </div>
@@ -700,7 +707,8 @@ text-align: center;
 
                         <br>
 
-                        <div class="row" style="justify-content: space-between;
+                        <div class="row"
+                            style="justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -708,14 +716,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
@@ -741,7 +750,7 @@ text-align: center;
         <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Sale Report</h4>
+                <h4>Customer Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="/sale-report">
                         @csrf
@@ -750,7 +759,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -760,7 +769,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -783,7 +792,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
-                                        
+
 
                                     </select>
                                 </div>
@@ -793,7 +802,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -803,7 +812,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
-                                       
+
 
                                     </select>
                                 </div>
@@ -823,7 +832,8 @@ text-align: center;
 
                         <br>
 
-                        <div class="row" style="justify-content: space-between;
+                        <div class="row"
+                            style="justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -831,14 +841,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -863,16 +874,25 @@ text-align: center;
         <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Sale And Purchase Report</h4>
+                <h4>Sale And Supplier Report</h4>
                 <div class="modal-body">
-                    <form method="GET" action="{{Route('sale_pur.report')}}">
+                    <form method="GET" action="{{ Route('sale_pur.report') }}">
                         @csrf
                         <div class="row" style="">
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer">
-                                        
+
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Supplier</label>
+                                    <select class="form-control select-buyer" name="supplier">
+
 
                                     </select>
                                 </div>
@@ -882,7 +902,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
 
                                     </select>
                                 </div>
@@ -905,7 +925,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
-                                        
+
 
                                     </select>
                                 </div>
@@ -915,7 +935,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -925,7 +945,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product</label>
                                     <select class="form-control select-products" name="product">
-                                       
+
 
                                     </select>
                                 </div>
@@ -945,7 +965,8 @@ text-align: center;
 
                         <br>
 
-                        <div class="row" style="justify-content: space-between;
+                        <div class="row"
+                            style="justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -953,14 +974,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -994,7 +1016,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Customer</label>
                                     <select class="form-control select-buyer" name="customer" required>
-                                        
+
 
                                     </select>
                                 </div>
@@ -1015,7 +1037,8 @@ text-align: center;
 
                         <br>
 
-                        <div class="row" style="justify-content: space-between;
+                        <div class="row"
+                            style="justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1023,14 +1046,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1072,7 +1096,8 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1082,8 +1107,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1091,7 +1116,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1122,7 +1148,8 @@ text-align: center;
                 <div class="modal-body">
                     <form method="GET" action="/profit-led">
                         @csrf
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1131,8 +1158,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1140,7 +1167,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1184,7 +1212,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Category</label>
                                     <select class="form-control select-product_category" name="product_category">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -1193,7 +1221,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Product Company</label>
                                     <select class="form-control select-product_company" name="product_company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -1203,14 +1231,15 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Product</label>
                                     <select class="form-control select-products" name="product" id="product">
-                                       
+
 
                                     </select>
                                 </div>
                             </div>
 
                         </div>
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1219,8 +1248,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1228,7 +1257,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1268,7 +1298,8 @@ text-align: center;
                             </div>
 
                         </div>
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1277,8 +1308,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1286,7 +1317,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1308,13 +1340,13 @@ text-align: center;
 <script>
     // if ($('#gen-led').hasClass('show')) {
 
-        // $('select').select2({})
+    // $('select').select2({})
     // }    
 
     //         $('#gen-led').hide()
 
     // $(document).ready(function () {
-       
+
     //     $('.select-account').select2({
     //         placeholder: 'Enter a search term',
     //         ajax: {
@@ -1345,11 +1377,12 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="username">GR No</label>
-                            <input type="number" step="any" min="1" class="form-control" id="invoice" name="limit" required
-                                value="">
+                            <input type="number" step="any" min="1" class="form-control" id="invoice"
+                                name="limit" required value="">
                         </div>
 
-                        <button type="button" class="btn btn-primary" id="btn" onclick="invoice()">Submit</button>
+                        <button type="button" class="btn btn-primary" id="btn"
+                            onclick="invoice()">Submit</button>
 
                     </form>
                     <script>
@@ -1431,7 +1464,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Company</label>
                                     <select class="form-control select-seller-buyer" name="company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -1441,7 +1474,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
                                     <select class="form-control select-account" name="contra_account">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -1450,13 +1483,14 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1466,8 +1500,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1475,7 +1509,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1514,7 +1549,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Company</label>
                                     <select class="form-control select-seller-buyer" name="company">
-                                        
+
 
                                     </select>
                                 </div>
@@ -1524,7 +1559,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
                                     <select class="form-control select-account" name="contra_account">
-                                        
+
                                     </select>
                                 </div>
                             </div>
@@ -1533,13 +1568,14 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
-                                        
+
                                     </select>
                                 </div>
                             </div>
                         </div>
 
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1549,8 +1585,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{$startDate}}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1558,7 +1594,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{$endDate}}" id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1577,18 +1614,18 @@ text-align: center;
 </div>
 
 <script>
- document.addEventListener('DOMContentLoaded', function() {
-            // Initialize Select2 on the select element
-            var select = document.querySelector('select');
-            var select2 = new Select2(select, {
-                // Select2 configuration options can go here if needed
-            });
-
-            // Attach click event to the clear button
-            var clearBtn = document.querySelector('#clear-btn');
-            clearBtn.addEventListener('click', function() {
-                alert(1); // Show alert for debugging
-                select2.val(null).trigger('change'); // Clear selection
-            });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Initialize Select2 on the select element
+        var select = document.querySelector('select');
+        var select2 = new Select2(select, {
+            // Select2 configuration options can go here if needed
         });
+
+        // Attach click event to the clear button
+        var clearBtn = document.querySelector('#clear-btn');
+        clearBtn.addEventListener('click', function() {
+            alert(1); // Show alert for debugging
+            select2.val(null).trigger('change'); // Clear selection
+        });
+    });
 </script>

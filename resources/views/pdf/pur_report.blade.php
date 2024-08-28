@@ -65,7 +65,7 @@ $feedData = session()->get('Data')['feedData'];
         font-size: 12px !important;
     }
 </style>
-<h2 style="text-align: center;">Purchase Report</h2>
+<h2 style="text-align: center;">Supplier Report</h2>
 <div class="col-md-3"></div>
 
 <div class="row">

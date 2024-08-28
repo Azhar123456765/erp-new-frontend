@@ -59,7 +59,7 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
 
 
 @if($type == 1)
-<h2 style="text-align: center;">Sale Report</h2>
+<h2 style="text-align: center;">Customer Report</h2>
 
 <div class="row">
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
@@ -132,7 +132,7 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
 </h3>
 @elseif($type == 2)
 
-<h2 style="text-align: center;">Sale Report (Detail Wise)</h2>
+<h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
 <div class="row">
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>
@@ -238,7 +238,7 @@ $amount_total = session()->get('Data')['amount_total'] ?? null;
 </table>
 @elseif($type == 3)
 
-<h2 style="text-align: center;">Sale Report (Detail Wise)</h2>
+<h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
 <div class="row">
     <h4 style="text-align: center;">FROM: {{$startDate}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO: {{$endDate}}</h4>

@@ -500,7 +500,7 @@ class pdfController extends Controller
 
                 if (session()->has('Data')) {
 
-                        $views = 'Sale Report';
+                        $views = 'Customer Report';
 
                         $pdf = new Dompdf();
 
@@ -693,7 +693,7 @@ class pdfController extends Controller
                                 $endDate = $request->input('end_date');
 
                                 // Retrieve form data
-                                $supplier = $request->input('supplier');
+                                $supplier = $request->input('customer');
                                 $salesOfficer = $request->input('sales_officer');
                                 $warehouse = $request->input('warehouse');
                                 $product_category = $request->input('product_category');
@@ -706,7 +706,7 @@ class pdfController extends Controller
 
                                 $chickenInvoice = chickenInvoice::query();
                                 if ($supplier) {
-                                        $chickenInvoice->where('supplier', $supplier);
+                                        $chickenInvoice->where('seller', $supplier);
                                 }
 
                                 if ($salesOfficer) {
@@ -727,7 +727,7 @@ class pdfController extends Controller
 
                                 $chickInvoice = ChickInvoice::query();
                                 if ($supplier) {
-                                        $chickInvoice->where('supplier', $supplier);
+                                        $chickInvoice->where('seller', $supplier);
                                 }
 
                                 if ($salesOfficer) {
@@ -748,7 +748,7 @@ class pdfController extends Controller
 
                                 $feedInvoice = feedInvoice::query();
                                 if ($supplier) {
-                                        $feedInvoice->where('supplier', $supplier);
+                                        $feedInvoice->where('seller', $supplier);
                                 }
 
                                 if ($salesOfficer) {
@@ -844,7 +844,7 @@ class pdfController extends Controller
 
                 if (session()->has('Data')) {
 
-                        $views = 'Purchase Report';
+                        $views = 'Supplier Report';
 
                         $pdf = new Dompdf();
 
@@ -1991,13 +1991,13 @@ class pdfController extends Controller
 
 
                 $receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
-                ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
-                ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
                 session()->flash("receipt_vouchers_pdf_data", $receipt_vouchers);
@@ -2032,13 +2032,13 @@ class pdfController extends Controller
 
 
                 $expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
-                ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
-                ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 
                 session()->flash("expense_vouchers_pdf_data", $expense_vouchers);
@@ -2324,6 +2324,7 @@ class pdfController extends Controller
 
                         // Retrieve form data
                         $customer = $request->input('customer');
+                        $supplier = $request->input('supplier');
                         $salesOfficer = $request->input('sales_officer');
                         $warehouse = $request->input('warehouse');
                         $product_category = $request->input('product_category');
@@ -2336,6 +2337,9 @@ class pdfController extends Controller
                         $chickenInvoice = chickenInvoice::query();
                         if ($customer) {
                                 $chickenInvoice->where('buyer', $customer);
+                        }
+                        if ($supplier) {
+                                $chickenInvoice->where('seller', $supplier);
                         }
 
                         if ($salesOfficer) {
@@ -2414,7 +2418,7 @@ class pdfController extends Controller
 
                 if (session()->has('Data')) {
 
-                        $views = 'Sale + Purchase Report';
+                        $views = 'Sale + Supplier Report';
 
                         $pdf = new Dompdf();
 

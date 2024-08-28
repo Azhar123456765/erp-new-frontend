@@ -68,7 +68,7 @@
 
 
     @if ($type == 1)
-        <h2 style="text-align: center;">Sale+Purchase Report</h2>
+        <h2 style="text-align: center;">Sale+Supplier Report</h2>
 
         <div class="row">
             <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
@@ -333,7 +333,7 @@
                 style="color: green;"><b>{{ $feedData->sum('amount') + $chickData->sum('amount') + $chickenData->sum('sale_amount') }}</b></span>
         </h3>
     @elseif($type == 2)
-        <h2 style="text-align: center;">Sale Report (Detail Wise)</h2>
+        <h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
         <div class="row">
             <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
@@ -443,7 +443,7 @@
 
         </table>
     @elseif($type == 3)
-        <h2 style="text-align: center;">Sale Report (Detail Wise)</h2>
+        <h2 style="text-align: center;">Customer Report (Detail Wise)</h2>
 
         <div class="row">
             <h4 style="text-align: center;">FROM: {{ $startDate }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
