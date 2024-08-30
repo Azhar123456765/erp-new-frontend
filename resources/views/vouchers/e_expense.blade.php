@@ -598,11 +598,8 @@ text-align:end;
         $('#form').submit(function(event) {
 
             event.preventDefault();
-
-            // Get the form data
             var formData = new FormData(this);
 
-            // Send an AJAX request
             $.ajax({
                 url: '{{ Route('update_expense_voucher', $rand) }}', // Replace with your Laravel route or endpoint
                 method: 'POST',
@@ -615,16 +612,18 @@ text-align:end;
                     Swal.fire({
                         icon: 'success',
                         title: response,
-                        timer: 1900 // Automatically close after 3 seconds
+                        timer: 1900
                     });
+
                     $("#submit").attr('disabled', 'disabled');
                     $('#edit').removeAttr('disabled');
-                    error: function(error) {
-                        // Handle the error
-                    },
-                }
-            });
 
+
+                },
+                error: function(error) {
+                    // Handle the error
+                },
+            });
         })
     </script>
     <script>

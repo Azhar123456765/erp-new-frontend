@@ -431,7 +431,7 @@
         Next
     </a>
 
-    <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
+    <a href="{{ Route('edit_expense_voucher') }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="edit">
         Edit
     </a>
@@ -477,6 +477,39 @@
     </div>
 </div>
 @push('s_script')
+    <script>
+        $('#form').submit(function(event) {
+
+            event.preventDefault();
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: '{{ Route('store_expense_voucher') }}',
+                method: 'POST',
+                data: formData,
+                contentType: false, // Prevent jQuery from setting the content type
+                processData: false, // Prevent jQuery from processing the data
+                success: function(response) {
+                    // Handle the response
+
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        timer: 1900 // Automatically close after 3 seconds
+                    });
+                    $("#submit").addClass("disabled");
+                    $("#edit").removeClass("disabled");
+                    $("#pdf").removeClass("disabled");
+
+
+
+                },
+                error: function(error) {
+                    // Handle the error
+                },
+            });
+        })
+    </script>
     <script>
         document.getElementById('attachment').addEventListener('change', function(event) {
             const file = event.target.files[0]; // Get the uploaded file
@@ -759,40 +792,7 @@
             },
         });
 
-               $('#form').submit(function(event) {
 
-            event.preventDefault();
-            var formData = new FormData(this);
-
-            $.ajax({
-                url: '{{ Route('store_expense_voucher') }}',
-                method: 'POST',
-                data: formData,
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
-                contentType: false, // Prevent jQuery from setting the content type
-                processData: false, // Prevent jQuery from processing the data
-                success: function(response) {
-                    // Handle the response
-
-                    Swal.fire({
-                        icon: 'success',
-                        title: response,
-                        timer: 1900 // Automatically close after 3 seconds
-                    });
-                    $(".submit").css("display", "none")
-                    $(".edit").css("display", "block")
-                    $(".add-more").css("display", "block")
-                    $(".pdf").css("display", "block")
-
-
-
-                },
-                error: function(error) {
-                    // Handle the error
-                },
-            });
-        })
         $(document).on('keydown', function(e) {
             if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {
                 var link = document.querySelector('.add-more');

@@ -166,7 +166,7 @@
                         <th>Date</th>
                         <th>Invoice No</th>
                         <th>Customer Name</th>
-                        <th>Product Desc</th>
+                        <th>Product</th>
                         <th>Rate</th>
                         <th>Quantity</th>
                         <th>Amount</th>
@@ -243,7 +243,7 @@
                         <th>Date</th>
                         <th>Invoice No</th>
                         <th>Customer Name</th>
-                        <th>Product Desc</th>
+                        <th>Product</th>
 
                         <th>Rate</th>
                         <th>Quantity</th>

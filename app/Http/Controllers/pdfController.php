@@ -53,198 +53,175 @@ class pdfController extends Controller
                         $start_date = $request->input('start_date');
                         $end_date = $request->input('end_date');
 
-                        $account = $request->input('account');
+                        $company = $request->input('company');
                         $salesOfficer = $request->input('sales_officer');
-                        $companyType = $request->input('company_type');
-                        $zone = $request->input('warehouse');
+                        // $companyType = $request->input('company_type');
+                        // $zone = $request->input('warehouse');
                         $startDate = $request->input('start_date');
                         $endDate = $request->input('end_date');
 
                         $type = $request->input('type');
 
                         if ($type == 1) {
+                                $chickenInvoice = chickenInvoice::query();
 
-                                $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate])->whereIn('sell_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('sell_invoice')
-                                                ->groupBy('unique_id');
-                                });
-                                ;
-
-                                if ($account) {
-                                        $query->where('account', $account);
+                                if ($company) {
+                                        $chickenInvoice->where('buyer', $company)->orWhere('seller', $company);
                                 }
-
                                 if ($salesOfficer) {
-                                        $query->where('sales_officer', $salesOfficer);
+                                        $chickenInvoice->where('sales_officer', $salesOfficer);
                                 }
 
-                                if ($zone) {
-                                        $query->where('warehouse', $zone);
+                                // dd($chickenInvoice->get());
+                                $chickInvoice = chickInvoice::query();
+
+                                if ($company) {
+                                        $chickInvoice->where('buyer', $company)->orWhere('seller', $company);
                                 }
-
-
-                                $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate])->whereIn('receipt_vouchers.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('receipt_vouchers')
-                                                ->groupBy('unique_id');
-                                });
-                                ;
-
-
-                                if ($account) {
-                                        $query2->where('cash_bank', $account);
-                                }
-
                                 if ($salesOfficer) {
-                                        $query2->where('sales_officer', $salesOfficer);
+                                        $chickInvoice->where('sales_officer', $salesOfficer);
                                 }
 
-                                if ($zone) {
-                                        $query2->where('warehouse', $zone);
+                                $feedInvoice = feedInvoice::query();
+
+                                if ($company) {
+                                        $feedInvoice->where('buyer', $company)->orWhere('seller', $company);
                                 }
-
-                                $query3 = purchase_invoice::whereBetween('purchase_invoice.created_at', [$startDate, $endDate])->whereIn('purchase_invoice.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('purchase_invoice')
-                                                ->groupBy('unique_id');
-                                });
-
-                                if ($account) {
-                                        $query3->where('freighta', $account);
-                                        $query3->where('sales_taxa', $account);
-                                        $query3->where('ad_sales_taxa', $account);
-                                        $query3->where('banka', $account);
-                                        $query3->where('other_expensea', $account);
-                                }
-
                                 if ($salesOfficer) {
-                                        $query3->where('sales_officer', $salesOfficer);
+                                        $feedInvoice->where('sales_officer', $salesOfficer);
                                 }
 
-                                if ($zone) {
-                                        $query3->where('warehouse', $zone);
+                                $payment_voucher = p_voucher::query();
+
+                                if ($company) {
+                                        $payment_voucher->where('company', $company);
                                 }
-
-                                $query4 = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate])->whereIn('payment_voucher.id', function ($subQuery) {
-                                        $subQuery->select(DB::raw('MIN(id)'))
-                                                ->from('payment_voucher')
-                                                ->groupBy('unique_id');
-                                });
-
-
-                                if ($account) {
-                                        $query4->where('cash_bank', $account);
-                                }
-
                                 if ($salesOfficer) {
-                                        $query4->where('sales_officer', $salesOfficer);
+                                        $payment_voucher->where('sales_officer', $salesOfficer);
                                 }
 
-                                if ($zone) {
-                                        $query4->where('warehouse', $zone);
+
+                                $receipt_voucher = ReceiptVoucher::query();
+
+                                if ($company) {
+                                        $receipt_voucher->where('company', $company);
+                                }
+                                if ($salesOfficer) {
+                                        $receipt_voucher->where('sales_officer', $salesOfficer);
                                 }
 
-                                $ledgerDatasi = $query->get();
-                                $ledgerDatarv = $query2->get();
-                                $ledgerDatapi = $query3->get();
-                                $ledgerDatapv = $query4->get();
+                                $expense_voucher = ExpenseVoucher::query();
 
+                                if ($company) {
+                                        $expense_voucher->where('buyer', $company);
+                                }
+                                if ($salesOfficer) {
+                                        $expense_voucher->where('sales_officer', $salesOfficer);
+                                }
+
+                                $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
+                                $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
+                                $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
+                                $payment_voucher = $payment_voucher->orderBy('date', 'asc')->get();
+                                $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
+                                $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
 
                                 $data = [
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
-                                        'account' => $account,
-                                        'ledgerDatasi' => $ledgerDatasi,
-                                        'ledgerDatarv' => $ledgerDatarv,
-                                        'ledgerDatapi' => $ledgerDatapi,
-                                        'ledgerDatapv' => $ledgerDatapv,
-                                        'type' => $type
-                                ];
-
-                                session()->flash('Data', $data);
-                        } elseif ($type == 2) {
-                                $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate]);
-
-                                if ($account) {
-                                        $query->where('account', $account);
-                                }
-
-                                if ($salesOfficer) {
-                                        $query->where('sales_officer', $salesOfficer);
-                                }
-
-                                if ($zone) {
-                                        $query->where('warehouse', $zone);
-                                }
-
-
-                                $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
-
-
-                                if ($account) {
-                                        $query2->where('cash_bank', $account);
-                                }
-
-                                if ($salesOfficer) {
-                                        $query2->where('sales_officer', $salesOfficer);
-                                }
-
-                                if ($zone) {
-                                        $query2->where('warehouse', $zone);
-                                }
-
-                                $query3 = purchase_invoice::whereBetween('purchase_invoice.created_at', [$startDate, $endDate]);
-
-                                if ($account) {
-                                        $query3->where('freighta', $account);
-                                        $query3->where('sales_taxa', $account);
-                                        $query3->where('ad_sales_taxa', $account);
-                                        $query3->where('banka', $account);
-                                        $query3->where('other_expensea', $account);
-                                }
-
-                                if ($salesOfficer) {
-                                        $query3->where('sales_officer', $salesOfficer);
-                                }
-
-                                if ($zone) {
-                                        $query3->where('warehouse', $zone);
-                                }
-
-                                $query4 = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate]);
-
-
-                                if ($account) {
-                                        $query4->where('cash_bank', $account);
-                                }
-
-                                if ($salesOfficer) {
-                                        $query4->where('sales_officer', $salesOfficer);
-                                }
-
-                                if ($zone) {
-                                        $query4->where('warehouse', $zone);
-                                }
-
-                                $ledgerDatasi = $query->get();
-                                $ledgerDatarv = $query2->get();
-                                $ledgerDatapi = $query3->get();
-                                $ledgerDatapv = $query4->get();
-
-
-                                $data = [
-                                        'startDate' => $startDate,
-                                        'endDate' => $endDate,
-                                        'account' => $account,
-                                        'ledgerDatasi' => $ledgerDatasi,
-                                        'ledgerDatarv' => $ledgerDatarv,
-                                        'ledgerDatapi' => $ledgerDatapi,
-                                        'ledgerDatapv' => $ledgerDatapv,
+                                        'chickenInvoice' => $chickenInvoice,
+                                        'chickInvoice' => $chickInvoice,
+                                        'feedInvoice' => $feedInvoice,
+                                        'payment_voucher' => $payment_voucher,
+                                        'receipt_voucher' => $receipt_voucher,
+                                        'expense_voucher' => $expense_voucher,
+                                        'company' => $company,
                                         'type' => $type
                                 ];
                                 session()->flash('Data', $data);
                         }
+                        //    elseif ($type == 2) {
+                        //         $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate]);
+
+                        //         if ($account) {
+                        //                 $query->where('account', $account);
+                        //         }
+
+                        //         if ($salesOfficer) {
+                        //                 $query->where('sales_officer', $salesOfficer);
+                        //         }
+
+                        //         if ($zone) {
+                        //                 $query->where('warehouse', $zone);
+                        //         }
+
+
+                        //         $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
+
+
+                        //         if ($account) {
+                        //                 $query2->where('cash_bank', $account);
+                        //         }
+
+                        //         if ($salesOfficer) {
+                        //                 $query2->where('sales_officer', $salesOfficer);
+                        //         }
+
+                        //         if ($zone) {
+                        //                 $query2->where('warehouse', $zone);
+                        //         }
+
+                        //         $query3 = purchase_invoice::whereBetween('purchase_invoice.created_at', [$startDate, $endDate]);
+
+                        //         if ($account) {
+                        //                 $query3->where('freighta', $account);
+                        //                 $query3->where('sales_taxa', $account);
+                        //                 $query3->where('ad_sales_taxa', $account);
+                        //                 $query3->where('banka', $account);
+                        //                 $query3->where('other_expensea', $account);
+                        //         }
+
+                        //         if ($salesOfficer) {
+                        //                 $query3->where('sales_officer', $salesOfficer);
+                        //         }
+
+                        //         if ($zone) {
+                        //                 $query3->where('warehouse', $zone);
+                        //         }
+
+                        //         $query4 = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate]);
+
+
+                        //         if ($account) {
+                        //                 $query4->where('cash_bank', $account);
+                        //         }
+
+                        //         if ($salesOfficer) {
+                        //                 $query4->where('sales_officer', $salesOfficer);
+                        //         }
+
+                        //         if ($zone) {
+                        //                 $query4->where('warehouse', $zone);
+                        //         }
+
+                        //         $ledgerDatasi = $query->get();
+                        //         $ledgerDatarv = $query2->get();
+                        //         $ledgerDatapi = $query3->get();
+                        //         $ledgerDatapv = $query4->get();
+
+
+                        //         $data = [
+                        //                 'startDate' => $startDate,
+                        //                 'endDate' => $endDate,
+                        //                 'account' => $account,
+                        //                 'ledgerDatasi' => $ledgerDatasi,
+                        //                 'ledgerDatarv' => $ledgerDatarv,
+                        //                 'ledgerDatapi' => $ledgerDatapi,
+                        //                 'ledgerDatapv' => $ledgerDatapv,
+                        //                 'type' => $type
+                        //         ];
+                        //         session()->flash('Data', $data);
+                        // }
                 }
 
 
@@ -2032,12 +2009,12 @@ class pdfController extends Controller
 
 
                 $expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                        ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('buyer', 'expense_vouchers.buyer', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                        ->leftJoin('buyer', 'expense_vouchers.company', '=', 'buyer.buyer_id')
+                        ->leftJoin('buyer', 'expense_vouchers.buyer', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->limit(1)->get();
 

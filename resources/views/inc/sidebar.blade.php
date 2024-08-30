@@ -411,7 +411,12 @@ $target = null;
                                 </li>
                             </ul>
                         </li> --}}
-
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>General Ledger</p>
+                            </a>
+                        </li>
                         <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#sale-pur-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>

@@ -263,7 +263,7 @@
                         @csrf
                         <div class="row" style="">
 
-                            <div class="col-12-4">
+                            {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Head Of Account</label>
                                     <select class="form-control" name="head_account" id="head_account"
@@ -284,7 +284,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-12-4">
+                            <div class="col-12">
 
                                 <div class="form-group">
                                     <label>Account</label>
@@ -294,10 +294,18 @@
 
                                     </select>
                                 </div>
+                            </div> --}}
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Party</label>
+                                    <label for=""></label>
+                                    <select class="form-control select-buyer" name="company">
+
+                                    </select>
+                                </div>
                             </div>
-
-                            <div class="col-12-4">
-
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Sales Officer</label>
                                     <label for=""></label>
@@ -308,7 +316,7 @@
                             </div>
 
 
-                            <div class="col-12-4">
+                            {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Company Type</label>
                                     <label for=""></label>
@@ -317,8 +325,8 @@
 
                                     </select>
                                 </div>
-                            </div>
-                            <div class="col-12-4">
+                            </div> --}}
+                            {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Zone</label>
                                     <label for=""></label>
@@ -326,7 +334,7 @@
                                         name="warehouse">
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
 
                             <div class="col-12">
                                 <div class="form-group">
