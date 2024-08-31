@@ -275,11 +275,11 @@
                                     <span>{{ $row->narration }}</span>
                                 </td>
                                 <td style="text-align:right;">
-                                    <span>{{ $row->amount_total }}</span>
+                                    <span>0.00</span>
                                 </td>
-
+                                
                                 <td style="text-align:right;">
-                                    <span>0.000</span>
+                                    <span>{{ $row->amount_total }}</span>
                                 </td>
                                 <td style="text-align:right;">
                                     <span>{{ $balance += $row->amount_total }}</span>
@@ -300,11 +300,11 @@
                                     <span>{{ $row->narration }}</span>
                                 </td>
                                 <td style="text-align:right;">
-                                    <span>0.000</span>
-                                </td>
-
-                                <td style="text-align:right;">
                                     <span>{{ $row->amount_total }}</span>
+                                </td>
+                                
+                                <td style="text-align:right;">
+                                    <span>0.00</span>
                                 </td>
                                 <td style="text-align:right;">
                                     <span>{{ $balance -= $row->amount_total }}</span>
@@ -329,7 +329,7 @@
                                 </td>
 
                                 <td style="text-align:right;">
-                                    <span>0.000</span>
+                                    <span>0.00</span>
                                 </td>
                                 <td style="text-align:right;">
                                     <span>{{ $balance += $row->amount_total }}</span>
