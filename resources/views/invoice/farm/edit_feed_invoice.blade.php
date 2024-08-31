@@ -298,8 +298,8 @@ right: 15%;
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                       <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
-                        {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
+                        <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
+                            {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
                     </select>
 
                 </div>
@@ -412,7 +412,8 @@ right: 15%;
                     </select>
                 </div>
                 <div class="div">
-                    <input type="number" step="any" oninput="$('#sale_qty{{ $counter }}').val(this.value)" id="qty{{ $counter }}" name="qty[]" />
+                    <input type="number" step="any" oninput="$('#sale_qty{{ $counter }}').val(this.value)"
+                        id="qty{{ $counter }}" name="qty[]" />
                 </div>
                 <div class="div">
                     <input type="number" step="any"
@@ -596,7 +597,7 @@ right: 15%;
 </div>
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
-   <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
     </button>
     <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
@@ -613,7 +614,8 @@ right: 15%;
         Next
     </a>
 
-    <a href="#" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
+    <a href="{{ Route('new_invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
+        id="add_more">
         Add More
     </a>
 
@@ -680,7 +682,8 @@ right: 15%;
                     </select>
                 </div>
                <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_qty{{ $counter }}` + counter + `').val(this.value)" id="qty` + counter + `"
+                    <input  type="number" step="any" oninput="$('#sale_qty{{ $counter }}` + counter +
+                    `').val(this.value)" id="qty` + counter + `"
                         name="qty[]" />
                 </div>
                 <div class="div">
@@ -865,7 +868,8 @@ right: 15%;
                     </select>
                 </div>
                <div class="div">
-                    <input  type="number" step="any" oninput="$('#sale_qty{{ $counter }}` + counter + `').val(this.value)" id="qty` + counter + `"
+                    <input  type="number" step="any" oninput="$('#sale_qty{{ $counter }}` + counter +
+                    `').val(this.value)" id="qty` + counter + `"
                         name="qty[]" />
                 </div>
                 <div class="div">
@@ -1019,7 +1023,7 @@ right: 15%;
 
 
 
-               $('#form').submit(function(event) {
+        $('#form').submit(function(event) {
 
             event.preventDefault();
 
@@ -1039,11 +1043,11 @@ right: 15%;
                 success: function(response) {
                     // Handle the response
 
-                   
+
                     Swal.fire({
                         icon: 'success',
                         title: response,
-                        timer: 1900 
+                        timer: 1900
                     });
 
                     $("#submit").attr('disabled', 'disabled');
