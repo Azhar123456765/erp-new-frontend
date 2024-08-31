@@ -118,7 +118,6 @@ class pdfController extends Controller
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
                                 }
-
                                 $single_data = buyer::where('buyer_id', $company)->first();
 
                                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
@@ -128,6 +127,56 @@ class pdfController extends Controller
                                 $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
                                 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
 
+                                $chickenInvoice = $chickenInvoice->groupBy('unique_id')->map(function ($group) {
+                                        $description = $group->map(function ($item) {
+                                                return $item->product->product_name;
+                                        })->join(', ');
+
+                                        $groupedData = new \stdClass();
+                                        $groupedData->date = $group->first()->date;
+                                        $groupedData->unique_id = $group->first()->unique_id;
+                                        $groupedData->description = $description;
+                                        $groupedData->seller = $group->first()->seller;
+                                        $groupedData->buyer = $group->first()->buyer;
+                                        $groupedData->sale_amount_total = $group->sum('sale_amount_total');
+                                        $groupedData->amount_total = $group->sum('amount_total');
+
+                                        return $groupedData;
+                                });
+                                $chickInvoice = $chickInvoice->groupBy('unique_id')->map(function ($group) {
+                                        $description = $group->map(function ($item) {
+                                                return $item->product->product_name;
+                                        })->join(', ');
+
+                                        $groupedData = new \stdClass();
+                                        $groupedData->date = $group->first()->date;
+                                        $groupedData->unique_id = $group->first()->unique_id;
+                                        $groupedData->description = $description;
+                                        $groupedData->seller = $group->first()->seller;
+                                        $groupedData->buyer = $group->first()->buyer;
+                                        $groupedData->sale_amount_total = $group->sum('sale_amount_total');
+                                        $groupedData->amount_total = $group->sum('amount_total');
+
+                                        return $groupedData;
+                                });
+                                $feedInvoice = $feedInvoice->groupBy('unique_id')->map(function ($group) {
+                                        $description = $group->map(function ($item) {
+                                                return $item->product->product_name;
+                                        })->join(', ');
+
+                                        $groupedData = new \stdClass();
+                                        $groupedData->date = $group->first()->date;
+                                        $groupedData->unique_id = $group->first()->unique_id;
+                                        $groupedData->description = $description;
+                                        $groupedData->seller = $group->first()->seller;
+                                        $groupedData->buyer = $group->first()->buyer;
+                                        $groupedData->sale_amount_total = $group->sum('sale_amount_total');
+                                        $groupedData->amount_total = $group->sum('amount_total');
+
+                                        return $groupedData;
+                                });
+
+                                // dd($feedInvoiceGrouped);
                                 $data = [
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
