@@ -48,12 +48,10 @@ class maincontroller extends Controller
         return response()->json($data);
     }
 
-    function account(Request $request, $id)
+    function data_account()
     {
-
-        $users = accounts::where(["account_category" => $id])->get();
-        $data = compact('users', 'id');
-        return view('accounts')->with($data);
+        $accounts = accounts::all();
+        return DataTables::of($accounts)->make(true);
     }
     function add_account(Request $request)
     {
@@ -1412,9 +1410,17 @@ class maincontroller extends Controller
 
         ]);
 
+
         $add = new accounts();
         $add->account_name = $request['company_name'];
         $add->account_category = 2;
+        $add->account_qty = 0;
+        $add->account_debit = 0.00;
+        $add->account_credit = 0.00;
+        $add->save();
+        $add = new accounts();
+        $add->account_name = $request['company_name'];
+        $add->account_category = 3;
         $add->account_qty = 0;
         $add->account_debit = 0.00;
         $add->account_credit = 0.00;
