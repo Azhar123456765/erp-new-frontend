@@ -138,8 +138,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->sum('sale_amount_total');
-                                        $groupedData->amount_total = $group->sum('amount_total');
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                                        $groupedData->amount_total = $group->first()->amount_total;
 
                                         return $groupedData;
                                 });
@@ -154,8 +154,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->sum('sale_amount_total');
-                                        $groupedData->amount_total = $group->sum('amount_total');
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                                        $groupedData->amount_total = $group->first()->amount_total;
 
                                         return $groupedData;
                                 });
@@ -170,8 +170,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->sum('sale_amount_total');
-                                        $groupedData->amount_total = $group->sum('amount_total');
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                                        $groupedData->amount_total = $group->first()->amount_total;
 
                                         return $groupedData;
                                 });
