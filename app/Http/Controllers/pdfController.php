@@ -247,7 +247,7 @@ class pdfController extends Controller
 
                         session()->forget('Data');
 
-                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
 

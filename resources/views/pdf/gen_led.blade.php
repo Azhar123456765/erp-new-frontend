@@ -55,6 +55,10 @@ $receipt_voucher = session()->get('Data')['receipt_voucher'];
 $expense_voucher = session()->get('Data')['expense_voucher'];
 $company = session()->get('Data')['company'];
 $type = session()->get('Data')['type'];
+
+$credit = 0;
+$debit = 0;
+$balance = 0;
 ?>
 @include('pdf.head_pdf')
 
@@ -62,13 +66,14 @@ $type = session()->get('Data')['type'];
 <div class="col-md-3"></div>
 
 <div class="row">
-    <h4 style="text-align: center;">FROM: {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-        {{ (new DateTime($endDate ))->format('d-m-Y') }}</h4>
+    <h4 style="text-align: center;">FROM:
+        {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+        {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
     <h3 style="text-align: left; ">Account:&nbsp;{{ $name2 ?? '' }}</h3>
     <h3 style="text-align: right; ">{{ date('l') }},{{ '  ' . date('d-m-Y') }}</h3>
 </div>
 @if ($type == 1)
-    <table>
+    <table id="invoice-table">
         <thead>
             <tr>
                 <th>Date</th>
@@ -76,6 +81,7 @@ $type = session()->get('Data')['type'];
                 <th>Description</th>
                 <th>Credit</th>
                 <th>Debit</th>
+                <th>Closing Balance</th>
             </tr>
         </thead>
         <tbody>
@@ -115,7 +121,28 @@ $type = session()->get('Data')['type'];
                             @endif
                         </span>
                     </td>
+                    <td style="text-align:right;">
+                        <span>
+                            @if (!isset($company) || empty($company))
+                                {{ $balance += $row->amount - $row->sale_amount }}
+                            @else
+                                {{ $row->seller == $company ? ($balance += $row->amount) : '' }}
+                                {{ $row->buyer == $company ? ($balance += $row->sale_amount) : '' }}
+                            @endif
+                        </span>
+                    </td>
                 </tr>
+                @if (!isset($company) || empty($company))
+                    @php $credit += $row->amount; @endphp
+                @elseif($row->seller == $company)
+                    @php $credit += $row->amount @endphp
+                @endif
+
+                @if (!isset($company) || empty($company))
+                    @php $debit += $row->sale_amount; @endphp
+                @elseif($row->buyer == $company)
+                    @php $debit += $row->sale_amount @endphp
+                @endif
             @endforeach
             @foreach ($chickInvoice as $row)
                 <tr style="text-align: center;">
@@ -148,7 +175,28 @@ $type = session()->get('Data')['type'];
                             @endif
                         </span>
                     </td>
+                    <td style="text-align:right;">
+                        <span>
+                            @if (!isset($company) || empty($company))
+                                {{ $balance += $row->amount - $row->sale_amount }}
+                            @else
+                                {{ $row->seller == $company ? ($balance += $row->amount) : '' }}
+                                {{ $row->buyer == $company ? ($balance += $row->sale_amount) : '' }}
+                            @endif
+                        </span>
+                    </td>
                 </tr>
+                @if (!isset($company) || empty($company))
+                    @php $credit += $row->amount; @endphp
+                @elseif($row->seller == $company)
+                    @php $credit += $row->amount @endphp
+                @endif
+
+                @if (!isset($company) || empty($company))
+                    @php $debit += $row->sale_amount; @endphp
+                @elseif($row->buyer == $company)
+                    @php $debit += $row->sale_amount @endphp
+                @endif
             @endforeach
             @foreach ($feedInvoice as $row)
                 <tr style="text-align: center;">
@@ -181,7 +229,28 @@ $type = session()->get('Data')['type'];
                             @endif
                         </span>
                     </td>
+                    <td style="text-align:right;">
+                        <span>
+                            @if (!isset($company) || empty($company))
+                                {{ $balance += $row->amount - $row->sale_amount }}
+                            @else
+                                {{ $row->seller == $company ? ($balance += $row->amount) : '' }}
+                                {{ $row->buyer == $company ? ($balance += $row->sale_amount) : '' }}
+                            @endif
+                        </span>
+                    </td>
                 </tr>
+                @if (!isset($company) || empty($company))
+                    @php $credit += $row->amount; @endphp
+                @elseif($row->seller == $company)
+                    @php $credit += $row->amount @endphp
+                @endif
+
+                @if (!isset($company) || empty($company))
+                    @php $debit += $row->sale_amount; @endphp
+                @elseif($row->buyer == $company)
+                    @php $debit += $row->sale_amount @endphp
+                @endif
             @endforeach
             @foreach ($payment_voucher as $row)
                 <tr style="text-align: center;">
@@ -202,7 +271,11 @@ $type = session()->get('Data')['type'];
                     <td style="text-align:right;">
                         <span>0.000</span>
                     </td>
+                    <td style="text-align:right;">
+                        <span>{{ $balance += $row->amount }}</span>
+                    </td>
                 </tr>
+                @php $credit += $row->amount; @endphp
             @endforeach
             @foreach ($receipt_voucher as $row)
                 <tr style="text-align: center;">
@@ -223,7 +296,11 @@ $type = session()->get('Data')['type'];
                     <td style="text-align:right;">
                         <span>{{ $row->amount }}</span>
                     </td>
+                    <td style="text-align:right;">
+                        <span>{{ $balance -= $row->amount }}</span>
+                    </td>
                 </tr>
+                @php $debit += $row->amount; @endphp
             @endforeach
             @foreach ($expense_voucher as $row)
                 <tr style="text-align: center;">
@@ -244,11 +321,25 @@ $type = session()->get('Data')['type'];
                     <td style="text-align:right;">
                         <span>0.000</span>
                     </td>
+                    <td style="text-align:right;">
+                        <span>{{ $balance += $row->amount }}</span>
+                    </td>
                 </tr>
+                @php $credit += $row->amount; @endphp
             @endforeach
 
         </tbody>
-
+        <tfoot>
+            <tr>
+                <td colspan="3" style="text-align:right; border: none !important; ">Total:</td>
+                <td style="color: red; text-align: right;">
+                    {{ $credit }}</td>
+                <td style="color: green; text-align: right;">
+                    {{ $debit }}</td>
+                <td style="color: blue; text-align: right;">
+                    {{ $balance }}</td>
+            </tr>
+        </tfoot>
     </table>
 @elseif($type == 2)
     <table>
@@ -400,3 +491,60 @@ $type = session()->get('Data')['type'];
 </div>
 
 </div>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        sortTableByDate(); // Sort on document ready
+        calculateClosingBalance()
+    });
+
+    function sortTableByDate() {
+        const table = document.getElementById('invoice-table');
+        const tbody = table.querySelector('tbody');
+        const rows = Array.from(tbody.querySelectorAll('tr'));
+
+        rows.sort((rowA, rowB) => {
+            const dateA = parseDate(rowA.cells[0].textContent.trim());
+            const dateB = parseDate(rowB.cells[0].textContent.trim());
+            return dateA - dateB; // For ascending order
+        });
+
+        rows.forEach(row => tbody.appendChild(row)); // Reorder rows
+    }
+
+    function parseDate(dateStr) {
+        const [day, month, year] = dateStr.split('-').map(Number);
+        return new Date(year, month - 1, day); // JavaScript Date object uses 0-based month
+    }
+
+    function calculateClosingBalance() {
+        const table = document.getElementById('invoice-table');
+        const tbody = table.querySelector('tbody');
+        const rows = tbody.querySelectorAll('tr');
+
+        let runningBalance = 0; // Initialize running balance
+
+        rows.forEach(row => {
+            // Fetch the values from Credit and Debit columns
+            const creditText = row.cells[3].textContent.trim();
+            const debitText = row.cells[4].textContent.trim();
+
+            // Parse the values to float, accounting for potential empty values
+            const credit = parseFloat(creditText.replace(/,/g, '') || '0');
+            const debit = parseFloat(debitText.replace(/,/g, '') || '0');
+
+            // Update the running balance
+            runningBalance += credit;
+            runningBalance -= debit;
+
+            // Update the Closing Balance column with the new value
+            row.cells[5].textContent = runningBalance.toFixed(2); // Format to 2 decimal places
+
+            // Optional: Log for debugging
+            console.log(
+                `Row: ${row.rowIndex}, Credit: ${credit}, Debit: ${debit}, Running Balance: ${runningBalance.toFixed(2)}`
+            );
+        });
+    }
+</script>
