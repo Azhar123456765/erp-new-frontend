@@ -119,6 +119,8 @@ class pdfController extends Controller
                                         $expense_voucher->where('sales_officer', $salesOfficer);
                                 }
 
+                                $single_data = buyer::where('buyer_id', $company)->first();
+
                                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
                                 $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
                                 $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
@@ -129,6 +131,7 @@ class pdfController extends Controller
                                 $data = [
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
+                                        'single_data' => $single_data,
                                         'chickenInvoice' => $chickenInvoice,
                                         'chickInvoice' => $chickInvoice,
                                         'feedInvoice' => $feedInvoice,
@@ -232,7 +235,7 @@ class pdfController extends Controller
                         $pdf = new Dompdf();
 
                         $data = compact('pdf');
-                        $html = view('pdf.gen_led')->render();
+                        $html = view('pdf.ledger.gen_led')->render();
 
                         $pdf->loadHtml($html);
 

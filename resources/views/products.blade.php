@@ -79,8 +79,8 @@
                                         <label for="company">Product Company</label>
                                         <select name="company" id="company" class="form-control select">
                                             @foreach ($company as $row)
-
-                                            <option value="{{$row->product_company_id}}">{{$row->company_name}}</option>
+                                                <option value="{{ $row->product_company_id }}">{{ $row->company_name }}
+                                                </option>
                                             @endforeach
 
                                         </select>
@@ -89,8 +89,8 @@
                                         <label for="type">Type</label>
                                         <select name="type" id="type" class="form-control ">
                                             @foreach ($type as $row2)
-
-                                            <option value="{{$row2->product_type_id}}">{{$row2->type}}</option>
+                                                <option value="{{ $row2->product_type_id }}">{{ $row2->type }}
+                                                </option>
                                             @endforeach
 
                                         </select>
@@ -99,9 +99,9 @@
                                         <label for="category">Product category</label>
                                         <select name="category" id="category" class="form-control ">
                                             @foreach ($category as $row3)
-
-                                            <option value="{{$row3->product_category_id}}">{{$row3->category_name}}
-                                            </option>
+                                                <option value="{{ $row3->product_category_id }}">
+                                                    {{ $row3->category_name }}
+                                                </option>
                                             @endforeach
 
                                         </select>
@@ -120,12 +120,13 @@
                                     </div>
                                     <div class="col">
                                         <label for="sale_price">Sale Price</label>
-                                        <input type="number" step="any" id="sale_price" name="sale_price" class="form-control ">
+                                        <input type="number" step="any" id="sale_price" name="sale_price"
+                                            class="form-control ">
                                     </div>
                                     <div class="col">
                                         <label for="opening_pur_price">Opening Purchase Price</label>
-                                        <input type="number" step="any" id="opening_pur_price" name="opening_pur_price"
-                                            class="form-control ">
+                                        <input type="number" step="any" id="opening_pur_price"
+                                            name="opening_pur_price" class="form-control ">
                                     </div>
                                 </div>
                             </div>
@@ -133,8 +134,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="opening_quantity">Opening Quantity</label>
-                                        <input type="number" step="any" id="opening_quantity" name="opening_quantity"
-                                            class="form-control" value="0.00">
+                                        <input type="number" step="any" id="opening_quantity"
+                                            name="opening_quantity" class="form-control" value="0.00">
                                     </div>
                                     <div class="col">
                                         <label for="avg_pur_price">Average Purchase Price</label>
@@ -152,18 +153,18 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="overhead_price_pur">Overhead Price Purchase</label>
-                                        <input type="number" step="any" id="overhead_price_pur" name="overhead_price_pur"
-                                            class="form-control ">
+                                        <input type="number" step="any" id="overhead_price_pur"
+                                            name="overhead_price_pur" class="form-control ">
                                     </div>
                                     <div class="col">
                                         <label for="overhead_price_avg">Overhead Price Average</label>
-                                        <input type="number" step="any" id="overhead_price_avg" name="overhead_price_avg"
-                                            class="form-control">
+                                        <input type="number" step="any" id="overhead_price_avg"
+                                            name="overhead_price_avg" class="form-control">
                                     </div>
                                     <div class="col">
                                         <label for="pur_price_plus_oh">Purchase Price + Overhead</label>
-                                        <input type="number" step="any" id="pur_price_plus_oh" name="pur_price_plus_oh"
-                                            class="form-control ">
+                                        <input type="number" step="any" id="pur_price_plus_oh"
+                                            name="pur_price_plus_oh" class="form-control ">
                                     </div>
                                 </div>
                             </div>
@@ -171,8 +172,8 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="avg_price_plus_oh">Average Price + Overhead</label>
-                                        <input type="number" step="any" id="avg_price_plus_oh" name="avg_price_plus_oh"
-                                            class="form-control ">
+                                        <input type="number" step="any" id="avg_price_plus_oh"
+                                            name="avg_price_plus_oh" class="form-control ">
                                     </div>
                                     <div class="col">
                                         <label for="inactive_item">Inactive Item</label>
@@ -189,13 +190,13 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="unit">Unit</label>
-                                        <input type="text" style="text-align:center !important;" id="unit" name="unit"
-                                            class="form-control ">
+                                        <input type="text" style="text-align:center !important;" id="unit"
+                                            name="unit" class="form-control ">
                                     </div>
                                     <div class="col">
                                         <label for="re_order_level">Re-order Level</label>
-                                        <input style="width: 49%;" type="text" id="re_order_level" name="re_order_level"
-                                            class="form-control ">
+                                        <input style="width: 49%;" type="text" id="re_order_level"
+                                            name="re_order_level" class="form-control ">
                                     </div>
                                     <div class="col">
                                         <label for="image">Product Image</label>
@@ -223,37 +224,51 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
 
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#table').DataTable({
             processing: true,
             ajax: '/data-product',
-            columns: [
-                {
+            columns: [{
                     data: null,
-                    render: function (data, type, row, meta) {
+                    render: function(data, type, row, meta) {
                         return meta.row + 1;
                     }
                 },
-                { data: 'product_name', name: 'product_name' },
-                { data: 'company_name', name: 'company_name' },
-                { data: 'type', name: 'type' },
-                { data: 'category_name', name: 'category_name' },
-                { data: 'purchase_price', name: 'purchase_price' },
+                {
+                    data: 'product_name',
+                    name: 'product_name'
+                },
+                {
+                    data: 'company_name',
+                    name: 'company_name'
+                },
+                {
+                    data: 'type',
+                    name: 'type'
+                },
+                {
+                    data: 'category_name',
+                    name: 'category_name'
+                },
+                {
+                    data: 'purchase_price',
+                    name: 'purchase_price'
+                },
 
                 {
                     data: null,
-                    render: function (data, type, row) {
+                    render: function(data, type, row) {
                         return `
                         <div class="table-data-feature">
-                                <a href="#" data-toggle="modal" data-target="#edit_modal${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <a href="{{ Route('product.edit' @json(${row.product_id})) }}"  class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                <a href="/product_delete${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                                <a href="#" data-toggle="modal" data-target="#view_modal${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
-                                    <i class="fa fa-eye"></i>
-                                </a>
+                                // <a href="/product_delete${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                //     <i class="fa fa-trash"></i>
+                                // </a>
+                                // <a href="#" data-toggle="modal" data-target="#view_modal${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
+                                //     <i class="fa fa-eye"></i>
+                                // </a>
                                 <a href="/product_pdf_id=${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
                                     <i class="fa fa-print"></i>
                                 </a>
@@ -307,10 +322,7 @@
                                             <label for="company">Product Company</label>
                                             <select name="company" id="company" class="form-control ">
                                                 @foreach ($company as $companyRow)
-                                                <option value="{{ $companyRow->product_company_id}}" {{ (($companyRow->
-                                                    product->
-                                                    company ?? null) == $companyRow->product_company_id) ? 'selected' :
-                                                    ''}}>{{ $companyRow->company_name}}</option>
+                                                <option value="{{ $companyRow->product_company_id }}" {{ ($companyRow->product->company ?? null) == $companyRow->product_company_id ? 'selected' : '' }}>{{ $companyRow->company_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -318,9 +330,7 @@
                                             <label for="type">Type</label>
                                             <select name="type" id="type" class="form-control ">
                                                 @foreach ($type as $typeRow)
-                                                <option value="{{ $typeRow->product_type_id}}" {{ ($typeRow->product_type_id
-                                                    == ($typeRow->product->product_type ?? null)) ? 'selected' : ''}}>{{
-                                                    $typeRow->type}}</option>
+                                                <option value="{{ $typeRow->product_type_id }}" {{ $typeRow->product_type_id == ($typeRow->product->product_type ?? null) ? 'selected' : '' }}>{{ $typeRow->type }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -328,9 +338,7 @@
                                             <label for="category">Product Category</label>
                                             <select name="category" id="category" class="form-control ">
                                                 @foreach ($category as $categoryRow)
-                                                <option value="{{ $categoryRow->product_category_id}}" {{ ($categoryRow->
-                                                    product_category_id == ($categoryRow->product->category ?? null)) ?
-                                                    'selected' : ''}}>{{ $categoryRow->category_name}}</option>
+                                                <option value="{{ $categoryRow->product_category_id }}" {{ $categoryRow->product_category_id == ($categoryRow->product->category ?? null) ? 'selected' : '' }}>{{ $categoryRow->category_name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -454,6 +462,5 @@
             ]
         });
     });
-
 </script>
 @endsection

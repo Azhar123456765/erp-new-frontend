@@ -431,7 +431,7 @@
         Next
     </a>
 
-    <a href="{{ Route('edit_expense_voucher') }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
+    <a href="{{ Route('edit_expense_voucher', $rand) }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
         id="edit">
         Edit
     </a>

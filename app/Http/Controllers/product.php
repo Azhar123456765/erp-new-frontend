@@ -459,7 +459,7 @@ class product extends Controller
     }
 
 
-    function edit_product($id, Request $request)
+    function update_product($id, Request $request)
     {
         // Retrieve the form data
         $productName = $request->input('product_name');

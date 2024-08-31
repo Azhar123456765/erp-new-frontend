@@ -191,7 +191,8 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/data-product', [product::class, 'data_product']);
         Route::post('/add_product_form', [product::class, 'add_product']);
         Route::get('/edit_product/{id?}', [product::class, 'edit'])->name('edit.product');
-        Route::post('/edit_product{id}', [product::class, 'edit_product']);
+        Route::get('/edit_product/{id}', [product::class, 'edit_product'])->name('product.edit');
+        Route::post('/edit_product{id}', [product::class, 'update_product']);
     });
 
     Route::middleware(['reportPermission'])->group(function () {
