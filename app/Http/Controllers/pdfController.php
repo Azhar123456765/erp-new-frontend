@@ -53,9 +53,10 @@ class pdfController extends Controller
                         $start_date = $request->input('start_date');
                         $end_date = $request->input('end_date');
 
-                        $company = $request->input('company');
+                        $account_id = $request->input('account');
+                        $account = accounts::where('account_id', $account_id)->first();
                         $salesOfficer = $request->input('sales_officer');
-                        // $companyType = $request->input('company_type');
+                        // $accountType = $request->input('account_type');
                         // $zone = $request->input('warehouse');
                         $startDate = $request->input('start_date');
                         $endDate = $request->input('end_date');
@@ -65,8 +66,8 @@ class pdfController extends Controller
                         if ($type == 1) {
                                 $chickenInvoice = chickenInvoice::query();
 
-                                if ($company) {
-                                        $chickenInvoice->where('buyer', $company)->orWhere('seller', $company);
+                                if ($account) {
+                                        $chickenInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $chickenInvoice->where('sales_officer', $salesOfficer);
@@ -75,8 +76,8 @@ class pdfController extends Controller
                                 // dd($chickenInvoice->get());
                                 $chickInvoice = chickInvoice::query();
 
-                                if ($company) {
-                                        $chickInvoice->where('buyer', $company)->orWhere('seller', $company);
+                                if ($account) {
+                                        $chickInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $chickInvoice->where('sales_officer', $salesOfficer);
@@ -84,8 +85,8 @@ class pdfController extends Controller
 
                                 $feedInvoice = feedInvoice::query();
 
-                                if ($company) {
-                                        $feedInvoice->where('buyer', $company)->orWhere('seller', $company);
+                                if ($account) {
+                                        $feedInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $feedInvoice->where('sales_officer', $salesOfficer);
@@ -93,8 +94,8 @@ class pdfController extends Controller
 
                                 $payment_voucher = p_voucher::query();
 
-                                if ($company) {
-                                        $payment_voucher->where('company', $company);
+                                if ($account) {
+                                        $payment_voucher->where('cash_bank', $account_id);
                                 }
                                 if ($salesOfficer) {
                                         $payment_voucher->where('sales_officer', $salesOfficer);
@@ -103,8 +104,8 @@ class pdfController extends Controller
 
                                 $receipt_voucher = ReceiptVoucher::query();
 
-                                if ($company) {
-                                        $receipt_voucher->where('company', $company);
+                                if ($account) {
+                                        $receipt_voucher->where('cash_bank', $account_id);
                                 }
                                 if ($salesOfficer) {
                                         $receipt_voucher->where('sales_officer', $salesOfficer);
@@ -112,13 +113,13 @@ class pdfController extends Controller
 
                                 $expense_voucher = ExpenseVoucher::query();
 
-                                if ($company) {
-                                        $expense_voucher->where('buyer', $company);
+                                if ($account) {
+                                        $expense_voucher->where('cash_bank', $account_id);
                                 }
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
                                 }
-                                $single_data = buyer::where('buyer_id', $company)->first();
+                                $single_data = accounts::where('account_id', $account_id)->first();
 
                                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
                                 $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
@@ -187,7 +188,7 @@ class pdfController extends Controller
                                         'payment_voucher' => $payment_voucher,
                                         'receipt_voucher' => $receipt_voucher,
                                         'expense_voucher' => $expense_voucher,
-                                        'company' => $company,
+                                        'account' => $account->reference_id,
                                         'type' => $type
                                 ];
                                 session()->flash('Data', $data);

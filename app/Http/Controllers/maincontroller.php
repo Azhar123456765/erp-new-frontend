@@ -40,7 +40,13 @@ use Yajra\DataTables\DataTables;
 class maincontroller extends Controller
 {
 
+    function account(Request $request, $id)
+    {
 
+        $users = accounts::where(["account_category" => $id])->get();
+        $data = compact('users', 'id');
+        return view('accounts')->with($data);
+    }
     function get_data_account(Request $request)
     {
         $id = $request->input('id');
@@ -1404,6 +1410,20 @@ class maincontroller extends Controller
     public function add_buyer_form(Request $request)
     {
 
+        // $buyers = buyer::all();
+
+        // foreach ($buyers as $buyer) {
+        //     $account = new accounts();
+        //     $account->account_name = $buyer->company_name;
+        //     $account->account_category = 1;
+        //     $account->account_qty = 0;
+        //     $account->account_debit = 0.00;
+        //     $account->account_credit = 0.00;
+        //     $account->reference_id = $buyer->buyer_id;
+        //     $account->save();
+        // }
+
+        // die();
         $request->validate([
 
             'company_name' => 'required|unique:buyer,company_name,' . $request['user_id'] . ',buyer_id',

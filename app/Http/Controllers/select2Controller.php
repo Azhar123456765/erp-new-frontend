@@ -22,6 +22,24 @@ class select2Controller extends Controller
         $results = accounts::where('account_name', 'LIKE', "%{$search}%")
             ->get(['account_id', 'account_name']);
 
+        // $buyers = buyer::where('company_name', 'LIKE', "%{$search}%")
+        //     ->get(['buyer_id', 'company_name']);
+
+        // $combinedResults = [];
+        // foreach ($accounts as $account) {
+        //     $combinedResults[$account->account_name] = [
+        //         'account_id' => $account->account_id,
+        //         'account_name' => $account->account_name
+        //     ];
+        // }
+
+        // foreach ($buyers as $buyer) {
+        //     $combinedResults = [
+        //         'buyer_id' => $buyer->buyer_id,
+        //         'company_name' => $buyer->company_name
+        //     ];
+        // }
+
         return response()->json($results);
     }
     function warehouse(Request $request)
@@ -102,7 +120,7 @@ class select2Controller extends Controller
             ->select('buyer_id as id', 'company_name', DB::raw('"B" as comp_ref'))
             ->union($resultsS)
             ->get();
-            
+
         return response()->json($results);
 
     }

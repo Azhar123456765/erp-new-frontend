@@ -121,7 +121,9 @@
                         }
 
                     },
-                    cache: true
+                    cache: true,
+                    theme: 'classic',
+                    width: '100%',
                 },
             });
         });
@@ -637,4 +639,4 @@
 
 
 
-    @stack('s_script')
+@stack('s_script')

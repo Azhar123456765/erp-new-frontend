@@ -225,6 +225,7 @@ Route::middleware('userAuth')->group(function () {
     Route::middleware(['selectPermission'])->group(function () {
         // SELECT
         Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
+        Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
         Route::get('/select-warehouse', [select2Controller::class, 'warehouse'])->name('select2.warehouse');
         Route::get('/select-sales_officer', [select2Controller::class, 'sales_officer'])->name('select2.sales_officer');
         Route::get('/select-product_category', [select2Controller::class, 'product_category'])->name('select2.product_category');

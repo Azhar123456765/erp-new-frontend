@@ -292,13 +292,8 @@
                 </div>
                 <div class="div">
                     <label>Cash/Bank Account</label>
-                    <select class="cash_bank" name="cash_bank[]" style="height: 28px">
-                        <option></option>
-
-                        @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-                        @endforeach
-
+                    <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
+                       
                     </select>
                 </div>
 
@@ -579,13 +574,8 @@
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-    <select class="cash_bank" name="cash_bank[]" style="height: 28px">
-        <option></option>
-
-        @foreach ($account as $row)
-        <option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-        @endforeach
-
+    <select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+     
     </select>
 </div>
 
@@ -618,6 +608,35 @@
 
 
                     $(".invoice").append(clonedFields);
+
+
+
+ $('.select-account').select2({
+            ajax: {
+                url: '{{ route('select2.account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.account_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
 
                 }
             }
@@ -682,14 +701,9 @@
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-<select class="cash_bank" name="cash_bank[]" style="height: 28px">
-<option></option>
-
-@foreach ($account as $row)
-<option value="{{ $row->account_id }}">{{ $row->account_name }}</option>
-@endforeach
-
-</select>
+<select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+     
+    </select>
 </div>
 
 <div class="div">
@@ -727,6 +741,33 @@
 
 
                     $(".invoice").append(clonedFields);
+
+ $('.select-account').select2({
+            ajax: {
+                url: '{{ route('select2.account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.account_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
 
                 }
             }

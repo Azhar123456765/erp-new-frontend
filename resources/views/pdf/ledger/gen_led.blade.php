@@ -20,7 +20,7 @@
         $payment_voucher = session()->get('Data')['payment_voucher'];
         $receipt_voucher = session()->get('Data')['receipt_voucher'];
         $expense_voucher = session()->get('Data')['expense_voucher'];
-        $company = session()->get('Data')['company'];
+        $company = session()->get('Data')['account'];
         $type = session()->get('Data')['type'];
 
         $credit = 0;
@@ -63,7 +63,7 @@
                 <div class="header">Account Details</div>
             </div>
             <div class="content">
-                {{ $single_data->company_name }}
+                {{ $single_data->account_name }}
             </div>
         </div>
 
