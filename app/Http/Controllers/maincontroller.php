@@ -1504,7 +1504,7 @@ class maincontroller extends Controller
             $add->account_qty = 0;
             $add->account_debit = 0.00;
             $add->account_credit = 0.00;
-            $account->reference_id = $request['user_id'];
+            $add->reference_id = $request['user_id'];
             $add->save();
         }
 
