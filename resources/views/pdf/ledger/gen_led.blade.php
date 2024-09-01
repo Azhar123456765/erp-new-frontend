@@ -277,12 +277,12 @@
                                 <td style="text-align:right;">
                                     <span>0.00</span>
                                 </td>
-                                
+
                                 <td style="text-align:right;">
-                                    <span>{{ $row->amount_total }}</span>
+                                    <span>{{ $row->amount }}</span>
                                 </td>
                                 <td style="text-align:right;">
-                                    <span>{{ $balance += $row->amount_total }}</span>
+                                    <span>{{ $balance += $row->amount }}</span>
                                 </td>
                             </tr>
                             @php $credit += $row->amount_total; @endphp
@@ -302,7 +302,7 @@
                                 <td style="text-align:right;">
                                     <span>{{ $row->amount_total }}</span>
                                 </td>
-                                
+
                                 <td style="text-align:right;">
                                     <span>0.00</span>
                                 </td>

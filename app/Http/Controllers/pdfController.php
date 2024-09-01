@@ -95,7 +95,7 @@ class pdfController extends Controller
                                 $payment_voucher = p_voucher::query();
 
                                 if ($account) {
-                                        $payment_voucher->where('cash_bank', $account_id);
+                                        $payment_voucher->where('cash_bank', $account_id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $payment_voucher->where('sales_officer', $salesOfficer);
@@ -176,6 +176,20 @@ class pdfController extends Controller
 
                                         return $groupedData;
                                 });
+                                // $payment_voucher = $payment_voucher->groupBy('unique_id')->map(function ($group) {
+                                //         $description = $group->map(function ($item) {
+                                //                 return $item->narration;
+                                //         })->join(', ');
+
+                                //         $groupedData = new \stdClass();
+                                //         $groupedData->date = $group->first()->date;
+                                //         $groupedData->unique_id = $group->first()->unique_id;
+                                //         $groupedData->narration = $description;
+                                //         $groupedData->company = $group->first()->company;
+                                //         $groupedData->amount_total = $group->first()->amount;
+
+                                //         return $groupedData;
+                                // });
 
                                 // dd($feedInvoiceGrouped);
                                 $data = [
