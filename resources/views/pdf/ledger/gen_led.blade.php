@@ -218,7 +218,9 @@
                                 </td>
                                 <td style="text-align: left
             ;">
-                                    <span>{{ $row->description }}</span>
+                                    <span>{{ $row->description }},
+                                        {{ $row->seller == $company ? str_replace('.00', '', $row->qty_total) : str_replace('.00', '', $row->sale_qty_total) }}
+                                        Bags</span>
                                 </td>
                                 <td style="text-align:right;">
                                     <span>
@@ -399,8 +401,8 @@
                 const debit = parseFloat(debitText.replace(/,/g, '') || '0');
 
                 // Update the running balance
-                runningBalance -= credit;
-                runningBalance += debit;
+                runningBalance += credit;
+                runningBalance -= debit;
 
                 // Update the Closing Balance column with the new value
                 row.cells[5].textContent = runningBalance.toFixed(2); // Format to 2 decimal places

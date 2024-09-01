@@ -29,7 +29,7 @@
 
         body {
             background: #ffff;
-            /* font-size:0.9em !important; */
+            font-size: 0.9em !important;
         }
 
         .bigfont {
@@ -85,6 +85,20 @@
 
         .full-width tr th {
             font-weight: 1000 !important;
+        }
+
+        .ui.table {
+            font-size: 0.8em;
+        }
+
+        table th {
+            padding: 0.5px
+        }
+
+        table td {
+            padding: 0.5px;
+            font-size: 0.8em;
+
         }
     </style>
 </head>

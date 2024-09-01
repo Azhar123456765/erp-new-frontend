@@ -171,6 +171,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
+                                        $groupedData->qty_total = $group->first()->qty_total;
+                                        $groupedData->sale_qty_total = $group->first()->sale_qty_total;
                                         $groupedData->sale_amount_total = $group->first()->sale_amount_total;
                                         $groupedData->amount_total = $group->first()->amount_total;
 
@@ -2380,10 +2382,10 @@ class pdfController extends Controller
 
                         $chickenInvoice = chickenInvoice::query();
                         if ($customer) {
-                                $chickenInvoice->where('buyer', $customer);
+                                $chickenInvoice->orWhere('buyer', $customer);
                         }
                         if ($supplier) {
-                                $chickenInvoice->where('seller', $supplier);
+                                $chickenInvoice->orWhere('seller', $supplier);
                         }
 
                         if ($salesOfficer) {
@@ -2404,8 +2406,12 @@ class pdfController extends Controller
 
                         $chickInvoice = ChickInvoice::query();
                         if ($customer) {
-                                $chickInvoice->where('buyer', $customer);
+                                $chickInvoice->orWhere('buyer', $customer);
                         }
+                        if ($supplier) {
+                                $chickInvoice->orWhere('seller', $supplier);
+                        }
+
 
                         if ($salesOfficer) {
                                 $chickInvoice->where('sales_officer', $salesOfficer);
@@ -2425,7 +2431,11 @@ class pdfController extends Controller
 
                         $feedInvoice = feedInvoice::query();
                         if ($customer) {
-                                $feedInvoice->where('buyer', $customer);
+                                $feedInvoice->orWhere('buyer', $customer);
+                        }
+
+                        if ($supplier) {
+                                $feedInvoice->orWhere('seller', $supplier);
                         }
 
                         if ($salesOfficer) {
@@ -2467,21 +2477,21 @@ class pdfController extends Controller
                         $pdf = new Dompdf();
 
                         $data = compact('pdf');
-                        $html = view('pdf.sale_pur_report')->render();
+                        $html = view('pdf.ledger.sale_pur_report')->render();
 
-                        $pdf->loadHtml($html);
+                        // $pdf->loadHtml($html);
 
 
-                        $contentLength = strlen($html);
-                        if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'portrait');
-                        } else {
-                                $pdf->setPaper('A4', 'portrait');
-                        }
-                        $pdf->render();
-                        session()->forget('Data');
+                        // $contentLength = strlen($html);
+                        // if ($contentLength > 5000) {
+                        //         $pdf->setPaper('A3', 'portrait');
+                        // } else {
+                        //         $pdf->setPaper('A4', 'portrait');
+                        // }
+                        // $pdf->render();
+                        // session()->forget('Data');
 
-                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
 
