@@ -28,7 +28,7 @@
         }
 
         body {
-            background: #EEE;
+            background: #ffff;
             /* font-size:0.9em !important; */
         }
 
@@ -80,7 +80,7 @@
 
         /* CUSTOME */
         th {
-            background: #e2e2e2 !important;
+            background-color: #f2f2f2;
         }
 
         .full-width tr th {

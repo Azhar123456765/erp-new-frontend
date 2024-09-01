@@ -1431,23 +1431,8 @@ class maincontroller extends Controller
         ]);
 
 
-        $add = new accounts();
-        $add->account_name = $request['company_name'];
-        $add->account_category = 2;
-        $add->account_qty = 0;
-        $add->account_debit = 0.00;
-        $add->account_credit = 0.00;
-        $add->save();
-        $add = new accounts();
-        $add->account_name = $request['company_name'];
-        $add->account_category = 3;
-        $add->account_qty = 0;
-        $add->account_debit = 0.00;
-        $add->account_credit = 0.00;
-        $add->save();
 
         $user = new buyer();
-
         $user->company_name = $request['company_name'];
         $user->company_email = $request['company_email'];
         $user->company_phone_number = $request['company_phone_number'];
@@ -1460,6 +1445,15 @@ class maincontroller extends Controller
         $user->credit = $request['credit'];
 
         $user->save();
+
+        $add = new accounts();
+        $add->account_name = $request['company_name'];
+        $add->account_category = 1;
+        $add->account_qty = 0;
+        $add->account_debit = 0.00;
+        $add->account_credit = 0.00;
+        $add->reference_id = $user->buyer_id;
+        $add->save();
 
 
         session()->flash('message', 'buyer has been added successfully');
@@ -1496,10 +1490,23 @@ class maincontroller extends Controller
             'contact_person' => $request['contact_person'],
             'debit' => $request['debit'],
             'credit' => $request['credit'],
-
-
-
         ]);
+
+        $account = accounts::where('reference_id', $request['user_id'])->first();
+        if ($account) {
+            accounts::where('reference_id', $request['user_id'])->update([
+                'account_name' => $request['company_name'],
+            ]);
+        } else {
+            $add = new accounts();
+            $add->account_name = $request['company_name'];
+            $add->account_category = 1;
+            $add->account_qty = 0;
+            $add->account_debit = 0.00;
+            $add->account_credit = 0.00;
+            $account->reference_id = $request['user_id'];
+            $add->save();
+        }
 
 
         // $user->company_name = $request['company_name'];
