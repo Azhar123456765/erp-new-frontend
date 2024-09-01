@@ -105,7 +105,7 @@ class pdfController extends Controller
                                 $receipt_voucher = ReceiptVoucher::query();
 
                                 if ($account) {
-                                        $receipt_voucher->where('cash_bank', $account_id);
+                                        $receipt_voucher->where('cash_bank', $account_id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $receipt_voucher->where('sales_officer', $salesOfficer);
@@ -114,7 +114,7 @@ class pdfController extends Controller
                                 $expense_voucher = ExpenseVoucher::query();
 
                                 if ($account) {
-                                        $expense_voucher->where('cash_bank', $account_id);
+                                        $expense_voucher->where('cash_bank', $account_id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
