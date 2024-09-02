@@ -106,7 +106,7 @@ class FeedInvoiceController extends Controller
             if ($image) {
                 $attachmentPath = $image->store('attachments');
             } else {
-                $attachmentPath = null;
+                $attachmentPath = $request->input('old_attachment');
             }
 
             $invoice->attachment = $attachmentPath;

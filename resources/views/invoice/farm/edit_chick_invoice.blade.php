@@ -298,8 +298,8 @@ right: 15%;
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                       <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
-                        {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
+                        <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
+                            {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
                     </select>
 
                 </div>
@@ -581,6 +581,7 @@ right: 15%;
                                     style="
     height: max-content !important;
 " />
+                                {{ $single_invoice->attachment }}
                                 <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
                                     value="{{ $single_invoice->attachment }}" />
                             </div>
@@ -602,7 +603,7 @@ right: 15%;
 </div>
 <div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
 
-   <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
     </button>
     <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
@@ -1070,7 +1071,7 @@ right: 15%;
 
 
 
-               $('#form').submit(function(event) {
+        $('#form').submit(function(event) {
 
             event.preventDefault();
 
@@ -1088,11 +1089,11 @@ right: 15%;
                 success: function(response) {
                     // Handle the response
 
-                   
+
                     Swal.fire({
                         icon: 'success',
                         title: response,
-                        timer: 1900 
+                        timer: 1900
                     });
 
                     $("#submit").attr('disabled', 'disabled');

@@ -35,7 +35,7 @@
             <div class="row">
                 <div class="left floated left aligned six wide column">
                     <div class="ui">
-                        <h1 class="ui header pageTitle">Customer + Supplier Report
+                        <h1 class="ui header pageTitle">Customer Report
                         </h1>
                         <h4 class="ui sub header invDetails">FROM:
                             {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
@@ -64,7 +64,7 @@
         @if ($company)
             <div class="ui card customercard">
                 <div class="content">
-                    <div class="header">Party Details</div>
+                    <div class="header">Customer Details</div>
                 </div>
                 <div class="content">
                     {{ $company->company_name }}

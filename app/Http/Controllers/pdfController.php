@@ -337,7 +337,9 @@ class pdfController extends Controller
                         $product = $request->input('product');
                         $product_id = null;
 
-
+                        if ($customer) {
+                                $company = buyer::where('buyer_id', $customer)->first();
+                        } 
 
                         $chickenInvoice = chickenInvoice::query();
                         if ($customer) {
@@ -412,6 +414,7 @@ class pdfController extends Controller
                                 'feedData' => $feedData,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
+                                'company' => $company ?? null,
                                 'type' => $type,
                         ];
 
@@ -551,7 +554,7 @@ class pdfController extends Controller
                         $pdf = new Dompdf();
 
                         $data = compact('pdf');
-                        $html = view('pdf.sale_report')->render();
+                        $html = view('pdf.ledger.sale_report')->render();
 
                         $pdf->loadHtml($html);
 
@@ -565,7 +568,7 @@ class pdfController extends Controller
                         $pdf->render();
                         session()->forget('Data');
 
-                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
 
@@ -747,8 +750,9 @@ class pdfController extends Controller
                                 $product = $request->input('product');
                                 $product_id = [];
 
-
-
+                                if ($supplier) {
+                                        $company = buyer::where('buyer_id', $supplier)->first();
+                                }
 
                                 $chickenInvoice = chickenInvoice::query();
                                 if ($supplier) {
@@ -823,6 +827,7 @@ class pdfController extends Controller
                                         'feedData' => $feedData,
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
+                                        'company' => $company ?? null,
                                         'type' => $type,
                                 ];
 
@@ -895,7 +900,7 @@ class pdfController extends Controller
                         $pdf = new Dompdf();
 
                         $data = compact('pdf');
-                        $html = view('pdf.pur_report')->render();
+                        $html = view('pdf.ledger.pur_report')->render();
 
                         $pdf->loadHtml($html);
 
@@ -910,7 +915,7 @@ class pdfController extends Controller
                         ;
                         session()->forget('Data');
 
-                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
 
@@ -2378,7 +2383,11 @@ class pdfController extends Controller
                         $product = $request->input('product');
                         $product_id = null;
 
-
+                        if ($customer) {
+                                $company = buyer::where('buyer_id', $customer)->first();
+                        } elseif ($supplier) {
+                                $company = buyer::where('buyer_id', $supplier)->first();
+                        }
 
                         $chickenInvoice = chickenInvoice::query();
                         if ($customer) {
@@ -2464,6 +2473,7 @@ class pdfController extends Controller
                                 'feedData' => $feedData,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
+                                'company' => $company ?? null,
                                 'type' => $type,
                         ];
 

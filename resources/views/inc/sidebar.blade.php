@@ -429,22 +429,28 @@ $target = null;
                                 <p>Customer Report</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#sale-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sale Return Report</p>
                             </a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#pur-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Supplier Report</p>
                             </a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#pur-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Purchase Return Report</p>
+                            </a>
+                        </li> --}}
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#-led" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Payment Voucher Report</p>
                             </a>
                         </li>
                         <li class="nav-item">
