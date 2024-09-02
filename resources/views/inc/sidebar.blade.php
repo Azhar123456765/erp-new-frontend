@@ -448,9 +448,21 @@ $target = null;
                             </a>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="" data-toggle="modal" data-target="#-led" class="nav-link">
+                            <a href="" data-toggle="modal" data-target="#p-voucher-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Payment Voucher Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#r-voucher-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Receipt Voucher Report</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" data-toggle="modal" data-target="#e-voucher-report" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Expense Voucher Report</p>
                             </a>
                         </li>
                         <li class="nav-item">

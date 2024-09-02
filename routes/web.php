@@ -205,8 +205,9 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/pv_pdf_{id}', [pdfController::class, 'pv_pdf']);
         Route::get('/rv_pdf_{id}', [pdfController::class, 'rv_pdf']);
         Route::get('/ev_pdf_{id}', [pdfController::class, 'ev_pdf']);
-        Route::get('/p-voucher-report', [pdfController::class, 'p_voucher_report']);
-        Route::get('/r-voucher-report', [pdfController::class, 'r_voucher_report']);
+        Route::get('/p-voucher-report', [pdfController::class, 'p_voucher_report'])->name('p_voucher.report');
+        Route::get('/r-voucher-report', [pdfController::class, 'r_voucher_report'])->name('r_voucher.report');
+        Route::get('/e-voucher-report', [pdfController::class, 'e_voucher_report'])->name('e_voucher.report');
         Route::get('/gen-led', [pdfController::class, 'gen_led']);
         Route::get('/cus-led', [pdfController::class, 'cus_led']);
         Route::get('/supplier-led', [pdfController::class, 'supplier_led']);

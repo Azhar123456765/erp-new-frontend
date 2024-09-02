@@ -879,7 +879,7 @@ text-align: center;
         <div class="modal-content gen-led" style="height: min-content;">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Sale And Supplier Report</h4>
+                <h4>Customer And Supplier Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="{{ Route('sale_pur.report') }}">
                         @csrf
@@ -1454,18 +1454,18 @@ text-align: center;
 </div>
 
 
-<div class="modal fade" id="p_voucher_report">
+<div class="modal fade" id="p-voucher-report">
     <div class="modal-dialog">
         <div class="modal-content gen-led">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Payment Voucher Report</h4>
                 <div class="modal-body">
-                    <form method="GET" action="/p-voucher-report">
+                    <form method="GET" action="{{ Route('p_voucher.report') }}">
                         @csrf
                         <div class="row justify-content-between">
 
-                            <div class="col-12-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
                                     <select class="form-control select-seller-buyer" name="company">
@@ -1475,7 +1475,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-12-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
                                     <select class="form-control select-account" name="contra_account">
@@ -1484,7 +1484,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-12-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -1539,18 +1539,18 @@ text-align: center;
 
 
 
-<div class="modal fade" id="r_voucher_report">
+<div class="modal fade" id="r-voucher-report">
     <div class="modal-dialog">
         <div class="modal-content gen-led">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4>Receipt Voucher Report</h4>
                 <div class="modal-body">
-                    <form method="GET" action="/r-voucher-report">
+                    <form method="GET" action="{{ Route('r_voucher.report') }}">
                         @csrf
                         <div class="row justify-content-between">
 
-                            <div class="col-12-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
                                     <select class="form-control select-seller-buyer" name="company">
@@ -1560,7 +1560,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-12-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Contra Account</label>
                                     <select class="form-control select-account" name="contra_account">
@@ -1569,7 +1569,7 @@ text-align: center;
                                 </div>
                             </div>
 
-                            <div class="col-12-12">
+                            <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
@@ -1617,6 +1617,87 @@ text-align: center;
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div>
+
+
+<div class="modal fade" id="e-voucher-report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Receipt Voucher Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="{{ Route('e_voucher.report') }}">
+                        @csrf
+                        <div class="row justify-content-between">
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Company</label>
+                                    <select class="form-control select-seller-buyer" name="company">
+
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Contra Account</label>
+                                    <select class="form-control select-account" name="contra_account">
+
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Sales Officer</label>
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row"
+                            style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+
+                            <br>
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="submit" style="
+    text-align: center;
+">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger" id="clear-btn">Clear Fields</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {

@@ -339,7 +339,7 @@ class pdfController extends Controller
 
                         if ($customer) {
                                 $company = buyer::where('buyer_id', $customer)->first();
-                        } 
+                        }
 
                         $chickenInvoice = chickenInvoice::query();
                         if ($customer) {
@@ -2156,8 +2156,8 @@ class pdfController extends Controller
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
 
-                        $company = substr($request->input('company'), 0, -1);
-                        $lastChar = substr($request->input('company'), -1);
+                        $company = $request->input('company');
+
 
 
                         $type = $request->input('type');
@@ -2174,17 +2174,18 @@ class pdfController extends Controller
                         }
 
                         if ($company) {
-                                $query->where('company', $company)->where('company_ref', $lastChar);
+                                $query->where('company', $company);
+                                $company = buyer::where('buyer_id', $company)->first();
                         }
 
-                        $p_voucher = $query->get();
+                        $p_voucher = $query->orderBy('date', 'asc')->get();
 
                         $data = [
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
                                 'contra_account' => $contra_account,
                                 'p_voucher' => $p_voucher,
-                                'company' => $lastChar,
+                                'company' => $company,
                                 'type' => $type ?? null
                         ];
 
@@ -2193,26 +2194,8 @@ class pdfController extends Controller
 
 
                 if (session()->has('Data')) {
-
-                        $pdf = new Dompdf();
-
-                        $data = compact('pdf');
-                        $html = view('pdf.p_voucher_rep')->render();
-
-                        $pdf->loadHtml($html);
-
-
-                        $contentLength = strlen($html);
-                        if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'portrait');
-                        } else {
-                                $pdf->setPaper('A4', 'portrait');
-                        }
-                        $pdf->render();
-
-                        session()->forget('Data');
-
-                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                        $html = view('pdf.voucher.p_voucher_rep')->render();
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
 
@@ -2229,8 +2212,8 @@ class pdfController extends Controller
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
 
-                        $company = substr($request->input('company'), 0, -1);
-                        $lastChar = substr($request->input('company'), -1);
+                        $company = $request->input('company');
+
 
 
                         $type = $request->input('type');
@@ -2239,7 +2222,8 @@ class pdfController extends Controller
                         $query = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
 
                         if ($company) {
-                                $query->where('company', $company)->where('company_ref', $lastChar);
+                                $query->where('company', $company);
+                                $company = buyer::where('buyer_id', $company)->first();
                         }
                         if ($contra_account) {
                                 $query->where('cash_bank', $contra_account);
@@ -2257,7 +2241,59 @@ class pdfController extends Controller
                                 'endDate' => $endDate,
                                 'contra_account' => $contra_account,
                                 'r_voucher' => $r_voucher,
-                                'company' => $lastChar,
+                                'company' => $company,
+                                'type' => $type ?? null
+                        ];
+
+                        session()->flash('Data', $data);
+                }
+
+                if (session()->has('Data')) {
+                        $html = view('pdf.voucher.r_voucher_rep')->render();
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+                }
+        }
+
+
+        function e_voucher_report(Request $request)
+        {
+                if (!session()->exists('Data')) {
+
+                        $startDate = $request->input('start_date');
+                        $endDate = $request->input('end_date');
+
+                        $contra_account = $request->input('contra_account');
+                        $salesOfficer = $request->input('sales_officer');
+
+                        $company = $request->input('company');
+
+
+                        $type = $request->input('type');
+
+
+                        $query = ExpenseVoucher::whereBetween('expense_vouchers.created_at', [$startDate, $endDate]);
+
+                        if ($company) {
+                                $query->where('company', $company);
+                                $company = buyer::where('buyer_id', $company)->first();
+                        }
+                        if ($contra_account) {
+                                $query->where('cash_bank', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+
+                        $e_voucher = $query->get();
+
+                        $data = [
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'contra_account' => $contra_account,
+                                'e_voucher' => $e_voucher,
+                                'company' => $company,
                                 'type' => $type ?? null
                         ];
 
@@ -2266,30 +2302,10 @@ class pdfController extends Controller
 
 
                 if (session()->has('Data')) {
-
-                        $pdf = new Dompdf();
-
-                        $data = compact('pdf');
-                        $html = view('pdf.r_voucher_rep')->render();
-
-                        $pdf->loadHtml($html);
-
-
-                        $contentLength = strlen($html);
-                        if ($contentLength > 5000) {
-                                $pdf->setPaper('A3', 'portrait');
-                        } else {
-                                $pdf->setPaper('A4', 'portrait');
-                        }
-                        $pdf->render();
-
-                        session()->forget('Data');
-
-                        return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
+                        $html = view('pdf.voucher.e_voucher_rep')->render();
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
-
-
 
 
         function invoice_chicken(Request $request, $id, $method)
