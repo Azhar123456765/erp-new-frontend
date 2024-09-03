@@ -61,7 +61,7 @@ $credit = session()->get('Data')['credit'];
 $type = session()->get('Data')['type'];
 
 
-// $name = App\Models\accounts::where('account_id',$account)->get();
+// $name = App\Models\accounts::where('id',$account)->get();
 
 // foreach ($name as $key => $value) {
 //     $name2 = $value->account_name;

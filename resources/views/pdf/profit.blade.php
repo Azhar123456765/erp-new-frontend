@@ -56,8 +56,8 @@ $endDate = session()->get('Data')['endDate'] ?? null;
 $amount = session()->get('Data')['amount'] ?? null;
 $credit = session()->get('Data')['credit'] ?? null;
 $debit = session()->get('Data')['debit'] ?? null;
-$account = session()->get('Data')['account_id'] ?? null;
-$name = App\Models\accounts::where('account_id', $account)->get();
+$account = session()->get('Data')['id'] ?? null;
+$name = App\Models\accounts::where('id', $account)->get();
 
 foreach ($name as $key => $value) {
     $name2 = $value->account_name;

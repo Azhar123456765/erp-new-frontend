@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('accounts', function (Blueprint $table) {
-            $table->id('account_id');
+            $table->id('id');
             $table->text('account_name')->nullable();
             $table->text('account_debit')->nullable();
             $table->text('account_qty')->nullable();

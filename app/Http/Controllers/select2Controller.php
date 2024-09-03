@@ -20,7 +20,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = accounts::where('account_name', 'LIKE', "%{$search}%")
-            ->get(['account_id', 'account_name']);
+            ->get(['id', 'account_name']);
 
         // $buyers = buyer::where('company_name', 'LIKE', "%{$search}%")
         //     ->get(['buyer_id', 'company_name']);
@@ -28,7 +28,7 @@ class select2Controller extends Controller
         // $combinedResults = [];
         // foreach ($accounts as $account) {
         //     $combinedResults[$account->account_name] = [
-        //         'account_id' => $account->account_id,
+        //         'id' => $account->id,
         //         'account_name' => $account->account_name
         //     ];
         // }

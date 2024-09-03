@@ -626,7 +626,7 @@
                         results: $.map(data, function(item) {
                             return {
                                 text: item.account_name,
-                                id: item.account_id
+                                id: item.id
                             };
                         })
                     };
@@ -757,7 +757,7 @@
                         results: $.map(data, function(item) {
                             return {
                                 text: item.account_name,
-                                id: item.account_id
+                                id: item.id
                             };
                         })
                     };

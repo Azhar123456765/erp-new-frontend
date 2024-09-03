@@ -360,7 +360,7 @@
                     </div>
                     <div class="div">
                         <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
-                            <option value="{{ $sinvoice_row->accounts->account_id ?? null }}" selected>
+                            <option value="{{ $sinvoice_row->accounts->id ?? null }}" selected>
                                 {{ $sinvoice_row->accounts->account_name ?? null }}</option>
                         </select>
                     </div>
@@ -785,7 +785,7 @@ text-align:end;
                                     results: $.map(data, function(item) {
                                         return {
                                             text: item.account_name,
-                                            id: item.account_id
+                                            id: item.id
                                         };
                                     })
                                 };
@@ -925,7 +925,7 @@ text-align:end;
                                     results: $.map(data, function(item) {
                                         return {
                                             text: item.account_name,
-                                            id: item.account_id
+                                            id: item.id
                                         };
                                     })
                                 };

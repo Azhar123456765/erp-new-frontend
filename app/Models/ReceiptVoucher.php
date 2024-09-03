@@ -29,6 +29,6 @@ class ReceiptVoucher extends Model
 
     function accounts()
     {
-        return $this->hasOne(accounts::class, 'account_id', "cash_bank");
+        return $this->hasOne(accounts::class, 'id', "cash_bank");
     }
 }

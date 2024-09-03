@@ -45,8 +45,9 @@ class maincontroller extends Controller
 
         $head_accounts = DB::table('head_accounts')->get();
         $sub_head_accounts = DB::table('sub_head_accounts')->where('head', $head)->get();
+        $all_sub_head_accounts = DB::table('sub_head_accounts')->get();
         $accounts = accounts::where("account_category", $head)->get();
-        $data = compact('accounts', 'head', 'sub_head', 'head_accounts', 'sub_head_accounts');
+        $data = compact('accounts', 'head', 'sub_head', 'head_accounts', 'sub_head_accounts', 'all_sub_head_accounts');
         return view('accounts')->with($data);
     }
     function get_data_account(Request $request)
@@ -81,18 +82,24 @@ class maincontroller extends Controller
 
     function edit_account(Request $request, $id)
     {
-
-        $query = accounts::where('account_id', $id)->update([
+if($request['move_account']){
+        $query = accounts::where('id', $id)->update([
 
             'account_name' => $request['account_name'],
             'account_qty' => $request['account_qty'],
             'account_debit' => $request['account_debit'],
             'account_credit' => $request['account_credit'],
-
-
-
+            'account_category' => $request['move_account'],
         ]);
+    }else{
+        $query = accounts::where('id', $id)->update([
 
+            'account_name' => $request['account_name'],
+            'account_qty' => $request['account_qty'],
+            'account_debit' => $request['account_debit'],
+            'account_credit' => $request['account_credit'],
+        ]);
+    }
         session()->flash('message', 'account has been updated successfully');
 
 
@@ -102,7 +109,7 @@ class maincontroller extends Controller
     function account_delete(Request $request, $id)
     {
 
-        $query = accounts::where('account_id', $id)->delete();
+        $query = accounts::where('id', $id)->delete();
 
         session()->flash('message', 'account has been deleted successfully');
 

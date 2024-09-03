@@ -165,20 +165,20 @@
                                 return `
     <div class="table-data-feature">
 
-<a href="" data-toggle="modal" data-target="#edit_modal${row.account_id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+<a href="" data-toggle="modal" data-target="#edit_modal${row.id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
     <i class="fa fa-edit"></i>
 </a>
 
 </div>
 
-        <div class="modal fade" id="edit_modal${row.account_id}">
+        <div class="modal fade" id="edit_modal${row.id}">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4>Edit account</h4>
                         <div class="modal-body">
-                            <form method="POST" action="/edit_account${row.account_id}">
+                            <form method="POST" action="/edit_account${row.id}">
                                 @csrf
                                 <div class="form-group">
                                     <label for="username">account Name</label>
@@ -202,7 +202,20 @@
                                     <input type="number" step="any" class="form-control" 
                                         name="account_credit" value="${row.account_credit}">
                                 </div>
-
+                                <div class="form-group">
+                                    <label for="username">Credit</label>
+                                    <input type="number" step="any" class="form-control" 
+                                        name="account_credit" value="${row.account_credit}">
+                                </div>
+                                <div class="form-group">
+                                    <label for="username">Move Account</label>
+                                    <select name="move_account" id="move_account" class="form-control">
+                                        <option value="" selected disabled>Move TO Other Account</option>
+                                        @foreach ($all_sub_head_accounts as $row)
+    <option value="{{ $row->id }}">{{ $row->name }}</option>
+    @endforeach
+</select>
+                                </div>
                                 <button type="submit" class="btn btn-primary" id="btn">Submit</button>
 
                             </form>

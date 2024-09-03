@@ -9,5 +9,5 @@ class accounts extends Model
 {
     use HasFactory;
     public $table = 'accounts';
-    public $table_id = 'account_id';
+    public $table_id = 'id';
 }

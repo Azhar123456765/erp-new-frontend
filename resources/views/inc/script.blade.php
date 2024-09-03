@@ -114,7 +114,7 @@
                         return {
                             results: $.map(data, function(item) {
                                 return {
-                                    id: item.account_id,
+                                    id: item.id,
                                     text: item.account_name
                                 };
                             })
@@ -363,7 +363,7 @@
     //                     results: $.map(data, function (item) {
     //                         return {
     //                             text: item.account_name,
-    //                             id: item.account_id
+    //                             id: item.id
     //                         };
     //                     })
     //                 };

@@ -53,9 +53,9 @@ class pdfController extends Controller
                         $start_date = $request->input('start_date');
                         $end_date = $request->input('end_date');
 
-                        $account_id = $request->input('account');
-                        if ($account_id) {
-                                $account = accounts::where('account_id', $account_id)->first();
+                        $id = $request->input('account');
+                        if ($id) {
+                                $account = accounts::where('id', $id)->first();
                         } else {
                                 $account = null;
                         }
@@ -99,7 +99,7 @@ class pdfController extends Controller
                                 $payment_voucher = p_voucher::query();
 
                                 if ($account) {
-                                        $payment_voucher->where('cash_bank', $account_id)->orWhere('company', $account->reference_id);
+                                        $payment_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $payment_voucher->where('sales_officer', $salesOfficer);
@@ -109,7 +109,7 @@ class pdfController extends Controller
                                 $receipt_voucher = ReceiptVoucher::query();
 
                                 if ($account) {
-                                        $receipt_voucher->where('cash_bank', $account_id)->orWhere('company', $account->reference_id);
+                                        $receipt_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $receipt_voucher->where('sales_officer', $salesOfficer);
@@ -118,7 +118,7 @@ class pdfController extends Controller
                                 $expense_voucher = ExpenseVoucher::query();
 
                                 if ($account) {
-                                        $expense_voucher->where('cash_bank', $account_id)->orWhere('buyer', $account->reference_id);
+                                        $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
@@ -197,8 +197,8 @@ class pdfController extends Controller
                                 // });
 
                                 // dd($feedInvoiceGrouped);
-                                if ($account_id) {
-                                        $single_data = accounts::where('account_id', $account_id)->first();
+                                if ($id) {
+                                        $single_data = accounts::where('id', $id)->first();
                                 }
                                 $data = [
                                         'startDate' => $startDate,

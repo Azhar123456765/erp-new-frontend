@@ -629,7 +629,7 @@ text-align:right !important;
                             <option></option>
 
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->freighta ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->id }}" {{ $row->id == $sinvoice_row->freighta ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
@@ -647,7 +647,7 @@ text-align:right !important;
                             <option></option>
 
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->sales_taxa ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->id }}" {{ $row->id == $sinvoice_row->sales_taxa ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
@@ -662,7 +662,7 @@ text-align:right !important;
                             <option></option>
 
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->ad_sales_taxa ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->id }}" {{ $row->id == $sinvoice_row->ad_sales_taxa ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
@@ -677,7 +677,7 @@ text-align:right !important;
                             <option></option>
 
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->banka ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->id }}" {{ $row->id == $sinvoice_row->banka ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
@@ -692,7 +692,7 @@ text-align:right !important;
                             <option></option>
 
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->other_expensea ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->id }}" {{ $row->id == $sinvoice_row->other_expensea ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>

@@ -612,7 +612,7 @@ text-align:right !important;
                         <select name="account" style="height: 28px">
                             <option></option>
                             @foreach ($account as $row)
-                            <option value="{{ $row->account_id }}" {{ $row->account_id == $sinvoice_row->account ? 'selected' : '' }}>{{ $row->account_name }}</option>
+                            <option value="{{ $row->id }}" {{ $row->id == $sinvoice_row->account ? 'selected' : '' }}>{{ $row->account_name }}</option>
                             @endforeach
 
                         </select>
