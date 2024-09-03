@@ -54,7 +54,11 @@ class pdfController extends Controller
                         $end_date = $request->input('end_date');
 
                         $account_id = $request->input('account');
-                        $account = accounts::where('account_id', $account_id)->first();
+                        if ($account_id) {
+                                $account = accounts::where('account_id', $account_id)->first();
+                        } else {
+                                $account = null;
+                        }
                         $salesOfficer = $request->input('sales_officer');
                         // $accountType = $request->input('account_type');
                         // $zone = $request->input('warehouse');
@@ -119,7 +123,6 @@ class pdfController extends Controller
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
                                 }
-                                $single_data = accounts::where('account_id', $account_id)->first();
 
                                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
                                 $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
@@ -194,17 +197,20 @@ class pdfController extends Controller
                                 // });
 
                                 // dd($feedInvoiceGrouped);
+                                if ($account_id) {
+                                        $single_data = accounts::where('account_id', $account_id)->first();
+                                }
                                 $data = [
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
-                                        'single_data' => $single_data,
+                                        'single_data' => $single_data ?? null,
                                         'chickenInvoice' => $chickenInvoice,
                                         'chickInvoice' => $chickInvoice,
                                         'feedInvoice' => $feedInvoice,
                                         'payment_voucher' => $payment_voucher,
                                         'receipt_voucher' => $receipt_voucher,
                                         'expense_voucher' => $expense_voucher,
-                                        'account' => $account->reference_id,
+                                        'account' => $account->reference_id ?? null,
                                         'type' => $type
                                 ];
                                 session()->flash('Data', $data);

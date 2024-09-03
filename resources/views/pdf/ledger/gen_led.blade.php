@@ -1,4 +1,4 @@
-@extends('pdf.farm.app') @section('pdf_content')
+@extends('pdf.ledger.app') @section('pdf_content')
     @php
         $single_data = session()->get('single_pdf_data');
         $data = session()->get('pdf_data');
@@ -58,21 +58,22 @@
     </div>
 
     <div class="ui segment cards">
-        <div class="ui card customercard">
-            <div class="content">
-                <div class="header">Account Details</div>
+        @if ($single_data)
+            <div class="ui card customercard">
+                <div class="content">
+                    <div class="header">Account Details</div>
+                </div>
+                <div class="content">
+                    {{ $single_data->account_name }}
+                </div>
             </div>
-            <div class="content">
-                {{ $single_data->account_name }}
-            </div>
-        </div>
-
+        @endif
         <div class="ui segment itemscard">
             <div class="content">
                 <table class="ui celled table" id="invoice-table">
                     <thead>
                         <tr>
-                            <th class="text-center colfix">Date</th>
+                            <th class="text-center colfix date-th">Date</th>
                             <th class="text-center colfix">Reference</th>
                             <th class="text-center colfix">Description</th>
                             <th class="text-center colfix">Debit</th>

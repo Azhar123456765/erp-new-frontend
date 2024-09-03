@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -13,12 +12,15 @@ return new class extends Migration
     {
         Schema::create('accounts', function (Blueprint $table) {
             $table->id();
-            $table->text('account_name')->nullable();
-            $table->text('account_debit')->nullable();
+            $table->text('account_name');
             $table->text('account_qty')->nullable();
+            $table->text('account_debit')->nullable();
             $table->text('account_credit')->nullable();
-            $table->text('account_category')->nullable();
+            $table->unsignedBigInteger('account_category');
+            $table->text('reference_id')->nullable();
             $table->timestamps();
+
+            $table->foreign('account_category')->references('id')->on('sub_head_accounts');
         });
     }
 

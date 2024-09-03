@@ -98,10 +98,13 @@ Route::middleware('userAuth')->group(function () {
         Route::post('/add_seller_form', [maincontroller::class, 'add_seller_form']);
         Route::post('/edit_seller_form', [maincontroller::class, 'edit_seller_form']);
 
-        Route::get('/account_account={id}', [maincontroller::class, 'account']);
+        Route::get('/account/{head}/{sub_head}', [maincontroller::class, 'account'])->name('account.index');
         Route::get('/get-data/account', [maincontroller::class, 'get_data_account']);
         Route::post('/add_account', [maincontroller::class, 'add_account']);
         Route::post('/edit_account{id}', [maincontroller::class, 'edit_account']);
+
+        Route::get('/data-account/{head}/{sub_head}', [maincontroller::class, 'data_account'])->name('account.data');
+
     });
 
     Route::middleware(['financePermission'])->group(function () {

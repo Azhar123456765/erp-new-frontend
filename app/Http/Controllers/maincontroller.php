@@ -40,11 +40,13 @@ use Yajra\DataTables\DataTables;
 class maincontroller extends Controller
 {
 
-    function account(Request $request, $id)
+    function account(Request $request, $head, $sub_head)
     {
 
-        $users = accounts::where(["account_category" => $id])->get();
-        $data = compact('users', 'id');
+        $head_accounts = DB::table('head_accounts')->get();
+        $sub_head_accounts = DB::table('sub_head_accounts')->where('head', $head)->get();
+        $accounts = accounts::where("account_category", $head)->get();
+        $data = compact('accounts', 'head', 'sub_head', 'head_accounts', 'sub_head_accounts');
         return view('accounts')->with($data);
     }
     function get_data_account(Request $request)
@@ -54,9 +56,12 @@ class maincontroller extends Controller
         return response()->json($data);
     }
 
-    function data_account()
+    function data_account(Request $request, $head, $sub_head)
     {
-        $accounts = accounts::all();
+        if ($sub_head) {
+            $accounts = accounts::where("account_category", $sub_head)->get();
+        }
+
         return DataTables::of($accounts)->make(true);
     }
     function add_account(Request $request)

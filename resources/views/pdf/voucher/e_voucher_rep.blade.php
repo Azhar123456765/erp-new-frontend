@@ -66,7 +66,7 @@
                 <table class="ui celled table" id="invoice-table">
                     <thead>
                         <tr>
-                            <th class="text-center colfix">Date</th>
+                            <th class="text-center colfix date-th">Date</th>
                             <th class="text-center colfix">Voucher No</th>
                             <th class="text-center colfix">Company</th>
                             <th class="text-center colfix">Narration</th>

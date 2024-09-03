@@ -295,7 +295,7 @@ class product extends Controller
         $product = products::orderByDesc('product_id');
         return DataTables::of($product)->make(true);
     }
-    function view_product(Request $request)
+    function index(Request $request)
     {
 
         $category = product_category::all();

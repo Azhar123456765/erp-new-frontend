@@ -324,7 +324,9 @@
         }
     });
 
-
+    $('#clear-btn').on('click', function() {
+        alert(1)
+    });
     // const elements = document.querySelectorAll('input, select');
 
     // let currentIndex = 2;
@@ -640,3 +642,8 @@
 
 
 @stack('s_script')
+<script>
+    $('.clear-btn').on('click', function() {
+        $('.select2-hidden-accessible').val(null).trigger('change');
+    });
+</script>

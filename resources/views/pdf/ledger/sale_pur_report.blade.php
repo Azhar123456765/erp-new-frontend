@@ -80,7 +80,7 @@
                         <table class="ui celled table" id="invoice-table">
                             <thead>
                                 <tr>
-                                    <th class="text-center colfix">Date</th>
+                                    <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
                                     <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Crate Qty</th>
@@ -171,7 +171,7 @@
                         <table class="ui celled table" id="invoice-table">
                             <thead>
                                 <tr>
-                                    <th class="text-center colfix">Date</th>
+                                    <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
                                     <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Product</th>
@@ -258,7 +258,7 @@
                         <table class="ui celled table" id="invoice-table">
                             <thead>
                                 <tr>
-                                    <th class="text-center colfix">Date</th>
+                                    <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
                                     <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Product</th>
