@@ -2164,8 +2164,6 @@ class pdfController extends Controller
 
                         $company = $request->input('company');
 
-dd($company);
-
                         $type = $request->input('type');
 
 
@@ -2280,7 +2278,7 @@ dd($company);
                         $query = ExpenseVoucher::whereBetween('expense_vouchers.created_at', [$startDate, $endDate]);
 
                         if ($company) {
-                                $query->where('company', $company);
+                                $query->where('buyer', $company);
                                 $company = buyer::where('buyer_id', $company)->first();
                         }
                         if ($contra_account) {
