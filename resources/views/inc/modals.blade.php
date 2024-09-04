@@ -1468,7 +1468,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
-                                    <select class="form-control select-seller-buyer" name="company">
+                                    <select class="form-control select-buyer" name="company">
 
 
                                     </select>
@@ -1553,7 +1553,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
-                                    <select class="form-control select-seller-buyer" name="company">
+                                    <select class="form-control select-buyer" name="company">
 
 
                                     </select>
@@ -1633,7 +1633,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Company</label>
-                                    <select class="form-control select-seller-buyer" name="company">
+                                    <select class="form-control select-buyer" name="company">
 
 
                                     </select>

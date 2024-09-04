@@ -643,13 +643,18 @@ right: 15%;
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
+    <a href="{{ Route('new_invoice_chicken') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        First
+    </a>
     <a href="{{ Route('edit_invoice_chicken', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
     </a>
     <a href="{{ Route('edit_invoice_chicken', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
     </a>
-
+    <a disabled class="btn px-3 p-1 btn-secondary btn-sm">
+        last
+    </a>
     <a href="{{ Route('edit_invoice_chicken', $rand) }}"
         class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
@@ -1400,7 +1405,7 @@ right: 15%;
         });
 
 
-               $('#form').submit(function(event) {
+        $('#form').submit(function(event) {
 
             event.preventDefault();
 
@@ -1419,11 +1424,11 @@ right: 15%;
                 success: function(response) {
                     // Handle the response
 
-                   
+
                     Swal.fire({
                         icon: 'success',
                         title: response,
-                        timer: 1900 
+                        timer: 1900
                     });
 
                     // Show or hide elements as needed

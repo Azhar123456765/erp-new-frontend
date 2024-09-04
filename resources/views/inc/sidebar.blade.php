@@ -81,7 +81,7 @@ $target = null;
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="/account_account=1"
+                            <a href="{{ Route('account.index',[1,1]) }}"
                                 class="nav-link{{ request()->is('account_account=1*') ? ' active' : '' }}">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Accounts</p>

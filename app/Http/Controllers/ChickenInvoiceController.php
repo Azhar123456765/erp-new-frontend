@@ -160,10 +160,15 @@ class ChickenInvoiceController extends Controller
      */
     public function edit(Request $request, $id)
     {
+        $last_count = chickenInvoice::whereIn('chicken_invoices.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('chicken_invoices')
+                ->groupBy('unique_id');
+        })->count();
         $invoice = chickenInvoice::where('unique_id', $id)->get();
         $single_invoice = chickenInvoice::where('unique_id', $id)->first();
         if (count($invoice) > 0) {
-            return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice'));
+            return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice', 'last_count'));
         } else {
             session()->flash('something_error', 'Invoice Not Found');
             return redirect()->back();

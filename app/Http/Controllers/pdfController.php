@@ -2164,7 +2164,7 @@ class pdfController extends Controller
 
                         $company = $request->input('company');
 
-
+dd($company);
 
                         $type = $request->input('type');
 
