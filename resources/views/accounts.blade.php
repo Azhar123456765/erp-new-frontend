@@ -91,6 +91,8 @@
                                 <label for="username">Credit</label>
                                 <input type="number" step="any" class="form-control" name="account_credit">
                             </div>
+                            <input type="number" step="any" class="form-control" name="account_category" value="{{ $sub_head }}">
+
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
 
                         </form>
