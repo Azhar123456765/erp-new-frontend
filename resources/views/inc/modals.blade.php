@@ -1624,7 +1624,7 @@ text-align: center;
         <div class="modal-content gen-led">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Receipt Voucher Report</h4>
+                <h4>Expense Voucher Report</h4>
                 <div class="modal-body">
                     <form method="GET" action="{{ Route('e_voucher.report') }}">
                         @csrf
