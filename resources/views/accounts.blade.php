@@ -91,7 +91,7 @@
                                 <label for="username">Credit</label>
                                 <input type="number" step="any" class="form-control" name="account_credit">
                             </div>
-                            <input type="number" step="any" class="form-control" name="account_category" value="{{ $sub_head }}">
+                            <input type="hidden" step="any" class="form-control" id="account_category" name="account_category" >
 
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
 
@@ -115,21 +115,21 @@
                 window.location.href = '{{ route('account.index', [':head', ':sub_head']) }}'.replace(':sub_head', sub_head_id)
                     .replace(':head', head_id);
             }
-
             function sub_head() {
-
+                
                 var head_id = $("#head_account").find('option:selected').val();
                 var sub_head_id = $("#sub_head_account").find('option:selected').val();
-
+                
                 window.location.href = '{{ route('account.index', [':head', ':sub_head']) }}'.replace(':sub_head', sub_head_id)
-                    .replace(':head', head_id);
+                .replace(':head', head_id);
             }
         </script>
         <script>
             $(document).ready(function() {
                 var head_id = $("#head_account").find('option:selected').val();
                 var sub_head_id = $("#sub_head_account").find('option:selected').val();
-
+                
+                $('#account_category').val(sub_head_id)
                 $('#table').DataTable({
                     ajax: '{{ route('account.data', [':head', ':sub_head']) }}'.replace(':sub_head',
                             sub_head_id)
