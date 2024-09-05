@@ -3,7 +3,7 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">My Report table</h3>
+            <h3 class="card-title">Daily report table</h3>
             <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
                 <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report</a>
         </div>
@@ -12,12 +12,15 @@
             <table id="table" class="table table-bordered table-striped">
                 <thead>
                     <tr>
+
                         <th>S.NO</th>
+                        <th>User Name</th>
                         <th>Hen Deaths</th>
                         <th>Feed consumed</th>
                         <th>Water consumed</th>
                         <th>Extra expense</th>
                         <th>Date</th>
+
                         <th>Actions</th>
                     </tr>
                 </thead>

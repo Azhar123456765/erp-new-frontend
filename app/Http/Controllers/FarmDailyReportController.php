@@ -14,8 +14,15 @@ class FarmDailyReportController extends Controller
      */
     public function index()
     {
-        $farm_daily_reports = FarmDailyReport::orderByDesc('id')->get();
-        return view('daily_report', compact('farm_daily_reports'));
+        $user_id = session()->get('user_id')['user_id'];
+        $role = session()->get('user_id')['role'];
+        if ($role == 'admin') {
+            $farm_daily_reports = FarmDailyReport::orderByDesc('id')->get();
+            return view('daily_report_admin', compact('farm_daily_reports'));
+        } elseif ($role == 'farm_user') {
+            $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)->orderByDesc('id')->get();
+            return view('daily_report', compact('farm_daily_reports'));
+        }
     }
 
     /**
@@ -36,7 +43,16 @@ class FarmDailyReportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $narration = new FarmDailyReport;
+        $narration->hen_deaths = $request->input('hen_deaths');
+        $narration->feed_consumed = $request->input('feed_consumed');
+        $narration->water_consumed = $request->input('water_consumed');
+        $narration->extra_expense_narration = $request->input('extra_expense_narration');
+        $narration->extra_expense_amount = $request->input('extra_expense_amount');
+        $narration->user_id = session()->get('user_id')['user_id'];
+        $narration->save();
+
+        return redirect()->back();
     }
 
     /**
@@ -68,9 +84,18 @@ class FarmDailyReportController extends Controller
      * @param  \App\Models\FarmDailyReport  $farmDailyReport
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, FarmDailyReport $farmDailyReport)
+    public function update(Request $request, $id)
     {
-        //
+        $narration = FarmDailyReport::find($id);
+        $narration->hen_deaths = $request->input('hen_deaths');
+        $narration->feed_consumed = $request->input('feed_consumed');
+        $narration->water_consumed = $request->input('water_consumed');
+        $narration->extra_expense_narration = $request->input('extra_expense_narration');
+        $narration->extra_expense_amount = $request->input('extra_expense_amount');
+        $narration->user_id = $request->input('user_id');
+        $narration->save();
+
+        return redirect()->back();
     }
 
     /**

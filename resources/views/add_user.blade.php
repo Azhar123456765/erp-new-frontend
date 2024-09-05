@@ -53,6 +53,7 @@
                     <select class="custom-select" name="role" id="">
                         <option value="admin">admin</option>
                         <option value="user">user</option>
+                        <option value="farm_user">farm user</option>
 
                     </select>
                 </div>

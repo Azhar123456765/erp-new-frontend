@@ -66,6 +66,8 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'userAuth' => \App\Http\Middleware\AuthenticateUser::class,
         'roleAuth' => \App\Http\Middleware\roleChecker::class,
+        
+        'userRoleAuth' => \App\Http\Middleware\UserRoleChecker::class,
 
         'setupPermission' => \App\Http\Middleware\setupPermission::class,
         'financePermission' => \App\Http\Middleware\financePermission::class,

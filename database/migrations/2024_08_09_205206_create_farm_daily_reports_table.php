@@ -18,7 +18,8 @@ class CreateFarmDailyReportsTable extends Migration
             $table->bigInteger('hen_deaths');
             $table->bigInteger('feed_consumed');
             $table->bigInteger('water_consumed');
-            $table->bigInteger('extra_expense')->nullable();
+            $table->text('extra_expense_narration')->nullable();
+            $table->bigInteger('extra_expense_amount')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('user_id')->on('users');
             $table->timestamps();
