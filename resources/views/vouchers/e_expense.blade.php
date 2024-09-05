@@ -165,7 +165,7 @@
         height: 27px !important;
     }
 
-    select {
+   #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -175,7 +175,7 @@
         margin-left: -22%;
     }
 
-    .select2-container--classic {
+    #invoiceForm .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -256,7 +256,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Expense Voucher (EDIT)</h3>
@@ -288,10 +288,10 @@
 
                 <div class="fields">
                     <div class="one  remark">
-                        <label for="seller">Company</label>
-                        <select name="company" class="company select-buyer" required>
-                            <option value="{{ $sinvoice_row->customer->buyer_id }}" selected>
-                                {{ $sinvoice_row->customer->company_name }}</option>
+                        <label for="seller">Assets</label>
+                        <select name="company" class="company select-assets-account" required>
+                            <option value="{{ $sinvoice_row->accounts->id }}" selected>
+                                {{ $sinvoice_row->accounts->account_name }}</option>
                         </select>
                     </div>
 
@@ -357,7 +357,7 @@
                             onchange='total_amount()' />
                     </div>
                     <div class="div">
-                        <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
+                        <select class="cash_bank  select-expense-account" name="cash_bank[]" style="height: 28px">
                             <option value="{{ $sinvoice_row->accounts->id ?? null }}" selected>
                                 {{ $sinvoice_row->accounts->account_name ?? null }}</option>
                         </select>
@@ -393,8 +393,8 @@
                         value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
-                    <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
-                       
+                    <select class="cash_bank  select-expense-account" name="cash_bank[]" style="height: 28px">
+
                     </select>
                 </div>
 
@@ -699,7 +699,7 @@ text-align:end;
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-    <select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+    <select class="cash_bank select-expense-account" name="cash_bank[]" style="height: 28px">
      
     </select>
 </div>
@@ -736,32 +736,32 @@ text-align:end;
 
 
 
- $('.select-account').select2({
-            ajax: {
-                url: '{{ route('select2.account') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.account_name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 2,
-            theme: 'classic',
-            width: '100%',
-        });
+                    $('.select-expense-account').select2({
+                        ajax: {
+                            url: '{{ route('select2.account') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.account_name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        minimumInputLength: 2,
+                        theme: 'classic',
+                        width: '100%',
+                    });
 
                 }
             }
@@ -824,7 +824,7 @@ text-align:end;
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-<select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+<select class="cash_bank select-expense-account" name="cash_bank[]" style="height: 28px">
      
     </select>
 </div>
@@ -860,32 +860,32 @@ text-align:end;
 
                     $(".invoice").append(clonedFields);
 
- $('.select-account').select2({
-            ajax: {
-                url: '{{ route('select2.account') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.account_name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 2,
-            theme: 'classic',
-            width: '100%',
-        });
+                    $('.select-expense-account').select2({
+                        ajax: {
+                            url: '{{ route('select2.account') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.account_name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        minimumInputLength: 2,
+                        theme: 'classic',
+                        width: '100%',
+                    });
 
                 }
             }

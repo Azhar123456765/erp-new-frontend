@@ -131,13 +131,13 @@
         height: 27px !important;
     }
 
-    select {
+   #invoiceForm select {
         width: 131px !important;
         height: 27px !important;
     }
 
 
-    .select2-container--classic {
+    #invoiceForm .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -255,7 +255,7 @@
 </style>
 <h5 style="text-align: center;">Feed Invoice (FARM MODULE)</h5>
 
-<div class="container" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
+<div class="container"  id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
     <h6 style="
 position: absolute;

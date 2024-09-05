@@ -62,7 +62,6 @@
 
         <div class="ui segment itemscard">
             <div class="content">
-                <h4><b>Chickens</b></h4>
                 <table class="ui celled table" id="invoice-table">
                     <thead>
                         <tr>

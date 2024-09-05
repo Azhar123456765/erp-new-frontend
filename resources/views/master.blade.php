@@ -71,6 +71,84 @@
             theme: 'classic',
             width: '100%',
         });
+        $('.select-assets-account').select2({
+            ajax: {
+                url: '{{ route('select2.assets_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+        $('.select-liability-account').select2({
+            ajax: {
+                url: '{{ route('select2.liability_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
+        $('.select-expense-account').select2({
+            ajax: {
+                url: '{{ route('select2.expense_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
         $('.select-warehouse').select2({
             ajax: {
                 url: '{{ route('select2.warehouse') }}',

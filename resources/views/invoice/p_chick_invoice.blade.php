@@ -14,7 +14,7 @@
 
   }
 
-  select {
+ #invoiceForm select {
     height: 5vh !important;
   }
 
@@ -66,7 +66,7 @@
     justify-content: center;
   }
 
-  .top select {
+  .top#invoiceForm select {
     width: 71px;
   }
 

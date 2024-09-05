@@ -8,7 +8,7 @@
                     <i class="fa fa-plus"></i> &nbsp; Add Account</a>
             </div>
             <style>
-                .card .select2-container--classic {
+                .card #invoiceForm .select2-container--classic {
                     width: 295px !important;
                     height: 27px !important;
                     margin-top: 1%;

@@ -166,7 +166,7 @@
         height: 27px !important;
     }
 
-    select {
+   #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -176,7 +176,7 @@
         margin-left: -22%;
     }
 
-    .select2-container--classic {
+    #invoiceForm .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -242,7 +242,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Receipt Voucher</h3>
@@ -338,7 +338,7 @@
                 </div>
                 <div class="div">
                     <label>Cash/Bank Account</label>
-                    <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
+                    <select class="cash_bank  select-assets-account" name="cash_bank[]" style="height: 28px">
                        
                     </select>
                 </div>
@@ -645,7 +645,7 @@
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-    <select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+    <select class="cash_bank select-assets-account" name="cash_bank[]" style="height: 28px">
      
     </select>
 </div>
@@ -682,7 +682,7 @@
 
 
 
- $('.select-account').select2({
+ $('.select-assets-account').select2({
             ajax: {
                 url: '{{ route('select2.account') }}',
                 dataType: 'json',
@@ -779,7 +779,7 @@
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-<select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+<select class="cash_bank select-assets-account" name="cash_bank[]" style="height: 28px">
      
     </select>
 </div>
@@ -820,7 +820,7 @@
 
                     $(".invoice").append(clonedFields);
 
- $('.select-account').select2({
+ $('.select-assets-account').select2({
             ajax: {
                 url: '{{ route('select2.account') }}',
                 dataType: 'json',

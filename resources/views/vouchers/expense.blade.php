@@ -116,7 +116,7 @@
         height: 27px !important;
     }
 
-    select {
+   #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -126,7 +126,7 @@
         margin-left: -22%;
     }
 
-    .select2-container--classic {
+    #invoiceForm .select2-container--classic {
         width: 191px !important;
         height: 27px !important;
 
@@ -193,7 +193,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Expense Voucher</h3>
@@ -233,8 +233,8 @@
             <div class="fields">
 
                 <div class="one  remark">
-                    <label for="seller">Party</label>
-                    <select name="company" id="seller" class="company select-buyer" required>
+                    <label for="seller">Assets</label>
+                    <select name="company" id="seller" class="company select-assets-account" required>
                     </select>
                 </div>
 
@@ -291,9 +291,9 @@
                         name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
-                    <label>Cash/Bank Account</label>
-                    <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
-                       
+                    <label>Expense Account</label>
+                    <select class="cash_bank  select-expense-account" name="cash_bank[]" style="height: 28px">
+
                     </select>
                 </div>
 
@@ -426,8 +426,8 @@
         Next
     </a>
 
-    <a href="{{ Route('edit_expense_voucher', $rand) }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
-        id="edit">
+    <a href="{{ Route('edit_expense_voucher', $rand) }}"
+        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
     </a>
     <a href="{{ Route('add_expense_voucher') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
@@ -574,7 +574,7 @@
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-    <select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+    <select class="cash_bank select-expense-account" name="cash_bank[]" style="height: 28px">
      
     </select>
 </div>
@@ -611,32 +611,32 @@
 
 
 
- $('.select-account').select2({
-            ajax: {
-                url: '{{ route('select2.account') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.account_name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 2,
-            theme: 'classic',
-            width: '100%',
-        });
+                    $('.select-expense-account').select2({
+                        ajax: {
+                            url: '{{ route('select2.account') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.account_name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        minimumInputLength: 2,
+                        theme: 'classic',
+                        width: '100%',
+                    });
 
                 }
             }
@@ -701,7 +701,7 @@
                     `" name="cheque_date[]"  />
 </div>
 <div class="div">
-<select class="cash_bank select-account" name="cash_bank[]" style="height: 28px">
+<select class="cash_bank select-expense-account" name="cash_bank[]" style="height: 28px">
      
     </select>
 </div>
@@ -742,32 +742,32 @@
 
                     $(".invoice").append(clonedFields);
 
- $('.select-account').select2({
-            ajax: {
-                url: '{{ route('select2.account') }}',
-                dataType: 'json',
-                delay: 250,
-                data: function(params) {
-                    return {
-                        q: params.term
-                    };
-                },
-                processResults: function(data) {
-                    return {
-                        results: $.map(data, function(item) {
-                            return {
-                                text: item.account_name,
-                                id: item.id
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 2,
-            theme: 'classic',
-            width: '100%',
-        });
+                    $('.select-expense-account').select2({
+                        ajax: {
+                            url: '{{ route('select2.account') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.account_name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        minimumInputLength: 2,
+                        theme: 'classic',
+                        width: '100%',
+                    });
 
                 }
             }

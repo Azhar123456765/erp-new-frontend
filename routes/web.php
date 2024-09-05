@@ -45,11 +45,11 @@ Route::get('/403', function () {
     return view('403');
 });
 Route::post('/user-access', [maincontroller::class, 'user_acces']);
-        Route::get('/logout', [maincontroller::class, 'logout']);
+Route::get('/logout', [maincontroller::class, 'logout']);
 Route::middleware('userAuth')->group(function () {
 
     Route::middleware(['roleAuth', 'setupPermission'])->group(function () {
-        
+
 
         Route::post('/dashboard', [maincontroller::class, 'dashboard_data']);
         Route::get('/expense', [ExpenseController::class, 'index']);
@@ -65,7 +65,7 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/user-rights-{id}', [UserController::class, 'user_rights']);
         Route::post('/user_right_form-{id}', [UserController::class, 'user_right_form']);
     });
-    Route::middleware('UserRoleAuth')->group(function () {
+    Route::middleware('userRoleAuth')->group(function () {
         Route::middleware(['setupPermission'])->group(function () {
 
             Route::get('/warehouse', [maincontroller::class, 'warehouse']);
@@ -230,7 +230,9 @@ Route::middleware('userAuth')->group(function () {
         Route::middleware(['selectPermission'])->group(function () {
             // SELECT
             Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
-            Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
+            Route::get('/select-assets-account', [select2Controller::class, 'assets_account'])->name('select2.assets_account');
+            Route::get('/select-liability-account', [select2Controller::class, 'liability_account'])->name('select2.liability_account');
+            Route::get('/select-expense-account', [select2Controller::class, 'expense_account'])->name('select2.expense_account');
             Route::get('/select-warehouse', [select2Controller::class, 'warehouse'])->name('select2.warehouse');
             Route::get('/select-sales_officer', [select2Controller::class, 'sales_officer'])->name('select2.sales_officer');
             Route::get('/select-product_category', [select2Controller::class, 'product_category'])->name('select2.product_category');

@@ -42,6 +42,42 @@ class select2Controller extends Controller
 
         return response()->json($results);
     }
+    function assets_account(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = accounts::where('account_name', 'LIKE', "%{$search}%")
+            ->whereHas('sub_head', function ($query) {
+                $query->where('head', 1);
+            })
+            ->get(['id', 'account_name']);
+
+        return response()->json($results);
+    }
+    function liability_account(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = accounts::where('account_name', 'LIKE', "%{$search}%")
+            ->whereHas('sub_head', function ($query) {
+                $query->where('head', 2);
+            })
+            ->get(['id', 'account_name']);
+
+        return response()->json($results);
+    }
+    function expense_account(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = accounts::where('account_name', 'LIKE', "%{$search}%")
+            ->whereHas('sub_head', function ($query) {
+                $query->where('head', 5);
+            })
+            ->get(['id', 'account_name']);
+
+        return response()->json($results);
+    }
     function warehouse(Request $request)
     {
         $search = $request->get('q');

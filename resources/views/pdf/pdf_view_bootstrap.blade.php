@@ -39,14 +39,14 @@
             background-color: #4CAF50;
             border: none;
             color: white;
-            padding: 15px 32px;
+            padding: 10px 20px;
             text-align: center;
             text-decoration: none;
             display: inline-block;
             font-size: 16px;
             margin: 10px;
             cursor: pointer;
-            border-radius: 12px;
+            border-radius: 5px;
             position: absolute;
             top: 10px;
             right: 10px;
@@ -65,14 +65,8 @@
 </head>
 
 <body>
-    <!-- Add a styled back button to redirect to the previous page -->
-    <a href="javascript:history.back()" class="back-button">Go Back</a>
-
-    <!-- Embed the PDF content in an iframe or any suitable element -->
     <iframe srcdoc="{{ $pdf }}" id="pdfFrame" frameborder="0"></iframe>
-
     <button onclick="printIframe()" class="print-button">Print PDF</button>
-
     <script>
         function printIframe() {
             var iframe = document.getElementById('pdfFrame');
