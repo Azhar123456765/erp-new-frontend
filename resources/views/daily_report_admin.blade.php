@@ -36,7 +36,7 @@
                             <td class="text-right">{{ $row->feed_consumed }}</td>
                             <td class="text-right">{{ $row->water_consumed }}</td>
                             <td class="text-right">{{ $row->extra_expense_amount }}</td>
-                            <td class="text-center">{{ (new DateTime($row->created_at))->format('d-m-Y') }}</td>
+                            <td class="text-center">{{ $row->date }}</td>
                             <td>
                                 <div class="table-data-feature">
                                     <a href="#" data-toggle="modal" data-target="#edit_modal{{ $row->id }}"

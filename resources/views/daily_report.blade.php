@@ -4,8 +4,10 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">My Report table</h3>
-            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
-                <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report</a>
+            @if (!$hasSubmittedToday)
+                <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
+                    <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report</a>
+            @endif
         </div>
 
         <div class="card-body">
@@ -13,6 +15,7 @@
                 <thead>
                     <tr>
                         <th>S.NO</th>
+                        <th>User Name</th>
                         <th>Hen Deaths</th>
                         <th>Feed consumed</th>
                         <th>Water consumed</th>
@@ -33,13 +36,18 @@
                             <td class="text-right">{{ $row->feed_consumed }}</td>
                             <td class="text-right">{{ $row->water_consumed }}</td>
                             <td class="text-right">{{ $row->extra_expense_amount }}</td>
-                            <td class="text-center">{{ (new DateTime($row->created_at))->format('d-m-Y') }}</td>
+                            <td class="text-center">{{ $row->date }}</td>
                             <td>
                                 <div class="table-data-feature">
-                                    <a href="#" data-toggle="modal" data-target="#edit_modal{{ $row->id }}"
-                                        class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                        <i class="fa fa-edit"></i>
-                                    </a>
+                                    @if ($row->date == $today)
+                                        <a href="#" data-toggle="modal"
+                                            data-target="#edit_modal{{ $row->id }}" class="item"
+                                            data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <i class="fa fa-edit"></i>
+                                        </a>
+                                        @else
+                                        <span class="badge badge-warning">NOT EDITABLE</span>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -154,6 +162,7 @@
                                             value="{{ $row->extra_expense_amount }}">
                                     </div>
                                     <input type="hidden" name="user_id" value="{{ $row->user_id }}">
+                                    <input type="hidden" name="date" value="{{ $row->date }}">
                                 </div>
                             </div>
 
