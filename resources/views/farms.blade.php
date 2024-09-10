@@ -109,6 +109,7 @@
                     <div class="modal-body">
                         <form method="POST" action="{{ route('farm.update', $row->id) }}">
                             @csrf
+                            @method('PUT')
                             <div class="form-group">
                                 <label for="username">farm Name</label>
                                 <input type="text" class="form-control" id="name" name="name"
