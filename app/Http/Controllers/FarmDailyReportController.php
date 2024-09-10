@@ -45,34 +45,39 @@ class FarmDailyReportController extends Controller
         } elseif ($role == 'farm_user') {
             $user_id = session()->get('user_id')['user_id'];
             $today = Carbon::now()->format('d-m-Y');
-
-            $user = users::where('user_id', $user_id)->where('role', 'farm_user')->first();
-            $creationDate = Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d-m-Y');
-
-            $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
-                ->orderBy('date', 'asc')
-                ->get();
-
             $farm = Farm::where('user_id', $user_id)->first();
+            if (count($farm) > 0) {
 
-            $earliestDate = Carbon::createFromFormat('d-m-Y', $creationDate)->addDay()->format('d-m-Y');
+                $user = users::where('user_id', $user_id)->where('role', 'farm_user')->first();
+                $creationDate = Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d-m-Y');
 
-            $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
-            $submittedDates = $farm_daily_reports->pluck('date');
-            $missingDates = collect();
+                $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
+                    ->orderBy('date', 'asc')
+                    ->get();
 
-            $currentDate = Carbon::createFromFormat('d-m-Y', $earliestDate);
-            while ($currentDate->format('d-m-Y') <= $today) {
-                $dateStr = $currentDate->format('d-m-Y');
-                if (!$submittedDates->contains($dateStr)) {
-                    $missingDates->push($dateStr);
+
+                $earliestDate = Carbon::createFromFormat('d-m-Y', $creationDate)->addDay()->format('d-m-Y');
+
+                $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
+                $submittedDates = $farm_daily_reports->pluck('date');
+                $missingDates = collect();
+
+                $currentDate = Carbon::createFromFormat('d-m-Y', $earliestDate);
+                while ($currentDate->format('d-m-Y') <= $today) {
+                    $dateStr = $currentDate->format('d-m-Y');
+                    if (!$submittedDates->contains($dateStr)) {
+                        $missingDates->push($dateStr);
+                    }
+                    $currentDate->addDay();
                 }
-                $currentDate->addDay();
+
+                $nextSubmissionDate = $missingDates->first();
+
+                return view('daily_report', compact('user', 'farm_daily_reports', 'hasSubmittedToday', 'nextSubmissionDate', 'missingDates', 'role', 'today', 'farm'));
+            } else {
+                return redirect()->back()->with('something_error', 'Something Went Wrong Please Try Again');
             }
 
-            $nextSubmissionDate = $missingDates->first();
-
-            return view('daily_report', compact('user', 'farm_daily_reports', 'hasSubmittedToday', 'nextSubmissionDate', 'missingDates', 'role', 'today', 'farm'));
         }
     }
 
