@@ -46,7 +46,7 @@ class FarmDailyReportController extends Controller
             $user_id = session()->get('user_id')['user_id'];
             $today = Carbon::now()->format('d-m-Y');
             $farm = Farm::where('user_id', $user_id)->first();
-            if (count($farm) > 0) {
+            if ($farm) {
 
                 $user = users::where('user_id', $user_id)->where('role', 'farm_user')->first();
                 $creationDate = Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d-m-Y');
