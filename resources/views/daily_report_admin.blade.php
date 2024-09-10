@@ -30,7 +30,7 @@
                     @forelse ($farm_daily_reports as $row)
                         <tr class="tr-shadow">
                             <td>{{ $serial }}</td>
-                            <td class="text-center">{{ $row->farms->name }}</td>
+                            <td class="text-center">{{ $row->farms->name ?? null }}</td>
                             <td class="text-center">{{ $row->date }}</td>
                             <td>{{ $row->user->username }}</td>
                             <td class="text-right">{{ $row->hen_deaths }}</td>

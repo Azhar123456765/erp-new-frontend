@@ -80,7 +80,24 @@
 
         /* CUSTOME */
         th {
-            background: #6a6a6a !important;
+            background: #ececec !important;
+            border: 1px solid #7f7b7b !important;
+        }
+
+        td {
+            border: 1px solid #7f7b7b !important;
+        }
+
+        .itemscard {
+            border: 1px solid #7f7b7b !important;
+        }
+
+        .customercard {
+            border: 1px solid #7f7b7b !important;
+        }
+
+        .cards {
+            border: 1px solid #7f7b7b !important;
         }
 
         .full-width tr th {

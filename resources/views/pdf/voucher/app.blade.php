@@ -100,6 +100,27 @@
             font-size: 0.8em;
 
         }
+
+        th {
+            background: #ececec !important;
+            border: 1px solid #7f7b7b !important;
+        }
+
+        td {
+            border: 1px solid #7f7b7b !important;
+        }
+
+        .itemscard {
+            border: 1px solid #7f7b7b !important;
+        }
+
+        .customercard {
+            border: 1px solid #7f7b7b !important;
+        }
+
+        .cards {
+            border: 1px solid #7f7b7b !important;
+        }
     </style>
 </head>
 

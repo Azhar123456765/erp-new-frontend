@@ -11,7 +11,7 @@
         </div>
 
         <div class="card-body">
-            <table id="table" class="table table-bordered table-striped">
+            <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
                         <th>S.No</th>

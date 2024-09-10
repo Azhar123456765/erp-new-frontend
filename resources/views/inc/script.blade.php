@@ -1,3 +1,5 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
 <script src="{{ asset('../../plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <script src="{{ asset('../../plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -37,15 +39,6 @@
             .buttons()
             .container()
             .appendTo("#example1_wrapper .col-md-6:eq(0)");
-        $("#example2").DataTable({
-            paging: true,
-            lengthChange: false,
-            searching: false,
-            ordering: true,
-            info: true,
-            autoWidth: false,
-            responsive: true,
-        });
     });
 </script>
 
@@ -651,6 +644,7 @@
             }
         });
     });
+
     function deleteRecord(el) {
         event.preventDefault();
 
@@ -660,7 +654,7 @@
         var form = document.createElement('form');
         form.action = url;
         form.method = 'POST';
-        
+
         // Add CSRF token input
         var csrfInput = document.createElement('input');
         csrfInput.type = 'hidden';
