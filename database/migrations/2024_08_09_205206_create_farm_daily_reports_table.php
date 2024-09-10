@@ -15,6 +15,7 @@ class CreateFarmDailyReportsTable extends Migration
     {
         Schema::create('farm_daily_reports', function (Blueprint $table) {
             $table->id();
+            $table->unsignedBigInteger('farm');
             $table->bigInteger('hen_deaths');
             $table->bigInteger('feed_consumed');
             $table->bigInteger('water_consumed');
@@ -22,7 +23,10 @@ class CreateFarmDailyReportsTable extends Migration
             $table->bigInteger('extra_expense_amount')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->string('date');
+
             $table->foreign('user_id')->references('user_id')->on('users')->cascadeOnDelete();
+            $table->foreign('farm')->references('id')->on('farms')->cascadeOnDelete();
+
             $table->timestamps();
         });
     }

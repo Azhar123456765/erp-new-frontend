@@ -9,18 +9,17 @@
         </div>
 
         <div class="card-body">
-            <table id="table" class="table table-bordered table-striped">
+            <table id="example1" class="table table-bordered table-striped">
                 <thead>
                     <tr>
-
-                        <th>S.NO</th>
+                        <th>Day</th>
+                        <th>Farm</th>
+                        <th>Date</th>
                         <th>User Name</th>
                         <th>Hen Deaths</th>
                         <th>Feed consumed</th>
                         <th>Water consumed</th>
                         <th>Extra expense</th>
-                        <th>Date</th>
-
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -31,12 +30,14 @@
                     @forelse ($farm_daily_reports as $row)
                         <tr class="tr-shadow">
                             <td>{{ $serial }}</td>
+                            <td class="text-center">{{ $row->farms->name }}</td>
+                            <td class="text-center">{{ $row->date }}</td>
                             <td>{{ $row->user->username }}</td>
                             <td class="text-right">{{ $row->hen_deaths }}</td>
                             <td class="text-right">{{ $row->feed_consumed }}</td>
                             <td class="text-right">{{ $row->water_consumed }}</td>
-                            <td class="text-right">{{ $row->extra_expense_amount }}</td>
-                            <td class="text-center">{{ $row->date }}</td>
+                            <td class="text-right">
+                                {{ $row->extra_expense_narration }}, {{ $row->extra_expense_amount }}Rs</td>
                             <td>
                                 <div class="table-data-feature">
                                     <a href="#" data-toggle="modal" data-target="#edit_modal{{ $row->id }}"
@@ -69,7 +70,17 @@
                 <div class="modal-body">
                     <form method="POST" action="{{ Route('store_daily_report') }}">
                         @csrf
+
                         @method('post')
+                </div>
+                <div class="form-group">
+                    <label for="farm">Select Farm</label>
+                    <select class="form-select form-control form-select-lg" name="farm" id="farm">
+                        <option selected disabled>Select Farm</option>
+                        @foreach ($farms as $farmRow)
+                            <option value="{{ $farmRow->id }}">{{ $farmRow->name }}</option>
+                        @endforeach
+                    </select>
 
                 </div>
                 <div class="form-group">
@@ -124,7 +135,19 @@
                     <div class="modal-body">
                         <form method="POST" action="{{ Route('update_daily_report', $row->id) }}">
                             @csrf
+
                             @method('put')
+                            <div class="form-group">
+                                <label for="farm">Select Farm</label>
+                                <select class="form-select form-control form-select-lg" name="farm"
+                                    id="farm">
+                                    @foreach ($farms as $farmRow)
+                                        <option value="{{ $farmRow->id }}"
+                                            {{ $row->farm == $farmRow->id ? 'selected' : '' }}>{{ $farmRow->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
                             <div class="form-group">
                                 <label for="username">hen deaths</label>
                                 <input type="number" step="any" class="form-control" id="hen_deaths"
@@ -170,6 +193,27 @@
         </div><!-- /.modal-dialog -->
     </div>
 @endforeach
+<script>
+    // $(document).ready(function() {
+    //     $('form').validin();
+    //     $("#example1")
+    //         .DataTable({
+    //             responsive: true,
+    //             lengthChange: false,
+    //             autoWidth: false,
+    //             buttons: ["copy", "csv", "excel", "pdf", "print", "colvis"],
+    //         })
 
+    //     $("#example2").DataTable({
+    //         paging: true,
+    //         lengthChange: false,
+    //         searching: false,
+    //         ordering: true,
+    //         info: true,
+    //         autoWidth: false,
+    //         responsive: true,
+    //     });
+    // });
+</script>
 
 @endsection

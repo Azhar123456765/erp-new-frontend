@@ -82,24 +82,24 @@ class maincontroller extends Controller
 
     function edit_account(Request $request, $id)
     {
-if($request['move_account']){
-        $query = accounts::where('id', $id)->update([
+        if ($request['move_account']) {
+            $query = accounts::where('id', $id)->update([
 
-            'account_name' => $request['account_name'],
-            'account_qty' => $request['account_qty'],
-            'account_debit' => $request['account_debit'],
-            'account_credit' => $request['account_credit'],
-            'account_category' => $request['move_account'],
-        ]);
-    }else{
-        $query = accounts::where('id', $id)->update([
+                'account_name' => $request['account_name'],
+                'account_qty' => $request['account_qty'],
+                'account_debit' => $request['account_debit'],
+                'account_credit' => $request['account_credit'],
+                'account_category' => $request['move_account'],
+            ]);
+        } else {
+            $query = accounts::where('id', $id)->update([
 
-            'account_name' => $request['account_name'],
-            'account_qty' => $request['account_qty'],
-            'account_debit' => $request['account_debit'],
-            'account_credit' => $request['account_credit'],
-        ]);
-    }
+                'account_name' => $request['account_name'],
+                'account_qty' => $request['account_qty'],
+                'account_debit' => $request['account_debit'],
+                'account_credit' => $request['account_credit'],
+            ]);
+        }
         session()->flash('message', 'account has been updated successfully');
 
 
@@ -599,153 +599,157 @@ if($request['move_account']){
     {
 
         if (session()->has("user_id")) {
+            if (session()->get("user_id")['role'] != 'farm_user') {
 
-            $end_date = date('Y-m-d');
-            $start_date = date('Y-m-d', strtotime("-1 year", strtotime($end_date)));
-            $currentYear = Carbon::now()->year;
-            $today = Carbon::now()->format('Y-m-d');
+                $end_date = date('Y-m-d');
+                $start_date = date('Y-m-d', strtotime("-1 year", strtotime($end_date)));
+                $currentYear = Carbon::now()->year;
+                $today = Carbon::now()->format('Y-m-d');
 
-            $topProducts = products::select(
-                'products.product_id',
-                'products.product_name',
-                DB::raw('SUM(sell_invoice.sale_qty) as total_quantity')
-            )
-                ->join('sell_invoice', 'products.product_id', '=', 'sell_invoice.item')
-                ->whereYear('sell_invoice.updated_at', $currentYear)
-                ->groupBy(
+                $topProducts = products::select(
                     'products.product_id',
                     'products.product_name',
+                    DB::raw('SUM(sell_invoice.sale_qty) as total_quantity')
                 )
-                ->orderByDesc('total_quantity')
-                ->take(3)
-                ->get();
+                    ->join('sell_invoice', 'products.product_id', '=', 'sell_invoice.item')
+                    ->whereYear('sell_invoice.updated_at', $currentYear)
+                    ->groupBy(
+                        'products.product_id',
+                        'products.product_name',
+                    )
+                    ->orderByDesc('total_quantity')
+                    ->take(3)
+                    ->get();
 
-            $pur_invoice_qty = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$start_date, $end_date])->whereIn('purchase_invoice.id', function ($subQuery) {
-                $subQuery->select(DB::raw('MIN(id)'))
-                    ->from('purchase_invoice')
-                    ->groupBy('unique_id');
-            })->sum("qty_total");
+                $pur_invoice_qty = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$start_date, $end_date])->whereIn('purchase_invoice.id', function ($subQuery) {
+                    $subQuery->select(DB::raw('MIN(id)'))
+                        ->from('purchase_invoice')
+                        ->groupBy('unique_id');
+                })->sum("qty_total");
 
-            $sell_invoice_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
-                $subQuery->select(DB::raw('MIN(id)'))
-                    ->from('sell_invoice')
-                    ->groupBy('unique_id');
-            })->sum("qty_total");
+                $sell_invoice_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
+                    $subQuery->select(DB::raw('MIN(id)'))
+                        ->from('sell_invoice')
+                        ->groupBy('unique_id');
+                })->sum("qty_total");
 
-            $earning_chartData = Income::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
-                return Carbon::parse($data->updated_at)->format('M');
-            });
+                $earning_chartData = Income::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
+                    return Carbon::parse($data->updated_at)->format('M');
+                });
 
-            $earning_chart = [];
-            foreach ($earning_chartData as $month => $value) {
-                $earning_chart[] = $value->sum('amount');
+                $earning_chart = [];
+                foreach ($earning_chartData as $month => $value) {
+                    $earning_chart[] = $value->sum('amount');
+                }
+
+                $expense_chartData = Expense::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
+                    return Carbon::parse($data->updated_at)->format('M');
+                });
+
+                $months = [];
+                $expense_chart = [];
+                foreach ($expense_chartData as $month => $value) {
+                    $months[] = $month;
+                    $expense_chart[] = $value->sum('amount');
+                }
+                // $earning_y = Income::select(
+                //     DB::raw('MONTH(updated_at) as month'),
+                //     DB::raw('SUM(amount) as total_earning')
+                // )
+                //     ->whereYear('updated_at', 2023)
+                //     ->groupBy(DB::raw('MONTH(updated_at)'))
+                //     ->orderBy(DB::raw('MONTH(updated_at)'))
+                //     ->get();
+
+                // $chartData = [];
+                // foreach ($earning_y as $item) {
+                //     $chartData[] = [
+
+                //         $chartData[$item->month] = $item->total_earning
+                //     ];
+                // }
+
+                // dd($chartData);
+                // $expense_y = Expense::select(
+                //     DB::raw('MONTH(updated_at) as month'),
+                //     DB::raw('SUM(amount) as total_earning')
+                // )
+                //     ->whereYear('updated_at', 2023)
+                //     ->groupBy(DB::raw('MONTH(updated_at)'))
+                //     ->orderBy(DB::raw('MONTH(updated_at)'))
+                //     ->get();
+
+                // $chartData2 = [];
+                // foreach ($expense_y as $item) {
+                //     $chartData2[] = [
+
+                //         $chartData2[$item->month] = $item->total_earning
+                //     ];
+                // }
+                // $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
+                //     ->select(
+                //         DB::raw('MONTH(updated_at) as month'),
+                //         DB::raw('SUM(amount_total) as total_earning')
+                //     )
+                //     ->whereYear('updated_at', 2023)
+                //     ->groupBy(DB::raw('MONTH(updated_at)'))
+                //     ->orderBy(DB::raw('MONTH(updated_at)'));
+
+                // $expense_y2 = p_voucher::whereRaw('payment_voucher.id IN (SELECT MIN(id) FROM payment_voucher GROUP BY unique_id)')
+                //     ->select(
+                //         DB::raw('MONTH(updated_at) as month'),
+                //         DB::raw('SUM(amount_total) as total_earning')
+                //     )
+                //     ->whereYear('updated_at', 2023)
+                //     ->groupBy(DB::raw('MONTH(updated_at)'))
+                //     ->orderBy(DB::raw('MONTH(updated_at)'));
+
+                // $combinedResults = $expense_y1->union($expense_y2)->get();
+
+
+
+                // $chartData2 = [];
+                // foreach ($expense_y2 as $item) {
+                //     $chartData2[] = [
+                //         $chartData2[$item->month] = $item->total_earning
+                //     ];
+                // }
+
+                // foreach ($combinedResults as $item) {
+                //     $chartData2[] = [
+
+                //         $chartData2[$item->month] = $item->total_earning
+                //     ];
+                // }
+
+                // $re = ReceiptVoucher::whereDate('updated_at', $today)
+                // ->whereIn('receipt_vouchers.id', function ($subQuery) {
+                //     $subQuery->select(DB::raw('MIN(id)'))
+                //         ->from('receipt_vouchers')
+                //         ->groupBy('unique_id');
+                // })
+                // ->sum('amount_total');
+
+
+                $si = Income::whereBetween(DB::raw('DATE(incomes.updated_at)'), [$start_date, $end_date])->sum('amount');
+                $earning = $si;
+
+                $expense = Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
+
+
+                $onlineUsersCount = Cache::get('user_last_seen', []);
+
+                // Count the number of "true" values in the array
+                $onlineUsersCount = count(array_filter($onlineUsersCount, function ($value) {
+                    return $value === true;
+                }));
+
+                // Now $onlineUsersCount contains the count of online users
+                $data = compact('sell_invoice_qty', 'pur_invoice_qty', 'topProducts', 'earning', 'expense', 'onlineUsersCount', 'earning_chart', 'months', 'earning_chart', 'expense_chart');
+                return view('dashboard')->with($data);
+            } else {
+                return redirect()->route('daily_reports');
             }
-
-            $expense_chartData = Expense::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
-                return Carbon::parse($data->updated_at)->format('M');
-            });
-
-            $months = [];
-            $expense_chart = [];
-            foreach ($expense_chartData as $month => $value) {
-                $months[] = $month;
-                $expense_chart[] = $value->sum('amount');
-            }
-            // $earning_y = Income::select(
-            //     DB::raw('MONTH(updated_at) as month'),
-            //     DB::raw('SUM(amount) as total_earning')
-            // )
-            //     ->whereYear('updated_at', 2023)
-            //     ->groupBy(DB::raw('MONTH(updated_at)'))
-            //     ->orderBy(DB::raw('MONTH(updated_at)'))
-            //     ->get();
-
-            // $chartData = [];
-            // foreach ($earning_y as $item) {
-            //     $chartData[] = [
-
-            //         $chartData[$item->month] = $item->total_earning
-            //     ];
-            // }
-
-            // dd($chartData);
-            // $expense_y = Expense::select(
-            //     DB::raw('MONTH(updated_at) as month'),
-            //     DB::raw('SUM(amount) as total_earning')
-            // )
-            //     ->whereYear('updated_at', 2023)
-            //     ->groupBy(DB::raw('MONTH(updated_at)'))
-            //     ->orderBy(DB::raw('MONTH(updated_at)'))
-            //     ->get();
-
-            // $chartData2 = [];
-            // foreach ($expense_y as $item) {
-            //     $chartData2[] = [
-
-            //         $chartData2[$item->month] = $item->total_earning
-            //     ];
-            // }
-            // $expense_y1 = purchase_invoice::whereRaw('purchase_invoice.id IN (SELECT MIN(id) FROM purchase_invoice GROUP BY unique_id)')
-            //     ->select(
-            //         DB::raw('MONTH(updated_at) as month'),
-            //         DB::raw('SUM(amount_total) as total_earning')
-            //     )
-            //     ->whereYear('updated_at', 2023)
-            //     ->groupBy(DB::raw('MONTH(updated_at)'))
-            //     ->orderBy(DB::raw('MONTH(updated_at)'));
-
-            // $expense_y2 = p_voucher::whereRaw('payment_voucher.id IN (SELECT MIN(id) FROM payment_voucher GROUP BY unique_id)')
-            //     ->select(
-            //         DB::raw('MONTH(updated_at) as month'),
-            //         DB::raw('SUM(amount_total) as total_earning')
-            //     )
-            //     ->whereYear('updated_at', 2023)
-            //     ->groupBy(DB::raw('MONTH(updated_at)'))
-            //     ->orderBy(DB::raw('MONTH(updated_at)'));
-
-            // $combinedResults = $expense_y1->union($expense_y2)->get();
-
-
-
-            // $chartData2 = [];
-            // foreach ($expense_y2 as $item) {
-            //     $chartData2[] = [
-            //         $chartData2[$item->month] = $item->total_earning
-            //     ];
-            // }
-
-            // foreach ($combinedResults as $item) {
-            //     $chartData2[] = [
-
-            //         $chartData2[$item->month] = $item->total_earning
-            //     ];
-            // }
-
-            // $re = ReceiptVoucher::whereDate('updated_at', $today)
-            // ->whereIn('receipt_vouchers.id', function ($subQuery) {
-            //     $subQuery->select(DB::raw('MIN(id)'))
-            //         ->from('receipt_vouchers')
-            //         ->groupBy('unique_id');
-            // })
-            // ->sum('amount_total');
-
-
-            $si = Income::whereBetween(DB::raw('DATE(incomes.updated_at)'), [$start_date, $end_date])->sum('amount');
-            $earning = $si;
-
-            $expense = Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
-
-
-            $onlineUsersCount = Cache::get('user_last_seen', []);
-
-            // Count the number of "true" values in the array
-            $onlineUsersCount = count(array_filter($onlineUsersCount, function ($value) {
-                return $value === true;
-            }));
-
-            // Now $onlineUsersCount contains the count of online users
-            $data = compact('sell_invoice_qty', 'pur_invoice_qty', 'topProducts', 'earning', 'expense', 'onlineUsersCount', 'earning_chart', 'months', 'earning_chart', 'expense_chart');
-            return view('dashboard')->with($data);
         } else {
             return view('login');
         }

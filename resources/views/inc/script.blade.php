@@ -1,6 +1,3 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
-
-
 <script src="{{ asset('../../plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
 
 <script src="{{ asset('../../plugins/datatables/jquery.dataTables.min.js') }}"></script>
@@ -29,8 +26,7 @@
 
 
 <script>
-    $(function() {
-        $('form').validin();
+    $(document).ready(function() {
         $("#example1")
             .DataTable({
                 responsive: true,
@@ -642,6 +638,7 @@
 
 
 @stack('s_script')
+
 <script>
     $('.clear-btn').on('click', function() {
         $('.select2-hidden-accessible').val(null).trigger('change');
@@ -654,4 +651,33 @@
             }
         });
     });
+    function deleteRecord(el) {
+        event.preventDefault();
+
+        var url = el.getAttribute('data-url');
+
+        // Create a form dynamically
+        var form = document.createElement('form');
+        form.action = url;
+        form.method = 'POST';
+        
+        // Add CSRF token input
+        var csrfInput = document.createElement('input');
+        csrfInput.type = 'hidden';
+        csrfInput.name = '_token';
+        csrfInput.value = '{{ csrf_token() }}'; // Add CSRF token
+
+        // Add DELETE method input
+        var methodInput = document.createElement('input');
+        methodInput.type = 'hidden';
+        methodInput.name = '_method';
+        methodInput.value = 'DELETE'; // Spoof DELETE method
+
+        form.appendChild(csrfInput);
+        form.appendChild(methodInput);
+
+        // Append the form to the body and submit it
+        document.body.appendChild(form);
+        form.submit();
+    }
 </script>

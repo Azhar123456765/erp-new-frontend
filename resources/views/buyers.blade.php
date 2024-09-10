@@ -130,6 +130,9 @@
     $(document).ready(function () {
         $('#table').DataTable({
             ajax: '/data-buyers',
+            responsive: true,
+            lengthChange: false,
+            autoWidth: false,
             columns: [
                 {
                     data: null,

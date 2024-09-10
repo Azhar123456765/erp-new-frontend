@@ -4,6 +4,7 @@ use App\Http\Controllers\ChickenInvoiceController;
 use App\Http\Controllers\ChickInvoiceController;
 use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseVoucherController;
+use App\Http\Controllers\FarmController;
 use App\Http\Controllers\FarmDailyReportController;
 use App\Http\Controllers\FeedInvoiceController;
 use App\Http\Controllers\IncomeController;
@@ -254,7 +255,7 @@ Route::middleware('userAuth')->group(function () {
 
         // Route::get('/get_week_data', [maincontroller::class, 'get_week_data']);
 
-        Route::prefix('farm')->group(function () {
+        Route::prefix('farm-module')->group(function () {
             Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create_first'])->name("invoice_chicken");
             Route::get('/invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("new_invoice_chicken");
             Route::post('/add-invoice-chicken', [ChickenInvoiceController::class, 'store'])->name("store_invoice_chicken");
@@ -287,8 +288,12 @@ Route::middleware('userAuth')->group(function () {
             });
 
         });
+        Route::resource('farm', FarmController::class)->except([
+            'create',
+            'edit'
+        ]);
     });
-    Route::prefix('farm')->group(function () {
+    Route::prefix('farm-module')->group(function () {
         Route::get('/daily-reports', [FarmDailyReportController::class, 'index'])->name("daily_reports");
         Route::post('/daily-reports', [FarmDailyReportController::class, 'store'])->name("store_daily_report");
         Route::put('/daily-report/{id}', [FarmDailyReportController::class, 'update'])->name("update_daily_report");
