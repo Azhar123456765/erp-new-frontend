@@ -16,7 +16,8 @@
                         <th>Farm</th>
                         <th>Date</th>
                         <th>User Name</th>
-                        <th>Hen Deaths</th>
+                        <th>chicken deaths / چکن کی موت
+                            / مرغي جو موت</th>
                         <th>Feed consumed</th>
                         <th>Water consumed</th>
                         <th>Extra expense</th>
@@ -84,30 +85,33 @@
 
                 </div>
                 <div class="form-group">
-                    <label for="username">hen deaths</label>
+                    <label for="username">chicken deaths / چکن کی موت
+                        / مرغي جو موت</label>
                     <input type="number" step="any" class="form-control" id="hen_deaths" name="hen_deaths"
                         placeholder="" required>
                 </div>
                 <div class="form-group">
-                    <label for="username">Feed consumed (Kg)</label>
+                    <label for="username">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ (بيگ)</label>
                     <input type="number" step="any" class="form-control" id="feed_consumed" name="feed_consumed"
                         placeholder="" required>
                 </div>
                 <div class="form-group">
-                    <label for="username">Water consumed (liters)</label>
+                    <label for="username">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال ٿيل پاڻي
+                        (ليٽر)</label>
                     <input type="number" step="any" class="form-control" id="water_consumed" name="water_consumed"
                         placeholder="" required>
                 </div>
                 <div class="form-group">
-                    <h4 class="text-center">Extra expense(optional)</h4>
+                    <h4 class="text-center">Extra expense (optional) / اضافی اخراجات (اختیاری) / اضافي خرچ (اختياري)
+                    </h4>
                     <div class="row justify-content-between my-4">
                         <div class="col-6">
-                            <label for="username fs-5">Narration</label>
+                            <label for="username fs-5">Narration / بیانیہ / داستان</label>
                             <input type="text" step="any" class="form-control" id="extra_expense_narration"
                                 name="extra_expense_narration" placeholder="">
                         </div>
                         <div class="col-6">
-                            <label for="username">Amount</label>
+                            <label for="username">Amount / رقم</label>
                             <input type="number" step="any" class="form-control" id="extra_expense_amount"
                                 name="extra_expense_amount" placeholder="">
                         </div>
@@ -149,32 +153,36 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label for="username">hen deaths</label>
+                                <label for="username">chicken deaths / چکن کی موت
+                                    / مرغي جو موت</label>
                                 <input type="number" step="any" class="form-control" id="hen_deaths"
                                     name="hen_deaths" placeholder="" required value="{{ $row->hen_deaths }}">
                             </div>
                             <div class="form-group">
-                                <label for="username">Feed consumed (Kg)</label>
+                                <label for="username">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ
+                                    (بيگ)</label>
                                 <input type="number" step="any" class="form-control" id="feed_consumed"
                                     name="feed_consumed" placeholder="" required value="{{ $row->feed_consumed }}">
                             </div>
                             <div class="form-group">
-                                <label for="username">Water consumed (liters)</label>
+                                <label for="username">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال ٿيل
+                                    پاڻي (ليٽر)</label>
                                 <input type="number" step="any" class="form-control" id="water_consumed"
                                     name="water_consumed" placeholder="" required
                                     value="{{ $row->water_consumed }}">
                             </div>
                             <div class="form-group">
-                                <h4 class="text-center">Extra expense(optional)</h4>
+                                <h4 class="text-center">Extra expense (optional) / اضافی اخراجات (اختیاری) / اضافي خرچ
+                                    (اختياري)</h4>
                                 <div class="row justify-content-between my-4">
                                     <div class="col-6">
-                                        <label for="username fs-5">Narration</label>
+                                        <label for="username fs-5">Narration / بیانیہ / داستان</label>
                                         <input type="text" step="any" class="form-control"
                                             id="extra_expense_narration" name="extra_expense_narration"
                                             value="{{ $row->extra_expense_narration }}">
                                     </div>
                                     <div class="col-6">
-                                        <label for="username">Amount</label>
+                                        <label for="username">Amount / رقم</label>
                                         <input type="number" step="any" class="form-control"
                                             id="extra_expense_amount" name="extra_expense_amount"
                                             value="{{ $row->extra_expense_amount }}">

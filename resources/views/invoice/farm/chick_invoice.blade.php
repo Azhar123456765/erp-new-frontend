@@ -38,7 +38,7 @@
     }
 
     * input,
-   #invoiceForm select {
+    #invoiceForm select {
         font-weight: 500;
     }
 
@@ -131,7 +131,7 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
+    #invoiceForm select {
         width: 131px !important;
         height: 27px !important;
     }
@@ -255,7 +255,7 @@
 </style>
 <h5 style="text-align: center;">Chick Invoice (FARM MODULE)</h5>
 
-<div class="container"  id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
     <h6 style="
 position: absolute;
@@ -294,7 +294,14 @@ right: 15%;
                 </div>
 
             </div>
+            <div class="fields">
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
+                    </select>
 
+                </div>
+            </div>
             <div class="fields">
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>

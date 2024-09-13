@@ -20,8 +20,12 @@ class chickenInvoice extends Model
     {
         return $this->hasOne(buyer::class, 'buyer_id', 'seller');
     }
-    function officer()
+       function officer()
     {
         return $this->hasOne(sales_officer::class, 'sales_officer_id', 'sales_officer');
+    }
+    function farm()
+    {
+        return $this->hasOne(Farm::class, 'id', 'name');
     }
 }

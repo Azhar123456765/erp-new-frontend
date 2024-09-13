@@ -286,6 +286,7 @@
                         onchange="companyInvoice()">
                     </select>
                 </div>
+                
                 <div class="one  remark">
                     <label for="">Sales Officer</label>
                     <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer">
@@ -304,6 +305,11 @@
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
+                </div>
+                <div class="one  remark">
+                    <label for="farm">Farm</label>
+                    <select name="farm" class="select-farm" style="justify-content: space-around">
+                    </select>
                 </div>
             </div>
         </div>

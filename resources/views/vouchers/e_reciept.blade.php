@@ -314,6 +314,14 @@
                         <input style="width: 219px !important;" type="text" id="remark" name="remark"
                             value="{{ $sinvoice_row->remark }}" />
                     </div>
+                        <div class="one  remark">
+                            <label for="sales_officer">Farm</label>
+                            <select name="farm" class="select-farm">
+                                <option value="{{ $sinvoice_row->farm->id ?? null }}" selected>
+                                    {{ $sinvoice_row->farm->name ?? null }}</option>
+                            </select>
+        
+                        </div>
                 </div>
             </div>
         @endforeach
@@ -521,7 +529,7 @@ text-align:end;
         </div>
     </div>
 @endforeach
-<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 100px !important;">
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 50px !important;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update

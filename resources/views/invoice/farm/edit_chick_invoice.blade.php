@@ -287,13 +287,22 @@ right: 15%;
                 <div class="one  remark">
                     <label for="seller">Supplier</label>
                     <select name="seller" class="company select-buyer" required>
-                        <option value="{{ $single_invoice->supplier->buyer_id }}" selected>
-                            {{ $single_invoice->supplier->company_name }}</option>
+                        <option value="{{ $single_invoice->supplier->buyer_id ??null }}" selected>
+                            {{ $single_invoice->supplier->company_name ??null  }}</option>
                     </select>
                 </div>
 
             </div>
+            <div class="fields">
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
+                        <option value="{{ $single_invoice->farm->id ?? null ??null}}" selected>
+                            {{ $single_invoice->farm->name ?? null ??null}}</option>
+                    </select>
 
+                </div>
+            </div>
             <div class="fields">
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>

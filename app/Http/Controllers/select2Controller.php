@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\accounts;
+use App\Models\Farm;
 use App\Models\product_category;
 use App\Models\product_company;
 use App\Models\sales_officer;
@@ -15,6 +16,15 @@ use Illuminate\Support\Facades\DB;
 
 class select2Controller extends Controller
 {
+    function farm(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = Farm::where('name', 'LIKE', "%{$search}%")
+            ->get(['id', 'name']);
+
+        return response()->json($results);
+    }
     function account(Request $request)
     {
         $search = $request->get('q');

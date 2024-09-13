@@ -306,6 +306,11 @@
                     <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text"
                         id="remark" name="remark" />
                 </div>
+                <div class="one  remark">
+                    <label for="farm">Farm</label>
+                    <select name="farm" class="select-farm" style="justify-content: space-around">
+                    </select>
+                </div>
             </div>
         </div>
 

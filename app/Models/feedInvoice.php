@@ -24,4 +24,8 @@ class feedInvoice extends Model
     {
         return $this->hasOne(sales_officer::class, 'sales_officer_id', 'sales_officer');
     }
+    function farm()
+    {
+        return $this->hasOne(Farm::class, 'id', 'name');
+    }
 }

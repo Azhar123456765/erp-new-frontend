@@ -50,9 +50,9 @@
         font-size: large;
     }
 
-    .top label {
+    /* .top label {
         margin: 5px;
-    }
+    } */
 
     .dup_invoice label {
         width: 55px;
@@ -302,7 +302,14 @@ right: 15%;
 
 
             </div>
+            <div class="fields">
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
+                    </select>
 
+                </div>
+            </div>
             <div class="fields">
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>

@@ -230,6 +230,7 @@ Route::middleware('userAuth')->group(function () {
 
         Route::middleware(['selectPermission'])->group(function () {
             // SELECT
+            Route::get('/select-farm', [select2Controller::class, 'farm'])->name('select2.farm');
             Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
             Route::get('/select-assets-account', [select2Controller::class, 'assets_account'])->name('select2.assets_account');
             Route::get('/select-liability-account', [select2Controller::class, 'liability_account'])->name('select2.liability_account');

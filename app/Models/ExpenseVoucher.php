@@ -21,6 +21,10 @@ class ExpenseVoucher extends Model
     {
         return $this->hasOne(sales_officer::class, 'sales_officer_id', "sales_officer");
     }
+    function farm()
+    {
+        return $this->hasOne(Farm::class, 'id', "name");
+    }
     function accounts()
     {
         return $this->hasOne(accounts::class, 'id', "cash_bank");

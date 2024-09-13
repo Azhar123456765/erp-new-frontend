@@ -21,6 +21,7 @@ class CreateExpenseVouchersTable extends Migration
             $table->unsignedBigInteger('buyer')->nullable();
             $table->unsignedBigInteger('seller')->nullable();
             $table->unsignedBigInteger('sales_officer')->nullable();
+            $table->unsignedBigInteger('farm')->nullable();
             $table->text('ref_no')->nullable();
             $table->text('remark')->nullable();
             $table->text('narration');
@@ -33,6 +34,8 @@ class CreateExpenseVouchersTable extends Migration
             $table->foreign('buyer')->references('buyer_id')->on('buyer')->restrictOnDelete();
             $table->foreign('seller')->references('seller_id')->on('seller')->restrictOnDelete();
             $table->foreign('sales_officer')->references('sales_officer_id')->on('sales_officer')->restrictOnDelete();
+            $table->foreign('farm')->references('id')->on('farms')->restrictOnDelete();
+
         });
     }
 

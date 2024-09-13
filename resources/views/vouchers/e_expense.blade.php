@@ -165,7 +165,7 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
+    #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -256,7 +256,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -20px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Expense Voucher (EDIT)</h3>
@@ -315,6 +315,14 @@
                         <label for="remark">Remarks</label>
                         <input style="width: 219px !important;" type="text" id="remark" name="remark"
                             value="{{ $sinvoice_row->remark }}" />
+                    </div>
+                    <div class="one  remark">
+                        <label for="sales_officer">Farm</label>
+                        <select name="farm" class="select-farm">
+                            <option value="{{ $sinvoice_row->farm->id ?? null }}" selected>
+                                {{ $sinvoice_row->farm->name ?? null }}</option>
+                        </select>
+
                     </div>
                 </div>
             </div>
@@ -519,7 +527,7 @@ text-align:end;
         </div>
     </div>
 @endforeach
-<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 100px !important;">
+<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 50px !important;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update

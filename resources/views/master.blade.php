@@ -45,6 +45,32 @@
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });
+        $('.select-farm').select2({
+            ajax: {
+                url: '{{ route('select2.farm') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 2,
+            theme: 'classic',
+            width: '100%',
+        });
         $('.select-account').select2({
             ajax: {
                 url: '{{ route('select2.account') }}',

@@ -20,6 +20,7 @@ class CreateChickInvoicesTable extends Migration
             $table->unsignedBigInteger('item');
             $table->date('date');
             $table->unsignedBigInteger('sales_officer')->nullable();
+            $table->unsignedBigInteger('farm')->nullable();
             $table->unsignedBigInteger('buyer');
             $table->unsignedBigInteger('seller');
             $table->text('remark')->nullable();
@@ -48,6 +49,8 @@ class CreateChickInvoicesTable extends Migration
             $table->foreign('sales_officer')->references('sales_officer_id')->on('sales_officer')->restrictOnDelete();
             $table->foreign('user_id')->references('user_id')->on('users')->restrictOnDelete();
             $table->foreign('item')->references('product_id')->on('products')->restrictOnDelete();
+            $table->foreign('farm')->references('id')->on('farms')->restrictOnDelete();
+
             $table->timestamps();
         });
     }
