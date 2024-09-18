@@ -467,7 +467,7 @@
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
-    <br>
+
 
 
     <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">

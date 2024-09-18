@@ -674,4 +674,16 @@
         document.body.appendChild(form);
         form.submit();
     }
+
+    $(document).on('keydown', function(e) {
+        if ((e.shiftKey) && (String.fromCharCode(e.which).toLowerCase() === 'f')) {
+            $("#iv-search").modal('show');
+            $("#iv-search #search-input").focus();
+        }
+    });
+    $('#search-btn').click(function() {
+        let searchTerm = $('#search-input').val();
+        let url = $(this).data('url');
+        window.location.href = url + '/' + searchTerm;
+    })
 </script>

@@ -6,6 +6,7 @@ use App\Http\Controllers\ExpenseController;
 use App\Http\Controllers\ExpenseVoucherController;
 use App\Http\Controllers\FarmController;
 use App\Http\Controllers\FarmDailyReportController;
+use App\Http\Controllers\FarmingPeriodController;
 use App\Http\Controllers\FeedInvoiceController;
 use App\Http\Controllers\IncomeController;
 use App\Http\Controllers\NarrationController;
@@ -226,6 +227,7 @@ Route::middleware('userAuth')->group(function () {
 
             // NEW
             Route::get('/sale-purchase-report', [pdfController::class, 'sale_pur_report'])->name('sale_pur.report');
+            Route::get('/farm-report', [pdfController::class, 'farm_report'])->name('farm.report');
         });
 
         Route::middleware(['selectPermission'])->group(function () {
@@ -258,18 +260,22 @@ Route::middleware('userAuth')->group(function () {
 
         Route::prefix('farm-module')->group(function () {
             Route::get('/add-invoice-chicken', [ChickenInvoiceController::class, 'create_first'])->name("invoice_chicken");
+            Route::get('/last-invoice-chicken', [ChickenInvoiceController::class, 'create_last'])->name("last_invoice_chicken");
+
             Route::get('/invoice-chicken', [ChickenInvoiceController::class, 'create'])->name("new_invoice_chicken");
             Route::post('/add-invoice-chicken', [ChickenInvoiceController::class, 'store'])->name("store_invoice_chicken");
             Route::get('/edit-invoice-chicken/{id?}', [ChickenInvoiceController::class, 'edit'])->name("edit_invoice_chicken");
             Route::post('/edit-invoice-chicken/{id?}', [ChickenInvoiceController::class, 'update'])->name("update_invoice_chicken");
 
             Route::get('/add-invoice-chick', [ChickInvoiceController::class, 'create_first'])->name("invoice_chick");
+            Route::get('/last-invoice-chick', [ChickInvoiceController::class, 'create_last'])->name("last_invoice_chick");
             Route::get('/invoice-chick', [ChickInvoiceController::class, 'create'])->name("new_invoice_chick");
             Route::post('/add-invoice-chick', [ChickInvoiceController::class, 'store'])->name("store_invoice_chick");
             Route::get('/edit-invoice-chick/{id?}', [ChickInvoiceController::class, 'edit'])->name("edit_invoice_chick");
             Route::post('/update-invoice-chick/{id?}', [ChickInvoiceController::class, 'update'])->name("update_invoice_chick");
 
             Route::get('/add-invoice-feed', [FeedInvoiceController::class, 'create_first'])->name("invoice_feed");
+            Route::get('/last-invoice-feed', [FeedInvoiceController::class, 'create_last'])->name("last_invoice_feed");
             Route::get('/invoice-feed', [FeedInvoiceController::class, 'create'])->name("new_invoice_feed");
             Route::post('/add-invoice-feed', [FeedInvoiceController::class, 'store'])->name("store_invoice_feed");
             Route::get('/edit-invoice-feed/{id?}', [FeedInvoiceController::class, 'edit'])->name("edit_invoice_feed");
@@ -290,6 +296,10 @@ Route::middleware('userAuth')->group(function () {
 
         });
         Route::resource('farm', FarmController::class)->except([
+            'create',
+            'edit'
+        ]);
+        Route::resource('farming_period', FarmingPeriodController::class)->except([
             'create',
             'edit'
         ]);

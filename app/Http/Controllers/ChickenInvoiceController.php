@@ -49,6 +49,23 @@ class ChickenInvoiceController extends Controller
             return redirect()->back();
         }
     }
+    public function create_last(Request $request)
+    {
+        $count = chickenInvoice::whereIn('chicken_invoices.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('chicken_invoices')
+                ->groupBy('unique_id');
+        })->count();
+
+        $invoice = chickenInvoice::where('unique_id', $count)->get();
+        $single_invoice = chickenInvoice::where('unique_id', $count)->first();
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_chicken_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
+    }
 
     /**
      * Store a newly created resource in storage.

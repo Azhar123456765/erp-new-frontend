@@ -17,4 +17,8 @@ class FarmDailyReport extends Model
     {
         return $this->hasOne(Farm::class, 'id', 'farm');
     }
+    public function farmingPeriod()
+    {
+        return $this->belongsTo(FarmingPeriod::class, 'farm', 'id');
+    }
 }

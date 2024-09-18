@@ -418,6 +418,12 @@ $target = null;
                             </ul>
                         </li> --}}
                             <li class="nav-item">
+                                <a href="" data-toggle="modal" data-target="#farm-report" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Farm Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>General Ledger</p>
@@ -536,6 +542,13 @@ $target = null;
                                     class="nav-link{{ request()->routeIs('farm') ? ' active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Farms</p>
+                                </a>
+                            </li>
+                            <li class="nav-item menu-open">
+                                <a href="{{ Route('farming_period.index') }}"
+                                    class="nav-link{{ request()->routeIs('farming_period') ? ' active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Farming Periods</p>
                                 </a>
                             </li>
                             <li class="nav-item">

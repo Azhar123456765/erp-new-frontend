@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Farm;
 use App\Models\FarmDailyReport;
+use App\Models\FarmingPeriod;
 use App\Models\users;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -19,7 +20,7 @@ class FarmDailyReportController extends Controller
     // {
     //     $user_id = session()->get('user_id')['user_id'];
     //     $role = session()->get('user_id')['role'];
-    //     $today = date('d-m-Y');
+    //     $today = date('Y-m-d');
 
     //     $hasSubmittedToday = FarmDailyReport::where('user_id', $user_id)
     //         ->where('date', $today)
@@ -37,49 +38,61 @@ class FarmDailyReportController extends Controller
     public function index()
     {
         $role = session()->get('user_id')['role'];
+        $today = Carbon::now()->format('Y-m-d'); // Use Carbon consistently
         if ($role == 'admin') {
-            $today = date('d-m-Y');
             $farms = Farm::all();
             $farm_daily_reports = FarmDailyReport::orderBy('date', 'asc')->get();
             return view('daily_report_admin', compact('farm_daily_reports', 'today', 'farms'));
         } elseif ($role == 'farm_user') {
             $user_id = session()->get('user_id')['user_id'];
-            $today = Carbon::now()->format('d-m-Y');
+            $farming_period = FarmingPeriod::where('assign_user_id', $user_id)->first();
             $farm = Farm::where('user_id', $user_id)->first();
-            if ($farm) {
 
-                $user = users::where('user_id', $user_id)->where('role', 'farm_user')->first();
-                $creationDate = Carbon::createFromFormat('Y-m-d H:i:s', $user->created_at)->format('d-m-Y');
+            if ($farming_period) { // Ensure $farming_period exists
+                $user = Users::where('user_id', $user_id)->where('role', 'farm_user')->first();
+                $startDate = Carbon::createFromFormat('Y-m-d', $farming_period->start_date);
+                $endDate = Carbon::createFromFormat('Y-m-d', $farming_period->end_date);
 
-                $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
-                    ->orderBy('date', 'asc')
-                    ->get();
+                if (Carbon::createFromFormat('Y-m-d', $today)->between($startDate, $endDate)) {
+                    $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
+                        ->orderBy('date', 'asc')
+                        ->get();
 
+                    $earliestDate = $startDate->copy()->addDay()->format('Y-m-d');
+                    $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
+                    $submittedDates = $farm_daily_reports->pluck('date');
+                    $missingDates = collect();
 
-                $earliestDate = Carbon::createFromFormat('d-m-Y', $creationDate)->addDay()->format('d-m-Y');
-
-                $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
-                $submittedDates = $farm_daily_reports->pluck('date');
-                $missingDates = collect();
-
-                $currentDate = Carbon::createFromFormat('d-m-Y', $earliestDate);
-                while ($currentDate->format('d-m-Y') <= $today) {
-                    $dateStr = $currentDate->format('d-m-Y');
-                    if (!$submittedDates->contains($dateStr)) {
-                        $missingDates->push($dateStr);
+                    $currentDate = Carbon::createFromFormat('Y-m-d', $earliestDate);
+                    while ($currentDate->format('Y-m-d') <= $today) {
+                        $dateStr = $currentDate->format('Y-m-d');
+                        if (!$submittedDates->contains($dateStr)) {
+                            $missingDates->push($dateStr);
+                        }
+                        $currentDate->addDay();
                     }
-                    $currentDate->addDay();
+
+                    $nextSubmissionDate = $missingDates->first();
+
+                    return view('daily_report', compact(
+                        'user',
+                        'farm_daily_reports',
+                        'hasSubmittedToday',
+                        'nextSubmissionDate',
+                        'missingDates',
+                        'role',
+                        'today',
+                        'farm' // Changed 'farm' to 'farms'
+                    ));
+                } else {
+                    return redirect()->back()->with('something_error', 'Something went wrong. Please try again.');
                 }
-
-                $nextSubmissionDate = $missingDates->first();
-
-                return view('daily_report', compact('user', 'farm_daily_reports', 'hasSubmittedToday', 'nextSubmissionDate', 'missingDates', 'role', 'today', 'farm'));
             } else {
-                return redirect()->back()->with('something_error', 'Something Went Wrong Please Try Again');
+                return redirect()->back()->with('something_error', 'No farming period found for this user.');
             }
-
         }
     }
+
 
 
     /**
@@ -102,7 +115,7 @@ class FarmDailyReportController extends Controller
     {
         $user_id = session()->get('user_id')['user_id'];
         $role = session()->get('user_id')['role'];
-        $today = date('d-m-Y');
+        $today = date('Y-m-d');
 
         if ($role == 'admin') {
             $report = new FarmDailyReport;
@@ -175,7 +188,7 @@ class FarmDailyReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $today = date('d-m-Y');
+        $today = date('Y-m-d');
         $role = session()->get('user_id')['role'];
         $user_id = session()->get('user_id')['user_id'];
 

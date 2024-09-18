@@ -47,6 +47,22 @@ class FeedInvoiceController extends Controller
             return redirect()->back();
         }
     }
+    public function create_last(Request $request)
+    {
+        $count = feedInvoice::whereIn('feed_invoices.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('feed_invoices')
+                ->groupBy('unique_id');
+        })->count();
+        $invoice = feedInvoice::where('unique_id', $count)->get();
+        $single_invoice = feedInvoice::where('unique_id', $count)->first();
+        if (count($invoice) > 0) {
+            return view('invoice.farm.edit_feed_invoice', compact('invoice', 'single_invoice'));
+        } else {
+            session()->flash('something_error', 'Invoice Not Found');
+            return redirect()->back();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

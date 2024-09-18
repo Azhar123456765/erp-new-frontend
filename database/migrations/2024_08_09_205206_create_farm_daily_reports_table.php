@@ -22,7 +22,7 @@ class CreateFarmDailyReportsTable extends Migration
             $table->text('extra_expense_narration')->nullable();
             $table->bigInteger('extra_expense_amount')->nullable();
             $table->unsignedBigInteger('user_id');
-            $table->string('date');
+            $table->date('date');
 
             $table->foreign('user_id')->references('user_id')->on('users')->restrictOnDelete();
             $table->foreign('farm')->references('id')->on('farms')->restrictOnDelete();

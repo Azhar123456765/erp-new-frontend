@@ -251,6 +251,86 @@
     }
 </style>
 
+<div class="modal fade" id="farm-report">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Farm Report</h4>
+                <div class="modal-body">
+                    <form method="GET" action="{{ Route('farm.report') }}">
+                        @csrf
+                        <div class="row" style="">
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Farm</label>
+                                    <select class="form-control select-farm" name="farm">
+                                    </select>
+                                </div>
+                            </div>
+                            {{-- <div class="col-12">
+                                <div class="form-group">
+                                    <label>Sales Officer</label>
+                                    <label for=""></label>
+                                    <select class="form-control select-sales_officer" name="sales_officer">
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Summary</option>
+                                        <option value="2">Detail</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div> --}}
+
+                            <div class="row"
+                                style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+                                <div class="col-12-6">
+                                    <div class="form-group">
+                                        <label for="">From:</label>
+
+                                        <input type="date" class="date" name="start_date"
+                                            value="{{ $startDate }}" id="" required>
+                                    </div>
+
+                                </div>
+
+                                <div class="col-12-6">
+                                    <div class="form-group">
+                                        <label for="">To:</label>
+                                        <input type="date" class="date" name="end_date"
+                                            value="{{ $endDate }}" id="" required>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                            <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+
 <div class="modal fade" id="gen-led">
     <div class="modal-dialog">
         <div class="modal-content gen-led">
@@ -728,8 +808,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
-                                        id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1402,31 +1482,6 @@ text-align: center;
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-
-
-<div class="modal fade" id="si-search">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Search Sale Invoice</h4>
-                <div class="modal-body">
-                    <form method="GET" action="/saleInvoice-search">
-                        @csrf
-                        <div class="form-group">
-                            <label for="">Invoice No</label>
-                            <input type="text" class="form-control" name="invoice_no" required>
-                        </div>
-
-                        <button type="submit" target class="btn btn-primary" id="btn">Search</button>
-
-                    </form>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>
-
 
 
 

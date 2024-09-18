@@ -22,7 +22,7 @@
                             <th>Day</th>
                             <th>Date</th>
                             <th>chicken deaths / چکن کی موت
-/ مرغي جو موت</th>
+                                / مرغي جو موت</th>
                             <th>Feed Consumed</th>
                             <th>Water Consumed</th>
                             <th>Extra Expense</th>
@@ -85,22 +85,25 @@
 
                                 <div class="form-group">
                                     <label for="hen_deaths">chicken deaths / چکن کی موت
-/ مرغي جو موت</label>
+                                        / مرغي جو موت</label>
                                     <input type="number" step="any" class="form-control" id="hen_deaths"
                                         name="hen_deaths" placeholder="" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="feed_consumed">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ (بيگ)</label>
+                                    <label for="feed_consumed">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ
+                                        (بيگ)</label>
                                     <input type="number" step="any" class="form-control" id="feed_consumed"
                                         name="feed_consumed" placeholder="" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="water_consumed">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال ٿيل پاڻي (ليٽر)</label>
+                                    <label for="water_consumed">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال
+                                        ٿيل پاڻي (ليٽر)</label>
                                     <input type="number" step="any" class="form-control" id="water_consumed"
                                         name="water_consumed" placeholder="" required>
                                 </div>
                                 <div class="form-group">
-                                    <h4 class="text-center">Extra expense (optional) / اضافی اخراجات (اختیاری) / اضافي خرچ (اختياري)</h4>
+                                    <h4 class="text-center">Extra expense (optional) / اضافی اخراجات (اختیاری) / اضافي خرچ
+                                        (اختياري)</h4>
                                     <div class="row justify-content-between my-4">
                                         <div class="col">
                                             <label for="extra_expense_narration">Narration / بیانیہ / داستان</label>
@@ -136,17 +139,19 @@
                                 @method('put')
                                 <div class="form-group">
                                     <label for="username">chicken deaths / چکن کی موت
-/ مرغي جو موت</label>
+                                        / مرغي جو موت</label>
                                     <input type="number" step="any" class="form-control" id="hen_deaths"
                                         name="hen_deaths" placeholder="" required value="{{ $row->hen_deaths }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="username">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ (بيگ)</label>
+                                    <label for="username">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ
+                                        (بيگ)</label>
                                     <input type="number" step="any" class="form-control" id="feed_consumed"
                                         name="feed_consumed" placeholder="" required value="{{ $row->feed_consumed }}">
                                 </div>
                                 <div class="form-group">
-                                    <label for="username">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال ٿيل پاڻي (ليٽر)</label>
+                                    <label for="username">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال ٿيل
+                                        پاڻي (ليٽر)</label>
                                     <input type="number" step="any" class="form-control" id="water_consumed"
                                         name="water_consumed" placeholder="" required
                                         value="{{ $row->water_consumed }}">

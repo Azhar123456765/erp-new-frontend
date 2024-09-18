@@ -650,7 +650,7 @@ right: 15%;
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
-    <a href="{{ Route('new_invoice_chicken') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('invoice_chicken') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         First
     </a>
     <a href="{{ Route('edit_invoice_chicken', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
@@ -659,8 +659,8 @@ right: 15%;
     <a href="{{ Route('edit_invoice_chicken', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
     </a>
-    <a disabled class="btn px-3 p-1 btn-secondary btn-sm">
-        last
+    <a href="{{ Route('last_invoice_chicken') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        Last
     </a>
     <a href="{{ Route('edit_invoice_chicken', $rand) }}"
         class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
@@ -1525,6 +1525,30 @@ right: 15%;
             }
         });
     </script>
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Invoice</h4>
+                    <div class="modal-body">
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Invoice No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
+                            </div>
+
+                            <button type="submit" data-url="{{ Route('edit_invoice_chicken') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

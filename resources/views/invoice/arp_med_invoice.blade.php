@@ -554,7 +554,7 @@ display: flex;
     <button type="submit" class="btn btn-secondary btn-sm  submit" style="">
         submit
     </button>
-    <br>
+
 
 <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn" style="" onclick="
         var str = $(`[name=\'unique_id\']`).val();

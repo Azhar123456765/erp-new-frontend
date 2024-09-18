@@ -118,8 +118,14 @@
             border: 1px solid #7f7b7b !important;
         }
 
-        .cards {
-            border: 1px solid #7f7b7b !important;
+        h2 {
+            text-transform: capitalize !important;
+        }
+        h3 {
+            text-transform: capitalize !important;
+        }
+        h4 {
+            text-transform: capitalize !important;
         }
     </style>
 </head>

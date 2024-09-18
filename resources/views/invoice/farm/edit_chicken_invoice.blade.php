@@ -127,7 +127,7 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
+    #invoiceForm select {
         width: 131px !important;
         height: 27px !important;
     }
@@ -262,7 +262,7 @@
 </style>
 <h5 style="text-align: center;">Chicken Invoice (EDIT)</h5>
 
-<div class="container"  id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
     <h6 style="
 position: absolute;
@@ -294,8 +294,8 @@ right: 15%;
                 <div class="one  remark">
                     <label for="seller">Supplier</label>
                     <select name="seller" class="company select-buyer" required>
-                        <option value="{{ $single_invoice->supplier->buyer_id ??null }}" selected>
-                            {{ $single_invoice->supplier->company_name ??null  }}</option>
+                        <option value="{{ $single_invoice->supplier->buyer_id ?? null }}" selected>
+                            {{ $single_invoice->supplier->company_name ?? null }}</option>
                     </select>
                 </div>
 
@@ -304,8 +304,8 @@ right: 15%;
                 <div class="one  remark">
                     <label for="sales_officer">Farm</label>
                     <select name="farm" class="select-farm">
-                       <option value="{{ $single_invoice->farm->id ?? null ??null}}" selected>
-                            {{ $single_invoice->farm->name ?? null ??null}}</option>
+                        <option value="{{ $single_invoice->farm->id ?? (null ?? null) }}" selected>
+                            {{ $single_invoice->farm->name ?? (null ?? null) }}</option>
                     </select>
 
                 </div>
@@ -832,16 +832,21 @@ right: 15%;
         onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
         Edit
     </button>
-    <br>
 
 
+
+    <a href="{{ Route('invoice_chicken') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        First
+    </a>
     <a href="{{ Route('edit_invoice_chicken', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
     </a>
     <a href="{{ Route('edit_invoice_chicken', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
     </a>
-
+    <a href="{{ Route('last_invoice_chicken') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        Last
+    </a>
     <a href="{{ Route('new_invoice_chicken') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
         id="add_more">
         Add More
@@ -1468,7 +1473,7 @@ right: 15%;
                     Swal.fire({
                         icon: 'success',
                         title: response,
-                        timer: 1900 
+                        timer: 1900
                     });
                     $("#submit").attr('disabled', 'disabled');
                     $('#edit').removeAttr('disabled');
@@ -1487,7 +1492,8 @@ right: 15%;
                 event.preventDefault();
                 // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
-                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 0]) }}'.replace(':unique_id', unique_id);
+                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 0]) }}'.replace(':unique_id',
+                unique_id);
 
                 window.open(url, '__blank')
             }
@@ -1498,7 +1504,8 @@ right: 15%;
                 event.preventDefault();
                 // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
-                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 1]) }}'.replace(':unique_id', unique_id);
+                var url = '{{ route('pdf_invoice_chicken', [':unique_id', 1]) }}'.replace(':unique_id',
+                unique_id);
 
                 window.open(url, '__blank')
             }
@@ -1552,6 +1559,30 @@ right: 15%;
             }
         });
     </script>
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Invoice</h4>
+                    <div class="modal-body">
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Invoice No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
+                            </div>
+
+                            <button type="submit" data-url="{{ Route('edit_invoice_chicken') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">
