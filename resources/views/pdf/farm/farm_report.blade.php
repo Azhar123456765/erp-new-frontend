@@ -411,20 +411,42 @@
         </div>
         <div class="ui card">
             <div class="content">
-                <div class="header">Total Details</div>
+                <div class="header">Amount Details</div>
             </div>
             <div class="content">
-                <p> <strong> Account Name: </strong> "RJCA" </p>
-                <p> <strong> BSB: </strong> 111-111 </p>
-                <p> <strong>Account Number: </strong> 1234101 </p>
+                <p> <strong> Total Income: </strong>PKR {{ $chickenInvoice->sum('amount') }} </p>
+                <p> <strong> Liablities: </strong>PKR {{ $payment_voucher->sum('amount') }} </p>
+                <p> <strong> Expenses: </strong>
+                    PKR {{ $chickInvoice->sum('amount') + $feedInvoice->sum('amount') + $expense_voucher->sum('amount') }}
+                </p>
             </div>
         </div>
         <div class="ui card">
             <div class="content">
-                <div class="header">Notes</div>
+                <div class="header">Hens Summary</div>
             </div>
             <div class="content">
-                Payment is requested within 15 days of recieving this invoice.
+                <p> <strong> Total Chicks Purchase: </strong>{{ $chickInvoice->sum('sale_qty') }} </p>
+                <p> <strong> Total Deaths: </strong>{{ $daily_reports->sum('hen_deaths') }} </p>
+                <p> <strong> Remaining Hens:
+                    </strong>{{ $chickInvoice->sum('sale_qty') - $daily_reports->sum('hen_deaths') }} </p>
+                <p> <strong> Chickens Sale (QTY):
+                    </strong>{{ $chickenInvoice->sum('hen_qty') }} </p>
+                <p> <strong> Chickens Sale (Net Weight):
+                    </strong>{{ $chickenInvoice->sum('net_weight') }} </p>
+
+            </div>
+        </div>
+        <div class="ui card">
+            <div class="content">
+                <div class="header">Secondary Expense Summary</div>
+            </div>
+            <div class="content">
+                <p> <strong> Salary: </strong>{{ $salary->sum('amount') }} </p>
+                <p> <strong> Rent: </strong>{{ $rent->sum('amount') }} </p>
+                <p> <strong> Utility:
+                    </strong>{{ $utility->sum('amount') }} </p>
+
             </div>
         </div>
     </div>
