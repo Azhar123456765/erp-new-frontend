@@ -83,7 +83,7 @@ class pdfController extends Controller
                 $formattedEndDate = Carbon::parse($endDate)->format('d-m-Y');
 
                 $daily_reports = FarmDailyReport::whereBetween('date', [$formattedStartDate, $formattedEndDate]);
-               
+
                 if ($farm) {
                         $daily_reports->where('farm', $farm_id);
                 }
@@ -428,7 +428,7 @@ class pdfController extends Controller
                                 $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account->reference_id);
+                                        $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account->reference_id)->orWhere('buyer', $account->id);
                                 }
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
@@ -2588,7 +2588,11 @@ class pdfController extends Controller
                         $query = ExpenseVoucher::whereBetween('expense_vouchers.created_at', [$startDate, $endDate]);
 
                         if ($company) {
-                                $query->where('buyer', $company);
+                                $ex_buyer_id = $query->pluck('buyer');
+                                $ex_accounts = accounts::where('id', $ex_buyer_id)->first();
+                                if ($ex_accounts->reference_id != null) {
+                                        $query->where('buyer', $company);
+                                }
                                 $company = buyer::where('buyer_id', $company)->first();
                         }
                         if ($contra_account) {

@@ -184,7 +184,7 @@
     }
 
     .select2-dropdown {
-        width: 300px !important;
+        width: 250px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -527,7 +527,7 @@ text-align:end;
         </div>
     </div>
 @endforeach
-<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 50px !important;">
+<div class="row m-5 justify-content-center align-items-center" style="position: relative;gap: 30px;margin-top: -110px !important;top: 20%;right: 0%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update

@@ -21,7 +21,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = Farm::where('name', 'LIKE', "%{$search}%")
-            ->get(['id', 'name']);
+            ->limit(10)->get(['id', 'name']);
 
         return response()->json($results);
     }
@@ -30,10 +30,10 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = accounts::where('account_name', 'LIKE', "%{$search}%")
-            ->get(['id', 'account_name']);
+            ->limit(10)->get(['id', 'account_name']);
 
         // $buyers = buyer::where('company_name', 'LIKE', "%{$search}%")
-        //     ->get(['buyer_id', 'company_name']);
+        //     ->limit(10)->get(['buyer_id', 'company_name']);
 
         // $combinedResults = [];
         // foreach ($accounts as $account) {
@@ -60,7 +60,7 @@ class select2Controller extends Controller
             ->whereHas('sub_head', function ($query) {
                 $query->where('head', 1);
             })
-            ->get(['id', 'account_name']);
+            ->limit(10)->get(['id', 'account_name']);
 
         return response()->json($results);
     }
@@ -72,7 +72,7 @@ class select2Controller extends Controller
             ->whereHas('sub_head', function ($query) {
                 $query->where('head', 2);
             })
-            ->get(['id', 'account_name']);
+            ->limit(10)->get(['id', 'account_name']);
 
         return response()->json($results);
     }
@@ -84,7 +84,7 @@ class select2Controller extends Controller
             ->whereHas('sub_head', function ($query) {
                 $query->where('head', 5);
             })
-            ->get(['id', 'account_name']);
+            ->limit(10)->get(['id', 'account_name']);
 
         return response()->json($results);
     }
@@ -93,7 +93,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = warehouse::where('warehouse_name', 'LIKE', "%{$search}%")
-            ->get(['warehouse_id', 'warehouse_name']);
+            ->limit(10)->get(['warehouse_id', 'warehouse_name']);
 
         return response()->json($results);
     }
@@ -103,7 +103,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = sales_officer::where('sales_officer_name', 'LIKE', "%{$search}%")
-            ->get(['sales_officer_id', 'sales_officer_name']);
+            ->limit(10)->get(['sales_officer_id', 'sales_officer_name']);
 
         return response()->json($results);
     }
@@ -112,7 +112,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = product_category::where('category_name', 'LIKE', "%{$search}%")
-            ->get(['product_category_id', 'category_name']);
+            ->limit(10)->get(['product_category_id', 'category_name']);
 
         return response()->json($results);
     }
@@ -122,7 +122,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = product_company::where('company_name', 'LIKE', "%{$search}%")
-            ->get(['product_company_id', 'company_name']);
+            ->limit(10)->get(['product_company_id', 'company_name']);
 
         return response()->json($results);
     }
@@ -131,7 +131,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = buyer::where('company_name', 'LIKE', "%{$search}%")
-            ->get(['buyer_id', 'company_name']);
+            ->limit(10)->get(['buyer_id', 'company_name']);
 
         return response()->json($results);
     }
@@ -140,7 +140,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = seller::where('company_name', 'LIKE', "%{$search}%")
-            ->get(['seller_id', 'company_name']);
+            ->limit(10)->get(['seller_id', 'company_name']);
 
         return response()->json($results);
     }
@@ -150,7 +150,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = products::where('product_name', 'LIKE', "%{$search}%")
-            ->get();
+        ->limit(10)->get();
 
         return response()->json($results);
     }

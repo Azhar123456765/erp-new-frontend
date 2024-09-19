@@ -182,7 +182,7 @@ text-align:right !important;
     }
 
     .select2-dropdown {
-        width: 300px !important;
+        width: 250px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {

@@ -165,7 +165,7 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
+    #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -184,7 +184,7 @@
     }
 
     .select2-dropdown {
-        width: 300px !important;
+        width: 250px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -257,7 +257,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Receipt Voucher (EDIT)</h3>
@@ -314,14 +314,14 @@
                         <input style="width: 219px !important;" type="text" id="remark" name="remark"
                             value="{{ $sinvoice_row->remark }}" />
                     </div>
-                        <div class="one  remark">
-                            <label for="sales_officer">Farm</label>
-                            <select name="farm" class="select-farm">
-                                <option value="{{ $sinvoice_row->farm->id ?? null }}" selected>
-                                    {{ $sinvoice_row->farm->name ?? null }}</option>
-                            </select>
-        
-                        </div>
+                    <div class="one  remark">
+                        <label for="sales_officer">Farm</label>
+                        <select name="farm" class="select-farm">
+                            <option value="{{ $sinvoice_row->farm->id ?? null }}" selected>
+                                {{ $sinvoice_row->farm->name ?? null }}</option>
+                        </select>
+
+                    </div>
                 </div>
             </div>
         @endforeach
@@ -372,7 +372,7 @@
                                 {{ $sinvoice_row->accounts->account_name ?? null }}</option>
                         </select>
                     </div>
-                        <div class="div">
+                    <div class="div">
                         <input class="<?php echo $counter; ?>amount" type="number" step="any" min="0.00"
                             style="text-align: right;" step="any" value="{{ $invoice_row->amount }}"
                             onchange='total_amount()' id="amount" name="amount[]" />
@@ -529,7 +529,8 @@ text-align:end;
         </div>
     </div>
 @endforeach
-<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 50px !important;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: relative;gap: 30px;margin-top: -110px !important;top: 20%;right: 0%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update

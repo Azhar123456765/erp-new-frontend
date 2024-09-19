@@ -141,7 +141,7 @@
     }
 
     .select2-dropdown {
-        width: 300px !important;
+        width: 250px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -149,7 +149,7 @@
     }
 
     .select2-dropdown {
-        width: 300px !important;
+        width: 250px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -823,7 +823,7 @@ right: 15%;
         </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center" style="gap: 30px; margin-top: 140px !important;">
+<div class="row m-5 justify-content-center align-items-center" style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
