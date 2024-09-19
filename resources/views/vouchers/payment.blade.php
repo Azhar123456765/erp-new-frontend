@@ -184,7 +184,7 @@
     }
 
     .select2-dropdown {
-        width: 250px !important;
+        width: 200px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {

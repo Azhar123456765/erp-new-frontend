@@ -141,7 +141,7 @@
     }
 
     .select2-dropdown {
-        width: 250px !important;
+        width: 200px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -149,7 +149,7 @@
     }
 
     .select2-dropdown {
-        width: 250px !important;
+        width: 200px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -261,7 +261,7 @@
     }
 
     #invoiceForm .dup_invoice .select2-container--classic {
-        width: 161px !important;
+        width: 100px !important;
         height: 27px !important;
 
         line-height: 25px !important;

@@ -141,7 +141,8 @@
     }
 
     .select2-dropdown {
-        width: 250px !important;
+        width: 200px !important;
+        max-width: max-content !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -149,7 +150,7 @@
     }
 
     .select2-dropdown {
-        width: 250px !important;
+        width: 200px !important;
     }
 
     .select2-container--classic .select2-search--dropdown .select2-search__field {
@@ -258,6 +259,13 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
+    }
+    #invoiceForm .dup_invoice .select2-container--classic {
+        width: 100px !important;
+        height: 27px !important;
+
+        line-height: 25px !important;
+        height: 25px !important;
     }
 </style>
 <h5 style="text-align: center;">Chicken Invoice (EDIT)</h5>
