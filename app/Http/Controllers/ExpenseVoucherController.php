@@ -85,6 +85,7 @@ class ExpenseVoucherController extends Controller
             $invoice = new ExpenseVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->farm = $invoiceData['farm'] ?? null;
             $invoice->buyer = $company;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
@@ -162,7 +163,11 @@ class ExpenseVoucherController extends Controller
         ]);
 
         $invoiceData = $request->all();
-        $company = $invoiceData['company'];
+        $company = accounts::where('id', $invoiceData['company'])->first();
+
+        $is_buyer = buyer::where('buyer_id', $company)->first();
+        if ($is_buyer) {
+        }
         $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -171,6 +176,9 @@ class ExpenseVoucherController extends Controller
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->farm = $invoiceData['farm'] ?? null;
+
+
             $invoice->buyer = $company ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;

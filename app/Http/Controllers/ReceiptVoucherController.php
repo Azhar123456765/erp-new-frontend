@@ -98,6 +98,7 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->farm = $invoiceData['farm'] ?? null;
             $company = $invoiceData['company'];
             $invoice->company = $company;
 
@@ -202,6 +203,7 @@ class ReceiptVoucherController extends Controller
             $invoice = new ReceiptVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->farm = $invoiceData['farm'] ?? null;
             $company = $invoiceData['company'];
             $invoice->company = $company;
 

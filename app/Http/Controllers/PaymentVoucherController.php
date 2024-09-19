@@ -91,6 +91,7 @@ class PaymentVoucherController extends Controller
             $invoice = new p_voucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->farm = $invoiceData['farm'] ?? null;
             $invoice->company = $company;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->pkr_amount = $invoiceData['pkr_amount'] ?? null;
@@ -198,6 +199,7 @@ class PaymentVoucherController extends Controller
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
+            $invoice->farm = $invoiceData['farm'] ?? null;
             $invoice->company = $company ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
