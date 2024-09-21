@@ -31,4 +31,8 @@ class ReceiptVoucher extends Model
     {
         return $this->hasOne(accounts::class, 'id', "cash_bank");
     }
+    function farms()
+    {
+        return $this->hasOne(Farm::class, 'id', "farm");
+    }
 }

@@ -102,30 +102,36 @@
         }
 
         th {
-            background: #ececec !important;
-            border: 1px solid #7f7b7b !important;
+            background: #c2c1c1 !important;
+            border: 1px solid #363636 !important;
         }
 
         td {
-            border: 1px solid #7f7b7b !important;
+            border: 1px solid #363636 !important;
         }
 
         .itemscard {
-            border: 1px solid #7f7b7b !important;
+            border: 1px solid #363636 !important;
         }
 
         .customercard {
-            border: 1px solid #7f7b7b !important;
+            border: 1px solid #363636 !important;
         }
 
         h2 {
             text-transform: capitalize !important;
         }
+
         h3 {
             text-transform: capitalize !important;
         }
+
         h4 {
             text-transform: capitalize !important;
+        }
+
+        .card .content {
+            border: 1px solid #363636 !important;
         }
     </style>
 </head>

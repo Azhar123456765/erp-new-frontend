@@ -317,8 +317,8 @@
                     <div class="one  remark">
                         <label for="sales_officer">Farm</label>
                         <select name="farm" class="select-farm">
-                            <option value="{{ $sinvoice_row->farm->id ?? null }}" selected>
-                                {{ $sinvoice_row->farm->name ?? null }}</option>
+                            <option value="{{ $sinvoice_row->farms->id ?? null }}" selected>
+                                {{ $sinvoice_row->farms->name ?? null }}</option>
                         </select>
 
                     </div>

@@ -18,7 +18,10 @@ class p_voucher extends Model
     {
         return $this->hasOne(buyer::class, 'buyer_id', "company");
     }
-
+    function farms()
+    {
+        return $this->hasOne(Farm::class, 'id', "farm");
+    }
     function officer()
     {
         return $this->hasOne(sales_officer::class, 'sales_officer_id', "sales_officer");

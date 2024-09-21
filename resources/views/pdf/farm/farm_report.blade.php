@@ -30,6 +30,12 @@
         $total_amount = 0;
         $total_sale_amount = 0;
     @endphp
+    <style>
+        .ui .content p {
+            display: flex;
+            justify-content: space-between;
+        }
+    </style>
     <div class="invoice-header">
         <div class="ui left aligned grid">
             <div class="row">
@@ -74,89 +80,8 @@
 
         <div class="ui segment itemscard">
             <div class="content">
-                @if (count($chickenInvoice) > 0)
-                    <h3><b>Income</b></h3>
-                    @if (count($chickenInvoice) > 0)
-                        <table class="ui celled table" id="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
-                                    <th class="text-center colfix" style="text-align: center;">Invoice No</th>
-                                    <th class="text-center colfix">Description</th>
-                                    <th class="text-center colfix">Parties</th>
-                                    <th class="text-center colfix">Amount</th>
-                                </tr>
-                            </thead>
-                            <h4><b>Chickens Sale</b></h4>
 
-                            <tbody>
-                                @foreach ($chickenInvoice as $row)
-                                    <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
-                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>CH-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
-;">
-                                            <span>{{ $row->product->product_name }}</span>
-                                        </td>
-                                        <td style="text-align: left
-;">
-                                            <span>{{ $row->supplier->company_name }}&nbsp;&nbsp; TO
-                                                &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                @endif
-                @if (count($payment_voucher) > 0)
-                    <h3><b>Liablities</b></h3>
-                    @if (count($payment_voucher) > 0)
-                        <table class="ui celled table" id="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
-                                    <th class="text-center colfix" style="text-align: center;">Voucher No</th>
-                                    <th class="text-center colfix">Narration</th>
-                                    <th class="text-center colfix">Payable Account</th>
-                                    <th class="text-center colfix">Amount</th>
-                                </tr>
-                            </thead>
-                            <h4><b>Accounts Payable</b></h4>
 
-                            <tbody>
-                                @foreach ($payment_voucher as $row)
-                                    <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
-                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>PV-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
-;">
-                                            <span>{{ $row->narration }}</span>
-                                        </td>
-                                        <td style="text-align: left
-;">
-                                            <span>{{ $row->accounts->account_name ?? null }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    @endif
-                @endif
                 @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
                     <h3><b>Expenses</b></h3>
                     @if (count($chickInvoice) > 0)
@@ -196,6 +121,13 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="4" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $chickInvoice->sum('amount') }} </th>
+                                </tr>
+                            </tfoot>
+                        </table>
                         </table>
                     @endif
                     @if (count($feedInvoice) > 0)
@@ -235,6 +167,12 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="4" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $feedInvoice->sum('amount') }} </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     @endif
                     @if (count($salary) > 0)
@@ -277,6 +215,12 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="5" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $salary->sum('amount') }} </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     @endif
                     @if (count($rent) > 0)
@@ -319,6 +263,12 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="5" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $rent->sum('amount') }} </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     @endif
                     @if (count($utility) > 0)
@@ -361,6 +311,12 @@
                                     </tr>
                                 @endforeach
                             </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="5" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $utility->sum('amount') }} </th>
+                                </tr>
+                            </tfoot>
                         </table>
                     @endif
                 @endif
@@ -401,7 +357,103 @@
                         </tbody>
                     </table>
                 @endif
+                @if (count($payment_voucher) > 0)
+                    <h3><b>Liablities</b></h3>
+                    @if (count($payment_voucher) > 0)
+                        <table class="ui celled table" id="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
+                                    <th class="text-center colfix" style="text-align: center;">Voucher No</th>
+                                    <th class="text-center colfix">Narration</th>
+                                    <th class="text-center colfix">Payable Account</th>
+                                    <th class="text-center colfix">Amount</th>
+                                </tr>
+                            </thead>
+                            <h4><b>Accounts Payable</b></h4>
 
+                            <tbody>
+                                @foreach ($payment_voucher as $row)
+                                    <tr style="text-align: center;">
+                                        <td class="text-right" style="width: 70px;">
+                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>PV-{{ $row->unique_id }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->narration }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->accounts->account_name ?? null }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="4" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $payment_voucher->sum('amount') }}
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @endif
+                @endif
+                @if (count($chickenInvoice) > 0)
+                    <h3><b>Income</b></h3>
+                    @if (count($chickenInvoice) > 0)
+                        <table class="ui celled table" id="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
+                                    <th class="text-center colfix" style="text-align: center;">Invoice No</th>
+                                    <th class="text-center colfix">Description</th>
+                                    <th class="text-center colfix">Parties</th>
+                                    <th class="text-center colfix">Amount</th>
+                                </tr>
+                            </thead>
+                            <h4><b>Chickens Sale</b></h4>
+
+                            <tbody>
+                                @foreach ($chickenInvoice as $row)
+                                    <tr style="text-align: center;">
+                                        <td class="text-right" style="width: 70px;">
+                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>CH-{{ $row->unique_id }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->product->product_name }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->supplier->company_name }}&nbsp;&nbsp; TO
+                                                &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="4" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $chickenInvoice->sum('amount') }}
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @endif
+                @endif
 
                 @php
                     $total_amount = 0;
@@ -410,10 +462,10 @@
             </div>
         </div>
         <div class="ui card">
-            <div class="content">
+            <div class="content" style="border-top:1px solid #363636 !important;">
                 <div class="header">Amount Details</div>
             </div>
-            <div class="content">
+            <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Total Income: </strong>PKR {{ $chickenInvoice->sum('amount') }} </p>
                 <p> <strong> Liablities: </strong>PKR {{ $payment_voucher->sum('amount') }} </p>
                 <p> <strong> Expenses: </strong>
@@ -422,10 +474,10 @@
             </div>
         </div>
         <div class="ui card">
-            <div class="content">
+            <div class="content" style="border-top:1px solid #363636 !important;">
                 <div class="header">Hens Summary</div>
             </div>
-            <div class="content">
+            <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Total Chicks Purchase: </strong>{{ $chickInvoice->sum('sale_qty') }} </p>
                 <p> <strong> Total Deaths: </strong>{{ $daily_reports->sum('hen_deaths') }} </p>
                 <p> <strong> Remaining Hens:
@@ -434,14 +486,13 @@
                     </strong>{{ $chickenInvoice->sum('hen_qty') }} </p>
                 <p> <strong> Chickens Sale (Net Weight):
                     </strong>{{ $chickenInvoice->sum('net_weight') }} </p>
-
             </div>
         </div>
         <div class="ui card">
-            <div class="content">
+            <div class="content" style="border-top:1px solid #363636 !important;">
                 <div class="header">Secondary Expense Summary</div>
             </div>
-            <div class="content">
+            <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Salary: </strong>{{ $salary->sum('amount') }} </p>
                 <p> <strong> Rent: </strong>{{ $rent->sum('amount') }} </p>
                 <p> <strong> Utility:
