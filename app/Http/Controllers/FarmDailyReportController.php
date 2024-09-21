@@ -85,9 +85,11 @@ class FarmDailyReportController extends Controller
                         'farm' // Changed 'farm' to 'farms'
                     ));
                 } else {
+                    session()->forget('user_id');
                     return redirect()->back()->with('something_error', 'Something went wrong. Please try again.');
                 }
             } else {
+                session()->forget('user_id');
                 return redirect()->back()->with('something_error', 'No farming period found for this user.');
             }
         }

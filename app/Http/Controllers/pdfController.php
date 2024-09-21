@@ -526,7 +526,7 @@ class pdfController extends Controller
                                 session()->flash('Data', $data);
                         }
                         //    elseif ($type == 2) {
-                        //         $query = sell_invoice::whereBetween('sell_invoice.created_at', [$startDate, $endDate]);
+                        //         $query = sell_invoice::whereBetween('sell_invoice.date', [$startDate, $endDate]);
 
                         //         if ($account) {
                         //                 $query->where('account', $account);
@@ -541,7 +541,7 @@ class pdfController extends Controller
                         //         }
 
 
-                        //         $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
+                        //         $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.date', [$startDate, $endDate]);
 
 
                         //         if ($account) {
@@ -556,7 +556,7 @@ class pdfController extends Controller
                         //                 $query2->where('warehouse', $zone);
                         //         }
 
-                        //         $query3 = purchase_invoice::whereBetween('purchase_invoice.created_at', [$startDate, $endDate]);
+                        //         $query3 = purchase_invoice::whereBetween('purchase_invoice.date', [$startDate, $endDate]);
 
                         //         if ($account) {
                         //                 $query3->where('freighta', $account);
@@ -574,7 +574,7 @@ class pdfController extends Controller
                         //                 $query3->where('warehouse', $zone);
                         //         }
 
-                        //         $query4 = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate]);
+                        //         $query4 = p_voucher::whereBetween('payment_voucher.date', [$startDate, $endDate]);
 
 
                         //         if ($account) {
@@ -2477,7 +2477,7 @@ class pdfController extends Controller
                         $type = $request->input('type');
 
 
-                        $query = p_voucher::whereBetween('payment_voucher.created_at', [$startDate, $endDate]);
+                        $query = p_voucher::whereBetween('payment_voucher.date', [$startDate, $endDate]);
 
                         if ($contra_account) {
                                 $query->where('cash_bank', $contra_account);
@@ -2533,7 +2533,7 @@ class pdfController extends Controller
                         $type = $request->input('type');
 
 
-                        $query = ReceiptVoucher::whereBetween('receipt_vouchers.created_at', [$startDate, $endDate]);
+                        $query = ReceiptVoucher::whereBetween('receipt_vouchers.date', [$startDate, $endDate]);
 
                         if ($company) {
                                 $query->where('company', $company);
@@ -2585,14 +2585,14 @@ class pdfController extends Controller
                         $type = $request->input('type');
 
 
-                        $query = ExpenseVoucher::whereBetween('expense_vouchers.created_at', [$startDate, $endDate]);
+                        $query = ExpenseVoucher::whereBetween('expense_vouchers.date', [$startDate, $endDate]);
 
                         if ($company) {
-                                $ex_buyer_id = $query->pluck('buyer');
-                                $ex_accounts = accounts::where('id', $ex_buyer_id)->first();
-                                if ($ex_accounts->reference_id != null) {
-                                        $query->where('buyer', $company);
-                                }
+                                // $ex_buyer_id = $query->pluck('buyer');
+                                // $ex_accounts = accounts::whereIn('id', $ex_buyer_id)->firstOrFail();
+                                // if ($ex_accounts->reference_id != null) {
+                                // }
+                                $query->where('buyer', $company);
                                 $company = buyer::where('buyer_id', $company)->first();
                         }
                         if ($contra_account) {

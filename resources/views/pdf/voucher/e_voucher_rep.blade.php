@@ -84,7 +84,7 @@
                                 </td>
                                 <td style="text-align: left
                 ;">
-                                    <span>{{ $row->customer->company_name }}</span>
+                                    <span>{{ $row->asset_accounts->account_name  }}</span>
                                 </td>
                                 <td style="text-align: left
                                         ;">

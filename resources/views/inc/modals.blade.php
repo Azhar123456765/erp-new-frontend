@@ -1687,8 +1687,8 @@ text-align: center;
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Select Company</label>
-                                    <select class="form-control select-buyer" name="company">
+                                    <label>Select Assets</label>
+                                    <select class="form-control select-assets-account" name="company">
 
 
                                     </select>
