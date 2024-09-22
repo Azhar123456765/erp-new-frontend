@@ -86,11 +86,11 @@ class FarmDailyReportController extends Controller
                     ));
                 } else {
                     session()->forget('user_id');
-                    return redirect()->back()->with('something_error', 'Something went wrong. Please try again.');
+                    return redirect()->back()->with('error', 'Something went wrong. Please try again.');
                 }
             } else {
                 session()->forget('user_id');
-                return redirect()->back()->with('something_error', 'No farming period found for this user.');
+                return redirect()->back()->with('error', 'No farming period found for this user.');
             }
         }
     }

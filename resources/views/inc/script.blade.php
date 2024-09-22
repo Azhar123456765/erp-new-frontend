@@ -636,7 +636,7 @@
     $('.clear-btn').on('click', function() {
         $('.select2-hidden-accessible').val(null).trigger('change');
     });
-    // $('.main-sidebar a').attr('target', '_blank');
+    $('.main-sidebar a').attr('target', '_blank');
     $(document).ready(function() {
         $('.modal form').on('submit', function(e) {
             if ($(this).attr('method').toLowerCase() === 'get') {

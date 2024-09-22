@@ -27,12 +27,13 @@ class CreateExpenseVouchersTable extends Migration
             $table->text('narration');
             $table->text('cash_bank')->nullable();
             $table->text('cheque_no')->nullable();
-            $table->mediumInteger('amount');
-            $table->bigInteger('amount_total');
+            $table->decimal('amount', 15, 2);
+            $table->decimal('amount_total', 15, 2);
+            $table->text('attachment')->nullable();
             $table->timestamps();
 
-            $table->foreign('buyer')->references('buyer_id')->on('buyer')->restrictOnDelete();
-            $table->foreign('seller')->references('seller_id')->on('seller')->restrictOnDelete();
+            // $table->foreign('buyer')->references('buyer_id')->on('buyer')->restrictOnDelete();
+            // $table->foreign('seller')->references('seller_id')->on('seller')->restrictOnDelete();
             $table->foreign('sales_officer')->references('sales_officer_id')->on('sales_officer')->restrictOnDelete();
             $table->foreign('farm')->references('id')->on('farms')->restrictOnDelete();
 
