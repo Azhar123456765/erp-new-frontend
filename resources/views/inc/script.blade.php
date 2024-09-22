@@ -633,9 +633,14 @@
 @stack('s_script')
 
 <script>
-    $('.clear-btn').on('click', function() {
-        $('.select2-hidden-accessible').val(null).trigger('change');
+    $(document).on('click', '.clear-btn', function() {
+        $(this).closest('.modal').find('.select2-hidden-accessible').val(null).trigger('change');
     });
+    $(document).on('shown.bs.modal', function(e) {
+        $(e.target).find('input, select').filter(':visible:first').focus();
+    });
+
+
     $('.main-sidebar a').attr('target', '_blank');
     $(document).ready(function() {
         $('.modal form').on('submit', function(e) {

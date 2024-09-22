@@ -133,6 +133,9 @@
         .card .content {
             border: 1px solid #363636 !important;
         }
+        table{
+            font-weight: bold;
+        }
     </style>
 </head>
 

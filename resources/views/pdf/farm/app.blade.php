@@ -103,6 +103,10 @@
         .full-width tr th {
             font-weight: 1000 !important;
         }
+
+        table {
+            font-weight: bold;
+        }
     </style>
 </head>
 

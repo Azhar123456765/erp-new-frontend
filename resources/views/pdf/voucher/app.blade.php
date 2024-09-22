@@ -121,6 +121,10 @@
         .cards {
             border: 1px solid #7f7b7b !important;
         }
+
+        table {
+            font-weight: bold;
+        }
     </style>
 </head>
 

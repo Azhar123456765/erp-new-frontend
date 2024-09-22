@@ -50,8 +50,8 @@ class FarmDailyReportController extends Controller
 
             if ($farming_period) { // Ensure $farming_period exists
                 $user = Users::where('user_id', $user_id)->where('role', 'farm_user')->first();
-                $startDate = Carbon::createFromFormat('Y-m-d', $farming_period->start_date);
-                $endDate = Carbon::createFromFormat('Y-m-d', $farming_period->end_date);
+                $startDate = Carbon::createFromFormat('Y-m-d', $farming_period->start_date)->subDay();
+                $endDate = Carbon::createFromFormat('Y-m-d', $farming_period->end_date)->addDay();
 
                 if (Carbon::createFromFormat('Y-m-d', $today)->between($startDate, $endDate)) {
                     $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
