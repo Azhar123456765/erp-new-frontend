@@ -144,15 +144,15 @@
                                 </td>
                             </tr>
                             @if (!isset($company) || empty($company))
-                                @php $credit += $row->amount_total; @endphp
+                                @php $debit += $row->amount_total; @endphp
                             @elseif($row->seller == $company)
-                                @php $credit += $row->amount_total @endphp
+                                @php $debit += $row->amount_total @endphp
                             @endif
 
                             @if (!isset($company) || empty($company))
-                                @php $debit += $row->sale_amount_total; @endphp
+                                @php $credit += $row->sale_amount_total; @endphp
                             @elseif($row->buyer == $company)
-                                @php $debit += $row->sale_amount_total @endphp
+                                @php $credit += $row->sale_amount_total @endphp
                             @endif
                         @endforeach
                         @foreach ($chickInvoice as $row)
@@ -198,15 +198,15 @@
                                 </td>
                             </tr>
                             @if (!isset($company) || empty($company))
-                                @php $credit += $row->amount_total; @endphp
+                                @php $debit += $row->amount_total; @endphp
                             @elseif($row->seller == $company)
-                                @php $credit += $row->amount_total @endphp
+                                @php $debit += $row->amount_total @endphp
                             @endif
 
                             @if (!isset($company) || empty($company))
-                                @php $debit += $row->sale_amount_total; @endphp
+                                @php $credit += $row->sale_amount_total; @endphp
                             @elseif($row->buyer == $company)
-                                @php $debit += $row->sale_amount_total @endphp
+                                @php $credit += $row->sale_amount_total @endphp
                             @endif
                         @endforeach
                         @foreach ($feedInvoice as $row)
@@ -254,15 +254,15 @@
                                 </td>
                             </tr>
                             @if (!isset($company) || empty($company))
-                                @php $credit += $row->amount_total; @endphp
+                                @php $debit += $row->amount_total; @endphp
                             @elseif($row->seller == $company)
-                                @php $credit += $row->amount_total @endphp
+                                @php $debit += $row->amount_total @endphp
                             @endif
 
                             @if (!isset($company) || empty($company))
-                                @php $debit += $row->sale_amount_total; @endphp
+                                @php $credit += $row->sale_amount_total; @endphp
                             @elseif($row->buyer == $company)
-                                @php $debit += $row->sale_amount_total @endphp
+                                @php $credit += $row->sale_amount_total @endphp
                             @endif
                         @endforeach
                         @foreach ($payment_voucher as $row)
@@ -338,7 +338,7 @@
                                     <span>{{ $balance += $row->amount }}</span>
                                 </td>
                             </tr>
-                            @php $credit += $row->amount_total; @endphp
+                            @php $debit += $row->amount_total; @endphp
                         @endforeach
 
                     </tbody>

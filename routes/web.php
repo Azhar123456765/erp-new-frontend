@@ -74,7 +74,7 @@ Route::middleware('userAuth')->group(function () {
             Route::post('/add_warehouse', [maincontroller::class, 'add_warehouse']);
             Route::post('/edit_warehouse{id}', [maincontroller::class, 'edit_warehouse']);
 
-            Route::get('/zone', [maincontroller::class, 'zone']);
+            Route::get('/zone', [amaincontroller::class, 'zone']);
             Route::post('/add_zone', [maincontroller::class, 'add_zone']);
             Route::post('/edit_zone{id}', [maincontroller::class, 'edit_zone']);
 
