@@ -69,6 +69,10 @@
             },
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-account').select2({
             ajax: {
@@ -95,6 +99,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-assets-account').select2({
             ajax: {
@@ -121,6 +127,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-liability-account').select2({
             ajax: {
@@ -147,6 +155,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-expense-account').select2({
             ajax: {
@@ -173,6 +183,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-warehouse').select2({
             ajax: {
@@ -199,6 +211,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
 
         $('.select-sales_officer').select2({
@@ -226,6 +240,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-product_category').select2({
             ajax: {
@@ -252,6 +268,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
 
         $('.select-product_company').select2({
@@ -279,6 +297,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
 
 
@@ -307,6 +327,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
 
 
@@ -335,6 +357,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
 
 
@@ -392,7 +416,9 @@
             },
 
             theme: 'classic',
-            width: '100%'
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
 
         $('.select-fin-products').on('select2:select', function(e) {
@@ -435,6 +461,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
         $('.select-seller-buyer-sec').select2({
             ajax: {
@@ -467,6 +495,8 @@
 
             theme: 'classic',
             width: '100%',
+            allowClear: true,
+            placeholder: '',
         });
     </script>
 </body>
