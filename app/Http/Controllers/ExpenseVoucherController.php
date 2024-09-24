@@ -52,6 +52,39 @@ class ExpenseVoucherController extends Controller
         $data = compact('account', 'count', 'narrations');
         return view('vouchers.expense')->with($data);
     }
+    public function create_first()
+    {
+        $e_voucher = ExpenseVoucher::where("unique_id", 1)
+            ->get();
+        $se_voucher = ExpenseVoucher::where([
+
+            "unique_id" => 1
+        ])->limit(1)->get();
+
+        $account = accounts::all();
+
+        $data = compact('account', 'e_voucher', 'se_voucher');
+        return view('vouchers.e_expense')->with($data);
+    }
+    public function create_last()
+    {
+        $count = ExpenseVoucher::whereIn('expense_vouchers.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('expense_vouchers')
+                ->groupBy('unique_id');
+        })->count();
+        $e_voucher = ExpenseVoucher::where("unique_id", $count)
+            ->get();
+        $se_voucher = ExpenseVoucher::where([
+
+            "unique_id" => $count
+        ])->limit(1)->get();
+
+        $account = accounts::all();
+
+        $data = compact('account', 'e_voucher', 'se_voucher');
+        return view('vouchers.e_expense')->with($data);
+    }
 
     /**
      * Store a newly created resource in storage.

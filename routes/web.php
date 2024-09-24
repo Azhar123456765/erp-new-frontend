@@ -61,40 +61,40 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/users', [UserController::class, 'index']);
         Route::get('/add-user', [UserController::class, 'create']);
         Route::post('/add_user_form', [UserController::class, 'store']);
-        Route::get('/edit-user-{id}', [UserController::class, 'edit']);
-        Route::post('/edit_user_form-{id}', [UserController::class, 'update']);
-        Route::get('/user-records-{id}', [UserController::class, 'user_records']);
-        Route::get('/user-rights-{id}', [UserController::class, 'user_rights']);
-        Route::post('/user_right_form-{id}', [UserController::class, 'user_right_form']);
+        Route::get('/edit-user-{id?}', [UserController::class, 'edit']);
+        Route::post('/edit_user_form-{id?}', [UserController::class, 'update']);
+        Route::get('/user-records-{id?}', [UserController::class, 'user_records']);
+        Route::get('/user-rights-{id?}', [UserController::class, 'user_rights']);
+        Route::post('/user_right_form-{id?}', [UserController::class, 'user_right_form']);
     });
     Route::middleware('userRoleAuth')->group(function () {
         Route::middleware(['setupPermission'])->group(function () {
 
             Route::get('/warehouse', [maincontroller::class, 'warehouse']);
             Route::post('/add_warehouse', [maincontroller::class, 'add_warehouse']);
-            Route::post('/edit_warehouse{id}', [maincontroller::class, 'edit_warehouse']);
+            Route::post('/edit_warehouse{id?}', [maincontroller::class, 'edit_warehouse']);
 
             Route::get('/zone', [amaincontroller::class, 'zone']);
             Route::post('/add_zone', [maincontroller::class, 'add_zone']);
-            Route::post('/edit_zone{id}', [maincontroller::class, 'edit_zone']);
+            Route::post('/edit_zone{id?}', [maincontroller::class, 'edit_zone']);
 
             Route::get('/sales_officer', [maincontroller::class, 'sales_officer']);
             Route::post('/add_sales_officer', [maincontroller::class, 'add_sales_officer']);
-            Route::post('/edit_sales_officer{id}', [maincontroller::class, 'edit_sales_officer']);
+            Route::post('/edit_sales_officer{id?}', [maincontroller::class, 'edit_sales_officer']);
 
-            Route::get('/edit_buyer{id}', [maincontroller::class, 'view_edit_buyer']);
+            Route::get('/edit_buyer{id?}', [maincontroller::class, 'view_edit_buyer']);
             Route::get('/buyers', [maincontroller::class, 'view_buyers']);
             Route::get('/data-buyers', [maincontroller::class, 'data_buyer']);
             Route::get('/add-buyer', [maincontroller::class, 'view_add_buyer']);
-            Route::get('/view-buyer{id}', [maincontroller::class, 'view_single_buyer']);
-            Route::get('/view_single_buyer{id}', [maincontroller::class, 'view_single_buyer']);
+            Route::get('/view-buyer{id?}', [maincontroller::class, 'view_single_buyer']);
+            Route::get('/view_single_buyer{id?}', [maincontroller::class, 'view_single_buyer']);
 
-            Route::get('/edit_seller{id}', [maincontroller::class, 'view_edit_seller']);
+            Route::get('/edit_seller{id?}', [maincontroller::class, 'view_edit_seller']);
             Route::get('/sellers', [maincontroller::class, 'view_sellers']);
             Route::get('/data-sellers', [maincontroller::class, 'data_seller']);
             Route::get('/add-seller', [maincontroller::class, 'view_add_seller']);
-            Route::get('/view-seller{id}', [maincontroller::class, 'view_single_seller']);
-            Route::get('/view_single_seller{id}', [maincontroller::class, 'view_single_seller']);
+            Route::get('/view-seller{id?}', [maincontroller::class, 'view_single_seller']);
+            Route::get('/view_single_seller{id?}', [maincontroller::class, 'view_single_seller']);
 
             Route::post('/add_buyer_form', [maincontroller::class, 'add_buyer_form']);
             Route::post('/edit_buyer_form', [maincontroller::class, 'edit_buyer_form']);
@@ -104,113 +104,121 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/account/{head}/{sub_head}', [maincontroller::class, 'account'])->name('account.index');
             Route::get('/get-data/account', [maincontroller::class, 'get_data_account']);
             Route::post('/add_account', [maincontroller::class, 'add_account']);
-            Route::post('/edit_account{id}', [maincontroller::class, 'edit_account']);
+            Route::post('/edit_account{id?}', [maincontroller::class, 'edit_account']);
 
             Route::get('/data-account/{head}/{sub_head}', [maincontroller::class, 'data_account'])->name('account.data');
 
         });
 
         Route::middleware(['financePermission'])->group(function () {
-            // VOUCHERS
-            Route::get('/p_voucher', [PaymentVoucherController::class, 'create'])->name('payment_voucher.create');
-            Route::post('/p_voucher_form', [PaymentVoucherController::class, 'store']);
-            Route::get('/ep_voucher_id={id}', [PaymentVoucherController::class, 'edit'])->name('payment_voucher.edit');
-            Route::post('/ep_voucher_form_id={id?}', [PaymentVoucherController::class, 'update'])->name('payment_voucher.update');
-            Route::get('/r_voucher', [ReceiptVoucherController::class, 'index'])->name('receipt_voucher.create');
-            Route::post('/r_voucher_form', [ReceiptVoucherController::class, 'store']);
-            Route::get('/er_voucher_id={id}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
-            Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
-            Route::post('/er_voucher_form_id={id}', [ReceiptVoucherController::class, 'update'])->name('receipt_voucher.update');
+            Route::prefix('finance')->group(function () {
 
-            Route::controller(ExpenseVoucherController::class)->group(function () {
-                Route::get('/expense-voucher', 'create')->name('add_expense_voucher');
-                Route::post('/expense-voucher', 'store')->name('store_expense_voucher');
-                Route::get('/expense-voucher/{id}', 'edit')->name('edit_expense_voucher');
-                Route::post('/expense-voucher/{id}', 'update')->name('update_expense_voucher');
+                // VOUCHERS
+                Route::get('/first-payment-voucher', [PaymentVoucherController::class, 'create_first'])->name("payment_voucher.create_first");
+                Route::get('/last-payment-voucher', [PaymentVoucherController::class, 'create_last'])->name("payment_voucher.create_last");
+                Route::get('/payment-voucher', [PaymentVoucherController::class, 'create'])->name('payment_voucher.create');
+                Route::post('/payment-voucher', [PaymentVoucherController::class, 'store'])->name('payment_voucher.store');
+                Route::get('/payment-voucher/{id?}', [PaymentVoucherController::class, 'edit'])->name('payment_voucher.edit');
+                Route::post('/payment-voucher/{id?}', [PaymentVoucherController::class, 'update'])->name('payment_voucher.update');
+
+                Route::get('/first-receipt-voucher', [ReceiptVoucherController::class, 'create_first'])->name("receipt_voucher.create_first");
+                Route::get('/last-receipt-voucher', [ReceiptVoucherController::class, 'create_last'])->name("receipt_voucher.create_last");
+                Route::get('/receipt-voucher', [ReceiptVoucherController::class, 'create'])->name('receipt_voucher.create');
+                Route::post('/receipt-voucher', [ReceiptVoucherController::class, 'store'])->name('receipt_voucher.store');
+                Route::get('/receipt-voucher/{id?}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
+                Route::post('/receipt-voucher/{id?}', [ReceiptVoucherController::class, 'update'])->name('receipt_voucher.update');
+                // Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
+
+                Route::controller(ExpenseVoucherController::class)->group(function () {
+                    Route::get('/first-expense-voucher', 'create_first')->name("expense_voucher.create_first");
+                    Route::get('/last-expense-voucher', 'create_last')->name("expense_voucher.create_last");
+                    Route::get('/expense-voucher', 'create')->name('expense_voucher.create');
+                    Route::post('/expense-voucher', 'store')->name('expense_voucher.store');
+                    Route::get('/expense-voucher/{id?}', 'edit')->name('expense_voucher.edit');
+                    Route::post('/expense-voucher/{id?}', 'update')->name('expense_voucher.update');
+                });
             });
 
             // INVOICES
-            Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
-            Route::get('/data-invoice', [SaleInvoiceController::class, 'data']);
-            Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
-            Route::get('/ars_med_invoice', [SaleReturnController::class, 'create']);
-            Route::post('/ars_med_invoice_form', [SaleReturnController::class, 'store']);
-            Route::get('/arp_med_invoice', [PurchaseReturnController::class, 'create']);
-            Route::post('/arp_med_invoice_form', [PurchaseReturnController::class, 'store']);
+            //     Route::get('/sale-invoice', [SaleInvoiceController::class, 'index']);
+            //     Route::get('/data-invoice', [SaleInvoiceController::class, 'data']);
+            //     Route::get('/purchase-invoice', [PurchaseInvoiceController::class, 'index']);
+            //     Route::get('/ars_med_invoice', [SaleReturnController::class, 'create']);
+            //     Route::post('/ars_med_invoice_form', [SaleReturnController::class, 'store']);
+            //     Route::get('/arp_med_invoice', [PurchaseReturnController::class, 'create']);
+            //     Route::post('/arp_med_invoice_form', [PurchaseReturnController::class, 'store']);
 
-            Route::get('/s_med_invoice', [SaleInvoiceController::class, 'create']);
-            Route::get('/get-previous-balance', [SaleInvoiceController::class, 'get_previous_balance']);
-            Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
-            Route::post('/s_med_invoice_mail', [SaleInvoiceController::class, 'mail']);
-            Route::get('/es_med_invoice_id={id}', [SaleInvoiceController::class, 'edit']);
-            Route::get('/saleInvoice-search', function (Request $request) {
-                $invoice_no = $request->input('invoice_no'); // Access the input using the input method
-                $sale_invoice = sell_invoice::where('unique_id', $invoice_no)->first(); // Use first() instead of get() to get a single instance
-                if ($sale_invoice) {
-                    $id = $sale_invoice->unique_id;
-                    if ($id === $invoice_no) {
-                        return redirect('/es_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
-                    }
-                }
-                session()->put('not_found', 'Invoice not found');
-                return redirect()->back();
-            });
-            Route::post('/es_med_invoice_form_id={id}', [SaleInvoiceController::class, 'update']);
-            Route::get('/rs_med_invoice_id={id}', [SaleInvoiceController::class, 'r_edit']);
-            Route::post('/rs_med_invoice_form_id={id}', [SaleInvoiceController::class, 'r_update']);
-            Route::get('/p_med_invoice', [PurchaseInvoiceController::class, 'create']);
-            Route::post('/p_med_invoice_form', [PurchaseInvoiceController::class, 'store']);
-            Route::get('/ep_med_invoice_id={id}', [PurchaseInvoiceController::class, 'edit']);
-            Route::get('/purchaseInvoice-search', function (Request $request) {
-                $invoice_no = $request->input('invoice_no'); // Access the input using the input method
-                $purchase_invoice = purchase_invoice::where('unique_id', $invoice_no)->first(); // Use first() instead of get() to get a single instance
-                if ($purchase_invoice) {
-                    $id = $purchase_invoice->unique_id;
-                    if ($id === $invoice_no) {
-                        return redirect('/ep_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
-                    }
-                }
-                session()->flash('something_error', 'Invoice not found');
-                return redirect()->back();
-            });
-            Route::post('/ep_med_invoice_form_id={id}', [PurchaseInvoiceController::class, 'update']);
-            Route::get('/rp_med_invoice_id={id}', [PurchaseInvoiceController::class, 'r_edit']);
-            Route::post('/rp_med_invoice_form_id={id}', [PurchaseInvoiceController::class, 'r_update']);
+            //     Route::get('/s_med_invoice', [SaleInvoiceController::class, 'create']);
+            //     Route::get('/get-previous-balance', [SaleInvoiceController::class, 'get_previous_balance']);
+            //     Route::post('/s_med_invoice_form', [SaleInvoiceController::class, 'store']);
+            //     Route::post('/s_med_invoice_mail', [SaleInvoiceController::class, 'mail']);
+            //     Route::get('/es_med_invoice_id={id?}', [SaleInvoiceController::class, 'edit']);
+            //     Route::get('/saleInvoice-search', function (Request $request) {
+            //         $invoice_no = $request->input('invoice_no'); // Access the input using the input method
+            //         $sale_invoice = sell_invoice::where('unique_id', $invoice_no)->first(); // Use first() instead of get() to get a single instance
+            //         if ($sale_invoice) {
+            //             $id = $sale_invoice->unique_id;
+            //             if ($id === $invoice_no) {
+            //                 return redirect('/es_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
+            //             }
+            //         }
+            //         session()->put('not_found', 'Invoice not found');
+            //         return redirect()->back();
+            //     });
+            //     Route::post('/es_med_invoice_form_id={id?}', [SaleInvoiceController::class, 'update']);
+            //     Route::get('/rs_med_invoice_id={id?}', [SaleInvoiceController::class, 'r_edit']);
+            //     Route::post('/rs_med_invoice_form_id={id?}', [SaleInvoiceController::class, 'r_update']);
+            //     Route::get('/p_med_invoice', [PurchaseInvoiceController::class, 'create']);
+            //     Route::post('/p_med_invoice_form', [PurchaseInvoiceController::class, 'store']);
+            //     Route::get('/ep_med_invoice_id={id?}', [PurchaseInvoiceController::class, 'edit']);
+            //     Route::get('/purchaseInvoice-search', function (Request $request) {
+            //         $invoice_no = $request->input('invoice_no'); // Access the input using the input method
+            //         $purchase_invoice = purchase_invoice::where('unique_id', $invoice_no)->first(); // Use first() instead of get() to get a single instance
+            //         if ($purchase_invoice) {
+            //             $id = $purchase_invoice->unique_id;
+            //             if ($id === $invoice_no) {
+            //                 return redirect('/ep_med_invoice_id=' . $invoice_no); // Fix the redirect URL format
+            //             }
+            //         }
+            //         session()->flash('something_error', 'Invoice not found');
+            //         return redirect()->back();
+            //     });
+            //     Route::post('/ep_med_invoice_form_id={id?}', [PurchaseInvoiceController::class, 'update']);
+            //     Route::get('/rp_med_invoice_id={id?}', [PurchaseInvoiceController::class, 'r_edit']);
+            //     Route::post('/rp_med_invoice_form_id={id?}', [PurchaseInvoiceController::class, 'r_update']);
         });
 
         Route::middleware(['productPermission'])->group(function () {
             // PRODUCT
             Route::get('/product_category', [product::class, 'product_category']);
             Route::post('/add_product_category', [product::class, 'add_product_category']);
-            Route::post('/edit_product_category{id}', [product::class, 'edit_product_category']);
+            Route::post('/edit_product_category{id?}', [product::class, 'edit_product_category']);
             Route::post('/add_product_sub_category', [product::class, 'add_product_sub_category']);
-            Route::post('/edit_product_sub_category{id}', [product::class, 'edit_product_sub_category']);
+            Route::post('/edit_product_sub_category{id?}', [product::class, 'edit_product_sub_category']);
             Route::get('/product_company', [product::class, 'product_company']);
             Route::get('/data-product-company', [product::class, 'data_product_company']);
             Route::post('/add_product_company', [product::class, 'add_product_company']);
-            Route::post('/edit_product_company{id}', [product::class, 'edit_product_company']);
+            Route::post('/edit_product_company{id?}', [product::class, 'edit_product_company']);
             Route::get('/product_type', [product::class, 'product_type']);
             Route::post('/add_product_type', [product::class, 'add_product_type']);
-            Route::post('/edit_product_type{id}', [product::class, 'edit_product_type']);
+            Route::post('/edit_product_type{id?}', [product::class, 'edit_product_type']);
             Route::get('/products', [product::class, 'view_product']);
             // Route::get('/tmp', [product::class, 'tmp']);
             Route::get('/data-product', [product::class, 'data_product']);
             Route::post('/add_product_form', [product::class, 'add_product']);
             Route::get('/edit_product/{id?}', [product::class, 'edit'])->name('edit.product');
-            Route::get('/edit_product/{id}', [product::class, 'edit_product'])->name('product.edit');
-            Route::post('/edit_product{id}', [product::class, 'update_product']);
+            Route::get('/edit_product/{id?}', [product::class, 'edit_product'])->name('product.edit');
+            Route::post('/edit_product{id?}', [product::class, 'update_product']);
         });
 
         Route::middleware(['reportPermission'])->group(function () {
             // PDF
             Route::get('/pdf_field={view}', [pdfController::class, 'pdf']);
             Route::get('/pdf_limit{view}', [pdfController::class, 'pdf_limit']);
-            Route::get('/product_pdf_id={id}', [pdfController::class, 'product_detail']);
-            Route::get('/sale_invoice_pdf_{id}', [pdfController::class, 'sale_invoice_pdf']);
-            Route::get('/purchase_invoice_pdf_{id}', [pdfController::class, 'purchase_invoice_pdf']);
-            Route::get('/pv_pdf_{id}', [pdfController::class, 'pv_pdf']);
-            Route::get('/rv_pdf_{id}', [pdfController::class, 'rv_pdf']);
-            Route::get('/ev_pdf_{id}', [pdfController::class, 'ev_pdf']);
+            Route::get('/product_pdf_id={id?}', [pdfController::class, 'product_detail']);
+            Route::get('/sale_invoice_pdf_{id?}', [pdfController::class, 'sale_invoice_pdf']);
+            Route::get('/purchase_invoice_pdf_{id?}', [pdfController::class, 'purchase_invoice_pdf']);
+
             Route::get('/p-voucher-report', [pdfController::class, 'p_voucher_report'])->name('p_voucher.report');
             Route::get('/r-voucher-report', [pdfController::class, 'r_voucher_report'])->name('r_voucher.report');
             Route::get('/e-voucher-report', [pdfController::class, 'e_voucher_report'])->name('e_voucher.report');
@@ -226,8 +234,16 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/warehouse-report', [pdfController::class, 'warehouse_rep']);
 
             // NEW
-            Route::get('/sale-purchase-report', [pdfController::class, 'sale_pur_report'])->name('sale_pur.report');
-            Route::get('/farm-report', [pdfController::class, 'farm_report'])->name('farm.report');
+            Route::prefix('pdf')->group(function () {
+                Route::get('/sale-purchase-report', [pdfController::class, 'sale_pur_report'])->name('sale_pur.report');
+                Route::get('/farm-report', [pdfController::class, 'farm_report'])->name('farm.report');
+
+                Route::get('/payment-voucher/{id?}', [pdfController::class, 'pv_pdf'])->name('payment_voucher.report');
+                Route::get('/receipt-voucher/{id?}', [pdfController::class, 'rv_pdf'])->name('receipt_voucher.report');
+                Route::get('/expense-voucher/{id?}', [pdfController::class, 'ev_pdf'])->name('expense_voucher.report');
+                // Route::get('/rv_pdf_{id?}', [pdfController::class, 'rv_pdf'])->name('farm.report');
+                // Route::get('/ev_pdf_{id?}', [pdfController::class, 'ev_pdf'])->name('farm.report');
+            });
         });
 
         Route::middleware(['selectPermission'])->group(function () {
@@ -307,7 +323,7 @@ Route::middleware('userAuth')->group(function () {
     Route::prefix('farm-module')->group(function () {
         Route::get('/daily-reports', [FarmDailyReportController::class, 'index'])->name("daily_reports");
         Route::post('/daily-reports', [FarmDailyReportController::class, 'store'])->name("store_daily_report");
-        Route::put('/daily-report/{id}', [FarmDailyReportController::class, 'update'])->name("update_daily_report");
+        Route::put('/daily-report/{id?}', [FarmDailyReportController::class, 'update'])->name("update_daily_report");
     });
 });
 

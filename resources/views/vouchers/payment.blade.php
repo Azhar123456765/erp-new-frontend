@@ -165,7 +165,7 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
+    #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -242,7 +242,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Payment Voucher</h3>
@@ -462,30 +462,37 @@
         </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center" style="position: relative;gap: 30px;margin-top: -110px !important;top: 60%;right: 0%;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: relative;gap: 30px;margin-top: -110px !important;top: 60%;right: 0%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
 
 
-
-    <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('payment_voucher.create_first') }}" class="btn px-3 p-1 btn-secondary btn-sm ">
+        First
+    </a>
+    <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
         Previous
     </a>
-    <a href="{{ Route('payment_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('payment_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
         Next
     </a>
-
-    <a href="/ep_voucher_id={{ $rand }}" class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled"
-        id="edit">
+    <a href="{{ Route('payment_voucher.create_last') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        Last
+    </a>
+    <a href="{{ Route('payment_voucher.edit', $rand) }}"
+        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
     </a>
-    <a href="/r_voucher" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
+    <a href="{{ Route('payment_voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
+        id="add_more">
         Add More
     </a>
 
-    <a href="/pv_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm disabled" id="pdf">
+    <a href="{{ Route('payment_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm disabled"
+        target="__blank" id="pdf">
         PDF
     </a>
 
@@ -894,7 +901,7 @@
 
             // Send an AJAX request
             $.ajax({
-                url: '/p_voucher_form', // Replace with your Laravel route or endpoint
+                url: '{{ Route('payment_voucher.store') }}', // Replace with your Laravel route or endpoint
                 method: 'POST',
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
@@ -957,6 +964,30 @@
             }
         });
     </script>
+        <div class="modal fade" id="iv-search">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4>Search Voucher</h4>
+                        <div class="modal-body">
+                            <form method="GET" action="/saleInvoice-search">
+                                @csrf
+                                <div class="form-group">
+                                    <label for="">Voucher No</label>
+                                    <input type="text" class="form-control" id="search-input"
+                                        style="width: 100% !important;">
+                                </div>
+    
+                                <button type="submit" data-url="{{ Route('payment_voucher.edit') }}"
+                                    class="btn btn-primary" id="search-btn">Search</button>
+    
+                            </form>
+                        </div>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

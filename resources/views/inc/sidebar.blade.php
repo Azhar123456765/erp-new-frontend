@@ -213,9 +213,10 @@ $target = null;
           </ul>
         </li> --}}
 
-                    <li class="nav-item {{ request()->is('p_voucher*', 'r_voucher*') ? 'menu-open' : '' }}">
+                    <li
+                        class="nav-item {{ request()->routeIs('payment_voucher*', 'receipt_voucher*', 'expense_voucher*') ? ' menu-open' : '' }}">
                         <a href="#"
-                            class="nav-link {{ request()->is('p_voucher*', 'r_voucher*') ? 'active' : '' }}">
+                            class="nav-link {{ request()->routeIs('payment_voucher*', 'receipt_voucher*') ? ' active' : '' }}">
                             <i class="nav-icon fas fa-money-check"></i>
                             <p>
                                 Voucher
@@ -224,22 +225,22 @@ $target = null;
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="/p_voucher"
-                                    class="nav-link{{ request()->is('p_voucher*') ? ' active' : '' }}">
+                                <a href="{{ Route('payment_voucher.create_first') }}"
+                                    class="nav-link{{ request()->routeIs('payment_voucher*') ? ' active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Payment Voucher</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="/r_voucher"
-                                    class="nav-link{{ request()->is('r_voucher*') ? ' active' : '' }}">
+                                <a href="{{ Route('receipt_voucher.create_first') }}"
+                                    class="nav-link{{ request()->is('receipt_voucher*') ? ' active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Reciept Voucher</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="{{ Route('add_expense_voucher') }}"
-                                    class="nav-link{{ request()->routeIs('add_expense_voucher') ? ' active' : '' }}">
+                                <a href="{{ Route('expense_voucher.create_first') }}"
+                                    class="nav-link{{ request()->routeIs('expense_voucher*') ? ' active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Expense Voucher</p>
                                 </a>

@@ -43,21 +43,7 @@ class ReceiptVoucherController extends Controller
     public function index()
     {
 
-        // $seller = seller::all();
-        // $buyer = buyer::all();
 
-        // $warehouse = warehouse::all();
-
-        // $sales_officer = sales_officer::all();
-        $account = accounts::all();
-        $count = ReceiptVoucher::whereIn('receipt_vouchers.id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('receipt_vouchers')
-                ->groupBy('unique_id');
-        })->count();
-
-        $data = compact('account', 'count');
-        return view('vouchers.receipt')->with($data);
     }
 
     /**
@@ -67,9 +53,52 @@ class ReceiptVoucherController extends Controller
      */
     public function create()
     {
-        //
-    }
+        $count = ReceiptVoucher::whereIn('receipt_vouchers.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('receipt_vouchers')
+                ->groupBy('unique_id');
+        })->count();
 
+        $data = compact('count');
+        return view('vouchers.receipt')->with($data);
+    }
+    public function create_first()
+    {
+        $ReceiptVoucher = ReceiptVoucher::where("unique_id", 1)
+            ->get();
+        $sReceiptVoucher = ReceiptVoucher::where([
+
+            "unique_id" => 1
+        ])->limit(1)->get();
+        if (count($ReceiptVoucher) > 0) {
+            $data = compact('ReceiptVoucher', 'sReceiptVoucher');
+            return view('vouchers.e_reciept')->with($data);
+        } else {
+            session()->flash('something_error', 'Voucher Not Found');
+            return redirect()->back();
+        }
+    }
+    public function create_last()
+    {
+        $count = ReceiptVoucher::whereIn('receipt_vouchers.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('receipt_vouchers')
+                ->groupBy('unique_id');
+        })->count();
+
+        $ReceiptVoucher = ReceiptVoucher::where("unique_id", $count)
+            ->get();
+        $sReceiptVoucher = ReceiptVoucher::where([
+            "unique_id" => $count
+        ])->limit(1)->get();
+        if (count($ReceiptVoucher) > 0) {
+            $data = compact('ReceiptVoucher', 'sReceiptVoucher');
+            return view('vouchers.e_reciept')->with($data);
+        } else {
+            session()->flash('something_error', 'Voucher Not Found');
+            return redirect()->back();
+        }
+    }
     /**
      * Store a newly created resource in storage.
      *

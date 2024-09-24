@@ -2323,7 +2323,7 @@ class pdfController extends Controller
                         ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
-                        ->limit(1)->get();
+                        ->first();
 
                 session()->flash("p_voucher_pdf_data", $p_voucher);
                 session()->flash("s_p_voucher_pdf_data", $s_p_voucher);
@@ -2365,7 +2365,7 @@ class pdfController extends Controller
                 $s_receipt_vouchers = ReceiptVoucher::where("unique_id", $id)
                         ->leftJoin('buyer', 'receipt_vouchers.company', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'receipt_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->limit(1)->get();
+                        ->first();
 
                 session()->flash("receipt_vouchers_pdf_data", $receipt_vouchers);
                 session()->flash("s_receipt_vouchers_pdf_data", $s_receipt_vouchers);
@@ -2406,7 +2406,7 @@ class pdfController extends Controller
                 $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
                         ->leftJoin('buyer', 'expense_vouchers.buyer', '=', 'buyer.buyer_id')
                         ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->limit(1)->get();
+                        ->first();
 
                 session()->flash("expense_vouchers_pdf_data", $expense_vouchers);
                 session()->flash("s_expense_vouchers_pdf_data", $s_expense_vouchers);

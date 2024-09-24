@@ -40,22 +40,52 @@ class PaymentVoucherController extends Controller
     public function create()
     {
 
-        $seller = seller::all();
-        $buyer = buyer::all();
-
-        $warehouse = warehouse::all();
-
-        $sales_officer = sales_officer::all();
-
-        $account = accounts::all();
         $count = p_voucher::whereIn('payment_voucher.id', function ($query2) {
             $query2->select(DB::raw('MIN(id)'))
                 ->from('payment_voucher')
                 ->groupBy('unique_id');
         })->count();
 
-        $data = compact('seller', 'sales_officer', 'warehouse', 'account', 'buyer', 'count');
+        $data = compact('count');
         return view('vouchers.payment')->with($data);
+    }
+    public function create_first()
+    {
+        $p_voucher = p_voucher::where("unique_id", 1)
+            ->get();
+        $sp_voucher = p_voucher::where([
+
+            "unique_id" => 1
+        ])->limit(1)->get();
+        if (count($p_voucher) > 0) {
+            $data = compact('p_voucher', 'sp_voucher');
+            return view('vouchers.e_payment')->with($data);
+        } else {
+            session()->flash('something_error', 'Voucher Not Found');
+            return redirect()->back();
+        }
+    }
+    public function create_last()
+    {
+        $count = p_voucher::whereIn('payment_voucher.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('payment_voucher')
+                ->groupBy('unique_id');
+        })->count();
+
+        $p_voucher = p_voucher::where("unique_id", $count)
+            ->get();
+        $sp_voucher = p_voucher::where([
+
+            "unique_id" => $count
+        ])->limit(1)->get();
+        if (count($p_voucher) > 0) {
+            $data = compact('p_voucher', 'sp_voucher');
+            return view('vouchers.e_payment')->with($data);
+        } else {
+            session()->flash('something_error', 'Voucher Not Found');
+            return redirect()->back();
+        }
     }
 
     /**
@@ -168,7 +198,8 @@ class PaymentVoucherController extends Controller
             $data = compact('account', 'p_voucher', 'sp_voucher');
             return view('vouchers.e_payment')->with($data);
         } else {
-            return redirect()->route('payment_voucher.create');
+            session()->flash('something_error', 'Voucher Not Found');
+            return redirect()->back();
         }
     }
 

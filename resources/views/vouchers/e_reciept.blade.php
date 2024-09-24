@@ -539,20 +539,28 @@ text-align:end;
         onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
         Edit
     </button>
-    <a href="{{ Route('receipt_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+
+    <a href="{{ Route('receipt_voucher.create_first') }}" class="btn px-3 p-1 btn-secondary btn-sm ">
+        First
+    </a>
+    <a href="{{ Route('receipt_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
         Previous
     </a>
-    <a href="{{ Route('receipt_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('receipt_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
         Next
     </a>
-    <a href="/r_voucher" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm" id="add_more">
-        Add New
+    <a href="{{ Route('receipt_voucher.create_last') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        Last
+    </a>
+    <a href="{{ Route('receipt_voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
+        id="add_more">
+        Add More
     </a>
 
-    <a href="/rv_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
+    <a href="{{ Route('receipt_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm"
+        target="__blank" id="pdf">
         PDF
     </a>
-
 
 
     <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
@@ -1111,6 +1119,30 @@ text-align:end;
             }
         });
     </script>
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Voucher</h4>
+                    <div class="modal-body">
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Voucher No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
+                            </div>
+
+                            <button type="submit" data-url="{{ Route('receipt_voucher.edit') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

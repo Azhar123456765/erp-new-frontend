@@ -16,7 +16,7 @@
 </head>
 
 <body
-    class="{{ request()->is('farm*', 's_med_invoice*', 'expense-voucher*', 'es_med_invoice*', 'p_med_invoice*', 'ep_med_invoice*', 'rp_med_invoice*', 'rs_med_invoice*', 'arp_med_invoice*', 'ars_med_invoice*', 'r_voucher*', 'er_voucher_id=*', 'p_voucher*', 'ep_voucher_id=*') ? 'sidebar-collapse' : 'sidebar-mini' }}  layout-fixed">
+    class="{{ request()->is('finance*') ? 'sidebar-collapse' : '' }}  {{ request()->is('farm*', 's_med_invoice*', 'expense-voucher*', 'es_med_invoice*', 'p_med_invoice*', 'ep_med_invoice*', 'rp_med_invoice*', 'rs_med_invoice*', 'arp_med_invoice*', 'ars_med_invoice*', 'r_voucher*', 'er_voucher_id=*', 'payment-voucher*', 'edit-payment-voucher*') ? 'sidebar-collapse' : '' }}  layout-fixed">
     <div class="wrapper">
         <div class="preloader flex-column justify-content-center align-items-center">
             <img class="animation__shake" src="{{ asset($logo) }}" alt="AdminLTELogo" height="60" width="60"

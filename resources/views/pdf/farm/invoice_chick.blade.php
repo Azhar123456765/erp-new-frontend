@@ -116,7 +116,7 @@
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
                 <img class="img-fluid"
-                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 250px;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
@@ -210,7 +210,7 @@
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
                 <img class="img-fluid"
-                    style="object-fit: contain;margin: auto;display: flex;width: 100%;height:100%;justify-content: center;align-items: center;"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 250px;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
