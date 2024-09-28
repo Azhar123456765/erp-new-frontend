@@ -30,6 +30,19 @@
         $total_amount = 0;
         $total_sale_amount = 0;
     @endphp
+    <style>
+        th {
+            background: #ececec !important;
+            border: 1px solid #7f7b7b !important;
+            text-align: center !important !important;
+            font-size: small !important;
+        }
+
+        td {
+            border: 1px solid #7f7b7b !important;
+            font-size: smaller !important;
+        }
+    </style>
     <div class="invoice-header">
         <div class="ui left aligned grid">
             <div class="row">
@@ -98,7 +111,7 @@
                             <tbody>
                                 @foreach ($chickenData as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -188,7 +201,7 @@
                             <tbody>
                                 @foreach ($chickData as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -276,7 +289,7 @@
                             <tbody>
                                 @foreach ($feedData as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">

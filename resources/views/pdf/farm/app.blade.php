@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="./style.css">
 
     <style>
+        * {
+            font-family: sans-serif;
+        }
+
         @page {
             size: A4;
             margin: 0;
@@ -82,10 +86,13 @@
         th {
             background: #ececec !important;
             border: 1px solid #7f7b7b !important;
+            text-align: center !important !important;
+            font-size: large !important;
         }
 
         td {
             border: 1px solid #7f7b7b !important;
+            font-size: medium !important;
         }
 
         .itemscard {
@@ -106,6 +113,10 @@
 
         table {
             font-weight: bold;
+        }
+
+        td {
+            font-weight: bolder;
         }
     </style>
 </head>

@@ -77,7 +77,7 @@
                     <tbody>
                         @foreach ($p_voucher as $row)
                             <tr style="text-align: center;">
-                                <td class="text-right" style="width: 70px;">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">

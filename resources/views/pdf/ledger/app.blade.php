@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="./style.css">
 
     <style>
+        * {
+            font-family: sans-serif !important;
+        }
+
         @page {
             size: A4;
             margin: 0;
@@ -92,7 +96,7 @@
         }
 
         table th {
-            padding: 0.5px
+            padding: 0.5p
         }
 
         table td {
@@ -102,12 +106,15 @@
         }
 
         th {
-            background: #c2c1c1 !important;
-            border: 1px solid #363636 !important;
+            background: #ececec !important;
+            border: 1px solid #7f7b7b !important;
+            text-align: center !important !important;
+            font-size: large !important;
         }
 
         td {
-            border: 1px solid #363636 !important;
+            border: 1px solid #7f7b7b !important;
+            font-size: small !important;
         }
 
         .itemscard {
@@ -133,8 +140,21 @@
         .card .content {
             border: 1px solid #363636 !important;
         }
-        table{
-            font-weight: bold;
+
+        table {
+            font-weight: 1000 !important;
+        }
+
+        th {
+            font-weight: bolder !important;
+        }
+
+        td span {
+            font-weight: 700 !important;
+        }
+
+        .text-center {
+            text-align: center !important;
         }
     </style>
 </head>

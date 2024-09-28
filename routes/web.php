@@ -9,6 +9,7 @@ use App\Http\Controllers\FarmDailyReportController;
 use App\Http\Controllers\FarmingPeriodController;
 use App\Http\Controllers\FeedInvoiceController;
 use App\Http\Controllers\IncomeController;
+use App\Http\Controllers\JournalVoucherController;
 use App\Http\Controllers\NarrationController;
 use App\Http\Controllers\select2Controller;
 use App\Http\Controllers\UserController;
@@ -58,7 +59,7 @@ Route::middleware('userAuth')->group(function () {
         Route::get('/income', [IncomeController::class, 'index']);
         Route::get('/organization', [OrganizationController::class, 'index']);
         Route::post('/organization', [OrganizationController::class, 'store']);
-        Route::get('/users', [UserController::class, 'index']);
+        Route::get('/users', [UserController::class, 'index'])->name('user.index');
         Route::get('/add-user', [UserController::class, 'create']);
         Route::post('/add_user_form', [UserController::class, 'store']);
         Route::get('/edit-user-{id?}', [UserController::class, 'edit']);
@@ -74,7 +75,7 @@ Route::middleware('userAuth')->group(function () {
             Route::post('/add_warehouse', [maincontroller::class, 'add_warehouse']);
             Route::post('/edit_warehouse{id?}', [maincontroller::class, 'edit_warehouse']);
 
-            Route::get('/zone', [amaincontroller::class, 'zone']);
+            Route::get('/zone', [maincontroller::class, 'zone']);
             Route::post('/add_zone', [maincontroller::class, 'add_zone']);
             Route::post('/edit_zone{id?}', [maincontroller::class, 'edit_zone']);
 
@@ -137,6 +138,9 @@ Route::middleware('userAuth')->group(function () {
                     Route::get('/expense-voucher/{id?}', 'edit')->name('expense_voucher.edit');
                     Route::post('/expense-voucher/{id?}', 'update')->name('expense_voucher.update');
                 });
+                Route::get('/first-journal-voucher', [JournalVoucherController::class, 'create_first'])->name("journal-voucher.create_first");
+                Route::get('/last-journal-voucher', [JournalVoucherController::class, 'create_last'])->name("journal-voucher.create_last");
+                Route::resource('journal-voucher', JournalVoucherController::class);
             });
 
             // INVOICES
@@ -202,11 +206,11 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/product_type', [product::class, 'product_type']);
             Route::post('/add_product_type', [product::class, 'add_product_type']);
             Route::post('/edit_product_type{id?}', [product::class, 'edit_product_type']);
-            Route::get('/products', [product::class, 'view_product']);
+            Route::get('/products', [product::class, 'index']);
             // Route::get('/tmp', [product::class, 'tmp']);
             Route::get('/data-product', [product::class, 'data_product']);
             Route::post('/add_product_form', [product::class, 'add_product']);
-            Route::get('/edit_product/{id?}', [product::class, 'edit'])->name('edit.product');
+            // Route::get('/edit_product/{id?}', [product::class, 'edit'])->name('edit.product');
             Route::get('/edit_product/{id?}', [product::class, 'edit_product'])->name('product.edit');
             Route::post('/edit_product{id?}', [product::class, 'update_product']);
         });

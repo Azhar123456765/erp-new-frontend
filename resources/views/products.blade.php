@@ -260,15 +260,15 @@
                     render: function(data, type, row) {
                         return `
                         <div class="table-data-feature">
-                                <a href="{{ Route('product.edit' @json(${row.product_id})) }}"  class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                <a href="#" data-toggle="modal" data-target="#edit_modal${row.product_id}"  class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                     <i class="fa fa-edit"></i>
                                 </a>
-                                // <a href="/product_delete${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                //     <i class="fa fa-trash"></i>
-                                // </a>
-                                // <a href="#" data-toggle="modal" data-target="#view_modal${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
-                                //     <i class="fa fa-eye"></i>
-                                // </a>
+                                <a href="/product_delete${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                <a href="#" data-toggle="modal" data-target="#view_modal${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-eye"></i>
+                                </a>
                                 <a href="/product_pdf_id=${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
                                     <i class="fa fa-print"></i>
                                 </a>

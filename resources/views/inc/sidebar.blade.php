@@ -225,6 +225,13 @@ $target = null;
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
+                                <a href="{{ Route('journal-voucher.create_first') }}"
+                                    class="nav-link{{ request()->routeIs('journal-voucher*') ? ' active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Journal Voucher</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="{{ Route('payment_voucher.create_first') }}"
                                     class="nav-link{{ request()->routeIs('payment_voucher*') ? ' active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>

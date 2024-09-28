@@ -66,14 +66,32 @@
 
 <body>
     <iframe srcdoc="{{ $pdf }}" id="pdfFrame" frameborder="0"></iframe>
+
+    <!-- Orientation Selection -->
+    <label for="orientation">Select Page Orientation:</label>
+    <select id="orientation">
+        <option value="portrait">Portrait</option>
+        <option value="landscape">Landscape</option>
+    </select>
+    
     <button onclick="printIframe()" class="print-button">Print PDF</button>
+    
     <script>
         function printIframe() {
+            var orientation = document.getElementById('orientation').value;
             var iframe = document.getElementById('pdfFrame');
             var iframeWindow = iframe.contentWindow || iframe.contentDocument;
+    
+            // Apply CSS for print orientation
+            var style = document.createElement('style');
+            style.media = 'print';
+            style.innerHTML = `@page { size: ${orientation}; }`;
+    
+            iframeWindow.document.head.appendChild(style);
             iframeWindow.print();
         }
     </script>
+    
 </body>
 
 </html>

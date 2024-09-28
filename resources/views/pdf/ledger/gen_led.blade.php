@@ -103,7 +103,7 @@
                                 $next_unique_id = isset($invoice[$next_key]) ? $invoice[$next_key]->unique_id : null;
                             @endphp
                             <tr style="text-align: center;">
-                                <td class="text-right">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
@@ -157,7 +157,7 @@
                         @endforeach
                         @foreach ($chickInvoice as $row)
                             <tr style="text-align: center;">
-                                <td class="text-right">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
@@ -211,7 +211,7 @@
                         @endforeach
                         @foreach ($feedInvoice as $row)
                             <tr style="text-align: center;">
-                                <td class="text-right">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
@@ -267,7 +267,7 @@
                         @endforeach
                         @foreach ($payment_voucher as $row)
                             <tr style="text-align: center;">
-                                <td class="text-right">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
@@ -292,7 +292,7 @@
                         @endforeach
                         @foreach ($receipt_voucher as $row)
                             <tr style="text-align: center;">
-                                <td class="text-right">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
@@ -317,7 +317,7 @@
                         @endforeach
                         @foreach ($expense_voucher as $row)
                             <tr style="text-align: center;">
-                                <td class="text-right">
+                                <td class="text-right" style="width: 100px;">
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">

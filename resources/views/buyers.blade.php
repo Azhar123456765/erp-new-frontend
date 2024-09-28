@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Customers') @section('content')
+@extends('layout.app') @section('title', 'Customers') @section('content')
 
 <br>
 <div class="container">

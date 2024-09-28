@@ -1,4 +1,4 @@
-@extends('master')  @section('title','User Rights')  @section('content')
+@extends('layout.app')  @section('title','User Rights')  @section('content')
 <style>
     @media (max-width:755px) {
         .container {

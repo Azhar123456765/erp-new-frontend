@@ -519,7 +519,8 @@ right: 15%;
         </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center" style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit

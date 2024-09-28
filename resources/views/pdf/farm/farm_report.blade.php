@@ -100,12 +100,12 @@
                             <tbody>
                                 @foreach ($chickInvoice as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
                                             <span>C-{{ $row->unique_id }}</span>
-                                        </td>
+                                        </td>                                                                                                                                                   
                                         <td style="text-align: left
 ;">
                                             <span>{{ $row->product->product_name }}</span>
@@ -146,7 +146,7 @@
                             <tbody>
                                 @foreach ($feedInvoice as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -192,7 +192,7 @@
                             <tbody>
                                 @foreach ($salary as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -240,7 +240,7 @@
                             <tbody>
                                 @foreach ($rent as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -288,7 +288,7 @@
                             <tbody>
                                 @foreach ($utility as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -375,7 +375,7 @@
                             <tbody>
                                 @foreach ($payment_voucher as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
@@ -423,7 +423,7 @@
                             <tbody>
                                 @foreach ($chickenInvoice as $row)
                                     <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 70px;">
+                                        <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
