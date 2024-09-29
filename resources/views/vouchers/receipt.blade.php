@@ -328,7 +328,8 @@
 
                 <div class="div">
                     <label for="dis">Invoice</label>
-                    <select class="invoice_no" id="invoice_no" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-invoice-no" id="invoice_no" name="invoice_no[]"
+                        style="height: 28px">
                         <option></option>
                     </select>
                 </div>
@@ -642,7 +643,7 @@
 </div>
 
 <div class="div">
-                    <select class="invoice_no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -981,8 +982,7 @@
 
         function companyInvoice() {
             var company = $("#company").find('option:selected');
-            var id = company.data('id')
-
+            var id = company.val()
             $("#company").on('change', function() {
 
                 let invoice = $("#invoice_no").val('');
@@ -991,31 +991,66 @@
                 let invoice2 = $("#invoice_no2").val('');
                 let invoiceText2 = $("#invoice_no2").text('');
             })
-
-            $.ajax({
-                url: '/get-data/r_voucher', // Replace with your Laravel route or endpoint
-                method: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': id // Replace with the appropriate data you want to send
+            $('.select-invoice-no').select2({
+                ajax: {
+                    url: '{{ route('receipt_voucher.invoice_no') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            id: $("#company").find('option:selected').val(),
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.unique_id_name,
+                                    id: item.unique_id
+                                };
+                            })
+                        };
+                    },
+                    cache: true
                 },
-                success: function(data) {
-                    let select = document.getElementById('invoice_no');
-                    data.forEach(item => {
-                        let option = document.createElement('option');
-                        option.value = item.unique_id; // Assuming 'id' is the identifier in your data
-                        option.text = item
-                            .unique_id; // Assuming 'name' is the value you want to display
-                        select.appendChild(option);
-                    });
 
-
-                },
-                error: function(error) {
-                    // Handle the error here, if necessary
-                    console.error('Error:', error);
-                },
+                theme: 'classic',
+                width: '100%',
+                allowClear: true,
+                placeholder: '',
             });
+            // $.ajax({
+            //     url: '{{ Route('receipt_voucher.invoice_no') }}', // Replace with your Laravel route or endpoint
+            //     method: 'GET',
+            //     dataType: 'json',
+            //     data: {
+            //         'id': id // Replace with the appropriate data you want to send
+            //     },
+            //     success: function(results) {
+            //         // let select = document.getElementById('invoice_no');
+            //         // data.forEach(item => {
+            //         //     let option = document.createElement('option');
+            //         //     option.value = item.unique_id; // Assuming 'id' is the identifier in your data
+            //         //     option.text = item
+            //         //         .unique_id; // Assuming 'name' is the value you want to display
+            //         //     select.appendChild(option);
+            //         // });
+            //         return {
+            //             results: $.map(data, function(item) {
+            //                 return {
+            //                     text: item.unique_id_name,
+            //                     id: item.unique_id
+            //                 };
+            //             })
+            //         };
+
+            //     },
+            //     error: function(error) {
+            //         // Handle the error here, if necessary
+            //         console.error('Error:', error);
+            //     },
+            // });
         }
 
 
@@ -1056,30 +1091,30 @@
             }
         });
     </script>
-            <div class="modal fade" id="iv-search">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-body">
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                            <h4>Search Voucher</h4>
-                            <div class="modal-body">
-                                <form method="GET" action="/saleInvoice-search">
-                                    @csrf
-                                    <div class="form-group">
-                                        <label for="">Voucher No</label>
-                                        <input type="text" class="form-control" id="search-input"
-                                            style="width: 100% !important;">
-                                    </div>
-        
-                                    <button type="submit" data-url="{{ Route('receipt_voucher.edit') }}"
-                                        class="btn btn-primary" id="search-btn">Search</button>
-        
-                                </form>
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Voucher</h4>
+                    <div class="modal-body">
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Voucher No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
                             </div>
-                        </div>
-                    </div><!-- /.modal-content -->
-                </div><!-- /.modal-dialog -->
-            </div>
+
+                            <button type="submit" data-url="{{ Route('receipt_voucher.edit') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
+
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

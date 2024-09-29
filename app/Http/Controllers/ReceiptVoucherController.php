@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\chickenInvoice;
+use App\Models\ChickInvoice;
+use App\Models\feedInvoice;
 use App\Models\ReceiptVoucher;
 use Illuminate\Http\Request;
 
@@ -19,18 +22,46 @@ use App\Models\warehouse;
 
 class ReceiptVoucherController extends Controller
 {
-    function get_data(Request $post)
+    function get_invoice_no(Request $request)
     {
-        $id = $post->input('id'); // Use input() to retrieve data from the request
-        $data = sell_invoice::where('company', $id)
-            ->whereIn('sell_invoice.id', function ($subQuery) {
+        $id = $request->input('id');
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id'  // Select the original unique_id as well
+        )
+            ->where('buyer', $id)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
                 $subQuery->select(DB::raw('MIN(id)'))
-                    ->from('sell_invoice')
+                    ->from('chicken_invoices')
                     ->groupBy('unique_id');
-            })->get();
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('buyer', $id)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('buyer', $id)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
 
 
-        return response()->json($data);
+        return response()->json($combinedInvoices);
     }
 
 

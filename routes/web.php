@@ -128,7 +128,6 @@ Route::middleware('userAuth')->group(function () {
                 Route::post('/receipt-voucher', [ReceiptVoucherController::class, 'store'])->name('receipt_voucher.store');
                 Route::get('/receipt-voucher/{id?}', [ReceiptVoucherController::class, 'edit'])->name('receipt_voucher.edit');
                 Route::post('/receipt-voucher/{id?}', [ReceiptVoucherController::class, 'update'])->name('receipt_voucher.update');
-                // Route::get('/get-data/r_voucher', [ReceiptVoucherController::class, 'get_data']);
 
                 Route::controller(ExpenseVoucherController::class)->group(function () {
                     Route::get('/first-expense-voucher', 'create_first')->name("expense_voucher.create_first");
@@ -141,6 +140,12 @@ Route::middleware('userAuth')->group(function () {
                 Route::get('/first-journal-voucher', [JournalVoucherController::class, 'create_first'])->name("journal-voucher.create_first");
                 Route::get('/last-journal-voucher', [JournalVoucherController::class, 'create_last'])->name("journal-voucher.create_last");
                 Route::resource('journal-voucher', JournalVoucherController::class);
+
+                Route::prefix('get-invoice-no')->group(function () {
+
+                    Route::get('receipt_voucher', [ReceiptVoucherController::class, 'get_invoice_no'])->name('receipt_voucher.invoice_no');
+
+                });
             });
 
             // INVOICES

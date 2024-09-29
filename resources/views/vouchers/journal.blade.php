@@ -233,8 +233,8 @@
             <div class="fields">
 
                 <div class="one  remark">
-                    <label for="seller">Assets</label>
-                    <select name="company" id="seller" class="company select-assets-account" required>
+                    <label for="seller">Accounts</label>
+                    <select name="company" id="seller" class="company select-account" required>
                     </select>
                 </div>
 
@@ -297,7 +297,7 @@
                 </div>
                 <div class="div">
                     <label>Journal Account</label>
-                    <select class="cash_bank  select-expense-account" name="cash_bank[]" style="height: 28px">
+                    <select class="cash_bank  select-account" name="cash_bank[]" style="height: 28px">
 
                     </select>
                 </div>
