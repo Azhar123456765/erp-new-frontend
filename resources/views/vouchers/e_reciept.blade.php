@@ -263,68 +263,67 @@
         <h3 style="text-align: center;">Receipt Voucher (EDIT)</h3>
 
         <h5 style="text-align: end;">Medician</h5>
-        @foreach ($sReceiptVoucher as $sinvoice_row)
-            <div class="top">
-                <div class="fields">
-                    <div class="one">
-                        <label for="Invoice">GR#</label>
-                        <input style="border: none !important;" type="text" id="invoice#" readonly
-                            value="<?php $year = date('Y');
-                            $lastTwoWords = substr($year, -2);
-                            echo $rand = 'RV' . '-' . $year . '-' . $sinvoice_row->unique_id; ?>" />
-                        <input type="hidden" id="unique_id" name="unique_id"
-                            value="{{ $rand = $sinvoice_row->unique_id }}" />
-
-                    </div>
-                    <div class="one">
-                        <label for="date">Date</label>
-                        <input style="border: none !important;" type="date" id="date" name="date"
-                            value="{{ $sinvoice_row->date }}" />
-                    </div>
-                </div>
-
-                <div class="fields">
-                    <div class="one  remark">
-                        <label for="seller">Company</label>
-                        <select name="company" class="company select-buyer" id="company" required>
-                            <option value="{{ $sinvoice_row->customer->buyer_id }}" selected>
-                                {{ $sinvoice_row->customer->company_name }}</option>
-                        </select>
-                    </div>
-
-                    <div class="one  remark">
-                        <label for="seller">Sales Ofiicer</label>
-                        <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                            <option value="{{ $sinvoice_row->officer->sales_officer_id ?? null }}" selected>
-                                {{ $sinvoice_row->officer->sales_officer_name ?? null }}</option>
-                        </select>
-                    </div>
+        <div class="top">
+            <div class="fields">
+                <div class="one">
+                    <label for="Invoice">GR#</label>
+                    <input style="border: none !important;" type="text" id="invoice#" readonly
+                        value="<?php $year = date('Y');
+                        $lastTwoWords = substr($year, -2);
+                        echo $rand = 'RV' . '-' . $year . '-' . $sReceiptVoucher->unique_id; ?>" />
+                    <input type="hidden" id="unique_id" name="unique_id"
+                        value="{{ $rand = $sReceiptVoucher->unique_id }}" />
 
                 </div>
-
-                <div class="fields">
-
-
-                    <div class="one">
-                        <label for="Invoice">Ref No</label>
-                        <input type="text" id="ref_no" name="ref_no" value="{{ $sinvoice_row->ref_no }}" />
-                    </div>
-                    <div class="one  remark">
-                        <label for="remark">Remarks</label>
-                        <input style="width: 219px !important;" type="text" id="remark" name="remark"
-                            value="{{ $sinvoice_row->remark }}" />
-                    </div>
-                    <div class="one  remark">
-                        <label for="sales_officer">Farm</label>
-                        <select name="farm" class="select-farm">
-                            <option value="{{ $sinvoice_row->farms->id ?? null }}" selected>
-                                {{ $sinvoice_row->farms->name ?? null }}</option>
-                        </select>
-
-                    </div>
+                <div class="one">
+                    <label for="date">Date</label>
+                    <input style="border: none !important;" type="date" id="date" name="date"
+                        value="{{ $sReceiptVoucher->date }}" />
                 </div>
             </div>
-        @endforeach
+
+            <div class="fields">
+                <div class="one  remark">
+                    <label for="seller">Company</label>
+                    <select name="company" class="company select-buyer" id="company" required
+                        onchange="companyInvoice()">
+                        <option value="{{ $sReceiptVoucher->customer->buyer_id }}" selected>
+                            {{ $sReceiptVoucher->customer->company_name }}</option>
+                    </select>
+                </div>
+
+                <div class="one  remark">
+                    <label for="seller">Sales Ofiicer</label>
+                    <select name="sales_officer" id="sales_officer" class="select-sales_officer">
+                        <option value="{{ $sReceiptVoucher->officer->sales_officer_id ?? null }}" selected>
+                            {{ $sReceiptVoucher->officer->sales_officer_name ?? null }}</option>
+                    </select>
+                </div>
+
+            </div>
+
+            <div class="fields">
+
+
+                <div class="one">
+                    <label for="Invoice">Ref No</label>
+                    <input type="text" id="ref_no" name="ref_no" value="{{ $sReceiptVoucher->ref_no }}" />
+                </div>
+                <div class="one  remark">
+                    <label for="remark">Remarks</label>
+                    <input style="width: 219px !important;" type="text" id="remark" name="remark"
+                        value="{{ $sReceiptVoucher->remark }}" />
+                </div>
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
+                        <option value="{{ $sReceiptVoucher->farms->id ?? null }}" selected>
+                            {{ $sReceiptVoucher->farms->name ?? null }}</option>
+                    </select>
+
+                </div>
+            </div>
+        </div>
 
         <br />
 
@@ -353,7 +352,16 @@
                             value="{{ $invoice_row->narration }}" />
                     </div>
                     <div class="div">
-                        <select class="invoice_no" id="invoice_no" name="invoice_no[]" style="height: 28px">
+
+                        <select class="invoice_no select-invoice-no" id="invoice_no" name="invoice_no[]"
+                            style="height: 28px">
+                            <option value=""></option>
+                            @foreach ($combinedInvoices as $invoice)
+                                <option value="{{ $invoice->unique_id }}"
+                                    {{ $invoice->unique_id == $invoice_row->invoice_no ? 'selected' : '' }}>
+                                    {{ $invoice->unique_id_name }}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
 
@@ -368,8 +376,8 @@
                     </div>
                     <div class="div">
                         <select class="cash_bank  select-assets-account" name="cash_bank[]" style="height: 28px">
-                            <option value="{{ $sinvoice_row->accounts->id ?? null }}" selected>
-                                {{ $sinvoice_row->accounts->account_name ?? null }}</option>
+                            <option value="{{ $sReceiptVoucher->accounts->id ?? null }}" selected>
+                                {{ $sReceiptVoucher->accounts->account_name ?? null }}</option>
                         </select>
                     </div>
                     <div class="div">
@@ -391,7 +399,8 @@
                     <input style="width: 289px !important;" type="text" id="narration" name="narration[]" />
                 </div>
                 <div class="div">
-                    <select class="invoice_no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]"
+                        style="height: 28px">
                     </select>
                 </div>
                 <div class="div">
@@ -453,27 +462,25 @@
             </style>
 
         </div>
-        @foreach ($sReceiptVoucher as $sinvoice_row)
-            <div class="total" style="margin-top: 2.25%;">
-                <div class="first">
-                    <div class="one" style="
+        <div class="total" style="margin-top: 2.25%;">
+            <div class="first">
+                <div class="one" style="
 margin-left: 0%;
 ">
 
-                        <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any"
-                            name="amount_total" id="amount_total" style="
+                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any"
+                        name="amount_total" id="amount_total" style="
 margin-left: 185%;
 text-align:end;
-"
-                            readonly value="{{ $sinvoice_row->amount_total }}">
+" readonly
+                        value="{{ $sReceiptVoucher->amount_total }}">
 
-                    </div>
-
-                    <br>
                 </div>
-        @endforeach
 
-</div>
+                <br>
+            </div>
+
+        </div>
 
 </div>
 
@@ -482,53 +489,51 @@ text-align:end;
 ">
     Attachment
 </button>
-@foreach ($sReceiptVoucher as $sinvoice_row)
-    <!-- Modal -->
-    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="row p-2">
-                        <div class="col-lg-9 col-md-12 p-2">
-                            <a href="#" id="imageAnchor" target="_blank"><img
-                                    src="{{ asset($sinvoice_row->attachment) }}" alt="img" class="img-fluid"
-                                    id="imagePreview" style="object-fit: fill;">
-                            </a>
-                        </div>
-                        <div class="col-lg-3 col-md-12">
-                            <div class="row justify-content-start">
-                                <div class="mb-3">
-                                    <input type="file" class="form-control" name="attachment" id="attachment"
-                                        value="{{ $sinvoice_row->attachment }}"
-                                        style="
+<!-- Modal -->
+<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="row p-2">
+                    <div class="col-lg-9 col-md-12 p-2">
+                        <a href="#" id="imageAnchor" target="_blank"><img
+                                src="{{ asset($sReceiptVoucher->attachment) }}" alt="img" class="img-fluid"
+                                id="imagePreview" style="object-fit: fill;">
+                        </a>
+                    </div>
+                    <div class="col-lg-3 col-md-12">
+                        <div class="row justify-content-start">
+                            <div class="mb-3">
+                                <input type="file" class="form-control" name="attachment" id="attachment"
+                                    value="{{ $sReceiptVoucher->attachment }}"
+                                    style="
     height: max-content !important;
 " />
-                                    <input type="hidden" class="form-control" name="old_attachment"
-                                        id="old_attachment" value="{{ $sinvoice_row->attachment }}" />
-                                </div>
-                                <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
-                                    onclick=" 
+                                <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
+                                    value="{{ $sReceiptVoucher->attachment }}" />
+                            </div>
+                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
+                                onclick=" 
                   document.getElementById('attachment').value = '';
                  document.getElementById('imagePreview').style.display = 'none';
                  document.getElementById('imagePreview').src = '';
                  document.getElementById('imageAnchor').href = '';">
-                                    REMOVE
-                                </button>
+                                REMOVE
+                            </button>
 
-                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-@endforeach
+</div>
 <div class="row m-5 justify-content-center align-items-center"
     style="position: relative;gap: 30px;margin-top: -110px !important;top: 20%;right: 0%;">
 
@@ -654,36 +659,7 @@ text-align:end;
         });
         $(document).change(function() {
             total_amount();
-            // $('.select2').select2({
-            //     theme: 'classic',
-            //     width: 'resolve',
-            // });
 
-            var company = $("#company").find('option:selected');
-            var id = company.data('id')
-            $.ajax({
-                url: '/get-data/r_voucher', // Replace with your Laravel route or endpoint
-                method: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': id // Replace with the appropriate data you want to send
-                },
-                success: function(data) {
-                    let select = document.getElementById('invoice_no2');
-                    data.forEach(item => {
-                        let option = document.createElement('option');
-                        option.value = item
-                            .unique_id; // Assuming 'id' is the identifier in your data
-                        option.text = item
-                            .unique_id; // Assuming 'name' is the value you want to display
-                        select.appendChild(option);
-                    });
-                },
-                error: function(error) {
-                    // Handle the error here, if necessary
-                    console.error('Error:', error);
-                },
-            });
         })
 
 
@@ -731,7 +707,7 @@ text-align:end;
 </div>
 
 <div class="div">
-                    <select class="invoice_no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -812,7 +788,35 @@ text-align:end;
                         theme: 'classic',
                         width: '100%',
                     });
+                    $('.select-invoice-no').select2({
+                        ajax: {
+                            url: '{{ route('receipt_voucher.invoice_no') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term,
+                                    id: $("#company").find('option:selected').val(),
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.unique_id_name,
+                                            id: item.unique_id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
 
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
@@ -866,7 +870,7 @@ text-align:end;
 
 
 <div class="div">
-                    <select class="invoice_no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -952,7 +956,35 @@ text-align:end;
                         theme: 'classic',
                         width: '100%',
                     });
+                    $('.select-invoice-no').select2({
+                        ajax: {
+                            url: '{{ route('receipt_voucher.invoice_no') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term,
+                                    id: $("#company").find('option:selected').val(),
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.unique_id_name,
+                                            id: item.unique_id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
 
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
@@ -1038,50 +1070,6 @@ text-align:end;
             },
         });
 
-
-
-
-
-        function companyInvoice() {
-            var company = $("#company").find('option:selected');
-            var id = company.data('id')
-
-
-            let invoice = $("#invoice_no").val('');
-            let invoiceText = $("#invoice_no").text('');
-
-            let invoice1 = $("#invoice_no1").val('');
-            let invoiceText1 = $("#invoice_no1").text('');
-
-            let invoice2 = $("#invoice_no2").val('');
-            let invoiceText2 = $("#invoice_no2").text('');
-
-            $.ajax({
-                url: '/get-data/r_voucher', // Replace with your Laravel route or endpoint
-                method: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': id // Replace with the appropriate data you want to send
-                },
-                success: function(data) {
-                    alert()
-                    let select = document.getElementById('invoice_no');
-                    data.forEach(item => {
-                        let option = document.createElement('option');
-                        option.value = item.unique_id; // Assuming 'id' is the identifier in your data
-                        option.text = item
-                            .unique_id; // Assuming 'name' is the value you want to display
-                        select.appendChild(option);
-                    });
-
-
-                },
-                error: function(error) {
-                    // Handle the error here, if necessary
-                    console.error('Error:', error);
-                },
-            });
-        }
 
         $(document).on('keydown', function(e) {
             if ((e.altKey) && (String.fromCharCode(e.which).toLowerCase() === 'a')) {

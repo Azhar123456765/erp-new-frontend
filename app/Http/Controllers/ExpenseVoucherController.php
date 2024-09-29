@@ -124,6 +124,7 @@ class ExpenseVoucherController extends Controller
             $invoice->date = $invoiceData['date'] ?? null;
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
 
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
@@ -202,6 +203,7 @@ class ExpenseVoucherController extends Controller
         for ($i = 0; $i < $arrayLength; $i++) {
 
             $invoice = new ExpenseVoucher;
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;

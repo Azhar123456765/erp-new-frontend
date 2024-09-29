@@ -571,32 +571,37 @@
         });
         $(document).change(function() {
             total_amount();
-            var company = $("#company").find('option:selected');
-            var id = company.data('id')
-            $.ajax({
-                url: '/get-data/r_voucher', // Replace with your Laravel route or endpoint
-                method: 'GET',
-                dataType: 'json',
-                data: {
-                    'id': id // Replace with the appropriate data you want to send
+            $('.select-invoice-no').select2({
+                ajax: {
+                    url: '{{ route('receipt_voucher.invoice_no') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            id: $("#company").find('option:selected').val(),
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.unique_id_name,
+                                    id: item.unique_id
+                                };
+                            })
+                        };
+                    },
+                    cache: true
                 },
-                success: function(data) {
-                    let select = document.getElementById('invoice_no2');
-                    data.forEach(item => {
-                        let option = document.createElement('option');
-                        option.value = item
-                            .unique_id; // Assuming 'id' is the identifier in your data
-                        option.text = item
-                            .unique_id; // Assuming 'name' is the value you want to display
-                        select.appendChild(option);
-                    });
-                },
-                error: function(error) {
-                    // Handle the error here, if necessary
-                    console.error('Error:', error);
-                },
+
+                theme: 'classic',
+                width: '100%',
+                allowClear: true,
+                placeholder: '',
             });
-        })
+
+        });
 
 
 
@@ -719,9 +724,38 @@
                             },
                             cache: true
                         },
-                        minimumInputLength: 2,
                         theme: 'classic',
                         width: '100%',
+                    });
+
+                    $('.select-invoice-no').select2({
+                        ajax: {
+                            url: '{{ route('receipt_voucher.invoice_no') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term,
+                                    id: $("#company").find('option:selected').val(),
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.unique_id_name,
+                                            id: item.unique_id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
                     });
 
                 }
@@ -777,7 +811,7 @@
 
 
 <div class="div">
-                    <select class="invoice_no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -857,11 +891,39 @@
                             },
                             cache: true
                         },
-                        minimumInputLength: 2,
+
                         theme: 'classic',
                         width: '100%',
                     });
+                    $('.select-invoice-no').select2({
+                        ajax: {
+                            url: '{{ route('receipt_voucher.invoice_no') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term,
+                                    id: $("#company").find('option:selected').val(),
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.unique_id_name,
+                                            id: item.unique_id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
 
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
@@ -980,78 +1042,38 @@
             });
         })
 
-        function companyInvoice() {
-            var company = $("#company").find('option:selected');
-            var id = company.val()
-            $("#company").on('change', function() {
 
-                let invoice = $("#invoice_no").val('');
-                let invoiceText = $("#invoice_no").text('');
+        // $.ajax({
+        //     url: '{{ Route('receipt_voucher.invoice_no') }}', // Replace with your Laravel route or endpoint
+        //     method: 'GET',
+        //     dataType: 'json',
+        //     data: {
+        //         'id': id // Replace with the appropriate data you want to send
+        //     },
+        //     success: function(results) {
+        //         // let select = document.getElementById('invoice_no');
+        //         // data.forEach(item => {
+        //         //     let option = document.createElement('option');
+        //         //     option.value = item.unique_id; // Assuming 'id' is the identifier in your data
+        //         //     option.text = item
+        //         //         .unique_id; // Assuming 'name' is the value you want to display
+        //         //     select.appendChild(option);
+        //         // });
+        //         return {
+        //             results: $.map(data, function(item) {
+        //                 return {
+        //                     text: item.unique_id_name,
+        //                     id: item.unique_id
+        //                 };
+        //             })
+        //         };
 
-                let invoice2 = $("#invoice_no2").val('');
-                let invoiceText2 = $("#invoice_no2").text('');
-            })
-            $('.select-invoice-no').select2({
-                ajax: {
-                    url: '{{ route('receipt_voucher.invoice_no') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term,
-                            id: $("#company").find('option:selected').val(),
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.unique_id_name,
-                                    id: item.unique_id
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                },
-
-                theme: 'classic',
-                width: '100%',
-                allowClear: true,
-                placeholder: '',
-            });
-            // $.ajax({
-            //     url: '{{ Route('receipt_voucher.invoice_no') }}', // Replace with your Laravel route or endpoint
-            //     method: 'GET',
-            //     dataType: 'json',
-            //     data: {
-            //         'id': id // Replace with the appropriate data you want to send
-            //     },
-            //     success: function(results) {
-            //         // let select = document.getElementById('invoice_no');
-            //         // data.forEach(item => {
-            //         //     let option = document.createElement('option');
-            //         //     option.value = item.unique_id; // Assuming 'id' is the identifier in your data
-            //         //     option.text = item
-            //         //         .unique_id; // Assuming 'name' is the value you want to display
-            //         //     select.appendChild(option);
-            //         // });
-            //         return {
-            //             results: $.map(data, function(item) {
-            //                 return {
-            //                     text: item.unique_id_name,
-            //                     id: item.unique_id
-            //                 };
-            //             })
-            //         };
-
-            //     },
-            //     error: function(error) {
-            //         // Handle the error here, if necessary
-            //         console.error('Error:', error);
-            //     },
-            // });
-        }
+        //     },
+        //     error: function(error) {
+        //         // Handle the error here, if necessary
+        //         console.error('Error:', error);
+        //     },
+        // });
 
 
         $(document).on('keydown', function(e) {

@@ -128,6 +128,7 @@ class PaymentVoucherController extends Controller
             $invoice->date = $invoiceData['date'] ?? null;
             $invoice->bilty_no = $invoiceData['bilty_no'] ?? null;
             $invoice->warehouse = $invoiceData['warehouse'] ?? null;
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
 
 
             $invoice->book = $invoiceData['book'] ?? null;
@@ -227,6 +228,7 @@ class PaymentVoucherController extends Controller
         for ($i = 0; $i < $arrayLength; $i++) {
 
             $invoice = new p_voucher;
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;

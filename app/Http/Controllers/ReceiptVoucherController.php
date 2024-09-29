@@ -100,9 +100,44 @@ class ReceiptVoucherController extends Controller
         $sReceiptVoucher = ReceiptVoucher::where([
 
             "unique_id" => 1
-        ])->limit(1)->get();
+        ])->first();
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->where('buyer', $sReceiptVoucher->company)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('buyer', $sReceiptVoucher->company)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('buyer', $sReceiptVoucher->company)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+
         if (count($ReceiptVoucher) > 0) {
-            $data = compact('ReceiptVoucher', 'sReceiptVoucher');
+            $data = compact('ReceiptVoucher', 'sReceiptVoucher', 'combinedInvoices');
             return view('vouchers.e_reciept')->with($data);
         } else {
             session()->flash('something_error', 'Voucher Not Found');
@@ -121,9 +156,43 @@ class ReceiptVoucherController extends Controller
             ->get();
         $sReceiptVoucher = ReceiptVoucher::where([
             "unique_id" => $count
-        ])->limit(1)->get();
+        ])->first();
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->where('buyer', $sReceiptVoucher->company)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('buyer', $sReceiptVoucher->company)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('buyer', $sReceiptVoucher->company)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
         if (count($ReceiptVoucher) > 0) {
-            $data = compact('ReceiptVoucher', 'sReceiptVoucher');
+            $data = compact('ReceiptVoucher', 'sReceiptVoucher', 'combinedInvoices');
             return view('vouchers.e_reciept')->with($data);
         } else {
             session()->flash('something_error', 'Voucher Not Found');
@@ -225,12 +294,46 @@ class ReceiptVoucherController extends Controller
 
         $sReceiptVoucher = ReceiptVoucher::where([
             "unique_id" => $id
-        ])->limit(1)->get();
+        ])->first();
 
         $account = accounts::all();
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id'  // Select the original unique_id as well
+        )
+            ->where('buyer', $sReceiptVoucher->company)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('buyer', $sReceiptVoucher->company)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('buyer', $sReceiptVoucher->company)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
 
         if (count($ReceiptVoucher) > 0) {
-            $data = compact('account', 'ReceiptVoucher', 'sReceiptVoucher');
+            $data = compact('account', 'ReceiptVoucher', 'sReceiptVoucher', 'combinedInvoices');
             return view('vouchers.e_reciept')->with($data);
         } else {
             return redirect()->route('receipt_voucher.create');
