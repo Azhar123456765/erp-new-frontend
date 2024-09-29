@@ -282,8 +282,7 @@
 
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="company" class="company select-buyer" required
-                        onchange="companyInvoice()">
+                    <select name="company" id="company" class="company select-buyer" required>
                     </select>
                 </div>
 
@@ -328,8 +327,7 @@
 
                 <div class="div">
                     <label for="dis">Invoice</label>
-                    <select class="invoice_no select-invoice-no" id="invoice_no" name="invoice_no[]"
-                        style="height: 28px">
+                    <select class="invoice_no select-buyer-invoice-no" name="invoice_no[]" style="height: 28px">
                         <option></option>
                     </select>
                 </div>
@@ -571,9 +569,9 @@
         });
         $(document).change(function() {
             total_amount();
-            $('.select-invoice-no').select2({
+            $('.select-buyer-invoice-no').select2({
                 ajax: {
-                    url: '{{ route('receipt_voucher.invoice_no') }}',
+                    url: '{{ route('select2.buyer_invoice_no') }}',
                     dataType: 'json',
                     delay: 250,
                     data: function(params) {
@@ -587,7 +585,7 @@
                             results: $.map(data, function(item) {
                                 return {
                                     text: item.unique_id_name,
-                                    id: item.unique_id
+                                    id: item.unique_id_name
                                 };
                             })
                         };
@@ -648,7 +646,7 @@
 </div>
 
 <div class="div">
-                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-buyer-invoice-no"  name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -728,35 +726,7 @@
                         width: '100%',
                     });
 
-                    $('.select-invoice-no').select2({
-                        ajax: {
-                            url: '{{ route('receipt_voucher.invoice_no') }}',
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    q: params.term,
-                                    id: $("#company").find('option:selected').val(),
-                                };
-                            },
-                            processResults: function(data) {
-                                return {
-                                    results: $.map(data, function(item) {
-                                        return {
-                                            text: item.unique_id_name,
-                                            id: item.unique_id
-                                        };
-                                    })
-                                };
-                            },
-                            cache: true
-                        },
 
-                        theme: 'classic',
-                        width: '100%',
-                        allowClear: true,
-                        placeholder: '',
-                    });
 
                 }
             }
@@ -811,7 +781,7 @@
 
 
 <div class="div">
-                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-buyer-invoice-no"  name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -895,35 +865,7 @@
                         theme: 'classic',
                         width: '100%',
                     });
-                    $('.select-invoice-no').select2({
-                        ajax: {
-                            url: '{{ route('receipt_voucher.invoice_no') }}',
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    q: params.term,
-                                    id: $("#company").find('option:selected').val(),
-                                };
-                            },
-                            processResults: function(data) {
-                                return {
-                                    results: $.map(data, function(item) {
-                                        return {
-                                            text: item.unique_id_name,
-                                            id: item.unique_id
-                                        };
-                                    })
-                                };
-                            },
-                            cache: true
-                        },
 
-                        theme: 'classic',
-                        width: '100%',
-                        allowClear: true,
-                        placeholder: '',
-                    });
                 }
             }
 
@@ -1044,7 +986,7 @@
 
 
         // $.ajax({
-        //     url: '{{ Route('receipt_voucher.invoice_no') }}', // Replace with your Laravel route or endpoint
+        //     url: '', // Replace with your Laravel route or endpoint
         //     method: 'GET',
         //     dataType: 'json',
         //     data: {
@@ -1063,7 +1005,7 @@
         //             results: $.map(data, function(item) {
         //                 return {
         //                     text: item.unique_id_name,
-        //                     id: item.unique_id
+        //                     id: item.unique_id_name
         //                 };
         //             })
         //         };

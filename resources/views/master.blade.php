@@ -498,9 +498,11 @@
             allowClear: true,
             placeholder: '',
         });
-        $('.select-invoice-no').select2({
+
+
+        $('.select-buyer-invoice-no').select2({
             ajax: {
-                url: '{{ route('receipt_voucher.invoice_no') }}',
+                url: '{{ route('select2.buyer_invoice_no') }}',
                 dataType: 'json',
                 delay: 250,
                 data: function(params) {
@@ -514,7 +516,7 @@
                         results: $.map(data, function(item) {
                             return {
                                 text: item.unique_id_name,
-                                id: item.unique_id
+                                id: item.unique_id_name
                             };
                         })
                     };
@@ -528,46 +530,123 @@
             placeholder: '',
         });
 
-        function companyInvoice() {
-            var company = $("#company").find('option:selected');
-            var id = company.val()
-            $("#company").on('change', function() {
 
-                let invoice = $("#invoice_no").val('');
-                let invoiceText = $("#invoice_no").text('');
-
-                let invoice2 = $("#invoice_no2").val('');
-                let invoiceText2 = $("#invoice_no2").text('');
-            })
-            $('.select-invoice-no').select2({
-                ajax: {
-                    url: '{{ route('receipt_voucher.invoice_no') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term,
-                            id: $("#company").find('option:selected').val(),
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.unique_id_name,
-                                    id: item.unique_id
-                                };
-                            })
-                        };
-                    },
-                    cache: true
+        $('.select-seller-invoice-no').select2({
+            ajax: {
+                url: '{{ route('select2.seller_invoice_no') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        id: $("#company").find('option:selected').val(),
+                    };
                 },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.unique_id_name,
+                                id: item.unique_id_name
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
 
-                theme: 'classic',
-                width: '100%',
-                allowClear: true,
-                placeholder: '',
-            });
-        }
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+        });
+
+        $("#company").on('change', function() {
+            let invoice = $(".invoice_no").val('');
+            let invoiceText = $(".invoice_no").text('');
+        })
+        // function companyInvoiceBuyer() {
+        //     var company = $("#company").find('option:selected');
+        //     var id = company.val()
+        // $("#company").on('change', function() {
+
+        //     let invoice = $("#invoice_no").val('');
+        //     let invoiceText = $("#invoice_no").text('');
+
+        //     let invoice2 = $("#invoice_no2").val('');
+        //     let invoiceText2 = $("#invoice_no2").text('');
+        // })
+        //     $('.select-invoice-no').select2({
+        //         ajax: {
+        //             url: '{{ route('select2.buyer_invoice_no') }}',
+        //             dataType: 'json',
+        //             delay: 250,
+        //             data: function(params) {
+        //                 return {
+        //                     q: params.term,
+        //                     id: $("#company").find('option:selected').val(),
+        //                 };
+        //             },
+        //             processResults: function(data) {
+        //                 return {
+        //                     results: $.map(data, function(item) {
+        //                         return {
+        //                             text: item.unique_id_name,
+        //                             id: item.unique_id_name
+        //                         };
+        //                     })
+        //                 };
+        //             },
+        //             cache: true
+        //         },
+
+        //         theme: 'classic',
+        //         width: '100%',
+        //         allowClear: true,
+        //         placeholder: '',
+        //     });
+        // }
+
+        // function companyInvoiceSeller() {
+        //     var company = $("#company").find('option:selected');
+        //     var id = company.val()
+        //     $("#company").on('change', function() {
+
+        //         let invoice = $("#invoice_no").val('');
+        //         let invoiceText = $("#invoice_no").text('');
+
+        //         let invoice2 = $("#invoice_no2").val('');
+        //         let invoiceText2 = $("#invoice_no2").text('');
+        //     })
+        //     $('.select-invoice-no').select2({
+        //         ajax: {
+        //             url: '{{ route('select2.seller_invoice_no') }}',
+        //             dataType: 'json',
+        //             delay: 250,
+        //             data: function(params) {
+        //                 return {
+        //                     q: params.term,
+        //                     id: $("#company").find('option:selected').val(),
+        //                 };
+        //             },
+        //             processResults: function(data) {
+        //                 return {
+        //                     results: $.map(data, function(item) {
+        //                         return {
+        //                             text: item.unique_id_name,
+        //                             id: item.unique_id_name
+        //                         };
+        //                     })
+        //                 };
+        //             },
+        //             cache: true
+        //         },
+
+        //         theme: 'classic',
+        //         width: '100%',
+        //         allowClear: true,
+        //         placeholder: '',
+        //     });
+        
     </script>
 </body>

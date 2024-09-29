@@ -11,6 +11,9 @@ use App\Models\warehouse;
 use App\Models\seller;
 use App\Models\buyer;
 use App\Models\products;
+use App\Models\chickenInvoice;
+use App\Models\ChickInvoice;
+use App\Models\feedInvoice;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -150,7 +153,7 @@ class select2Controller extends Controller
         $search = $request->get('q');
 
         $results = products::where('product_name', 'LIKE', "%{$search}%")
-        ->limit(10)->get();
+            ->limit(10)->get();
 
         return response()->json($results);
     }
@@ -169,5 +172,88 @@ class select2Controller extends Controller
 
         return response()->json($results);
 
+    }
+
+    function buyer_invoice_no(Request $request)
+    {
+        $id = $request->input('id');
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id'  // Select the original unique_id as well
+        )
+            ->where('buyer', $id)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('buyer', $id)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('buyer', $id)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+
+
+        return response()->json($combinedInvoices);
+    }
+    function seller_invoice_no(Request $request)
+    {
+        $id = $request->input('id');
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id'  // Select the original unique_id as well
+        )
+            ->where('seller', $id)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('seller', $id)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->where('seller', $id)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+
+
+        return response()->json($combinedInvoices);
     }
 }

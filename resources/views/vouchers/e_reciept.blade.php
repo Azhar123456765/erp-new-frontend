@@ -285,8 +285,7 @@
             <div class="fields">
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" class="company select-buyer" id="company" required
-                        onchange="companyInvoice()">
+                    <select name="company" class="company select-buyer" id="company" required>
                         <option value="{{ $sReceiptVoucher->customer->buyer_id }}" selected>
                             {{ $sReceiptVoucher->customer->company_name }}</option>
                     </select>
@@ -353,12 +352,11 @@
                     </div>
                     <div class="div">
 
-                        <select class="invoice_no select-invoice-no" id="invoice_no" name="invoice_no[]"
-                            style="height: 28px">
+                        <select class="invoice_no select-buyer-invoice-no" name="invoice_no[]" style="height: 28px">
                             <option value=""></option>
                             @foreach ($combinedInvoices as $invoice)
-                                <option value="{{ $invoice->unique_id }}"
-                                    {{ $invoice->unique_id == $invoice_row->invoice_no ? 'selected' : '' }}>
+                                <option value="{{ $invoice->unique_id_name}}"
+                                    {{ $invoice->unique_id_name == $invoice_row->invoice_no ? 'selected' : '' }}>
                                     {{ $invoice->unique_id_name }}
                                 </option>
                             @endforeach
@@ -399,8 +397,7 @@
                     <input style="width: 289px !important;" type="text" id="narration" name="narration[]" />
                 </div>
                 <div class="div">
-                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]"
-                        style="height: 28px">
+                    <select class="invoice_no select-buyer-invoice-no" name="invoice_no[]" style="height: 28px">
                     </select>
                 </div>
                 <div class="div">
@@ -659,7 +656,35 @@ text-align:end;
         });
         $(document).change(function() {
             total_amount();
+            $('.select-buyer-invoice-no').select2({
+                ajax: {
+                    url: '{{ route('select2.buyer_invoice_no') }}',
+                    dataType: 'json',
+                    delay: 250,
+                    data: function(params) {
+                        return {
+                            q: params.term,
+                            id: $("#company").find('option:selected').val(),
+                        };
+                    },
+                    processResults: function(data) {
+                        return {
+                            results: $.map(data, function(item) {
+                                return {
+                                    text: item.unique_id_name,
+                                    id: item.unique_id_name
+                                };
+                            })
+                        };
+                    },
+                    cache: true
+                },
 
+                theme: 'classic',
+                width: '100%',
+                allowClear: true,
+                placeholder: '',
+            });
         })
 
 
@@ -707,7 +732,7 @@ text-align:end;
 </div>
 
 <div class="div">
-                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-buyer-invoice-no"  name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -788,35 +813,7 @@ text-align:end;
                         theme: 'classic',
                         width: '100%',
                     });
-                    $('.select-invoice-no').select2({
-                        ajax: {
-                            url: '{{ route('receipt_voucher.invoice_no') }}',
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    q: params.term,
-                                    id: $("#company").find('option:selected').val(),
-                                };
-                            },
-                            processResults: function(data) {
-                                return {
-                                    results: $.map(data, function(item) {
-                                        return {
-                                            text: item.unique_id_name,
-                                            id: item.unique_id
-                                        };
-                                    })
-                                };
-                            },
-                            cache: true
-                        },
 
-                        theme: 'classic',
-                        width: '100%',
-                        allowClear: true,
-                        placeholder: '',
-                    });
                 }
             }
 
@@ -870,7 +867,7 @@ text-align:end;
 
 
 <div class="div">
-                    <select class="invoice_no select-invoice-no" id="invoice_no2" name="invoice_no[]" style="height: 28px">
+                    <select class="invoice_no select-buyer-invoice-no"  name="invoice_no[]" style="height: 28px">
                         <option></option>
                         
                         
@@ -956,35 +953,7 @@ text-align:end;
                         theme: 'classic',
                         width: '100%',
                     });
-                    $('.select-invoice-no').select2({
-                        ajax: {
-                            url: '{{ route('receipt_voucher.invoice_no') }}',
-                            dataType: 'json',
-                            delay: 250,
-                            data: function(params) {
-                                return {
-                                    q: params.term,
-                                    id: $("#company").find('option:selected').val(),
-                                };
-                            },
-                            processResults: function(data) {
-                                return {
-                                    results: $.map(data, function(item) {
-                                        return {
-                                            text: item.unique_id_name,
-                                            id: item.unique_id
-                                        };
-                                    })
-                                };
-                            },
-                            cache: true
-                        },
 
-                        theme: 'classic',
-                        width: '100%',
-                        allowClear: true,
-                        placeholder: '',
-                    });
                 }
             }
 

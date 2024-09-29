@@ -143,7 +143,7 @@ Route::middleware('userAuth')->group(function () {
 
                 Route::prefix('get-invoice-no')->group(function () {
 
-                    Route::get('receipt_voucher', [ReceiptVoucherController::class, 'get_invoice_no'])->name('receipt_voucher.invoice_no');
+                    // Route::get('receipt_voucher', [ReceiptVoucherController::class, 'get_invoice_no'])->name('receipt_voucher.invoice_no');
 
                 });
             });
@@ -270,6 +270,8 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/select-seller', [select2Controller::class, 'seller'])->name('select2.seller');
             Route::get('/select-products', [select2Controller::class, 'products'])->name('select2.products');
             Route::get('/select-seller-buyer', [select2Controller::class, 'seller_buyer'])->name('select2.seller-buyer');
+            Route::get('buyer-invoice_no', [select2Controller::class, 'buyer_invoice_no'])->name('select2.buyer_invoice_no');
+            Route::get('seller-invoice_no', [select2Controller::class, 'seller_invoice_no'])->name('select2.seller_invoice_no');
 
 
         });

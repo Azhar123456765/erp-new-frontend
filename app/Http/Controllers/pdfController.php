@@ -49,7 +49,7 @@ class pdfController extends Controller
         public function farm_report(Request $request)
         {
                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                $endDate = Carbon::parse($request->input('end_date'))->addDay();
                 $farm_id = $request->input('farm');
                 if ($farm_id) {
                         $farm = Farm::where('id', $farm_id)->first();
@@ -361,7 +361,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $start_date = Carbon::parse($request->input('start_date'))->subDay();
-                        $end_date =Carbon::parse($request->input('end_date'))->addDay();
+                        $end_date = Carbon::parse($request->input('end_date'))->addDay();
 
                         $id = $request->input('account');
                         if ($id) {
@@ -373,7 +373,7 @@ class pdfController extends Controller
                         // $accountType = $request->input('account_type');
                         // $zone = $request->input('warehouse');
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         $type = $request->input('type');
 
@@ -445,15 +445,16 @@ class pdfController extends Controller
                                         $description = $group->map(function ($item) {
                                                 return $item->product->product_name;
                                         })->join(', ');
-
+                                        $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'CH-' . $group->first()->unique_id)->sum('amount');
+                                        $sale_amount_pv = P_voucher::where('invoice_no', 'CH-' . $group->first()->unique_id)->sum('amount');
                                         $groupedData = new \stdClass();
                                         $groupedData->date = $group->first()->date;
                                         $groupedData->unique_id = $group->first()->unique_id;
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
-                                        $groupedData->amount_total = $group->first()->amount_total;
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total - $sale_amount_rv;
+                                        $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
 
                                         return $groupedData;
                                 });
@@ -461,15 +462,16 @@ class pdfController extends Controller
                                         $description = $group->map(function ($item) {
                                                 return $item->product->product_name;
                                         })->join(', ');
-
+                                        $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
+                                        $sale_amount_pv = P_voucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
                                         $groupedData = new \stdClass();
                                         $groupedData->date = $group->first()->date;
                                         $groupedData->unique_id = $group->first()->unique_id;
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
-                                        $groupedData->amount_total = $group->first()->amount_total;
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total - $sale_amount_rv;
+                                        $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
 
                                         return $groupedData;
                                 });
@@ -477,7 +479,8 @@ class pdfController extends Controller
                                         $description = $group->map(function ($item) {
                                                 return $item->product->product_name;
                                         })->join(', ');
-
+                                        $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'F-' . $group->first()->unique_id)->sum('amount');
+                                        $sale_amount_pv = P_voucher::where('invoice_no', 'F-' . $group->first()->unique_id)->sum('amount');
                                         $groupedData = new \stdClass();
                                         $groupedData->date = $group->first()->date;
                                         $groupedData->unique_id = $group->first()->unique_id;
@@ -486,8 +489,8 @@ class pdfController extends Controller
                                         $groupedData->buyer = $group->first()->buyer;
                                         $groupedData->qty_total = $group->first()->qty_total;
                                         $groupedData->sale_qty_total = $group->first()->sale_qty_total;
-                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
-                                        $groupedData->amount_total = $group->first()->amount_total;
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total - $sale_amount_rv;
+                                        $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
 
                                         return $groupedData;
                                 });
@@ -642,7 +645,7 @@ class pdfController extends Controller
                 $type = $request['type'];
                 if ($type == 1) {
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -738,7 +741,7 @@ class pdfController extends Controller
                 } elseif ($type == 2) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -802,7 +805,7 @@ class pdfController extends Controller
                 } elseif ($type == 3) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -900,7 +903,7 @@ class pdfController extends Controller
                 $type = $request['type'];
                 if ($type == 1) {
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -961,7 +964,7 @@ class pdfController extends Controller
                 } elseif ($type == 2) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -1055,7 +1058,7 @@ class pdfController extends Controller
                                 # code...
 
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                                 // Retrieve form data
                                 $supplier = $request->input('customer');
@@ -1150,7 +1153,7 @@ class pdfController extends Controller
                                 session()->flash('Data', $data);
                         } elseif ($type == 2) {
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                                 // Retrieve form data
                                 $supplier = $request->input('supplier');
@@ -1245,7 +1248,7 @@ class pdfController extends Controller
                                 # code...
 
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                                 // Retrieve form data
                                 $supplier = $request->input('supplier');
@@ -1307,7 +1310,7 @@ class pdfController extends Controller
                                 session()->flash('Data', $data);
                         } elseif ($type == 2) {
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                                 // Retrieve form data
                                 $supplier = $request->input('supplier');
@@ -1401,7 +1404,7 @@ class pdfController extends Controller
 
 
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                                 // Retrieve form data
                                 $customer = $request->input('customer');
@@ -1510,7 +1513,7 @@ class pdfController extends Controller
                         if ($type == 2) {
 
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                                 // Retrieve form data
                                 $customer = $request->input('customer');
@@ -1582,7 +1585,7 @@ class pdfController extends Controller
                         if ($type == 3) {
 
                                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
                                 $customer = $request->input('customer');
 
                                 $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
@@ -1701,7 +1704,7 @@ class pdfController extends Controller
                         $type = $request->input('type');
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $supplier = $request->input('supplier');
@@ -1957,7 +1960,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Start building the query
                         $query1 = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])->whereIn('sell_invoice.id', function ($subQuery) {
@@ -2035,7 +2038,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
                         $product = $request->input('product');
                         $warehouse = $request->input('warehouse');
                         $product_category = $request->input('product_category');
@@ -2139,7 +2142,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
                         $warehouse = $request->input('warehouse');
 
                         $query = purchase_invoice::whereBetween('date', [$startDate, $endDate]);
@@ -2467,7 +2470,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
@@ -2521,7 +2524,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
@@ -2574,7 +2577,7 @@ class pdfController extends Controller
                 if (!session()->exists('Data')) {
 
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
@@ -2705,7 +2708,7 @@ class pdfController extends Controller
                 $type = $request['type'];
                 if ($type == 1) {
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate =Carbon::parse($request->input('end_date'))->addDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         // Retrieve form data
                         $customer = $request->input('customer');

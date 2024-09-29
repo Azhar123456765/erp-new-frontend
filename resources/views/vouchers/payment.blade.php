@@ -283,7 +283,8 @@
 
                 <div class="one  remark">
                     <label for="seller">Company</label>
-                    <select name="company" id="seller" class="company select-buyer" required>
+                    <select name="company" id="company" class="company select-buyer" required
+                        >
                     </select>
                 </div>
 
@@ -326,7 +327,12 @@
                     <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text"
                         id="narration" name="narration[]" />
                 </div>
-
+                <div class="div">
+                    <label for="dis">Invoice</label>
+                    <select class="invoice_no select-seller-invoice-no" name="invoice_no[]" style="height: 28px">
+                        <option></option>
+                    </select>
+                </div>
 
                 <div class="div">
                     <label for="dis">Cheque No (s)</label>
@@ -558,6 +564,35 @@
         });
         $(document).change(function() {
             total_amount();
+            $('.select-seller-invoice-no').select2({
+            ajax: {
+                url: '{{ route('select2.seller_invoice_no') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        id: $("#company").find('option:selected').val(),
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.unique_id_name,
+                                id: item.unique_id_name
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+        });
 
         })
 
@@ -605,7 +640,14 @@
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
+<div class="div">
+                    <select class="invoice_no select-seller-invoice-no" name="invoice_no[]" style="height: 28px">
+                        <option></option>
+                        
+                        
 
+                    </select>
+                </div>
 <div class="div">
     <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter +
                     `" name="cheque_no[]"  onchange="addInvoice2(` + counter +
@@ -732,7 +774,14 @@
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
+<div class="div">
+                    <select class="invoice_no select-seller-invoice-no" name="invoice_no[]" style="height: 28px">
+                        <option></option>
+                        
+                        
 
+                    </select>
+                </div>
 <div class="div">
 <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter +
                     `" name="cheque_no[]" onchange="addInvoice2(` + counter +
@@ -964,30 +1013,30 @@
             }
         });
     </script>
-        <div class="modal fade" id="iv-search">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Voucher</h4>
                     <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4>Search Voucher</h4>
-                        <div class="modal-body">
-                            <form method="GET" action="/saleInvoice-search">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Voucher No</label>
-                                    <input type="text" class="form-control" id="search-input"
-                                        style="width: 100% !important;">
-                                </div>
-    
-                                <button type="submit" data-url="{{ Route('payment_voucher.edit') }}"
-                                    class="btn btn-primary" id="search-btn">Search</button>
-    
-                            </form>
-                        </div>
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Voucher No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
+                            </div>
+
+                            <button type="submit" data-url="{{ Route('payment_voucher.edit') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
+
+                        </form>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

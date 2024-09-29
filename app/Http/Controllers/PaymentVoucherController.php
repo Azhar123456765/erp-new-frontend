@@ -3,8 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Models\accounts;
 use Illuminate\Support\Facades\DB;
 use App\Models\users;
 use App\Models\customization;
@@ -20,6 +18,10 @@ use App\Models\product_company;
 use App\Models\product_type;
 use App\Models\products;
 use App\Models\warehouse;
+use App\Models\accounts;
+use App\Models\chickenInvoice;
+use App\Models\ChickInvoice;
+use App\Models\feedInvoice;
 
 class PaymentVoucherController extends Controller
 {
@@ -56,9 +58,43 @@ class PaymentVoucherController extends Controller
         $sp_voucher = p_voucher::where([
 
             "unique_id" => 1
-        ])->limit(1)->get();
+        ])->first();
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->where('seller', $sp_voucher->company)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('seller', $sp_voucher->company)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('seller', $sp_voucher->company)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
         if (count($p_voucher) > 0) {
-            $data = compact('p_voucher', 'sp_voucher');
+            $data = compact('p_voucher', 'sp_voucher', 'combinedInvoices');
             return view('vouchers.e_payment')->with($data);
         } else {
             session()->flash('something_error', 'Voucher Not Found');
@@ -78,9 +114,43 @@ class PaymentVoucherController extends Controller
         $sp_voucher = p_voucher::where([
 
             "unique_id" => $count
-        ])->limit(1)->get();
+        ])->first();
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->where('seller', $sp_voucher->company)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('seller', $sp_voucher->company)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('seller', $sp_voucher->company)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
         if (count($p_voucher) > 0) {
-            $data = compact('p_voucher', 'sp_voucher');
+            $data = compact('p_voucher', 'sp_voucher', 'combinedInvoices');
             return view('vouchers.e_payment')->with($data);
         } else {
             session()->flash('something_error', 'Voucher Not Found');
@@ -193,10 +263,44 @@ class PaymentVoucherController extends Controller
         $sp_voucher = p_voucher::where([
 
             "unique_id" => $id
-        ])->limit(1)->get();
+        ])->first();
         $account = accounts::all();
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->where('seller', $sp_voucher->company)
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('seller', $sp_voucher->company)
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->where('seller', $sp_voucher->company)
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
         if (count($p_voucher) > 0) {
-            $data = compact('account', 'p_voucher', 'sp_voucher');
+            $data = compact('account', 'p_voucher', 'sp_voucher', 'combinedInvoices');
             return view('vouchers.e_payment')->with($data);
         } else {
             session()->flash('something_error', 'Voucher Not Found');
