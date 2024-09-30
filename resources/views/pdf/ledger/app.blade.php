@@ -23,7 +23,7 @@
 
             html,
             body {
-                width: 200mm;
+                width: 100% !important;
                 height: 297mm;
                 margin: 10px
             }

@@ -2797,10 +2797,10 @@ class pdfController extends Controller
 
                         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $chickenInvoice->orWhere('buyer', $customer);
+                                $chickenInvoice->Where('buyer', $customer);
                         }
                         if ($supplier) {
-                                $chickenInvoice->orWhere('seller', $supplier);
+                                $chickenInvoice->Where('seller', $supplier);
                         }
 
                         if ($salesOfficer) {
@@ -2821,10 +2821,10 @@ class pdfController extends Controller
 
                         $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $chickInvoice->orWhere('buyer', $customer);
+                                $chickInvoice->Where('buyer', $customer);
                         }
                         if ($supplier) {
-                                $chickInvoice->orWhere('seller', $supplier);
+                                $chickInvoice->Where('seller', $supplier);
                         }
 
 
@@ -2846,11 +2846,11 @@ class pdfController extends Controller
 
                         $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $feedInvoice->orWhere('buyer', $customer);
+                                $feedInvoice->Where('buyer', $customer);
                         }
 
                         if ($supplier) {
-                                $feedInvoice->orWhere('seller', $supplier);
+                                $feedInvoice->Where('seller', $supplier);
                         }
 
                         if ($salesOfficer) {

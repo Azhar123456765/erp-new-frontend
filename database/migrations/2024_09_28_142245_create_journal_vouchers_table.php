@@ -16,6 +16,7 @@ class CreateJournalVouchersTable extends Migration
         Schema::create('journal_vouchers', function (Blueprint $table) {
             $table->id();
             $table->text('unique_id');
+            $table->text('invoice_no')->nullable();
             $table->date('date');
             $table->date('cheque_date')->nullable();
             $table->unsignedBigInteger('buyer')->nullable();
@@ -25,7 +26,8 @@ class CreateJournalVouchersTable extends Migration
             $table->text('ref_no')->nullable();
             $table->text('remark')->nullable();
             $table->text('narration');
-            $table->text('cash_bank')->nullable();
+            $table->text('from_account');
+            $table->text('to_account');
             $table->text('cheque_no')->nullable();
             $table->decimal('amount', 15, 2);
             $table->decimal('amount_total', 15, 2);

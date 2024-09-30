@@ -251,7 +251,7 @@
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;"
+                    <input  style="border: none !important;"
                         style="border: none !important;" readonly type="date" id="date"
                         value="<?php
                         $currentDate = date('Y-m-d');
@@ -260,7 +260,7 @@
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text"
+                    <input  style="border: none !important;" type="text"
                         id="invoice#" readonly value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'PV' . '-' . $year . '-' . $count + 1; ?>" />
@@ -268,7 +268,7 @@
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="date"
+                    <input  style="border: none !important;" type="date"
                         id="date" name="date" value="<?php
                         $currentDate = date('Y-m-d');
                         echo $currentDate;
@@ -300,11 +300,11 @@
 
                 <div class="one">
                     <label for="Invoice">Ref No</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" id="ref_no" name="ref_no" />
+                    <input  type="text" id="ref_no" name="ref_no" />
                 </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" onkeydown="handleKeyPress(event)" type="text"
+                    <input style="width: 219px !important;"  type="text"
                         id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
@@ -324,7 +324,7 @@
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text"
+                    <input style="width: 289px !important;"  type="text"
                         id="narration" name="narration[]" />
                 </div>
                 <div class="div">
@@ -336,12 +336,12 @@
 
                 <div class="div">
                     <label for="dis">Cheque No (s)</label>
-                    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no"
+                    <input  type="text" min="0.00" step="any" id="cheque_no"
                         name="cheque_no[]" />
                 </div>
                 <div class="div">
                     <label for="dis">Cheque Date</label>
-                    <input onkeydown="handleKeyPress(event)" type="date" min="0.00"
+                    <input  type="date" min="0.00"
                         style="width: 131px !important;" step="any" value="0.00" id="cheque_date"
                         name="cheque_date[]" onchange='  total_amount()' />
                 </div>
@@ -353,7 +353,7 @@
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00"
+                    <input  type="number" step="any" min="0.00"
                         style="text-align: right;" step="any" value="0.00" onchange='total_amount()'
                         id="amount" name="amount[]" />
                 </div>
@@ -404,7 +404,7 @@
             margin-left: 0%;
         ">
 
-                    <input onkeydown="handleKeyPress(event)" type="number" step="any" step="any"
+                    <input  type="number" step="any" step="any"
                         name="amount_total" id="amount_total"
                         style="
             margin-left: 183%;
@@ -636,7 +636,7 @@
 
 
 <div class="div">
-    <input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter +
+    <input style="width: 289px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
@@ -649,12 +649,12 @@
                     </select>
                 </div>
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter +
+    <input  type="text" min="0.00" step="any" id="cheque_no` + counter +
                     `" name="cheque_no[]"  onchange="addInvoice2(` + counter +
                     `)"/>
 </div>
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
+    <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
                     counter +
                     `" name="cheque_date[]"  />
 </div>
@@ -665,7 +665,7 @@
 </div>
 
 <div class="div">
-    <input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+    <input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
                     counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>
@@ -770,7 +770,7 @@
 
 
 <div class="div">
-<input style="width: 289px !important;" onkeydown="handleKeyPress(event)" type="text" id="narration` + counter +
+<input style="width: 289px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
@@ -783,12 +783,12 @@
                     </select>
                 </div>
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="text" min="0.00" step="any" id="cheque_no` + counter +
+<input  type="text" min="0.00" step="any" id="cheque_no` + counter +
                     `" name="cheque_no[]" onchange="addInvoice2(` + counter +
                     `)" />
 </div>
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
+<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
                     counter +
                     `" name="cheque_date[]"  />
 </div>
@@ -799,7 +799,7 @@
 </div>
 
 <div class="div">
-<input onkeydown="handleKeyPress(event)" type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
+<input  type="number" step="any" min="0.00" style="text-align: right;" step="any" value="0.00" onchange='total_amount()' id="amount` +
                     counter + `"  style="text-align:end;" name="amount[]" />
 </div>
 </div>

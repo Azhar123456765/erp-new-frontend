@@ -560,6 +560,35 @@
             allowClear: true,
             placeholder: '',
         });
+        $('.select-all-invoice-no').select2({
+            ajax: {
+                url: '{{ route('select2.all_invoice_no') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        id: $("#company").find('option:selected').val(),
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.unique_id_name,
+                                id: item.unique_id_name
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+        });
 
         $("#company").on('change', function() {
             let invoice = $(".invoice_no").val('');
@@ -647,6 +676,5 @@
         //         allowClear: true,
         //         placeholder: '',
         //     });
-        
     </script>
 </body>

@@ -259,7 +259,7 @@
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input onkeydown="handleKeyPress(event)" style="border: none !important;" type="text"
+                    <input  style="border: none !important;" type="text"
                         id="invoice#" readonly value="<?php $year = date('Y');
                         $lastTwoWords = substr($year, -2);
                         echo $rand = 'RV' . '-' . $year . '-' . $count + 1; ?>" />

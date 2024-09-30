@@ -256,4 +256,42 @@ class select2Controller extends Controller
 
         return response()->json($combinedInvoices);
     }
+    function all_invoice_no(Request $request)
+    {
+        $id = $request->input('id');
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id'  // Select the original unique_id as well
+        )
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id'  // Select the original unique_id as well
+                )
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+
+
+        return response()->json($combinedInvoices);
+    }
 }

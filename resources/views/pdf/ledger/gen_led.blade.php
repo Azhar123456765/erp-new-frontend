@@ -365,7 +365,7 @@
                     <table class="ui celled table" id="invoice-table">
                         <thead>
                             <tr>
-                                <th class="text-center colfix date-th">Da111te</th>
+                                <th class="text-center colfix date-th">Date</th>
                                 <th class="text-center colfix">Reference</th>
                                 <th class="text-center colfix">Description</th>
                                 <th class="text-center colfix">Debit</th>
@@ -599,7 +599,7 @@
             <tfoot style="color: green; font-weight: bolder ;">
                 <tr>
                     <td colspan="3" style="text-align:right; border: none !important; "><span
-                            style="color:blue;">CH-{{ $row->unique_id }}'s</span> &nbsp; Remaining Total:</td>
+                            style="color:blue;">C-{{ $row->unique_id }}'s</span> &nbsp; Remaining Total:</td>
                     <td style="text-align:right; background-color: lightgray;">
                         {{ $row->amount_total - $rv_total }}</td>
                     <td style="text-align:right; background-color: lightgray;">
@@ -713,7 +713,7 @@
             <tfoot style="color: green; font-weight: bolder ;">
                 <tr>
                     <td colspan="3" style="text-align:right; border: none !important; "><span
-                            style="color:blue;">CH-{{ $row->unique_id }}'s</span> &nbsp; Remaining Total:</td>
+                            style="color:blue;">F-{{ $row->unique_id }}'s</span> &nbsp; Remaining Total:</td>
                     <td style="text-align:right; background-color: lightgray;">
                         {{ $row->amount_total - $rv_total }}</td>
                     <td style="text-align:right; background-color: lightgray;">
@@ -746,7 +746,6 @@
             </tr>
             @php $debit += $row->amount_total; @endphp
         @endforeach
-
         </tbody>
         <tfoot class="full-width">
             <tr>

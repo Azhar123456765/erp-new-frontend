@@ -272,6 +272,7 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/select-seller-buyer', [select2Controller::class, 'seller_buyer'])->name('select2.seller-buyer');
             Route::get('buyer-invoice_no', [select2Controller::class, 'buyer_invoice_no'])->name('select2.buyer_invoice_no');
             Route::get('seller-invoice_no', [select2Controller::class, 'seller_invoice_no'])->name('select2.seller_invoice_no');
+            Route::get('all-invoice_no', [select2Controller::class, 'all_invoice_no'])->name('select2.all_invoice_no');
 
 
         });
