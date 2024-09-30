@@ -638,7 +638,7 @@
                             },
                             cache: true
                         },
-                        minimumInputLength: 2,
+                       
                         theme: 'classic',
                         width: '100%',
                     });
@@ -769,7 +769,7 @@
                             },
                             cache: true
                         },
-                        minimumInputLength: 2,
+                       
                         theme: 'classic',
                         width: '100%',
                     });
