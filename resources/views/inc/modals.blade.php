@@ -417,8 +417,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Select Type</label>
                                     <select class="form-control" name="type">
-                                        <option value="1">Summary</option>
-                                        <option value="2">Detail</option>
+                                        <option value="1">Type 1</option>
+                                        <option value="2">Type 2</option>
                                     </select>
                                 </div>
                             </div>

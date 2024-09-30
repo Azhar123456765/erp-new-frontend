@@ -101,7 +101,7 @@
 
         table td {
             padding: 0.5px;
-            font-size: 0.8em;
+            /* font-size: 0.8em; */
 
         }
 
@@ -109,12 +109,12 @@
             background: #ececec !important;
             border: 1px solid #7f7b7b !important;
             text-align: center !important !important;
-            font-size: large !important;
+            /* font-size: large !important; */
         }
 
         td {
             border: 1px solid #7f7b7b !important;
-            font-size: small !important;
+            /* font-size: small !important; */
         }
 
         .itemscard {
@@ -147,10 +147,26 @@
 
         th {
             font-weight: bolder !important;
+            font-size: 13px !important;
+        }
+
+
+        tfoot th {
+            font-size: 12px !important;
+        }
+
+        td {
+            font-size: 12px !important;
         }
 
         td span {
             font-weight: 700 !important;
+            font-size: 11px !important;
+        }
+
+
+        .invDetails {
+            font-size: 15px !important;
         }
 
         .text-center {

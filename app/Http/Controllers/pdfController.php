@@ -362,6 +362,7 @@ class pdfController extends Controller
 
                         $start_date = Carbon::parse($request->input('start_date'))->subDay();
                         $end_date = Carbon::parse($request->input('end_date'))->addDay();
+                        $type = $request->input('type');
 
                         $id = $request->input('account');
                         if ($id) {
@@ -375,9 +376,8 @@ class pdfController extends Controller
                         $startDate = Carbon::parse($request->input('start_date'))->subDay();
                         $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
-                        $type = $request->input('type');
 
-                        if ($type == 1) {
+                        if ($type == 1 || $type == 2) {
                                 $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
@@ -453,8 +453,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total - $sale_amount_rv;
-                                        $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                                        $groupedData->amount_total = $group->first()->amount_total;
 
                                         return $groupedData;
                                 });
@@ -470,8 +470,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
-                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total - $sale_amount_rv;
-                                        $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                                        $groupedData->amount_total = $group->first()->amount_total;
 
                                         return $groupedData;
                                 });
@@ -489,8 +489,8 @@ class pdfController extends Controller
                                         $groupedData->buyer = $group->first()->buyer;
                                         $groupedData->qty_total = $group->first()->qty_total;
                                         $groupedData->sale_qty_total = $group->first()->sale_qty_total;
-                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total - $sale_amount_rv;
-                                        $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
+                                        $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                                        $groupedData->amount_total = $group->first()->amount_total;
 
                                         return $groupedData;
                                 });
@@ -529,83 +529,152 @@ class pdfController extends Controller
                                 session()->flash('Data', $data);
                         }
                         //    elseif ($type == 2) {
-                        //         $query = sell_invoice::whereBetween('sell_invoice.date', [$startDate, $endDate]);
+                        //         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
 
                         //         if ($account) {
-                        //                 $query->where('account', $account);
+                        //                 $chickenInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
                         //         }
-
                         //         if ($salesOfficer) {
-                        //                 $query->where('sales_officer', $salesOfficer);
+                        //                 $chickenInvoice->where('sales_officer', $salesOfficer);
                         //         }
 
-                        //         if ($zone) {
-                        //                 $query->where('warehouse', $zone);
-                        //         }
-
-
-                        //         $query2 = ReceiptVoucher::whereBetween('receipt_vouchers.date', [$startDate, $endDate]);
-
+                        //         // dd($chickenInvoice->get());
+                        //         $chickInvoice = chickInvoice::whereBetween('date', [$startDate, $endDate]);
 
                         //         if ($account) {
-                        //                 $query2->where('cash_bank', $account);
+                        //                 $chickInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
                         //         }
-
                         //         if ($salesOfficer) {
-                        //                 $query2->where('sales_officer', $salesOfficer);
+                        //                 $chickInvoice->where('sales_officer', $salesOfficer);
                         //         }
 
-                        //         if ($zone) {
-                        //                 $query2->where('warehouse', $zone);
-                        //         }
-
-                        //         $query3 = purchase_invoice::whereBetween('purchase_invoice.date', [$startDate, $endDate]);
+                        //         $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
 
                         //         if ($account) {
-                        //                 $query3->where('freighta', $account);
-                        //                 $query3->where('sales_taxa', $account);
-                        //                 $query3->where('ad_sales_taxa', $account);
-                        //                 $query3->where('banka', $account);
-                        //                 $query3->where('other_expensea', $account);
+                        //                 $feedInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
                         //         }
-
                         //         if ($salesOfficer) {
-                        //                 $query3->where('sales_officer', $salesOfficer);
+                        //                 $feedInvoice->where('sales_officer', $salesOfficer);
                         //         }
 
-                        //         if ($zone) {
-                        //                 $query3->where('warehouse', $zone);
-                        //         }
-
-                        //         $query4 = p_voucher::whereBetween('payment_voucher.date', [$startDate, $endDate]);
-
+                        //         $payment_voucher = p_voucher::whereBetween('date', [$startDate, $endDate]);
 
                         //         if ($account) {
-                        //                 $query4->where('cash_bank', $account);
+                        //                 $payment_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
                         //         }
-
                         //         if ($salesOfficer) {
-                        //                 $query4->where('sales_officer', $salesOfficer);
+                        //                 $payment_voucher->where('sales_officer', $salesOfficer);
                         //         }
 
-                        //         if ($zone) {
-                        //                 $query4->where('warehouse', $zone);
+
+                        //         $receipt_voucher = ReceiptVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                        //         if ($account) {
+                        //                 $receipt_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
+                        //         }
+                        //         if ($salesOfficer) {
+                        //                 $receipt_voucher->where('sales_officer', $salesOfficer);
                         //         }
 
-                        //         $ledgerDatasi = $query->get();
-                        //         $ledgerDatarv = $query2->get();
-                        //         $ledgerDatapi = $query3->get();
-                        //         $ledgerDatapv = $query4->get();
+                        //         $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
 
+                        //         if ($account) {
+                        //                 $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account->reference_id)->orWhere('buyer', $account->id);
+                        //         }
+                        //         if ($salesOfficer) {
+                        //                 $expense_voucher->where('sales_officer', $salesOfficer);
+                        //         }
 
+                        //         $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
+                        //         $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
+                        //         $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
+                        //         $payment_voucher = $payment_voucher->orderBy('date', 'asc')->get();
+                        //         $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
+                        //         $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
+
+                        //         $chickenInvoice = $chickenInvoice->groupBy('unique_id')->map(function ($group) {
+                        //                 $description = $group->map(function ($item) {
+                        //                         return $item->product->product_name;
+                        //                 })->join(', ');
+                        //                 $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'CH-' . $group->first()->unique_id)->sum('amount');
+                        //                 $sale_amount_pv = P_voucher::where('invoice_no', 'CH-' . $group->first()->unique_id)->sum('amount');
+                        //                 $groupedData = new \stdClass();
+                        //                 $groupedData->date = $group->first()->date;
+                        //                 $groupedData->unique_id = $group->first()->unique_id;
+                        //                 $groupedData->description = $description;
+                        //                 $groupedData->seller = $group->first()->seller;
+                        //                 $groupedData->buyer = $group->first()->buyer;
+                        //                 $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                        //                 $groupedData->amount_total = $group->first()->amount_total;
+
+                        //                 return $groupedData;
+                        //         });
+                        //         $chickInvoice = $chickInvoice->groupBy('unique_id')->map(function ($group) {
+                        //                 $description = $group->map(function ($item) {
+                        //                         return $item->product->product_name;
+                        //                 })->join(', ');
+                        //                 $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
+                        //                 $sale_amount_pv = P_voucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
+                        //                 $groupedData = new \stdClass();
+                        //                 $groupedData->date = $group->first()->date;
+                        //                 $groupedData->unique_id = $group->first()->unique_id;
+                        //                 $groupedData->description = $description;
+                        //                 $groupedData->seller = $group->first()->seller;
+                        //                 $groupedData->buyer = $group->first()->buyer;
+                        //                 $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                        //                 $groupedData->amount_total = $group->first()->amount_total;
+
+                        //                 return $groupedData;
+                        //         });
+                        //         $feedInvoice = $feedInvoice->groupBy('unique_id')->map(function ($group) {
+                        //                 $description = $group->map(function ($item) {
+                        //                         return $item->product->product_name;
+                        //                 })->join(', ');
+                        //                 $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'F-' . $group->first()->unique_id)->sum('amount');
+                        //                 $sale_amount_pv = P_voucher::where('invoice_no', 'F-' . $group->first()->unique_id)->sum('amount');
+                        //                 $groupedData = new \stdClass();
+                        //                 $groupedData->date = $group->first()->date;
+                        //                 $groupedData->unique_id = $group->first()->unique_id;
+                        //                 $groupedData->description = $description;
+                        //                 $groupedData->seller = $group->first()->seller;
+                        //                 $groupedData->buyer = $group->first()->buyer;
+                        //                 $groupedData->qty_total = $group->first()->qty_total;
+                        //                 $groupedData->sale_qty_total = $group->first()->sale_qty_total;
+                        //                 $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+                        //                 $groupedData->amount_total = $group->first()->amount_total;
+
+                        //                 return $groupedData;
+                        //         });
+                        //         // $payment_voucher = $payment_voucher->groupBy('unique_id')->map(function ($group) {
+                        //         //         $description = $group->map(function ($item) {
+                        //         //                 return $item->narration;
+                        //         //         })->join(', ');
+
+                        //         //         $groupedData = new \stdClass();
+                        //         //         $groupedData->date = $group->first()->date;
+                        //         //         $groupedData->unique_id = $group->first()->unique_id;
+                        //         //         $groupedData->narration = $description;
+                        //         //         $groupedData->company = $group->first()->company;
+                        //         //         $groupedData->amount_total = $group->first()->amount;
+
+                        //         //         return $groupedData;
+                        //         // });
+
+                        //         // dd($feedInvoiceGrouped);
+                        //         if ($id) {
+                        //                 $single_data = accounts::where('id', $id)->first();
+                        //         }
                         //         $data = [
                         //                 'startDate' => $startDate,
                         //                 'endDate' => $endDate,
-                        //                 'account' => $account,
-                        //                 'ledgerDatasi' => $ledgerDatasi,
-                        //                 'ledgerDatarv' => $ledgerDatarv,
-                        //                 'ledgerDatapi' => $ledgerDatapi,
-                        //                 'ledgerDatapv' => $ledgerDatapv,
+                        //                 'single_data' => $single_data ?? null,
+                        //                 'chickenInvoice' => $chickenInvoice,
+                        //                 'chickInvoice' => $chickInvoice,
+                        //                 'feedInvoice' => $feedInvoice,
+                        //                 'payment_voucher' => $payment_voucher,
+                        //                 'receipt_voucher' => $receipt_voucher,
+                        //                 'expense_voucher' => $expense_voucher,
+                        //                 'account' => $account->reference_id ?? null,
                         //                 'type' => $type
                         //         ];
                         //         session()->flash('Data', $data);
