@@ -10,7 +10,7 @@ use App\Models\users;
 use App\Models\customization;
 use App\Models\buyer;
 use App\Models\Expense;
-use App\Models\e_voucher;
+use App\Models\j_voucher;
 use App\Models\sell_invoice;
 use App\Models\seller;
 use App\Models\sales_officer;
@@ -20,6 +20,10 @@ use App\Models\product_company;
 use App\Models\product_type;
 use App\Models\products;
 use App\Models\warehouse;
+use App\Models\chickenInvoice;
+use App\Models\ChickInvoice;
+use App\Models\feedInvoice;
+
 use Illuminate\Http\Request;
 
 class JournalVoucherController extends Controller
@@ -54,16 +58,16 @@ class JournalVoucherController extends Controller
     }
     public function create_first()
     {
-        $e_voucher = JournalVoucher::where("unique_id", 1)
+        $j_voucher = JournalVoucher::where("unique_id", 1)
             ->get();
-        $se_voucher = JournalVoucher::where([
+        $sj_voucher = JournalVoucher::where([
 
             "unique_id" => 1
         ])->limit(1)->get();
 
         $account = accounts::all();
 
-        $data = compact('account', 'e_voucher', 'se_voucher');
+        $data = compact('account', 'j_voucher', 'sj_voucher');
         return view('vouchers.e_journal')->with($data);
     }
     public function create_last()
@@ -73,16 +77,16 @@ class JournalVoucherController extends Controller
                 ->from('journal_vouchers')
                 ->groupBy('unique_id');
         })->count();
-        $e_voucher = JournalVoucher::where("unique_id", $count)
+        $j_voucher = JournalVoucher::where("unique_id", $count)
             ->get();
-        $se_voucher = JournalVoucher::where([
+        $sj_voucher = JournalVoucher::where([
 
             "unique_id" => $count
         ])->limit(1)->get();
 
         $account = accounts::all();
 
-        $data = compact('account', 'e_voucher', 'se_voucher');
+        $data = compact('account', 'j_voucher', 'sj_voucher');
         return view('vouchers.e_journal')->with($data);
     }
 
@@ -119,17 +123,21 @@ class JournalVoucherController extends Controller
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
             $invoice->farm = $invoiceData['farm'] ?? null;
-            $invoice->buyer = $company;
+            $invoice->buyer = $company ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
 
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
+            $invoice->status = $invoiceData['status']["$i"] ?? null;
+
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
-            $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
+            $invoice->from_account = $invoiceData['from_account']["$i"] ?? null;
+            $invoice->to_account = $invoiceData['to_account']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
             $image = $request->file('attachment');
@@ -166,18 +174,48 @@ class JournalVoucherController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $e_voucher = JournalVoucher::where("unique_id", $id)
+        $j_voucher = JournalVoucher::where("unique_id", $id)
             ->get();
-        $se_voucher = JournalVoucher::where([
+        $sj_voucher = JournalVoucher::where([
 
             "unique_id" => $id
         ])->first();
 
         $account = accounts::all();
-
-        if (count($se_voucher) > 0) {
-            $data = compact('account', 'e_voucher', 'se_voucher');
-            $data = compact('account', 'p_voucher', 'sp_voucher');
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+        // dd($sj_voucher);
+        if (count($j_voucher) > 0) {
+            $data = compact('account', 'j_voucher', 'sj_voucher', 'combinedInvoices');
             return view('vouchers.e_journal')->with($data);
         } else {
             session()->flash('something_error', 'Voucher Not Found');
@@ -194,6 +232,8 @@ class JournalVoucherController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $invoiceData = $request->all();
+        // dd($request->all());
         JournalVoucher::where('unique_id', $id)->delete();
 
         // Expense::where('category_id', $id)->update([
@@ -201,8 +241,8 @@ class JournalVoucherController extends Controller
         //     'company_id' => $request['company']
         // ]);
 
-        $invoiceData = $request->all();
-        $company = $invoiceData['company'];
+
+        // $company = $invoiceData['company'] ?? null;
         $arrayLength = count(array_filter($invoiceData['narration']));
 
         for ($i = 0; $i < $arrayLength; $i++) {
@@ -218,7 +258,8 @@ class JournalVoucherController extends Controller
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
-            $invoice->cash_bank = $invoiceData['cash_bank']["$i"] ?? null;
+            $invoice->from_account = $invoiceData['from_account']["$i"] ?? null;
+            $invoice->to_account = $invoiceData['to_account']["$i"] ?? null;
             $invoice->amount = $invoiceData['amount']["$i"] ?? null;
             $invoice->ref_no = $invoiceData['ref_no'] ?? null;
 
@@ -231,6 +272,8 @@ class JournalVoucherController extends Controller
             }
             $invoice->attachment = $attachmentPath;
 
+            $invoice->invoice_no = $invoiceData['invoice_no']["$i"] ?? null;
+            $invoice->status = $invoiceData['status']["$i"] ?? null;
             $invoice->save();
         }
 

@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Journal Voucher') @section('content')
+@extends('master') @section('title', 'Journal Voucher (EDIT)') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -20,6 +20,55 @@
         }
 
     }
+
+
+    @media (max-width: 755px) {
+        body {
+            overflow: scroll !important;
+            width: max-content;
+
+        }
+
+        .img {
+            position: absolute;
+            top: 70% !important;
+            left: 80.5% !important;
+            width: 217px;
+            height: 191px;
+        }
+
+        .options {
+            width: 23% !important;
+        }
+
+    }
+
+
+
+    @media (max-width: 755px) {
+        body {
+            overflow: scroll !important;
+            width: max-content;
+
+        }
+
+        .img {
+            position: absolute;
+            top: 70% !important;
+            left: 80.5% !important;
+            width: 217px;
+            height: 191px;
+        }
+
+        .options {
+            width: 23% !important;
+        }
+
+    }
+
+
+
+
 
     .container {
         transform: scale(0.75);
@@ -184,7 +233,21 @@
 
 
 
+    .label {
+        text-align: center;
+        height: 50px;
+        padding: 15px auto 15px 15px;
+        border: 1px solid none;
+        display: flex;
+        width: 100%;
+        justify-content: space-evenly;
+        margin-left: 36px;
+    }
 
+    .label label {
+        width: 71px;
+
+    }
 
     /* .fields input{
     padding-left: 25%;
@@ -196,49 +259,46 @@
 <div class="container" id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
-        <h3 style="text-align: center;">Journal Voucher</h3>
+        <h3 style="text-align: center;">Journal Voucher (EDIT)</h3>
 
+        <h5 style="text-align: end;">Medician</h5>
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <input style="border: none !important;" style="border: none !important;" readonly type="date"
-                        id="date" value="<?php
-                        $currentDate = date('Y-m-d');
-                        echo $currentDate;
-                        ?>" />
-                </div>
-                <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input style="border: none !important;" type="text" readonly value="<?php $year = date('Y');
-                    $lastTwoWords = substr($year, -2);
-                    echo $rand = 'JV' . '-' . $year . '-' . $count + 1; ?>" />
-                    <input style="border: none !important;" type="hidden" id="invoice#" name="unique_id" readonly
-                        value="{{ $rand = $count + 1 }}" />
+                    <input style="border: none !important;" type="text" id="invoice#" readonly
+                        value="<?php $year = date('Y');
+                        $lastTwoWords = substr($year, -2);
+                        echo $rand = 'JV' . '-' . $year . '-' . $sj_voucher->unique_id; ?>" />
+                    <input type="hidden" id="unique_id" name="unique_id"
+                        value="{{ $rand = $sj_voucher->unique_id }}" />
+
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
                     <input style="border: none !important;" type="date" id="date" name="date"
-                        value="<?php
-                        $currentDate = date('Y-m-d');
-                        echo $currentDate;
-                        ?>" />
+                        value="{{ $sj_voucher->date }}" />
                 </div>
 
 
 
             </div>
 
-            <div class="fields">
 
-                <div class="one  remark">
-                    <label for="seller">Accounts</label>
-                    <select name="company" id="seller" class="company select-account">
+            <div class="fields">
+                {{-- <div class="one  remark">
+                    <label for="seller">Company</label>
+                    <select name="company" id="company" class="company select-buyer">
+                        <option value="{{ $sj_voucher->customer->buyer_id }}" selected>
+                            {{ $sj_voucher->customer->company_name }}</option>
                     </select>
-                </div>
+                </div> --}}
 
                 <div class="one  remark">
                     <label for="seller">Sales Ofiicer</label>
-                    <select name="sales_officer" id="sales_officer" class="sales_officer select-sales_officer">
+                    <select name="sales_officer" id="sales_officer" class="select-sales_officer">
+                        <option value="{{ $sj_voucher->officer->sales_officer_id ?? null }}" selected>
+                            {{ $sj_voucher->officer->sales_officer_name ?? null }}</option>
                     </select>
                 </div>
             </div>
@@ -248,16 +308,20 @@
 
                 <div class="one">
                     <label for="Invoice">Ref No</label>
-                    <input type="text" id="ref_no" name="ref_no" />
+                    <input type="text" id="ref_no" name="ref_no" value="{{ $sj_voucher->ref_no }}" />
                 </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" type="text" id="remark" name="remark" />
+                    <input style="width: 219px !important;" type="text" id="remark" name="remark"
+                        value="{{ $sj_voucher->remark }}" />
                 </div>
                 <div class="one  remark">
-                    <label for="farm">Farm</label>
-                    <select name="farm" class="select-farm" style="justify-content: space-around">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
+                        <option value="{{ $sj_voucher->farms->id ?? null }}" selected>
+                            {{ $sj_voucher->farms->name ?? null }}</option>
                     </select>
+
                 </div>
             </div>
         </div>
@@ -266,125 +330,187 @@
 
         <div class="invoice">
             @csrf
-            <div class="dup_invoice" onchange="addInvoice()">
+            <div class="label">
+                <label for="item" style="padding-right: 91px;">Narration</label>
+                <label for="unit">Invoice No</label>
+                <label for="unit">Cheque No</label>
+                <label for="batch_no">Cheque Date</label>
+                <label>From Account</label>
+                <label>To Account</label>
+                <label for="dis">Dr/Cr</label>
+                <label for="amount">Amount</label>
 
 
-                <div class="div">
-                    <label for="unit">Narration</label>
-                    <input style="width: 289px !important;" type="text" list="narrations" id="narration"
-                        name="narration[]" />
-                    <datalist id="narrations">
-                        @foreach ($narrations as $row)
-                            <option>{{ $row->narration }}</option>
-                        @endforeach
-                    </datalist>
+
+            </div>
+            @php
+                $counter = 1;
+            @endphp
+            @foreach ($j_voucher as $invoice_row)
+                <div class="dup_invoice" onchange="addInvoice()">
+
+
+                    <div class="div">
+                        <input style="width: 289px !important;" type="text" id="narration" name="narration[]"
+                            value="{{ $invoice_row->narration }}" />
+                    </div>
+                    <div class="div">
+
+                        <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
+                            <option value=""></option>
+                            @foreach ($combinedInvoices as $invoice)
+                                <option value="{{ $invoice->unique_id_name }}"
+                                    {{ $invoice->unique_id_name == $invoice_row->invoice_no ? 'selected' : '' }}>
+                                    {{ $invoice->unique_id_name }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="div">
+                        <input type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]"
+                            value="{{ $invoice_row->cheque_no }}" />
+                    </div>
+                    <div class="div">
+                        <input type="date" min="0.00" style="width: 131px !important;" step="any"
+                            value="{{ $invoice_row->cheque_date }}" id="cheque_date" name="cheque_date[]"
+                            onchange='total_amount()' />
+                    </div>
+                    <div class="div">
+                        <select class="cash_bank  select-account" name="from_account[]" style="height: 28px">
+                            <option value="{{ $sj_voucher->fromAccount->id ?? null }}" selected>
+                                {{ $sj_voucher->fromAccount->account_name ?? null }}</option>
+                        </select>
+                    </div>
+                    <div class="div">
+                        <select class="cash_bank  select-account" name="to_account[]" style="height: 28px">
+                            <option value="{{ $sj_voucher->toAccount->id ?? null }}" selected>
+                                {{ $sj_voucher->toAccount->account_name ?? null }}</option>
+                        </select>
+                    </div>
+                    <div class="div">
+                        <select name="status[]">
+                            <option value="dr" {{ $invoice_row->status == 'dr' ? 'selected' : '' }}>Debit</option>
+                            <option value="cr" {{ $invoice_row->status == 'cr' ? 'selected' : '' }}>Credit
+                            </option>
+                        </select>
+                    </div>
+                    <div class="div">
+                        <input class="<?php echo $counter; ?>amount" type="number" step="any" min="0.00"
+                            style="text-align: right;" step="any" value="{{ $invoice_row->amount }}"
+                            onchange='total_amount()' id="amount" name="amount[]" />
+                    </div>
                 </div>
 
+
+
+                @php
+                    $counter++;
+                @endphp
+            @endforeach
+
+            <div class="dup_invoice" onchange="addInvoice2()">
+
+
                 <div class="div">
-                    <label for="dis">Invoice</label>
+                    <input style="width: 289px !important;" type="text" id="narration" name="narration[]" />
+                </div>
+                <div class="div">
                     <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
-                        <option></option>
                     </select>
                 </div>
+
                 <div class="div">
-                    <label for="dis">Cheque No (s)</label>
                     <input type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
                 </div>
                 <div class="div">
-                    <label for="dis">Cheque Date</label>
-                    <input type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00"
-                        id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
+                    <input type="date" min="0.00" style="width: 131px !important;" step="any"
+                        value="0.00" id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
-                    <label>From Account</label>
                     <select class="cash_bank  select-account" name="from_account[]" style="height: 28px">
 
                     </select>
                 </div>
                 <div class="div">
-                    <label>To Account</label>
                     <select class="cash_bank  select-account" name="to_account[]" style="height: 28px">
 
                     </select>
                 </div>
                 <div class="div">
-                    <label for="dis">Dr/Cr</label>
                     <select name="status[]">
                         <option value="dr">Debit</option>
                         <option value="cr">Credit</option>
                     </select>
                 </div>
+
                 <div class="div">
-                    <label for="amount">Amount</label>
                     <input type="number" step="any" min="0.00" style="text-align: right;" step="any"
-                        value="0.00" onchange='total_amount()' id="amount" name="amount[]" />
+                        value="0.00" onchange='total_amount()' id="amount1" name="amount[]" />
                 </div>
             </div>
+
+
+            <style>
+                .total {
+                    justify-content: center;
+                    /* width: 50%; */
+                    /* align-items: flex-end; */
+                    display: flex;
+                }
+
+                .total .last input {
+                    margin-top: 9px !important;
+
+                }
+
+                .one {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    flex-direction: row;
+                }
+
+                .last {
+                    display: flex;
+
+                    flex-direction: column;
+                }
+
+                .last .one input {
+                    margin-top: 5px;
+                }
+
+                .options {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: -210px;
+                }
+            </style>
+
         </div>
-
-
-        <style>
-            .total {
-                justify-content: center;
-                /* width: 50%; */
-                /* align-items: flex-end; */
-                display: flex;
-            }
-
-            .total .last input {
-                margin-top: 9px !important;
-
-            }
-
-            .one {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 5px;
-                flex-direction: row;
-            }
-
-            .last {
-                display: flex;
-
-                flex-direction: column;
-            }
-
-            .last .one input {
-                margin-top: 5px;
-            }
-
-            .options {
-                display: flex;
-                justify-content: center;
-                margin-top: -210px;
-            }
-        </style>
-
         <div class="total" style="margin-top: 2.25%;">
             <div class="first">
                 <div class="one" style="
-            margin-left: 0%;
-        ">
+margin-left: 0%;
+">
 
                     <input type="number" step="any" step="any" name="amount_total" id="amount_total"
                         style="
-            margin-left: 183%;
-            text-align:end;
-        " readonly>
+margin-left: 185%;
+text-align:end;
+" readonly
+                        value="{{ $sj_voucher->amount_total }}">
 
                 </div>
 
                 <br>
             </div>
-
-
         </div>
-</div>
 
 </div>
+
 <button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
-    data-bs-target="#imageModal" style="
-    margin-top: -17%;
+    data-bs-target="#imageModal"style="
 ">
     Attachment
 </button>
@@ -401,20 +527,24 @@
             <div class="modal-body">
                 <div class="row p-2">
                     <div class="col-lg-9 col-md-12 p-2">
-                        <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
-                                class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
+                        <a href="#" id="imageAnchor" target="_blank"><img
+                                src="{{ asset($sj_voucher->attachment) }}" alt="img" class="img-fluid"
+                                id="imagePreview" style="object-fit: fill;">
                         </a>
                     </div>
                     <div class="col-lg-3 col-md-12">
                         <div class="row justify-content-start">
                             <div class="mb-3">
                                 <input type="file" class="form-control" name="attachment" id="attachment"
+                                    value="{{ $sj_voucher->attachment }}"
                                     style="
     height: max-content !important;
 " />
+                                <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
+                                    value="{{ $sj_voucher->attachment }}" />
                             </div>
                             <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
-                                onclick="
+                                onclick=" 
                   document.getElementById('attachment').value = '';
                  document.getElementById('imagePreview').style.display = 'none';
                  document.getElementById('imagePreview').src = '';
@@ -430,31 +560,36 @@
     </div>
 </div>
 <div class="row m-5 justify-content-center align-items-center"
-    style="position: relative;gap: 30px;margin-top: -110px !important;top: 60%;right: 0%;">
+    style="position: relative;gap: 30px;margin-top: -110px !important;top: 20%;right: 0%;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
-        submit
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
+        Update
     </button>
-    <a href="{{ Route('journal-voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
+        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
+        Edit
+    </button>
+
+    <a href="{{ Route('journal-voucher.create_first') }}" class="btn px-3 p-1 btn-secondary btn-sm ">
+        First
+    </a>
+    <a href="{{ Route('journal-voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
         Previous
     </a>
-    <a href="{{ Route('journal-voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('journal-voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
         Next
     </a>
-
-    <a href="{{ Route('journal-voucher.edit', $rand) }}"
-        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
-        Edit
+    <a href="{{ Route('journal-voucher.create_last') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+        Last
     </a>
+
     <a href="{{ Route('journal-voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
         id="add_more">
         Add More
     </a>
 
 
-    <a href="/ev_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
-        PDF
-    </a>
+
 
 
     <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
@@ -465,6 +600,9 @@
         Revert
     </button>
 </div>
+
+
+
 </form>
 </div>
 
@@ -487,6 +625,7 @@
         </button>
     </div>
 </div>
+
 @push('s_script')
     <script>
         $('#form').submit(function(event) {
@@ -495,7 +634,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: '{{ Route('journal-voucher.store') }}',
+                url: '{{ Route('journal-voucher.update', $rand) }}', // Replace with your Laravel route or endpoint
                 method: 'POST',
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
@@ -506,12 +645,11 @@
                     Swal.fire({
                         icon: 'success',
                         title: response,
-                        timer: 1900 // Automatically close after 3 seconds
+                        timer: 1900
                     });
-                    $("#submit").addClass("disabled");
-                    $("#edit").removeClass("disabled");
-                    $("#pdf").removeClass("disabled");
 
+                    $("#submit").attr('disabled', 'disabled');
+                    $('#edit').removeAttr('disabled');
 
 
                 },
@@ -522,7 +660,31 @@
         })
     </script>
     <script>
+        document.getElementById('attachment').addEventListener('change', function(event) {
+            const file = event.target.files[0]; // Get the uploaded file
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const img = document.getElementById('imagePreview');
+                const a = document.getElementById('imageAnchor');
+
+                // Set the href of the anchor to the image's data URL
+                a.href = e.target.result;
+
+                // Set the src of the img to the image's data URL
+                img.src = e.target.result;
+
+                // Show the image
+                img.style.display = 'block';
+            };
+
+            // Check if a file is selected, then read it
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        });
         $(document).change(function() {
+            total_amount();
             $('.select-all-invoice-no').select2({
                 ajax: {
                     url: '{{ route('select2.all_invoice_no') }}',
@@ -552,34 +714,37 @@
                 allowClear: true,
                 placeholder: '',
             });
-        });
-        document.getElementById('attachment').addEventListener('change', function(event) {
-            const file = event.target.files[0]; // Get the uploaded file
-            const reader = new FileReader();
 
-            reader.onload = function(e) {
-                const img = document.getElementById('imagePreview');
-                const a = document.getElementById('imageAnchor');
+        })
 
-                // Set the href of the anchor to the image's data URL
-                a.href = e.target.result;
 
-                // Set the src of the img to the image's data URL
-                img.src = e.target.result;
 
-                // Show the image
-                img.style.display = 'block';
-            };
 
-            // Check if a file is selected, then read it
-            if (file) {
-                reader.readAsDataURL(file);
+
+
+
+
+
+
+
+
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                event.preventDefault(); // Prevent the default behavior (e.g., form submission)
+                const currentElement = event.target;
+                const focusableElements = getFocusableElements();
+                const currentIndex = focusableElements.indexOf(currentElement);
+                const nextIndex = (currentIndex + 1) % focusableElements.length;
+                focusableElements[nextIndex].focus();
             }
-        });
+        }
 
 
-        var counter = 1
-        var countera = 0
+
+
+        var counter = 2
+        var countera = 1
         var stop = 0
 
         function addInvoice(one) {
@@ -597,21 +762,20 @@
 </div>
 
  <div class="div">
-                    <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
-                        <option></option>
+                    <select class="invoice_no select-all-invoice-no"  name="invoice_no[]"
+                        style="height: 28px">
                     </select>
                 </div>
 <div class="div">
     <input  type="text" min="0.00" step="any" id="cheque_no` + counter +
-                    `" name="cheque_no[]"  onchange="addInvoice2(` + counter +
-                    `)"/>
+                    `" name="cheque_no[]"  onchange="addInvoice2(` + counter + `)"/>
 </div>
 <div class="div">
     <input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
                     counter +
                     `" name="cheque_date[]"  />
 </div>
- <div class="div">
+<div class="div">
                     <select class="cash_bank  select-account" name="from_account[]" style="height: 28px">
 
                     </select>
@@ -737,23 +901,21 @@
 <input style="width: 289px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
-
  <div class="div">
-                    <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
-                        <option></option>
+                    <select class="invoice_no select-all-invoice-no"  name="invoice_no[]"
+                        style="height: 28px">
                     </select>
                 </div>
+
 <div class="div">
-<input  type="text" min="0.00" step="any" id="cheque_no` + counter +
-                    `" name="cheque_no[]" onchange="addInvoice2(` + counter +
-                    `)" />
+<input  type="text" min="0.00" step="any" id="cheque_no` + counter + `" name="cheque_no[]" onchange="addInvoice2(` +
+                    counter + `)" />
 </div>
 <div class="div">
-<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` +
-                    counter +
+<input  type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00" id="cheque_date` + counter +
                     `" name="cheque_date[]"  />
 </div>
- <div class="div">
+<div class="div">
                     <select class="cash_bank  select-account" name="from_account[]" style="height: 28px">
 
                     </select>
@@ -779,12 +941,7 @@
 
 `;
 
-
-
             }
-
-
-
 
             counter = counter - 1
             let amount2 = $("#cheque_no" + counter).val()
@@ -837,29 +994,6 @@
             }
 
             counter = counter + 1
-            // let amount2 = $("#amount" + counter).val()
-            // let narration2 = $("#narration" + counter).val()
-
-            // if (!$("#narration" + counter).hasClass('check')&& $("#narration").hasClass('check') && $("#narration").val() != '') {
-
-
-            //     if (narration2 != '') {
-
-            //         $("#narration" + counter).addClass("check")
-
-
-
-            //         counter++
-            //         countera++
-
-
-            //         $(".invoice").append(clonedFields);
-
-            //     }
-
-            // }
-
-
         }
 
 
@@ -879,9 +1013,13 @@
 
 
         function total_amount() {
-            var atotal = parseFloat($("#amount").val());
+            let count = <?php echo $counter; ?> - 1;
+            var atotal = 0;
+            for (let i = 1; i <= count; i++) {
+                let amount1 = parseInt($("." + i + "amount").val());
+                atotal += amount1;
+            }
 
-            console.log(atotal);
             for (let i = 1; i <= countera; i++) {
                 let amount1 = parseFloat($("#amount" + i).val());
                 atotal += amount1;
@@ -891,11 +1029,19 @@
         }
     </script>
     <script>
+        $(".cash_bank option").click(function() {
+            // Initialize Select2 for the desired select elements
+
+            // Initialize other select elements if necessary
+        });
+
         $.ajaxSetup({
             headers: {
                 "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
             },
         });
+
+
 
 
         $(document).on('keydown', function(e) {
@@ -949,8 +1095,8 @@
                                     style="width: 100% !important;">
                             </div>
 
-                            <button type="submit" data-url="{{ url('journal-voucher') }}/edit" class="btn btn-primary"
-                                id="search-btn">Search</button>
+                            <button type="submit" data-url="{{ Route('journal-voucher.index') }}/edit"
+                                class="btn btn-primary" id="search-btn">Search</button>
 
                         </form>
                     </div>

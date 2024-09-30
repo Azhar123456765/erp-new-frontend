@@ -139,7 +139,8 @@ Route::middleware('userAuth')->group(function () {
                 });
                 Route::get('/first-journal-voucher', [JournalVoucherController::class, 'create_first'])->name("journal-voucher.create_first");
                 Route::get('/last-journal-voucher', [JournalVoucherController::class, 'create_last'])->name("journal-voucher.create_last");
-                Route::resource('journal-voucher', JournalVoucherController::class);
+                Route::post('journal-voucher/update/{id}', [JournalVoucherController::class,'update'])->name('journal-voucher.update');
+                Route::resource('journal-voucher', JournalVoucherController::class)->except('update');
 
                 Route::prefix('get-invoice-no')->group(function () {
 
