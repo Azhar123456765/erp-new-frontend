@@ -310,8 +310,8 @@
                 <div class="div">
                     <label for="dis">Dr/Cr</label>
                     <select name="status[]">
-                        <option value="dr">Debit</option>
-                        <option value="cr">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
                     </select>
                 </div>
                 <div class="div">
@@ -623,8 +623,8 @@
                 </div>
                 <div class="div">
                     <select name="status[]">
-                        <option value="dr">Debit</option>
-                        <option value="cr">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
                     </select>
                 </div>
 
@@ -766,7 +766,7 @@
                 <div class="div">
                     <select name="status[]">
                         <option value="dr">Debit</option>
-                        <option value="cr">Credit</option>
+                        <option value="credit">Credit</option>
                     </select>
                 </div>
 

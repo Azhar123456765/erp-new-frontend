@@ -20,6 +20,7 @@
         $payment_voucher = session()->get('Data')['payment_voucher'];
         $receipt_voucher = session()->get('Data')['receipt_voucher'];
         $expense_voucher = session()->get('Data')['expense_voucher'];
+        $journal_voucher = session()->get('Data')['journal_voucher'];
         $company = session()->get('Data')['account'];
         $type = session()->get('Data')['type'];
 
@@ -281,7 +282,7 @@
                                         <span>{{ $row->narration }}</span>
                                     </td>
                                     <td style="text-align:right;">
-                                        <span>0.00</span>
+                                        <span>0.000</span>
                                     </td>
 
                                     <td style="text-align:right;">
@@ -310,7 +311,7 @@
                                     </td>
 
                                     <td style="text-align:right;">
-                                        <span>0.00</span>
+                                        <span>0.000</span>
                                     </td>
                                     <td style="text-align:right;">
                                         <span>{{ $balance -= $row->amount }}</span>
@@ -335,7 +336,53 @@
                                     </td>
 
                                     <td style="text-align:right;">
-                                        <span>0.00</span>
+                                        <span>0.000</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $balance += $row->amount }}</span>
+                                    </td>
+                                </tr>
+                                @php $debit += $row->amount_total; @endphp
+                            @endforeach
+                            @foreach ($journal_voucher as $row)
+                                <tr style="text-align: center;">
+                                    <td class="text-right" style="width: 100px;">
+                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>JV-{{ $row->unique_id }}</span>
+                                    </td>
+                                    <td style="text-align: left
+            ;">
+                                        <span>{{ $row->narration }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>
+                                            @if ($single_data)
+                                                @if ($single_data->id == $row->from_account && $row->status == 'credit')
+                                                    {{ $row->amount ?? 0.0 }}
+                                                @elseif($single_data->id == $row->to_account && $row->status == 'debit')
+                                                    {{ $row->amount ?? 0.0 }}
+                                                @endif
+                                            @else
+                                                {{ $row->amount ?? 0.0 }}
+                                            @endif
+                                        </span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>
+                                            @if ($single_data)
+                                                @if ($single_data->id == $row->to_account && $row->status == 'credit')
+                                                    {{ $row->amount ?? 0.0 }}
+                                                @elseif($single_data->id == $row->from_account && $row->status == 'debit')
+                                                    {{ $row->amount ?? 0.0 }}
+                                                @elseif($single_data->id == $row->from_account && $row->status == 'debit')
+                                                    {{ $row->amount ?? 0.0 }}
+                                                @endif
+                                            @else
+                                                {{ $row->amount ?? 0.0 }}
+                                            @endif
+                                        </span>
                                     </td>
                                     <td style="text-align:right;">
                                         <span>{{ $balance += $row->amount }}</span>
@@ -448,7 +495,7 @@
                                             <span>{{ $row2->narration }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>0.00</span>
+                                            <span>0.000</span>
                                         </td>
                                         <td style="text-align:right;">
                                             <span>{{ $row2->amount }}</span>
@@ -477,7 +524,7 @@
                                         </td>
 
                                         <td style="text-align:right;">
-                                            <span>0.00</span>
+                                            <span>0.000</span>
                                         </td>
                                     </tr>
                                     @php
@@ -559,7 +606,7 @@
                         <span>{{ $row2->narration }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>0.00</span>
+                        <span>0.000</span>
                     </td>
                     <td style="text-align:right;">
                         <span>{{ $row2->amount }}</span>
@@ -588,7 +635,7 @@
                     </td>
 
                     <td style="text-align:right;">
-                        <span>0.00</span>
+                        <span>0.000</span>
                     </td>
                 </tr>
                 @php
@@ -673,7 +720,7 @@
                         <span>{{ $row2->narration }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>0.00</span>
+                        <span>0.000</span>
                     </td>
                     <td style="text-align:right;">
                         <span>{{ $row2->amount }}</span>
@@ -702,7 +749,7 @@
                     </td>
 
                     <td style="text-align:right;">
-                        <span>0.00</span>
+                        <span>0.000</span>
                     </td>
                 </tr>
                 @php
@@ -740,7 +787,7 @@
                 </td>
 
                 <td style="text-align:right;">
-                    <span>0.00</span>
+                    <span>0.000</span>
                 </td>
 
             </tr>

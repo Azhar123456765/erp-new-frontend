@@ -8,6 +8,7 @@ use App\Models\ExpenseVoucher;
 use App\Models\Farm;
 use App\Models\FarmDailyReport;
 use App\Models\feedInvoice;
+use App\Models\JournalVoucher;
 use App\Models\SubHeadAccount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -434,12 +435,22 @@ class pdfController extends Controller
                                         $expense_voucher->where('sales_officer', $salesOfficer);
                                 }
 
+                                $journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                                if ($account) {
+                                        $journal_voucher->where('from_account', $id)->orWhere('to_account', $id);
+                                }
+                                if ($salesOfficer) {
+                                        $journal_voucher->where('sales_officer', $salesOfficer);
+                                }
+
                                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
                                 $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
                                 $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
                                 $payment_voucher = $payment_voucher->orderBy('date', 'asc')->get();
                                 $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
                                 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
+                                $journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
 
                                 $chickenInvoice = $chickenInvoice->groupBy('unique_id')->map(function ($group) {
                                         $description = $group->map(function ($item) {
@@ -523,6 +534,7 @@ class pdfController extends Controller
                                         'payment_voucher' => $payment_voucher,
                                         'receipt_voucher' => $receipt_voucher,
                                         'expense_voucher' => $expense_voucher,
+                                        'journal_voucher' => $journal_voucher,
                                         'account' => $account->reference_id ?? null,
                                         'type' => $type
                                 ];

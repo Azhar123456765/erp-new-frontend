@@ -389,8 +389,9 @@
                     </div>
                     <div class="div">
                         <select name="status[]">
-                            <option value="dr" {{ $invoice_row->status == 'dr' ? 'selected' : '' }}>Debit</option>
-                            <option value="cr" {{ $invoice_row->status == 'cr' ? 'selected' : '' }}>Credit
+                            <option value="debit" {{ $invoice_row->status == 'debit' ? 'selected' : '' }}>Debit
+                            </option>
+                            <option value="credit" {{ $invoice_row->status == 'credit' ? 'selected' : '' }}>Credit
                             </option>
                         </select>
                     </div>
@@ -438,8 +439,8 @@
                 </div>
                 <div class="div">
                     <select name="status[]">
-                        <option value="dr">Debit</option>
-                        <option value="cr">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
                     </select>
                 </div>
 
@@ -787,8 +788,8 @@ text-align:end;
                 </div>
                 <div class="div">
                     <select name="status[]">
-                        <option value="dr">Debit</option>
-                        <option value="cr">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
                     </select>
                 </div>
 
@@ -846,7 +847,7 @@ text-align:end;
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });
@@ -927,8 +928,8 @@ text-align:end;
                 </div>
                 <div class="div">
                     <select name="status[]">
-                        <option value="dr">Debit</option>
-                        <option value="cr">Credit</option>
+                        <option value="debit">Debit</option>
+                        <option value="credit">Credit</option>
                     </select>
                 </div>
 
@@ -985,7 +986,7 @@ text-align:end;
                             },
                             cache: true
                         },
-                       
+                        2
                         theme: 'classic',
                         width: '100%',
                     });

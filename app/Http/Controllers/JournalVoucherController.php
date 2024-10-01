@@ -63,12 +63,46 @@ class JournalVoucherController extends Controller
         $sj_voucher = JournalVoucher::where([
 
             "unique_id" => 1
-        ])->limit(1)->get();
+        ])->first();
 
         $account = accounts::all();
 
-        $data = compact('account', 'j_voucher', 'sj_voucher');
-        return view('vouchers.e_journal')->with($data);
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+        // dd($sj_voucher);
+        if (count($j_voucher) > 0) {
+            $data = compact('account', 'j_voucher', 'sj_voucher', 'combinedInvoices');
+            return view('vouchers.e_journal')->with($data);
+        }
     }
     public function create_last()
     {
@@ -82,12 +116,45 @@ class JournalVoucherController extends Controller
         $sj_voucher = JournalVoucher::where([
 
             "unique_id" => $count
-        ])->limit(1)->get();
+        ])->first();
 
         $account = accounts::all();
-
-        $data = compact('account', 'j_voucher', 'sj_voucher');
-        return view('vouchers.e_journal')->with($data);
+        $combinedInvoices = chickenInvoice::select(
+            DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
+            'unique_id' // Select the original unique_id as well
+        )
+            ->whereIn('chicken_invoices.id', function ($subQuery) {
+                $subQuery->select(DB::raw('MIN(id)'))
+                    ->from('chicken_invoices')
+                    ->groupBy('unique_id');
+            })
+            ->union(
+                ChickInvoice::select(
+                    DB::raw("CONCAT('C-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->whereIn('chick_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('chick_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )->union(
+                feedInvoice::select(
+                    DB::raw("CONCAT('F-', unique_id) as unique_id_name"),
+                    'unique_id' // Select the original unique_id as well
+                )
+                    ->whereIn('feed_invoices.id', function ($subQuery) {
+                        $subQuery->select(DB::raw('MIN(id)'))
+                            ->from('feed_invoices')
+                            ->groupBy('unique_id');
+                    })
+            )
+            ->get();
+        // dd($sj_voucher);
+        if (count($j_voucher) > 0) {
+            $data = compact('account', 'j_voucher', 'sj_voucher', 'combinedInvoices');
+            return view('vouchers.e_journal')->with($data);
+        }
     }
 
     /**
