@@ -589,9 +589,10 @@ text-align:end;
         Add More
     </a>
 
-
-
-
+    <a href="{{ Route('journal_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm" id="pdf"
+        target="__blank">
+        PDF
+    </a>
 
     <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
         onclick="

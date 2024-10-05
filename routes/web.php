@@ -139,7 +139,7 @@ Route::middleware('userAuth')->group(function () {
                 });
                 Route::get('/first-journal-voucher', [JournalVoucherController::class, 'create_first'])->name("journal-voucher.create_first");
                 Route::get('/last-journal-voucher', [JournalVoucherController::class, 'create_last'])->name("journal-voucher.create_last");
-                Route::post('journal-voucher/update/{id}', [JournalVoucherController::class,'update'])->name('journal-voucher.update');
+                Route::post('journal-voucher/update/{id}', [JournalVoucherController::class, 'update'])->name('journal-voucher.update');
                 Route::resource('journal-voucher', JournalVoucherController::class)->except('update');
 
                 Route::prefix('get-invoice-no')->group(function () {
@@ -251,6 +251,7 @@ Route::middleware('userAuth')->group(function () {
                 Route::get('/payment-voucher/{id?}', [pdfController::class, 'pv_pdf'])->name('payment_voucher.report');
                 Route::get('/receipt-voucher/{id?}', [pdfController::class, 'rv_pdf'])->name('receipt_voucher.report');
                 Route::get('/expense-voucher/{id?}', [pdfController::class, 'ev_pdf'])->name('expense_voucher.report');
+                Route::get('/journal-voucher/{id?}', [pdfController::class, 'jv_pdf'])->name('journal_voucher.report');
                 // Route::get('/rv_pdf_{id?}', [pdfController::class, 'rv_pdf'])->name('farm.report');
                 // Route::get('/ev_pdf_{id?}', [pdfController::class, 'ev_pdf'])->name('farm.report');
             });

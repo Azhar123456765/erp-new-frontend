@@ -452,7 +452,7 @@
     </a>
 
 
-    <a href="/ev_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
+    <a href="{{ Route('journal_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm" id="pdf" target="__blank">
         PDF
     </a>
 
@@ -682,7 +682,7 @@
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });
@@ -828,7 +828,7 @@
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });

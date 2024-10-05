@@ -2518,6 +2518,50 @@ class pdfController extends Controller
                 return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
         }
 
+        function jv_pdf(Request $post, $id)
+        {
+
+
+                $journal_vouchers = JournalVoucher::where("unique_id", $id)
+                        ->leftJoin('buyer', 'journal_vouchers.buyer', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'journal_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->get();
+
+                $s_journal_vouchers = JournalVoucher::where("unique_id", $id)
+                        ->leftJoin('buyer', 'journal_vouchers.buyer', '=', 'buyer.buyer_id')
+                        ->leftJoin('sales_officer', 'journal_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        ->first();
+
+                $debit_total = JournalVoucher::where("unique_id", $id)->where('status', 'debit')->sum('amount');
+                $credit_total = JournalVoucher::where("unique_id", $id)->where('status', 'credit')->sum('amount');
+                
+                session()->flash("journal_vouchers_pdf_data", $journal_vouchers);
+                session()->flash("s_journal_vouchers_pdf_data", $s_journal_vouchers);
+                session()->flash("debit_total", $debit_total);
+                session()->flash("credit_total", $credit_total);
+
+
+
+
+                $views = $id;
+
+                $pdf = new Dompdf();
+
+                $html = view('pdf.j_voucher')->render();
+
+                $pdf->loadHtml($html);
+
+                $contentLength = strlen($html);
+                if ($contentLength > 5000) {
+                        $pdf->setPaper('A3', 'portrait');
+                } else {
+                        $pdf->setPaper('A4', 'portrait');
+                }
+
+                $pdf->render();
+
+                return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+        }
 
         function product_detail(Request $request, $id)
         {
