@@ -41,6 +41,7 @@ class FarmingPeriodController extends Controller
     public function store(Request $request)
     {
         $farm = FarmingPeriod::create($request->all());
+        
 
         return redirect()->back()->with('message', 'Farming Perioad Added Successfully');
     }

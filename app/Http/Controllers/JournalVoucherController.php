@@ -102,6 +102,8 @@ class JournalVoucherController extends Controller
         if (count($j_voucher) > 0) {
             $data = compact('account', 'j_voucher', 'sj_voucher', 'combinedInvoices');
             return view('vouchers.e_journal')->with($data);
+        }else{
+            // return redirect
         }
     }
     public function create_last()

@@ -202,12 +202,12 @@
 
 
     .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
-        width: 219px !important;
+        /* width: 219px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
-        padding-top: 2px;
+        padding-top: 2px; */
     }
 
     .cash .select2-container--classic .select2-selection--single .select2-selection__rendered {
@@ -260,6 +260,7 @@
         align-items: center;
         justify-content: center;
     }
+
     #invoiceForm .dup_invoice .select2-container--classic {
         width: 100px !important;
         height: 27px !important;
@@ -831,7 +832,8 @@ right: 15%;
         </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center" style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
@@ -906,8 +908,8 @@ right: 15%;
                 reader.readAsDataURL(file);
             }
         });
-        var counter = {{ $counter }}
-        var countera = {{ $counter - 1 }}
+        var counter = {{ $counter + 1 }}
+        var countera = {{ $counter }}
 
 
         function addInvoice(one) {
@@ -1089,7 +1091,7 @@ right: 15%;
                         },
                         cache: true
                     },
-                   
+
                     theme: 'classic',
                     width: '100%'
                 });
@@ -1125,7 +1127,7 @@ right: 15%;
                         },
                         cache: true
                     },
-                   
+
                     theme: 'classic',
                     width: '100%'
                 });
@@ -1356,7 +1358,7 @@ right: 15%;
                     },
                     cache: true
                 },
-               
+
                 theme: 'classic',
                 width: '100%'
             });
@@ -1501,7 +1503,7 @@ right: 15%;
                 // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
                 var url = '{{ route('pdf_invoice_chicken', [':unique_id', 0]) }}'.replace(':unique_id',
-                unique_id);
+                    unique_id);
 
                 window.open(url, '__blank')
             }
@@ -1513,7 +1515,7 @@ right: 15%;
                 // var formData = new FormData(this);
                 var unique_id = $("#unique_id").val();
                 var url = '{{ route('pdf_invoice_chicken', [':unique_id', 1]) }}'.replace(':unique_id',
-                unique_id);
+                    unique_id);
 
                 window.open(url, '__blank')
             }

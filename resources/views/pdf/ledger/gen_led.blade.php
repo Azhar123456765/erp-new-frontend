@@ -388,7 +388,22 @@
                                         <span>{{ $balance += $row->amount }}</span>
                                     </td>
                                 </tr>
-                                @php $debit += $row->amount_total; @endphp
+                                @if ($single_data)
+                                    @if ($single_data->id == $row->from_account && $row->status == 'credit')
+                                        @php $debit += $row->amount; @endphp
+                                    @elseif($single_data->id == $row->to_account && $row->status == 'debit')
+                                        @php $debit += $row->amount; @endphp
+                                    @endif
+                                @endif
+                                @if ($single_data)
+                                    @if ($single_data->id == $row->to_account && $row->status == 'credit')
+                                        @php $credit += $row->amount; @endphp
+                                    @elseif($single_data->id == $row->from_account && $row->status == 'debit')
+                                        @php $credit += $row->amount; @endphp
+                                    @elseif($single_data->id == $row->from_account && $row->status == 'debit')
+                                        @php $credit += $row->amount; @endphp
+                                    @endif
+                                @endif
                             @endforeach
 
                         </tbody>
@@ -435,6 +450,8 @@
                                 @php
                                     $rv_total = 0;
                                     $pv_total = 0;
+                                    $deb_jv_total = 0;
+                                    $cred_jv_total = 0;
                                 @endphp
                                 <td colspan="8" style="border: none !important;">&nbsp;</td>
                                 <tr style="text-align: center;">
@@ -643,14 +660,97 @@
                     $rv_total += $row2->amount;
                 @endphp
             @endforeach
+            @foreach ($journal_voucher->where('invoice_no', 'C-' . $row2->unique_id) as $row2)
+                <tr style="text-align: center;">
+                    <td class="text-right" style="width: 100px;">
+                        <span>{{ (new DateTime($row2->date))->format('d-m-Y') }}</span>
+                    </td>
+                    <td class="text-right">
+                        <span>JV-{{ $row2->unique_id }}</span>
+                    </td>
+                    <td style="text-align: left
+;">
+                        <span>{{ $row2->narration }}</span>
+                    </td>
+                    <td style="text-align:right;">
+                        <span>
+                            @if ($single_data)
+                                @if ($single_data->id == $row2->from_account && $row2->status == 'credit')
+                                    {{ $row2->amount ?? 0.0 }}
+                                @elseif($single_data->id == $row2->to_account && $row2->status == 'debit')
+                                    {{ $row2->amount ?? 0.0 }}
+                                @endif
+                            @else
+                                {{ $row2->amount ?? 0.0 }}
+                            @endif
+                        </span>
+                    </td>
+                    <td style="text-align:right;">
+                        <span>
+                            @if ($single_data)
+                                @if ($single_data->id == $row2->to_account && $row2->status == 'credit')
+                                    {{ $row2->amount ?? 0.0 }}
+                                @elseif($single_data->id == $row2->from_account && $row2->status == 'debit')
+                                    {{ $row2->amount ?? 0.0 }}
+                                @elseif($single_data->id == $row2->from_account && $row2->status == 'debit')
+                                    {{ $row2->amount ?? 0.0 }}
+                                @endif
+                            @else
+                                {{ $row2->amount ?? 0.0 }}
+                            @endif
+                        </span>
+                    </td>
+                </tr>
+                @if ($single_data)
+                    @if ($single_data->id == $row2->from_account && $row2->status == 'credit')
+                        @php
+                            $debit += $row2->amount;
+                            $deb_jv_total += $row2->amount;
+                        @endphp
+                    @elseif($single_data->id == $row2->to_account && $row2->status == 'debit')
+                        @php
+                            $debit += $row2->amount;
+                            $deb_jv_total += $row2->amount;
+                        @endphp
+                    @endif
+                @else
+                    @php
+                        $debit += $row2->amount;
+                        $deb_jv_total += $row2->amount;
+                    @endphp
+                @endif
+                @if ($single_data)
+                    @if ($single_data->id == $row2->to_account && $row2->status == 'credit')
+                        @php
+                            $credit += $row2->amount;
+                            $cred_jv_total += $row2->amount;
+                        @endphp
+                    @elseif($single_data->id == $row2->from_account && $row2->status == 'debit')
+                        @php
+                            $credit += $row2->amount;
+                            $cred_jv_total += $row2->amount;
+                        @endphp
+                    @elseif($single_data->id == $row2->from_account && $row2->status == 'debit')
+                        @php
+                            $credit += $row2->amount;
+                            $cred_jv_total += $row2->amount;
+                        @endphp
+                    @endif
+                @else
+                    @php
+                        $credit += $row2->amount;
+                        $cred_jv_total += $row2->amount;
+                    @endphp
+                @endif
+            @endforeach
             <tfoot style="color: green; font-weight: bolder ;">
                 <tr>
                     <td colspan="3" style="text-align:right; border: none !important; "><span
                             style="color:blue;">C-{{ $row->unique_id }}'s</span> &nbsp; Remaining Total:</td>
                     <td style="text-align:right; background-color: lightgray;">
-                        {{ $row->amount_total - $rv_total }}</td>
+                        {{ $row->amount_total - $rv_total - $deb_jv_total }}</td>
                     <td style="text-align:right; background-color: lightgray;">
-                        {{ $row->sale_amount_total - $pv_total }}</td>
+                        {{ $row->sale_amount_total - $pv_total - $cred_jv_total }}</td>
                 </tr>
             </tfoot>
         @endforeach
