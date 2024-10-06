@@ -773,7 +773,7 @@ text-align:end;
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });
@@ -897,7 +897,7 @@ text-align:end;
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });
