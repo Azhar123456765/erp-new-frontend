@@ -88,11 +88,6 @@
                                     <th class="text-center colfix">Net Weight</th>
                                     <th class="text-center colfix">Rate</th>
                                     <th class="text-center colfix">Amount</th>
-
-                                    <th class="text-center colfix">Supplier Name</th>
-                                    <th class="text-center colfix">Net Weight</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Amount</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -125,21 +120,6 @@
                                             @php $total_sale_amount += $row->sale_amount; @endphp
                                         </td>
 
-
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->net_weight }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                            @php $total_amount += $row->amount; @endphp
-                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -154,10 +134,6 @@
                                     <th colspan="1"></th>
                                     <th colspan="1"></th>
                                     <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1" style="text-align:right;"></th>
-                                    <th colspan="1" style="text-align:right;"> </th>
-                                    <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }} </th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -175,11 +151,6 @@
                                     <th class="text-center colfix">Invoice No</th>
                                     <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Product</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
-
-                                    <th class="text-center colfix">Supplier Name</th>
                                     <th class="text-center colfix">Rate</th>
                                     <th class="text-center colfix">Quantity</th>
                                     <th class="text-center colfix">Amount</th>
@@ -212,21 +183,6 @@
                                             <span>{{ $row->sale_amount }}</span>
                                             @php $total_sale_amount += $row->sale_amount; @endphp
                                         </td>
-
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                            @php $total_amount += $row->amount; @endphp
-                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -240,10 +196,6 @@
                                     <th colspan="1"></th>
                                     <th colspan="1"></th>
                                     <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1" style="text-align:right;"></th>
-                                    <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
                                     </th>
                                 </tr>
                             </tfoot>
@@ -263,11 +215,6 @@
                                     <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Product</th>
 
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
-
-                                    <th class="text-center colfix">Supplier Name</th>
                                     <th class="text-center colfix">Rate</th>
                                     <th class="text-center colfix">Quantity</th>
                                     <th class="text-center colfix">Amount</th>
@@ -300,21 +247,6 @@
                                             <span>{{ $row->sale_amount }}</span>
                                             @php $total_sale_amount += $row->sale_amount; @endphp
                                         </td>
-
-                                        <td style="text-align: left
-                            ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                            @php $total_amount += $row->amount; @endphp
-                                        </td>
                                     </tr>
                                 @endforeach
 
@@ -328,10 +260,7 @@
                                     <th colspan="1"></th>
                                     <th colspan="1"></th>
                                     <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1" style="text-align:right;"></th>
-                                    <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
+                                   
                                     </th>
                                 </tr>
                             </tfoot>

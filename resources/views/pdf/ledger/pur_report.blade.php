@@ -95,12 +95,8 @@
                                 <tr>
                                     <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
-                                    <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Crate Qty</th>
                                     <th class="text-center colfix">Gross Weight</th>
-                                    <th class="text-center colfix">Net Weight</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Amount</th>
 
                                     <th class="text-center colfix">Supplier Name</th>
                                     <th class="text-center colfix">Net Weight</th>
@@ -117,28 +113,13 @@
                                         <td class="text-right">
                                             <span>CK-{{ $row->unique_id }}</span>
                                         </td>
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->customer->company_name }}</span>
-                                        </td>
+
                                         <td class="text-right">
                                             <span>{{ $row->crate_qty }}</span>
                                         </td>
                                         <td class="text-right">
                                             <span>{{ $row->gross_weight }}</span>
                                         </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_net_weight }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount }}</span>
-                                            @php $total_sale_amount += $row->sale_amount; @endphp
-                                        </td>
-
-
                                         <td style="text-align: left
                 ;">
                                             <span>{{ $row->supplier->company_name }}</span>
@@ -164,10 +145,6 @@
                                     <th colspan="1"></th>
                                     <th> Total: </th>
                                     <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
                                     <th colspan="1" style="text-align:right;"></th>
                                     <th colspan="1" style="text-align:right;"> </th>
                                     <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }} </th>
@@ -186,11 +163,7 @@
                                 <tr>
                                     <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
-                                    <th class="text-center colfix">Customer Name</th>
                                     <th class="text-center colfix">Product</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
 
                                     <th class="text-center colfix">Supplier Name</th>
                                     <th class="text-center colfix">Rate</th>
@@ -209,23 +182,8 @@
                                         </td>
                                         <td style="text-align: left
                 ;">
-                                            <span>{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td style="text-align: left
-                ;">
                                             <span>{{ $row->product->product_name }}</span>
                                         </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->sale_rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount }}</span>
-                                            @php $total_sale_amount += $row->sale_amount; @endphp
-                                        </td>
-
                                         <td style="text-align: left
                 ;">
                                             <span>{{ $row->supplier->company_name }}</span>
@@ -251,10 +209,6 @@
                                     <th colspan="1"></th>
                                     <th> Total: </th>
                                     <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
                                     <th colspan="1" style="text-align:right;"></th>
                                     <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
                                     </th>
@@ -273,12 +227,6 @@
                                 <tr>
                                     <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
-                                    <th class="text-center colfix">Customer Name</th>
-                                    <th class="text-center colfix">Product</th>
-
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
 
                                     <th class="text-center colfix">Supplier Name</th>
                                     <th class="text-center colfix">Rate</th>
@@ -294,24 +242,6 @@
                                         </td>
                                         <td class="text-right">
                                             <span>F-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->product->product_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->sale_rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount }}</span>
-                                            @php $total_sale_amount += $row->sale_amount; @endphp
                                         </td>
 
                                         <td style="text-align: left
@@ -338,11 +268,7 @@
                                     <th colspan="1"></th>
                                     <th colspan="1"></th>
                                     <th> Total: </th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
+                                   
                                     <th colspan="1" style="text-align:right;"></th>
                                     <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
                                     </th>

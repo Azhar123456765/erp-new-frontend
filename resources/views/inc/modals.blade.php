@@ -1041,9 +1041,10 @@ text-align: center;
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
-                                    <option value="1">Summary</option>
-                                    <option value="2">invoice Wise</option>
-                                    <option value="3">Prodcut Wise</option>
+                                    <option value="1">All</option>
+                                    <option value="2">Chicken Only</option>
+                                    <option value="3">Chick Only</option>
+                                    <option value="4">Feed Only</option>
                                 </select>
                             </div>
                         </div>
