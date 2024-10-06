@@ -335,7 +335,7 @@ Route::middleware('userAuth')->group(function () {
         ]);
     });
     Route::prefix('farm-module')->group(function () {
-        Route::get('/daily-reports', [FarmDailyReportController::class, 'index'])->name("daily_reports");
+        Route::get('/daily-reports/{farm?}', [FarmDailyReportController::class, 'index'])->name("daily_reports");
         Route::post('/daily-reports', [FarmDailyReportController::class, 'store'])->name("store_daily_report");
         Route::put('/daily-report/{id?}', [FarmDailyReportController::class, 'update'])->name("update_daily_report");
     });

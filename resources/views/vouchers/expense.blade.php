@@ -116,7 +116,7 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
+    #invoiceForm select {
         width: 181px !important;
         height: 27px !important;
     }
@@ -193,7 +193,7 @@
     padding-left: 25%;
       } */
 </style>
-<div class="container"  id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
 ">
     <form id="form">
         <h3 style="text-align: center;">Expense Voucher</h3>
@@ -201,26 +201,24 @@
         <div class="top">
             <div class="fields">
                 <div class="one">
-                    <input  style="border: none !important;"
-                        style="border: none !important;" readonly type="date" id="date"
-                        value="<?php
+                    <input style="border: none !important;" style="border: none !important;" readonly type="date"
+                        id="date" value="<?php
                         $currentDate = date('Y-m-d');
                         echo $currentDate;
                         ?>" />
                 </div>
                 <div class="one">
                     <label for="Invoice">GR#</label>
-                    <input  style="border: none !important;" type="text" readonly
-                        value="<?php $year = date('Y');
-                        $lastTwoWords = substr($year, -2);
-                        echo $rand = 'EV' . '-' . $year . '-' . $count + 1; ?>" />
-                    <input  style="border: none !important;" type="hidden"
-                        id="invoice#" name="unique_id" readonly value="{{ $rand = $count + 1 }}" />
+                    <input style="border: none !important;" type="text" readonly value="<?php $year = date('Y');
+                    $lastTwoWords = substr($year, -2);
+                    echo $rand = 'EV' . '-' . $year . '-' . $count + 1; ?>" />
+                    <input style="border: none !important;" type="hidden" id="invoice#" name="unique_id" readonly
+                        value="{{ $rand = $count + 1 }}" />
                 </div>
                 <div class="one">
                     <label for="date">Date</label>
-                    <input  style="border: none !important;" type="date"
-                        id="date" name="date" value="<?php
+                    <input style="border: none !important;" type="date" id="date" name="date"
+                        value="<?php
                         $currentDate = date('Y-m-d');
                         echo $currentDate;
                         ?>" />
@@ -250,12 +248,11 @@
 
                 <div class="one">
                     <label for="Invoice">Ref No</label>
-                    <input  type="text" id="ref_no" name="ref_no" />
+                    <input type="text" id="ref_no" name="ref_no" />
                 </div>
                 <div class="one  remark">
                     <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;"  type="text"
-                        id="remark" name="remark" />
+                    <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
                 <div class="one  remark">
                     <label for="farm">Farm</label>
@@ -274,8 +271,8 @@
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 289px !important;"  type="text"
-                        list="narrations" id="narration" name="narration[]" />
+                    <input style="width: 289px !important;" type="text" list="narrations" id="narration"
+                        name="narration[]" />
                     <datalist id="narrations">
                         @foreach ($narrations as $row)
                             <option>{{ $row->narration }}</option>
@@ -286,14 +283,12 @@
 
                 <div class="div">
                     <label for="dis">Cheque No (s)</label>
-                    <input  type="text" min="0.00" step="any" id="cheque_no"
-                        name="cheque_no[]" />
+                    <input type="text" min="0.00" step="any" id="cheque_no" name="cheque_no[]" />
                 </div>
                 <div class="div">
                     <label for="dis">Cheque Date</label>
-                    <input  type="date" min="0.00"
-                        style="width: 131px !important;" step="any" value="0.00" id="cheque_date"
-                        name="cheque_date[]" onchange='  total_amount()' />
+                    <input type="date" min="0.00" style="width: 131px !important;" step="any" value="0.00"
+                        id="cheque_date" name="cheque_date[]" onchange='  total_amount()' />
                 </div>
                 <div class="div">
                     <label>Expense Account</label>
@@ -304,9 +299,8 @@
 
                 <div class="div">
                     <label for="amount">Amount</label>
-                    <input  type="number" step="any" min="0.00"
-                        style="text-align: right;" step="any" value="0.00" onchange='total_amount()'
-                        id="amount" name="amount[]" />
+                    <input type="number" step="any" min="0.00" style="text-align: right;" step="any"
+                        value="0.00" onchange='total_amount()' id="amount" name="amount[]" />
                 </div>
             </div>
         </div>
@@ -355,8 +349,7 @@
             margin-left: 0%;
         ">
 
-                    <input  type="number" step="any" step="any"
-                        name="amount_total" id="amount_total"
+                    <input type="number" step="any" step="any" name="amount_total" id="amount_total"
                         style="
             margin-left: 183%;
             text-align:end;
@@ -419,29 +412,30 @@
         </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center" style="position: relative;gap: 30px;margin-top: -110px !important;top: 60%;right: 0%;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: relative;gap: 30px;margin-top: -110px !important;top: 60%;right: 0%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
     </button>
-    <a href="{{ Route('edit_expense_voucher', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('expense_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Previous
     </a>
-    <a href="{{ Route('edit_expense_voucher', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
+    <a href="{{ Route('expense_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
         Next
     </a>
 
-    <a href="{{ Route('edit_expense_voucher', $rand) }}"
+    <a href="{{ Route('expense_voucher.edit', $rand) }}"
         class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
         Edit
     </a>
-    <a href="{{ Route('add_expense_voucher') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
+    <a href="{{ Route('expense_voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
         id="add_more">
         Add More
     </a>
 
 
-    <a href="/ev_pdf_{{ $rand }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
+    <a href="{{ Route('expense_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm" id="pdf">
         PDF
     </a>
 
@@ -484,7 +478,7 @@
             var formData = new FormData(this);
 
             $.ajax({
-                url: '{{ Route('store_expense_voucher') }}',
+                url: '{{ Route('expense_voucher.store') }}',
                 method: 'POST',
                 data: formData,
                 contentType: false, // Prevent jQuery from setting the content type
@@ -638,7 +632,7 @@
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });
@@ -769,7 +763,7 @@
                             },
                             cache: true
                         },
-                       
+
                         theme: 'classic',
                         width: '100%',
                     });
@@ -875,30 +869,30 @@
             }
         });
     </script>
-        <div class="modal fade" id="iv-search">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Voucher</h4>
                     <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4>Search Voucher</h4>
-                        <div class="modal-body">
-                            <form method="GET" action="/saleInvoice-search">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Voucher No</label>
-                                    <input type="text" class="form-control" id="search-input"
-                                        style="width: 100% !important;">
-                                </div>
-    
-                                <button type="submit" data-url="{{ Route('expense_voucher.edit') }}"
-                                    class="btn btn-primary" id="search-btn">Search</button>
-    
-                            </form>
-                        </div>
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Voucher No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
+                            </div>
+
+                            <button type="submit" data-url="{{ Route('expense_voucher.edit') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
+
+                        </form>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

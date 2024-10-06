@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FarmDailyReport;
 use App\Models\FarmingPeriod;
 use App\Models\Farm;
 use App\Models\users;
+use Carbon\Carbon;
+
 use Illuminate\Http\Request;
 
 class FarmingPeriodController extends Controller
@@ -41,7 +44,28 @@ class FarmingPeriodController extends Controller
     public function store(Request $request)
     {
         $farm = FarmingPeriod::create($request->all());
-        
+// dd($request->all());
+        $startDate = Carbon::createFromFormat('Y-m-d', $request->start_date);
+        $endDate = Carbon::createFromFormat('Y-m-d', $request->end_date);
+
+        // Calculate the number of days between startDate and endDate
+        $daysCount = $startDate->diffInDays($endDate) + 1; // +1 to include the endDate itself
+
+        for ($i = 0; $i < $daysCount; $i++) {
+            $report = new FarmDailyReport();
+            $report->farming_period = 3;
+            $report->hen_deaths = 0;
+            $report->feed_consumed = 0;
+            $report->water_consumed = 0;
+            $report->user_id = $request->input('assign_user_id');
+            $report->date = $startDate->toDateString(); // Set the report date
+
+            $report->farm = $request->input('farm_id');
+            $report->save();
+
+            // Move to the next day
+            $startDate->addDay();
+        }
 
         return redirect()->back()->with('message', 'Farming Perioad Added Successfully');
     }

@@ -24,6 +24,7 @@ class CreateFarmDailyReportsTable extends Migration
             $table->bigInteger('extra_expense_amount')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->date('date');
+            $table->integer('status')->default(0);
 
             $table->foreign('user_id')->references('user_id')->on('users')->restrictOnDelete();
             $table->foreign('farm')->references('id')->on('farms')->restrictOnDelete();

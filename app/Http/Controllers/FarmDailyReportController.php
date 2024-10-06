@@ -35,7 +35,7 @@ class FarmDailyReportController extends Controller
     //     }
     // }
 
-    public function index()
+    public function index(Request $request, $farm_id = null)
     {
         $role = session()->get('user_id')['role'];
         $today = Carbon::now()->format('Y-m-d'); // Use Carbon consistently
@@ -47,42 +47,56 @@ class FarmDailyReportController extends Controller
             $user_id = session()->get('user_id')['user_id'];
             $farming_period = FarmingPeriod::where('assign_user_id', $user_id)->first();
             $farm = Farm::where('user_id', $user_id)->first();
+            $all_farms = Farm::where('user_id', $user_id)->get();
 
+            if (!$farm_id) {
+                return redirect()->route('daily_reports', $farming_period->farm_id);
+            }
             if ($farming_period) { // Ensure $farming_period exists
-                $user = Users::where('user_id', $user_id)->where('role', 'farm_user')->first();
+                // $user = Users::where('user_id', $user_id)->where('role', 'farm_user')->first();
                 $startDate = Carbon::createFromFormat('Y-m-d', $farming_period->start_date)->subDay();
                 $endDate = Carbon::createFromFormat('Y-m-d', $farming_period->end_date)->addDay();
 
                 if (Carbon::createFromFormat('Y-m-d', $today)->between($startDate, $endDate)) {
-                    $farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
+                    $all_farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
+                        ->where('farm', $farm_id)
+                        ->where('status', 1)
                         ->orderBy('date', 'asc')
                         ->get();
+                    $farm_daily_report = FarmDailyReport::where('user_id', $user_id)
+                        ->where('farm', $farm_id)
+                        ->where('status', 0)
+                        ->orderBy('date', 'asc')
+                        ->first();
+                    // dd($farm_id);
+                    // $earliestDate = $startDate->copy()->addDay()->format('Y-m-d');
+                    // $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
+                    // $submittedDates = $farm_daily_reports->pluck('date');
+                    // $missingDates = collect();
 
-                    $earliestDate = $startDate->copy()->addDay()->format('Y-m-d');
-                    $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
-                    $submittedDates = $farm_daily_reports->pluck('date');
-                    $missingDates = collect();
+                    // $currentDate = Carbon::createFromFormat('Y-m-d', $earliestDate);
+                    // while ($currentDate->format('Y-m-d') <= $today) {
+                    //     $dateStr = $currentDate->format('Y-m-d');
+                    //     if (!$submittedDates->contains($dateStr)) {
+                    //         $missingDates->push($dateStr);
+                    //     }
+                    //     $currentDate->addDay();
+                    // }
 
-                    $currentDate = Carbon::createFromFormat('Y-m-d', $earliestDate);
-                    while ($currentDate->format('Y-m-d') <= $today) {
-                        $dateStr = $currentDate->format('Y-m-d');
-                        if (!$submittedDates->contains($dateStr)) {
-                            $missingDates->push($dateStr);
-                        }
-                        $currentDate->addDay();
-                    }
-
-                    $nextSubmissionDate = $missingDates->first();
+                    // $nextSubmissionDate = $missingDates->first();
 
                     return view('daily_report', compact(
-                        'user',
-                        'farm_daily_reports',
-                        'hasSubmittedToday',
-                        'nextSubmissionDate',
-                        'missingDates',
-                        'role',
+                        // 'user',
+                        'all_farm_daily_reports',
+                        'farm_daily_report',
+                        // 'hasSubmittedToday',
+                        // 'nextSubmissionDate',
+                        // 'missingDates',
+                        // 'role',
                         'today',
-                        'farm' // Changed 'farm' to 'farms'
+                        'all_farms',
+                        'farm_id',
+                        'farm'
                     ));
                 } else {
                     session()->forget('user_id');
@@ -134,23 +148,21 @@ class FarmDailyReportController extends Controller
             return redirect()->back()->with('message', 'Report submitted successfully.');
 
         } elseif ($role == 'farm_user') {
-            $existingReport = FarmDailyReport::where('user_id', $user_id)
-                ->where('date', $today)
-                ->first();
+            // $existingReport = FarmDailyReport::where('user_id', $user_id)
+            //     ->where('date', $today)
+            //     ->first();
 
-            if ($existingReport) {
-                return redirect()->back()->with('something_error', 'You have already submitted the report for today.');
-            }
+            // if ($existingReport) {
+            //     return redirect()->back()->with('something_error', 'You have already submitted the report for today.');
+            // }
 
-            $report = new FarmDailyReport;
+            $report = FarmDailyReport::find($request->input('id'));
             $report->hen_deaths = $request->input('hen_deaths');
             $report->feed_consumed = $request->input('feed_consumed');
             $report->water_consumed = $request->input('water_consumed');
             $report->extra_expense_narration = $request->input('extra_expense_narration');
             $report->extra_expense_amount = $request->input('extra_expense_amount');
-            $report->user_id = $request->input('user_id');
-            $report->date = $request->input('date');
-            $report->farm = $request->input('farm');
+            $report->status = 1;
             $report->save();
 
             return redirect()->back()->with('message', 'Report submitted successfully.');
