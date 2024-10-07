@@ -490,6 +490,13 @@ $target = null;
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="" data-toggle="modal" data-target="#j-voucher-report"
+                                    class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Journal Voucher Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="" data-toggle="modal" data-target="#profit-led" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Profit Report</p>

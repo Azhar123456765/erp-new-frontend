@@ -2534,7 +2534,7 @@ class pdfController extends Controller
 
                 $debit_total = JournalVoucher::where("unique_id", $id)->where('status', 'debit')->sum('amount');
                 $credit_total = JournalVoucher::where("unique_id", $id)->where('status', 'credit')->sum('amount');
-                
+
                 session()->flash("journal_vouchers_pdf_data", $journal_vouchers);
                 session()->flash("s_journal_vouchers_pdf_data", $s_journal_vouchers);
                 session()->flash("debit_total", $debit_total);
@@ -2749,6 +2749,57 @@ class pdfController extends Controller
 
                 if (session()->has('Data')) {
                         $html = view('pdf.voucher.e_voucher_rep')->render();
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+                }
+        }
+
+        function j_voucher_report(Request $request)
+        {
+                if (!session()->exists('Data')) {
+
+                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+
+                        $from_account = $request->input('from_account');
+                        $to_account = $request->input('to_account');
+                        $salesOfficer = $request->input('sales_officer');
+
+                        $type = $request->input('type');
+
+
+                        $query = JournalVoucher::whereBetween('journal_vouchers.date', [$startDate, $endDate]);
+
+                        if ($from_account) {
+                                $query->where('from_account', $from_account);
+                                $from_account = accounts::where('id', $from_account)->first();
+                        }
+                        if ($to_account) {
+                                $query->where('to_account', $to_account);
+                                $to_account = accounts::where('id', $to_account)->first();
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+
+                        $j_voucher = $query->get();
+
+                        $data = [
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'from_account' => $from_account,
+                                'to_account' => $to_account,
+                                'j_voucher' => $j_voucher,
+                                'type' => $type ?? null
+                        ];
+
+                        session()->flash('Data', $data);
+                }
+
+
+                if (session()->has('Data')) {
+                        $html = view('pdf.voucher.j_voucher_rep')->render();
                         return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
