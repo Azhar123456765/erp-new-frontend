@@ -2483,13 +2483,9 @@ class pdfController extends Controller
 
 
                 $expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                        ->leftJoin('buyer', 'expense_vouchers.buyer', '=', 'buyer.buyer_id')
-                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->get();
 
                 $s_expense_vouchers = ExpenseVoucher::where("unique_id", $id)
-                        ->leftJoin('buyer', 'expense_vouchers.buyer', '=', 'buyer.buyer_id')
-                        ->leftJoin('sales_officer', 'expense_vouchers.sales_officer', '=', 'sales_officer.sales_officer_id')
                         ->first();
 
                 session()->flash("expense_vouchers_pdf_data", $expense_vouchers);

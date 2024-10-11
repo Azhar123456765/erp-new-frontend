@@ -82,7 +82,7 @@
                                     {{-- <small class="text-muted">18 Units</small> --}}
                                 </td>
                                 <td class="text-right">
-                                    <span class="mono">-{{ $row->cheque_date }}</span>
+                                    <span class="mono">{{ $row->cheque_date }}</span>
                                     <br>
                                     {{-- <small class="text-muted">Special -10%</small> --}}
                                 </td>
