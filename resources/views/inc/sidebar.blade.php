@@ -441,7 +441,7 @@ $target = null;
                                 <a href="" data-toggle="modal" data-target="#sale-pur-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
-                                    <p>Sale+Supplier Report</p>
+                                    <p>Customer+Supplier Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">

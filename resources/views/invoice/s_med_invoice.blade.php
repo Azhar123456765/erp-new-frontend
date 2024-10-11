@@ -300,8 +300,8 @@ text-align:right !important;
             @csrf
             <div class="dup_invoice" onchange="addInvoice()">
                 <div class="div   items">
-                    <label for="item">Item</label>
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
+                    <label for="item">Ite12m</label>
+                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" onselect="itemSelect()" required
                         class="item0 select-fin-products">
 
                     </select>
@@ -635,7 +635,12 @@ display: flex;
 </div>
 
 <script>
+    function itemSelect(){
+        alert(itemPurPrice);
+        alert(itemSalePrice);
+    }
     $(document).change(function() {
+        
         count();
         count2();
         per_unit();
@@ -644,6 +649,7 @@ display: flex;
         total_amount();
         qty();
         per_unit2();
+        
     })
 
 

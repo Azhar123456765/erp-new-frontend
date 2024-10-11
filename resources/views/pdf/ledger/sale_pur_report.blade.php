@@ -20,9 +20,22 @@
         // $qty_total = session()->get('Data')['qty_total'] ?? null;
         // $dis_total = session()->get('Data')['dis_total'] ?? null;
         // $amount_total = session()->get('Data')['amount_total'] ?? null;
-        $chickenData = session()->get('Data')['chickenData'];
-        $chickData = session()->get('Data')['chickData'];
-        $feedData = session()->get('Data')['feedData'];
+        if (isset(session()->get('Data')['chickenData'])) {
+            $chickenData = session()->get('Data')['chickenData'];
+        } else {
+            $chickenData = [];
+        }
+        if (isset(session()->get('Data')['chickData'])) {
+            $chickData = session()->get('Data')['chickData'];
+        } else {
+            $chickData = [];
+        }
+        if (isset(session()->get('Data')['feedData'])) {
+            $feedData = session()->get('Data')['feedData'];
+        } else {
+            $feedData = [];
+        }
+        // dd($chickenData);
 
         $company = session()->get('Data')['company'] ?? null;
 
@@ -74,270 +87,267 @@
 
         <div class="ui segment itemscard">
             <div class="content">
-                @if ($type == 1)
-                    @if (count($chickenData) > 0)
-                        <h4><b>Chickens</b></h4>
-                        <table class="ui celled table" id="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center colfix date-th">Date</th>
-                                    <th class="text-center colfix">Invoice No</th>
-                                    <th class="text-center colfix">Customer Name</th>
-                                    <th class="text-center colfix">Crate Qty</th>
-                                    <th class="text-center colfix">Gross Weight</th>
-                                    <th class="text-center colfix">Net Weight</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Amount</th>
+                @if (count($chickenData) > 0)
+                    <h4><b>Chickens</b></h4>
+                    <table class="ui celled table" id="invoice-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center colfix date-th">Date</th>
+                                <th class="text-center colfix">Invoice No</th>
+                                <th class="text-center colfix">Customer Name</th>
+                                <th class="text-center colfix">Crate Qty</th>
+                                <th class="text-center colfix">Gross Weight</th>
+                                <th class="text-center colfix">Net Weight</th>
+                                <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Amount</th>
 
-                                    <th class="text-center colfix">Supplier Name</th>
-                                    <th class="text-center colfix">Net Weight</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Amount</th>
+                                <th class="text-center colfix">Supplier Name</th>
+                                <th class="text-center colfix">Net Weight</th>
+                                <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Amount</th>
+                            </tr>
+                    </thead>
+                        <tbody>
+                            @foreach ($chickenData as $row)
+                                <tr style="text-align: center;">
+                                    <td class="text-right" style="width: 100px;">
+                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>CK-{{ $row->unique_id }}</span>
+                                    </td>
+                                    <td style="text-align: left
+                ;">
+                                        <span>{{ $row->customer->company_name }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->crate_qty }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->gross_weight }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_net_weight }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_rate }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_amount }}</span>
+                                        @php $total_sale_amount += $row->sale_amount; @endphp
+                                    </td>
+
+
+                                    <td style="text-align: left
+                ;">
+                                        <span>{{ $row->supplier->company_name }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->net_weight }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->rate }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->amount }}</span>
+                                        @php $total_amount += $row->amount; @endphp
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($chickenData as $row)
-                                    <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 100px;">
-                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>CK-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
+                            @endforeach
+
+                        </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th> Total: </th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1">{{ $total_sale_amount }}</th>
+                                <th colspan="1"></th>
+                                <th colspan="1" style="text-align:right;"></th>
+                                <th colspan="1" style="text-align:right;"> </th>
+                                <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }} </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                @endif
+                @php
+                    $total_amount = 0;
+                    $total_sale_amount = 0;
+                @endphp
+                @if (count($chickData) > 0)
+                    <h4><b>Chicks</b></h4>
+                    <table class="ui celled table" id="invoice-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center colfix date-th">Date</th>
+                                <th class="text-center colfix">Invoice No</th>
+                                <th class="text-center colfix">Customer Name</th>
+                                <th class="text-center colfix">Product</th>
+                                <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Quantity</th>
+                                <th class="text-center colfix">Amount</th>
+
+                                <th class="text-center colfix">Supplier Name</th>
+                                <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Quantity</th>
+                                <th class="text-center colfix">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($chickData as $row)
+                                <tr style="text-align: center;">
+                                    <td class="text-right" style="width: 100px;">
+                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>C-{{ $row->unique_id }}</span>
+                                    </td>
+                                    <td style="text-align: left
                 ;">
-                                            <span>{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->crate_qty }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->gross_weight }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_net_weight }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount }}</span>
-                                            @php $total_sale_amount += $row->sale_amount; @endphp
-                                        </td>
-
-
-                                        <td style="text-align: left
+                                        <span>{{ $row->customer->company_name }}</span>
+                                    </td>
+                                    <td style="text-align: left
                 ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->net_weight }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                            @php $total_amount += $row->amount; @endphp
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                        <span>{{ $row->product->product_name }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->sale_rate }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_qty }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_amount }}</span>
+                                        @php $total_sale_amount += $row->sale_amount; @endphp
+                                    </td>
 
-                            </tbody>
-                            <tfoot class="full-width">
-                                <tr>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th> Total: </th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1" style="text-align:right;"></th>
-                                    <th colspan="1" style="text-align:right;"> </th>
-                                    <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }} </th>
+                                    <td style="text-align: left
+                ;">
+                                        <span>{{ $row->supplier->company_name }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->rate }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->qty }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->amount }}</span>
+                                        @php $total_amount += $row->amount; @endphp
+                                    </td>
                                 </tr>
-                            </tfoot>
-                        </table>
-                    @endif
-                    @php
-                        $total_amount = 0;
-                        $total_sale_amount = 0;
-                    @endphp
-                    @if (count($chickData) > 0)
-                        <h4><b>Chicks</b></h4>
-                        <table class="ui celled table" id="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center colfix date-th">Date</th>
-                                    <th class="text-center colfix">Invoice No</th>
-                                    <th class="text-center colfix">Customer Name</th>
-                                    <th class="text-center colfix">Product</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
+                            @endforeach
 
-                                    <th class="text-center colfix">Supplier Name</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($chickData as $row)
-                                    <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 100px;">
-                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>C-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
+                        </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th> Total: </th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1">{{ $total_sale_amount }}</th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1" style="text-align:right;"></th>
+                                <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                @endif
+                @php
+                    $total_amount = 0;
+                    $total_sale_amount = 0;
+                @endphp
+                @if (count($feedData) > 0)
+                    <h4><b>Feed</b></h4>
+                    <table class="ui celled table" id="invoice-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center colfix date-th">Date</th>
+                                <th class="text-center colfix">Invoice No</th>
+                                <th class="text-center colfix">Customer Name</th>
+                                <th class="text-center colfix">Product</th>
+
+                                <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Quantity</th>
+                                <th class="text-center colfix">Amount</th>
+
+                                <th class="text-center colfix">Supplier Name</th>
+                                <th class="text-center colfix">Rate</th>
+                                <th class="text-center colfix">Quantity</th>
+                                <th class="text-center colfix">Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($feedData as $row)
+                                <tr style="text-align: center;">
+                                    <td class="text-right" style="width: 100px;">
+                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>F-{{ $row->unique_id }}</span>
+                                    </td>
+                                    <td style="text-align: left
                 ;">
-                                            <span>{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td style="text-align: left
+                                        <span>{{ $row->customer->company_name }}</span>
+                                    </td>
+                                    <td style="text-align: left
                 ;">
-                                            <span>{{ $row->product->product_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->sale_rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount }}</span>
-                                            @php $total_sale_amount += $row->sale_amount; @endphp
-                                        </td>
+                                        <span>{{ $row->product->product_name }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->sale_rate }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_qty }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->sale_amount }}</span>
+                                        @php $total_sale_amount += $row->sale_amount; @endphp
+                                    </td>
 
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                            @php $total_amount += $row->amount; @endphp
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                            <tfoot class="full-width">
-                                <tr>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th> Total: </th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1" style="text-align:right;"></th>
-                                    <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
-                                    </th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    @endif
-                    @php
-                        $total_amount = 0;
-                        $total_sale_amount = 0;
-                    @endphp
-                    @if (count($feedData) > 0)
-                        <h4><b>Feed</b></h4>
-                        <table class="ui celled table" id="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center colfix date-th">Date</th>
-                                    <th class="text-center colfix">Invoice No</th>
-                                    <th class="text-center colfix">Customer Name</th>
-                                    <th class="text-center colfix">Product</th>
-
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
-
-                                    <th class="text-center colfix">Supplier Name</th>
-                                    <th class="text-center colfix">Rate</th>
-                                    <th class="text-center colfix">Quantity</th>
-                                    <th class="text-center colfix">Amount</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($feedData as $row)
-                                    <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 100px;">
-                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>F-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td style="text-align: left
-                ;">
-                                            <span>{{ $row->product->product_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->sale_rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount }}</span>
-                                            @php $total_sale_amount += $row->sale_amount; @endphp
-                                        </td>
-
-                                        <td style="text-align: left
+                                    <td style="text-align: left
                             ;">
-                                            <span>{{ $row->supplier->company_name }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>{{ $row->rate }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->qty }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
-                                            @php $total_amount += $row->amount; @endphp
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-                            </tbody>
-                            <tfoot class="full-width">
-                                <tr>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th> Total: </th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1">{{ $total_sale_amount }}</th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1"></th>
-                                    <th colspan="1" style="text-align:right;"></th>
-                                    <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
-                                    </th>
+                                        <span>{{ $row->supplier->company_name }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->rate }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->qty }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->amount }}</span>
+                                        @php $total_amount += $row->amount; @endphp
+                                    </td>
                                 </tr>
-                            </tfoot>
-                        </table>
-                    @endif
+                            @endforeach
 
+                        </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th> Total: </th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1">{{ $total_sale_amount }}</th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1" style="text-align:right;"></th>
+                                <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table>
                 @endif
             </div>
         </div>

@@ -61,6 +61,7 @@
                     <table class="ui celled table">
                         <div style="display:flex; justify-content:space-between;">
                             <b>Actual Rate:&nbsp;&nbsp;{{ $single_data->actual_rate }}</b>
+                            <b>Avg Weight:&nbsp;&nbsp;{{ $single_data->avg }}</b>
                             <b>Cut Rate:&nbsp;&nbsp;{{ $single_data->rate_diff }}</b>
                         </div>
                         <thead>
@@ -194,6 +195,7 @@
                     <table class="ui celled table">
                         <div style="display:flex; justify-content:space-between;">
                             <b>Actual Rate:&nbsp;&nbsp;{{ $single_data->actual_rate }}</b>
+                            <b>Avg Weight:&nbsp;&nbsp;{{ $single_data->avg }}</b>
                             <b>Cut Rate:&nbsp;&nbsp;{{ $single_data->rate_diff }}</b>
                         </div>
                         <thead>

@@ -33,6 +33,12 @@
         text-align: right !important;
     }
 
+    input[type="number"]::-webkit-outer-spin-button,
+    input[type="number"]::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
     * input {
         border: 1px solid gray !important;
         width: 71px;
@@ -383,9 +389,9 @@ right: 15%;
 
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="price">Crate Qty</label>
-                        <input type="number" step="any" min="0.00" style="text-align: right;" step="any"
-                            placeholder="0.00" id="crate_qty{{ $counter }}" name="crate_qty[]" required
-                            value="{{ $row->crate_qty }}" />
+                        <input type="number" step="any" min="0.00" style="text-align: right;"
+                            step="any" placeholder="0.00" id="crate_qty{{ $counter }}" name="crate_qty[]"
+                            required value="{{ $row->crate_qty }}" />
                     </div>
 
                     <div class="div">

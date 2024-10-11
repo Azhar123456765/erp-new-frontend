@@ -12,7 +12,7 @@ class p_voucher extends Model
 
     function supplier()
     {
-        return $this->hasOne(seller::class, 'seller_id', 'company');
+        return $this->hasOne(buyer::class, 'buyer_id', 'company');
     }
     function customer()
     {

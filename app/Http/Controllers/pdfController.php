@@ -2398,15 +2398,15 @@ class pdfController extends Controller
 
 
                 $p_voucher = p_voucher::where("unique_id", $id)
-                        ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
-                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        // ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                        // ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        // ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
                         ->get();
 
                 $s_p_voucher = p_voucher::where("unique_id", $id)
-                        ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
-                        ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
-                        ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
+                        // ->leftJoin('buyer', 'payment_voucher.company', '=', 'buyer.buyer_id')
+                        // ->leftJoin('sales_officer', 'payment_voucher.sales_officer', '=', 'sales_officer.sales_officer_id')
+                        // ->leftJoin('products', 'payment_voucher.item', '=', 'products.product_id')
                         ->first();
 
                 session()->flash("p_voucher_pdf_data", $p_voucher);
@@ -2882,25 +2882,26 @@ class pdfController extends Controller
         public function sale_pur_report(Request $request)
         {
                 $type = $request['type'];
+                $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+
+                // Retrieve form data
+                $customer = $request->input('customer');
+                $supplier = $request->input('supplier');
+                $salesOfficer = $request->input('sales_officer');
+                $warehouse = $request->input('warehouse');
+                $product_category = $request->input('product_category');
+                $product_company = $request->input('product_company');
+                $product = $request->input('product');
+                $product_id = null;
+                if ($customer) {
+                        $company = buyer::where('buyer_id', $customer)->first();
+                } elseif ($supplier) {
+                        $company = buyer::where('buyer_id', $supplier)->first();
+                }
                 if ($type == 1) {
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
-                        // Retrieve form data
-                        $customer = $request->input('customer');
-                        $supplier = $request->input('supplier');
-                        $salesOfficer = $request->input('sales_officer');
-                        $warehouse = $request->input('warehouse');
-                        $product_category = $request->input('product_category');
-                        $product_company = $request->input('product_company');
-                        $product = $request->input('product');
-                        $product_id = null;
 
-                        if ($customer) {
-                                $company = buyer::where('buyer_id', $customer)->first();
-                        } elseif ($supplier) {
-                                $company = buyer::where('buyer_id', $supplier)->first();
-                        }
 
                         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
@@ -2991,8 +2992,126 @@ class pdfController extends Controller
                         ];
 
                         session()->flash('Data', $data);
-                }
+                } elseif ($type == 2) {
 
+                        $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($customer) {
+                                $chickenInvoice->Where('buyer', $customer);
+                        }
+                        if ($supplier) {
+                                $chickenInvoice->Where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickenInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickenInvoice->where('item', $product);
+                        }
+
+
+                        $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
+                        $data = [
+                                'chickenData' => $chickenData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+
+                        session()->flash('Data', $data);
+                } elseif ($type == 3) {
+
+                        $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($customer) {
+                                $chickInvoice->Where('buyer', $customer);
+                        }
+                        if ($supplier) {
+                                $chickInvoice->Where('seller', $supplier);
+                        }
+
+
+                        if ($salesOfficer) {
+                                $chickInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickInvoice->where('item', $product);
+                        }
+
+
+                        $chickData = $chickInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'chickData' => $chickData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+
+                        session()->flash('Data', $data);
+                } elseif ($type == 4) {
+
+
+
+
+                        $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($customer) {
+                                $feedInvoice->Where('buyer', $customer);
+                        }
+
+                        if ($supplier) {
+                                $feedInvoice->Where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $feedInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $feedInvoice->where('item', $product);
+                        }
+
+
+                        $feedData = $feedInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+
+                                'feedData' => $feedData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+
+                        session()->flash('Data', $data);
+                }
                 if (session()->has('Data')) {
 
                         $views = 'Sale + Supplier Report';
