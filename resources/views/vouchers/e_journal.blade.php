@@ -77,6 +77,7 @@
     input[type="number" step="any"] {
         text-align: right !important;
     }
+
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -1102,8 +1103,8 @@ text-align:end;
                                     style="width: 100% !important;">
                             </div>
 
-                            <button type="submit" data-url="{{ Route('journal-voucher.index') }}/edit"
-                                class="btn btn-primary" id="search-btn">Search</button>
+                            <button type="submit" data-url="{{ Route('journal-voucher.edit') }}" class="btn btn-primary"
+                                id="search-btn">Search</button>
 
                         </form>
                     </div>

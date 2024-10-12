@@ -17,10 +17,10 @@
         <div class="ui left aligned grid">
             <div class="row">
                 <div class="left floated left aligned six wide column">
-                    <div class="ui">
+                    <div class="ui"> q
                         <h1 class = "ui header pageTitle">Expense Voucher
                         </h1>
-                        <h4 class="ui sub header invDetails">NO: {{ $single_data['unique_id'] }} | Date:
+                        <h4 class="ui sub header invDetails">NO: EV-{{ $single_data['unique_id'] }} | Date:
                             {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
                     </div>
                 </div>

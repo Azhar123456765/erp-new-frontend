@@ -28,6 +28,7 @@
     input[type="number" step="any"] {
         text-align: right !important;
     }
+
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -457,7 +458,8 @@
     </a>
 
 
-    <a href="{{ Route('journal_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm" id="pdf" target="__blank">
+    <a href="{{ Route('journal_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm" id="pdf"
+        target="__blank">
         PDF
     </a>
 
@@ -954,8 +956,8 @@
                                     style="width: 100% !important;">
                             </div>
 
-                            <button type="submit" data-url="{{ url('journal-voucher') }}/edit" class="btn btn-primary"
-                                id="search-btn">Search</button>
+                            <button type="submit" data-url="{{ Route('journal-voucher.edit') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
 
                         </form>
                     </div>

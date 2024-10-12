@@ -140,7 +140,8 @@ Route::middleware('userAuth')->group(function () {
                 Route::get('/first-journal-voucher', [JournalVoucherController::class, 'create_first'])->name("journal-voucher.create_first");
                 Route::get('/last-journal-voucher', [JournalVoucherController::class, 'create_last'])->name("journal-voucher.create_last");
                 Route::post('journal-voucher/update/{id}', [JournalVoucherController::class, 'update'])->name('journal-voucher.update');
-                Route::resource('journal-voucher', JournalVoucherController::class)->except('update');
+                Route::get('journal-voucher/edit/{id?}', [JournalVoucherController::class, 'edit'])->name('journal-voucher.edit');
+                Route::resource('journal-voucher', JournalVoucherController::class)->except(['update', 'edit']);
 
                 Route::prefix('get-invoice-no')->group(function () {
 
@@ -233,7 +234,7 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/r-voucher-report', [pdfController::class, 'r_voucher_report'])->name('r_voucher.report');
             Route::get('/e-voucher-report', [pdfController::class, 'e_voucher_report'])->name('e_voucher.report');
             Route::get('/jv-voucher-report', [pdfController::class, 'j_voucher_report'])->name('journal-voucher.report');
-           
+
             Route::get('/gen-led', [pdfController::class, 'gen_led']);
             Route::get('/cus-led', [pdfController::class, 'cus_led']);
             Route::get('/supplier-led', [pdfController::class, 'supplier_led']);
