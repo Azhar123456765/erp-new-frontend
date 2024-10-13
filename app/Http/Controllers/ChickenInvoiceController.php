@@ -255,6 +255,8 @@ class ChickenInvoiceController extends Controller
             $invoice->sale_rate_diff = $request['sale_rate_diff']["$i"] ?? 0;
             $invoice->sale_rate = $request['sale_rate']["$i"] ?? 0;
             $invoice->sale_amount = $request['sale_amount']["$i"] ?? 0;
+            dd($request['avg']);
+
             $invoice->avg = $request['avg']["$i"] ?? 0;
 
             $invoice->crate_qty_total = $request['crate_qty_total'] ?? 0;

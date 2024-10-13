@@ -493,7 +493,7 @@ right: 15%;
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="avg">&nbsp; AVG</label>
                         <input type="number" step="any" min="0.00" style="text-align: right;"
                             step="any" id="avg{{ $counter }}" name="avg[]"
-                            value="{{ $row->sale_crate_cut }}" />
+                            value="{{ $row->avg }}" />
                     </div>
                     <div class="div">
                         <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_rate_diff">Rate Diff</label>
@@ -1469,7 +1469,7 @@ right: 15%;
 
 
         $('#form').submit(function(event) {
-
+            total_calc()
             event.preventDefault();
 
             // Create a FormData object
