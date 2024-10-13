@@ -1,6 +1,7 @@
 @extends('pdf.ledger.app') @section('pdf_content')
     @php
         use Illuminate\Support\Facades\DB;
+        use App\Models\p_voucher;
 
         $org = App\Models\Organization::all();
         foreach ($org as $key => $value) {
@@ -29,9 +30,7 @@
         $salary = $expense_voucher->whereIn('cash_bank', $salary);
         $rent = $expense_voucher->whereIn('cash_bank', $rent);
         $utility = $expense_voucher->whereIn('cash_bank', $utility);
-        $payment_voucher
-            ->whereIn('invoice_no', 'C-' . $chickInvoice->pluck('unique_id'))
-            ->whereIn('invoice_no', 'F-' . $feedInvoice->pluck('unique_id'));
+
         // dd(
         //     $payment_voucher
         //         ->whereIn(
@@ -50,7 +49,44 @@
         //         )
         //         ->get(), // Fetch the results from the payment_voucher query
         // );
+        $chickInvoiceLiab = $chickInvoice->groupBy('unique_id')->map(function ($group) {
+            $description = $group
+                ->map(function ($item) {
+                    return $item->product->product_name;
+                })
+                ->join(', ');
+            // $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
+            $sale_amount_pv = P_voucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
+            $groupedData = new \stdClass();
+            $groupedData->date = $group->first()->date;
+            $groupedData->unique_id = $group->first()->unique_id;
+            $groupedData->description = $description;
+            $groupedData->seller = $group->first()->seller;
+            $groupedData->buyer = $group->first()->buyer;
+            $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+            $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
 
+            return $groupedData;
+        });
+        $feedInvoiceLiab = $feedInvoice->groupBy('unique_id')->map(function ($group) {
+            $description = $group
+                ->map(function ($item) {
+                    return $item->product->product_name;
+                })
+                ->join(', ');
+            // $sale_amount_rv = ReceiptVoucher::where('invoice_no', 'C-' . $group->first()->unique_id)->sum('amount');
+            $sale_amount_pv = P_voucher::where('invoice_no', 'F-' . $group->first()->unique_id)->sum('amount');
+            $groupedData = new \stdClass();
+            $groupedData->date = $group->first()->date;
+            $groupedData->unique_id = $group->first()->unique_id;
+            $groupedData->description = $description;
+            $groupedData->seller = $group->first()->seller;
+            $groupedData->buyer = $group->first()->buyer;
+            $groupedData->sale_amount_total = $group->first()->sale_amount_total;
+            $groupedData->amount_total = $group->first()->amount_total - $sale_amount_pv;
+
+            return $groupedData;
+        });
         // dd($chickInvoice);
         $total_amount = 0;
         $total_sale_amount = 0;
@@ -141,7 +177,7 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            <span>{{ $row->amount_total }}</span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -149,7 +185,8 @@
                             <tfoot class="full-width">
                                 <tr>
                                     <th colspan="4" style="text-align:right;"> Total: </th>
-                                    <th colspan="1" style="text-align:right;"> {{ $chickInvoice->sum('amount') }} </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $chickInvoice->sum('amount_total') }}
+                                    </th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -187,7 +224,7 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            <span>{{ $row->amount_total }}</span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -195,7 +232,8 @@
                             <tfoot class="full-width">
                                 <tr>
                                     <th colspan="4" style="text-align:right;"> Total: </th>
-                                    <th colspan="1" style="text-align:right;"> {{ $feedInvoice->sum('amount') }} </th>
+                                    <th colspan="1" style="text-align:right;"> {{ $feedInvoice->sum('amount_total') }}
+                                    </th>
                                 </tr>
                             </tfoot>
                         </table>
@@ -385,10 +423,10 @@
                         </tbody>
                     </table>
                 @endif
-                @if (count($payment_voucher) > 0)
+                @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
                     <h3><b>Liablities</b></h3>
-                    @if (count($payment_voucher) > 0)
-                        <table class="ui celled table" id="invoice-table">
+                    @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
+                        {{-- <table class="ui celled table" id="invoice-table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -427,6 +465,131 @@
                                 <tr>
                                     <th colspan="4" style="text-align:right;"> Total: </th>
                                     <th colspan="1" style="text-align:right;"> {{ $payment_voucher->sum('amount') }}
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table> --}}
+
+                        <table class="ui celled table" id="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
+                                    <th class="text-center colfix" style="text-align: center;">Invoice No</th>
+                                    <th class="text-center colfix">Description</th>
+                                    <th class="text-center colfix">Amount Remaining</th>
+                                </tr>
+                            </thead>
+                            <h4><b>Chicks Purchase</b></h4>
+
+                            <tbody>
+                                @foreach ($chickInvoiceLiab->where('amount_total', '>=', 0) as $row)
+<tr style="text-align: center;">
+                                        <td class="text-right" style="width: 100px;">
+                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>C-{{ $row->unique_id }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->description }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount_total }}</span>
+                                        </td>
+                                    </tr>
+@endforeach
+                            </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="3" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;">
+                                        {{ $chickInvoiceLiab->where('amount_total', '>=', 0)->sum('amount_total') }}
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+@endif
+                    @if (count($feedInvoiceLiab->where('amount_total', '>=', 0)) > 0)
+{{-- <table class="ui celled table" id="invoice-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center colfix date-th" style="text-align: center;">Date</th>
+                                <th class="text-center colfix" style="text-align: center;">Voucher No</th>
+                                <th class="text-center colfix">Narration</th>
+                                <th class="text-center colfix">Payable Account</th>
+                                <th class="text-center colfix">Amount</th>
+                            </tr>
+                        </thead>
+                        <h4><b>Accounts Payable</b></h4>
+
+                        <tbody>
+                            @foreach ($payment_voucher as $row)
+                                <tr style="text-align: center;">
+                                    <td class="text-right" style="width: 100px;">
+                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>PV-{{ $row->unique_id }} || {{ $row->unique_id }}2</span>
+                                    </td>
+                                    <td style="text-align: left
+;">
+                                        <span>{{ $row->narration }}</span>
+                                    </td>
+                                    <td style="text-align: left
+;">
+                                        <span>{{ $row->accounts->account_name ?? null }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->amount }}</span>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                        <tfoot class="full-width">
+                            <tr>
+                                <th colspan="4" style="text-align:right;"> Total: </th>
+                                <th colspan="1" style="text-align:right;"> {{ $payment_voucher->sum('amount') }}
+                                </th>
+                            </tr>
+                        </tfoot>
+                    </table> --}}
+
+                    <table class="ui celled table" id="invoice-table">
+                        <thead>
+                            <tr>
+                                <th class="text-center colfix date-th" style="text-align: center;">Date</th>
+                                <th class="text-center colfix" style="text-align: center;">Invoice No</th>
+                                <th class="text-center colfix">Description</th>
+                            <th class="text-center colfix">Amount Remaining</th>
+                            </tr>
+                        </thead>
+                        <h4><b>Feed Purchase</b></h4>
+
+                        <tbody>
+                            @foreach ($feedInvoiceLiab->where('amount_total', '>=', 0) as $row)
+                                    <tr style="text-align: center;">
+                                        <td class="text-right" style="width: 100px;">
+                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>F-{{ $row->unique_id }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->description }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount_total }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="3" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;">
+                                        {{ $feedInvoiceLiab->where('amount_total', '>=', 0)->sum('amount_total') }}
                                     </th>
                                 </tr>
                             </tfoot>
@@ -494,10 +657,17 @@
                 <div class="header">Amount Details</div>
             </div>
             <div class="content" style="border-top:1px solid #363636 !important;">
-                <p> <strong> Total Income: </strong>PKR {{ $chickenInvoice->sum('amount') }} </p>
-                <p> <strong> Liablities: </strong>PKR {{ $payment_voucher->sum('amount') }} </p>
+                <p> <strong> Purchases: </strong>PKR
+                    {{ $chickInvoice->sum('amount_total') + $feedInvoice->sum('amount_total') }} </p>
+                <p> <strong> Liablities: </strong>PKR
+                    {{ $chickInvoiceLiab->where('amount_total', '>=', 0)->sum('amount_total') + $feedInvoiceLiab->where('amount_total', '>=', 0)->sum('amount_total') }}
+                </p>
                 <p> <strong> Expenses: </strong>
-                    PKR {{ $chickInvoice->sum('amount') + $feedInvoice->sum('amount') + $expense_voucher->sum('amount') }}
+                    PKR {{ $expense_voucher->sum('amount') }}
+                </p>
+                <p> <strong> Income: </strong>PKR {{ $chickenInvoice->sum('amount') }} </p>
+                <p> <strong> Net Income: </strong>PKR
+                    {{ $chickInvoice->sum('amount') + $feedInvoice->sum('amount') + $expense_voucher->sum('amount') - $chickenInvoice->sum('amount') }}
                 </p>
             </div>
         </div>
@@ -518,9 +688,9 @@
         </div>
         <div class="ui card">
             <div class="content" style="border-top:1px solid #363636 !important;">
-                <div class="header">Secondary Expense Summary</div>
+                <div class="header">Expense Summary</div>
             </div>
-            <div class="content" style="border-top:1px solid #363636 !important;">
+            <div class="content" style="border-top:1px solid #363636 !important;height: 160px;">
                 <p> <strong> Salary: </strong>{{ $salary->sum('amount') }} </p>
                 <p> <strong> Rent: </strong>{{ $rent->sum('amount') }} </p>
                 <p> <strong> Utility:

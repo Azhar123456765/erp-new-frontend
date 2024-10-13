@@ -132,12 +132,15 @@ class pdfController extends Controller
                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
                 $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
                 $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
+
                 $chickInvoiceNum = $chickInvoice->pluck('unique_id')->toArray();
                 $feedInvoiceNum = $feedInvoice->pluck('unique_id')->toArray();
         
                 $chickInvoiceNum = array_map(fn($number) => 'C-' . $number, $chickInvoiceNum);
                 $feedInvoiceNum = array_map(fn($number) => 'F-' . $number, $feedInvoiceNum);
+                
                 $payment_voucher = $payment_voucher->whereIn('invoice_no', $chickInvoiceNum)->orwhereIn('invoice_no', $feedInvoiceNum)->orderBy('date', 'asc')->get();
+
                 $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
                 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
 

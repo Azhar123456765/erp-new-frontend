@@ -383,14 +383,14 @@
                     </div>
                     <div class="div">
                         <select class="cash_bank  select-account" name="from_account[]" style="height: 28px">
-                            <option value="{{ $sj_voucher->fromAccount->id ?? null }}" selected>
-                                {{ $sj_voucher->fromAccount->account_name ?? null }}</option>
+                            <option value="{{ $invoice_row->fromAccount->id ?? null }}" selected>
+                                {{ $invoice_row->fromAccount->account_name ?? null }}</option>
                         </select>
                     </div>
                     <div class="div">
                         <select class="cash_bank  select-account" name="to_account[]" style="height: 28px">
-                            <option value="{{ $sj_voucher->toAccount->id ?? null }}" selected>
-                                {{ $sj_voucher->toAccount->account_name ?? null }}</option>
+                            <option value="{{ $invoice_row->toAccount->id ?? null }}" selected>
+                                {{ $invoice_row->toAccount->account_name ?? null }}</option>
                         </select>
                     </div>
                     <div class="div">
