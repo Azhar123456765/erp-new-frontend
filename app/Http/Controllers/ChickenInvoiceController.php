@@ -102,9 +102,9 @@ class ChickenInvoiceController extends Controller
             $invoice->date = $request['date'] ?? 0;
             $invoice->seller = $request['seller'];
             $invoice->buyer = $request['buyer'];
-            $invoice->sales_officer = $request['sales_officer'] ?? 0;
-            $invoice->farm = $request['farm'] ?? 0;
-            $invoice->remark = $request['remark'] ?? 0;
+            $invoice->sales_officer = $request['sales_officer'] ?? null;
+            $invoice->farm = $request['farm'] ?? null;
+            $invoice->remark = $request['remark'] ?? null;
 
             $invoice->rate_type = $request['rate_type']["$i"] ?? 0;
             $invoice->vehicle_no = $request['vehicle_no']["$i"] ?? 0;
@@ -231,8 +231,8 @@ class ChickenInvoiceController extends Controller
             $invoice->seller = $request['seller'];
             $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
-            $invoice->farm = $request['farm'] ?? 0;
-            $invoice->remark = $request['remark'] ?? 0;
+            $invoice->farm = $request['farm'] ?? null;
+            $invoice->remark = $request['remark'] ?? null;
 
             $invoice->rate_type = $request['rate_type']["$i"] ?? 0;
             $invoice->vehicle_no = $request['vehicle_no']["$i"] ?? 0;
