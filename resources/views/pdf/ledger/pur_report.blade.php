@@ -95,6 +95,8 @@
                                 <tr>
                                     <th class="text-center colfix date-th">Date</th>
                                     <th class="text-center colfix">Invoice No</th>
+                                    <th class="text-center colfix">Hen Qty</th>
+                                <th class="text-center colfix">Avg Weight</th>
                                     <th class="text-center colfix">Crate Qty</th>
                                     <th class="text-center colfix">Gross Weight</th>
 
@@ -113,7 +115,12 @@
                                         <td class="text-right">
                                             <span>CK-{{ $row->unique_id }}</span>
                                         </td>
-
+                                        <td class="text-right">
+                                            <span>{{ $row->hen_qty }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>{{ $row->avg }}</span>
+                                        </td>
                                         <td class="text-right">
                                             <span>{{ $row->crate_qty }}</span>
                                         </td>

@@ -94,6 +94,8 @@
                             <tr>
                                 <th class="text-center colfix date-th">Date</th>
                                 <th class="text-center colfix">Invoice No</th>
+                                <th class="text-center colfix">Hen Qty</th>
+                                <th class="text-center colfix">Avg Weight</th>
                                 <th class="text-center colfix">Customer Name</th>
                                 <th class="text-center colfix">Crate Qty</th>
                                 <th class="text-center colfix">Gross Weight</th>
@@ -106,7 +108,7 @@
                                 <th class="text-center colfix">Rate</th>
                                 <th class="text-center colfix">Amount</th>
                             </tr>
-                    </thead>
+                        </thead>
                         <tbody>
                             @foreach ($chickenData as $row)
                                 <tr style="text-align: center;">
@@ -115,6 +117,12 @@
                                     </td>
                                     <td class="text-right">
                                         <span>CK-{{ $row->unique_id }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->hen_qty }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>{{ $row->avg }}</span>
                                     </td>
                                     <td style="text-align: left
                 ;">
