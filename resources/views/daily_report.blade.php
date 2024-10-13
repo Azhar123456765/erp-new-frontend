@@ -3,22 +3,33 @@
 @section('title', 'Daily Report')
 
 @section('content')
+    @php
+        use Carbon\Carbon;
+    @endphp
     <br>
     <div class="container">
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title">My Report Table</h3>
-                @if ($farm_daily_report->date)
+                @if (isset($farm_daily_report->date) &&
+                        Carbon::parse($farm_daily_report->date)->lessThanOrEqualTo(Carbon::parse($today)))
                     <a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
-                        <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report for {{ $farm_daily_report->date }}
+                        <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report for
+                        {{ (new DateTime($farm_daily_report->date))->format('d-m-Y') }}
+                    </a>
+                @elseif(isset($farm_daily_report->date))
+                    <a href="#" class="btn btn-dark float-right">
+                        Next Report Date:&nbsp;&nbsp;
+                        {{ (new DateTime($farm_daily_report->date))->format('d-m-Y') }}
                     </a>
                 @endif
             </div>
             <div class="d-flex justify-content-center align-items-center my-3 px-5">
                 <h5>Select Farm</h5>
-                <select class="form-control account-select m-auto w-50" id="head_account" onchange="sub_head()">
+                <select class="form-control account-select m-auto w-50" id="farms" onchange="farmChange()">
                     @foreach ($all_farms as $row)
-                        <option value="{{ $row->id }}" {{ $farm_id == $row->id ? 'selected' : '' }}>{{ $row->name }}
+                        <option value="{{ $row->farm->id }}" {{ $farm_id == $row->farm->id ? 'selected' : '' }}>
+                            {{ $row->farm->name }}
                         </option>
                     @endforeach
                 </select>
@@ -46,7 +57,7 @@
                         @forelse ($all_farm_daily_reports as $report)
                             <tr class="tr-shadow">
                                 <td>{{ $serial }}</td>
-                                <td class="text-center">{{ $report->date }}</td>
+                                <td class="text-center">{{ (new DateTime($report->date))->format('d-m-Y') }}</td>
                                 <td class="text-right">{{ $report->hen_deaths }}</td>
                                 <td class="text-right">{{ $report->feed_consumed }}</td>
                                 <td class="text-right">{{ $report->water_consumed }}</td>
@@ -56,7 +67,7 @@
                                     {{ $report->extra_expense_amount }}Rs</td>
                                 <td>
                                     <div class="table-data-feature">
-                                        @if ($farm_daily_report->date == $today)
+                                        @if (isset($farm_daily_report->date) && Carbon::parse($report->date)->equalTo(Carbon::parse($today)))
                                             <a href="#" data-toggle="modal"
                                                 data-target="#edit_modal{{ $farm_daily_report->id }}" class="item"
                                                 data-toggle="tooltip" data-placement="top" title="Edit">
@@ -80,13 +91,13 @@
         </div>
     </div>
 
-    @if ($farm_daily_report)
+    @if (isset($farm_daily_report))
         <div class="modal fade" id="add-modal">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4>Add Report for {{ $farm_daily_report->date }}</h4>
+                        <h4>Add Report for {{ (new DateTime($farm_daily_report->date))->format('d-m-Y') }}</h4>
                         <div class="modal-body">
                             <form method="POST" action="{{ route('store_daily_report') }}">
                                 @csrf
@@ -135,7 +146,7 @@
         </div>
     @endif
 
-    @if ($farm_daily_report->date == $today)
+    @if (isset($farm_daily_report->date) && Carbon::parse($farm_daily_report->date)->equalTo(Carbon::parse($today)))
         <div class="modal fade" id="edit_modal{{ $farm_daily_report->id }}">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -201,13 +212,9 @@
     @endif
 
     <script>
-        function sub_head() {
-
-            var head_id = $("#head_account").find('option:selected').val();
-            var sub_head_id = $("#sub_head_account").find('option:selected').val();
-
-            window.location.href = '{{ route('daily_reports', [':farm']) }}'.replace(':farm', sub_head_id)
-                .replace(':head', head_id);
+        function farmChange() {
+            var farm_id = $("#farms").find('option:selected').val();
+            window.location.href = '{{ route('daily_reports', [':farm']) }}'.replace(':farm', farm_id);
         }
     </script>
 

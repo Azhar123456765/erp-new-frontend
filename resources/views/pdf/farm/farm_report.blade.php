@@ -1,5 +1,7 @@
 @extends('pdf.ledger.app') @section('pdf_content')
     @php
+        use Illuminate\Support\Facades\DB;
+
         $org = App\Models\Organization::all();
         foreach ($org as $key => $value) {
             $logo = $value->logo;
@@ -11,11 +13,12 @@
         $startDate = session()->get('Data')['startDate'] ?? null;
         $endDate = session()->get('Data')['endDate'] ?? null;
         $expense_voucher = session()->get('Data')['expense_voucher'] ?? null;
-        $payment_voucher = session()->get('Data')['payment_voucher'] ?? null;
         $chickenInvoice = session()->get('Data')['chickenInvoice'] ?? null;
+        $payment_voucher = session()->get('Data')['payment_voucher'] ?? null;
         $chickInvoice = session()->get('Data')['chickInvoice'] ?? null;
         $feedInvoice = session()->get('Data')['feedInvoice'] ?? null;
         $daily_reports = session()->get('Data')['daily_reports'] ?? null;
+        $payment_voucher = session()->get('Data')['payment_voucher'] ?? null;
 
         $salary = session()->get('Data')['salary'] ?? null;
         $rent = session()->get('Data')['rent'] ?? null;
@@ -26,6 +29,28 @@
         $salary = $expense_voucher->whereIn('cash_bank', $salary);
         $rent = $expense_voucher->whereIn('cash_bank', $rent);
         $utility = $expense_voucher->whereIn('cash_bank', $utility);
+        $payment_voucher
+            ->whereIn('invoice_no', 'C-' . $chickInvoice->pluck('unique_id'))
+            ->whereIn('invoice_no', 'F-' . $feedInvoice->pluck('unique_id'));
+        // dd(
+        //     $payment_voucher
+        //         ->whereIn(
+        //             'invoice_no',
+        //             $chickInvoice
+        //                 ->select(DB::raw("CONCAT('C-', unique_id) as unique_id_name"))
+        //                 ->get('unique_id_name')
+        //                 ->pluck(), // Pluck after executing the query
+        //         )
+        //         ->orWhereIn(
+        //             'invoice_no',
+        //             $feedInvoice
+        //                 ->select(DB::raw("CONCAT('F-', unique_id) as unique_id_name"))
+        //                 ->get('unique_id_name')
+        //                 ->pluck(), // Pluck after executing the query
+        //         )
+        //         ->get(), // Fetch the results from the payment_voucher query
+        // );
+
         // dd($chickInvoice);
         $total_amount = 0;
         $total_sale_amount = 0;
@@ -82,8 +107,8 @@
             <div class="content">
 
 
-                @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
-                    <h3><b>Expenses</b></h3>
+                @if (count($chickInvoice) > 0 || count($feedInvoice) > 0)
+                    <h3><b>Purchase</b></h3>
                     @if (count($chickInvoice) > 0)
                         <table class="ui celled table" id="invoice-table">
                             <thead>
@@ -105,7 +130,7 @@
                                         </td>
                                         <td class="text-right">
                                             <span>C-{{ $row->unique_id }}</span>
-                                        </td>                                                                                                                                                   
+                                        </td>
                                         <td style="text-align: left
 ;">
                                             <span>{{ $row->product->product_name }}</span>
@@ -175,6 +200,9 @@
                             </tfoot>
                         </table>
                     @endif
+                @endif
+                @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
+                    <h3><b>Expenses</b></h3>
                     @if (count($salary) > 0)
                         <table class="ui celled table" id="invoice-table">
                             <thead>
@@ -379,7 +407,7 @@
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
-                                            <span>PV-{{ $row->unique_id }}</span>
+                                            <span>PV-{{ $row->unique_id }} || {{ $row->unique_id }}2</span>
                                         </td>
                                         <td style="text-align: left
 ;">

@@ -7,6 +7,7 @@ use App\Models\ChickInvoice;
 use App\Models\ExpenseVoucher;
 use App\Models\Farm;
 use App\Models\FarmDailyReport;
+use App\Models\FarmingPeriod;
 use App\Models\feedInvoice;
 use App\Models\JournalVoucher;
 use App\Models\SubHeadAccount;
@@ -125,17 +126,25 @@ class pdfController extends Controller
                 if ($farm) {
                         $expense_voucher->where('farm', $farm_id);
                 }
+               
+
                 $daily_reports = $daily_reports->orderBy('date', 'asc')->get();
                 $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
                 $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
                 $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
-                $payment_voucher = $payment_voucher->orderBy('date', 'asc')->get();
+                $chickInvoiceNum = $chickInvoice->pluck('unique_id')->toArray();
+                $feedInvoiceNum = $feedInvoice->pluck('unique_id')->toArray();
+        
+                $chickInvoiceNum = array_map(fn($number) => 'C-' . $number, $chickInvoiceNum);
+                $feedInvoiceNum = array_map(fn($number) => 'F-' . $number, $feedInvoiceNum);
+                $payment_voucher = $payment_voucher->whereIn('invoice_no', $chickInvoiceNum)->orwhereIn('invoice_no', $feedInvoiceNum)->orderBy('date', 'asc')->get();
                 $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
                 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
 
                 // $vc_salary = $ex_vc->whereIn('cash_bank', $salary)->get();
                 // $vc_rent = $ex_vc->whereIn('cash_bank', $rent)->get();
                 // $vc_utility = $ex_vc->whereIn('cash_bank', $utility)->get();
+                
                 $data = [
                         'startDate' => $startDate,
                         'endDate' => $endDate,
@@ -184,6 +193,57 @@ class pdfController extends Controller
                 }
         }
 
+
+        public function farm_daily_report(Request $request)
+        {
+                $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $farm_id = $request->input('farm');
+                if ($farm_id) {
+                        $farm = Farm::where('id', $farm_id)->first();
+                        $FarmingPeriod = FarmingPeriod::where('farm_id', $farm_id)->get();
+                        $FarmingDailyReport = FarmDailyReport::get();
+
+                } else {
+                        $farm = null;
+                        $FarmingPeriod = FarmingPeriod::all();
+                        $FarmingDailyReport = FarmDailyReport::get();
+                }
+
+                $data = [
+                        'startDate' => $startDate,
+                        'endDate' => $endDate,
+                        'farm' => $farm ?? null,
+                        'farm_id' => $farm_id,
+                        'FarmingPeriod' => $FarmingPeriod,
+                        'FarmingDailyReport' => $FarmingDailyReport,
+                ];
+
+                session()->flash('Data', $data);
+
+
+                if (session()->has('Data')) {
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.farm.farm_daily_report')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+                }
+        }
         // {
         //         if (!session()->exists('Data')) {
 

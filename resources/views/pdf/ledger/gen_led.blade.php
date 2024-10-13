@@ -412,8 +412,8 @@
                                 <th colspan="1"></th>
                                 <th colspan="1"></th>
                                 <th> Total: </th>
-                                <th colspan="1" style="text-align:right;"> {{ $credit }} </th>
                                 <th colspan="1" style="text-align:right;"> {{ $debit }} </th>
+                                <th colspan="1" style="text-align:right;"> {{ $credit }} </th>
                                 <th colspan="1" style="text-align:right;" id="balance"> {{ $balance }} </th>
                             </tr>
                         </tfoot>
@@ -899,8 +899,8 @@
                 <th colspan="1"></th>
                 <th colspan="1"></th>
                 <th> Total: </th>
-                <th colspan="1" style="text-align:right;"> {{ $credit }} </th>
                 <th colspan="1" style="text-align:right;"> {{ $debit }} </th>
+                <th colspan="1" style="text-align:right;"> {{ $credit }} </th>
             </tr>
         </tfoot>
         </table>

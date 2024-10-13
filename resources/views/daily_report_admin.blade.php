@@ -4,8 +4,6 @@
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Daily report table</h3>
-            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
-                <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report</a>
         </div>
 
         <div class="card-body">

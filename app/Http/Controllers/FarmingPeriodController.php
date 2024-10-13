@@ -44,21 +44,20 @@ class FarmingPeriodController extends Controller
     public function store(Request $request)
     {
         $farm = FarmingPeriod::create($request->all());
-// dd($request->all());
+        // dd($request->all());
         $startDate = Carbon::createFromFormat('Y-m-d', $request->start_date);
         $endDate = Carbon::createFromFormat('Y-m-d', $request->end_date);
 
-        // Calculate the number of days between startDate and endDate
-        $daysCount = $startDate->diffInDays($endDate) + 1; // +1 to include the endDate itself
+        $daysCount = $startDate->diffInDays($endDate) + 1;
 
         for ($i = 0; $i < $daysCount; $i++) {
             $report = new FarmDailyReport();
-            $report->farming_period = 3;
+            $report->farming_period = $farm->id;
             $report->hen_deaths = 0;
             $report->feed_consumed = 0;
             $report->water_consumed = 0;
             $report->user_id = $request->input('assign_user_id');
-            $report->date = $startDate->toDateString(); // Set the report date
+            $report->date = $startDate->toDateString();
 
             $report->farm = $request->input('farm_id');
             $report->save();
@@ -103,7 +102,36 @@ class FarmingPeriodController extends Controller
     {
         $FarmingPeriod = FarmingPeriod::find($farmingPeriod->id);
         $FarmingPeriod->update($request->all());
+        FarmDailyReport::where('farming_period', $farmingPeriod->id)->where('status', 0)->delete();
+        $startDate = Carbon::createFromFormat('Y-m-d', $request->start_date);
+        $endDate = Carbon::createFromFormat('Y-m-d', $request->end_date);
 
+        $daysCount = $startDate->diffInDays($endDate) + 1;
+
+
+        for ($i = 0; $i < $daysCount; $i++) {
+            $check = FarmDailyReport::where('user_id', $request->input('assign_user_id'))
+                ->where('farm', $request->input('farm_id'))
+                ->where('date', $startDate->toDateString())
+                ->first();
+
+            if ($check) {
+                $startDate->addDay();
+            } elseif (!$check) {
+                $report = new FarmDailyReport();
+                $report->farming_period = $farmingPeriod->id;
+                $report->hen_deaths = 0;
+                $report->feed_consumed = 0;
+                $report->water_consumed = 0;
+                $report->user_id = $request->input('assign_user_id');
+                $report->date = $startDate->toDateString();
+
+                $report->farm = $request->input('farm_id');
+                $report->save();
+
+                $startDate->addDay();
+            }
+        }
         return redirect()->back()->with('message', 'Farming Perioad Updated Successfully');
     }
 

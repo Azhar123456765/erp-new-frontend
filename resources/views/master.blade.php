@@ -74,6 +74,35 @@
             allowClear: true,
             placeholder: '',
         });
+        $('.select-farming-period').select2({
+            ajax: {
+                url: '{{ route('select2.farming_period') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.start_date + ' - ' + item.end_date,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            allowClear: true,
+            placeholder: '',
+        });
         $('.select-account').select2({
             ajax: {
                 url: '{{ route('select2.account') }}',

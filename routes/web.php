@@ -250,6 +250,7 @@ Route::middleware('userAuth')->group(function () {
             Route::prefix('pdf')->group(function () {
                 Route::get('/sale-purchase-report', [pdfController::class, 'sale_pur_report'])->name('sale_pur.report');
                 Route::get('/farm-report', [pdfController::class, 'farm_report'])->name('farm.report');
+                Route::get('/farm-daily-report', [pdfController::class, 'farm_daily_report'])->name('farm-daily.report');
 
                 Route::get('/payment-voucher/{id?}', [pdfController::class, 'pv_pdf'])->name('payment_voucher.report');
                 Route::get('/receipt-voucher/{id?}', [pdfController::class, 'rv_pdf'])->name('receipt_voucher.report');
@@ -263,6 +264,7 @@ Route::middleware('userAuth')->group(function () {
         Route::middleware(['selectPermission'])->group(function () {
             // SELECT
             Route::get('/select-farm', [select2Controller::class, 'farm'])->name('select2.farm');
+            Route::get('/select-farming-period', [select2Controller::class, 'farming_period'])->name('select2.farming_period');
             Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
             Route::get('/select-assets-account', [select2Controller::class, 'assets_account'])->name('select2.assets_account');
             Route::get('/select-liability-account', [select2Controller::class, 'liability_account'])->name('select2.liability_account');

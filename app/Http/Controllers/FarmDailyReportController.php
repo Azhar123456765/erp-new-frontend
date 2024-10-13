@@ -47,7 +47,7 @@ class FarmDailyReportController extends Controller
             $user_id = session()->get('user_id')['user_id'];
             $farming_period = FarmingPeriod::where('assign_user_id', $user_id)->first();
             $farm = Farm::where('user_id', $user_id)->first();
-            $all_farms = Farm::where('user_id', $user_id)->get();
+            $all_farms = FarmingPeriod::where('assign_user_id', $user_id)->get();
 
             if (!$farm_id) {
                 return redirect()->route('daily_reports', $farming_period->farm_id);
@@ -68,7 +68,7 @@ class FarmDailyReportController extends Controller
                         ->where('status', 0)
                         ->orderBy('date', 'asc')
                         ->first();
-                    // dd($farm_id);
+                    // dd($farm_daily_report);
                     // $earliestDate = $startDate->copy()->addDay()->format('Y-m-d');
                     // $hasSubmittedToday = $farm_daily_reports->contains('date', $today);
                     // $submittedDates = $farm_daily_reports->pluck('date');

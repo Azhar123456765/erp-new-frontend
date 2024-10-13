@@ -432,6 +432,12 @@ $target = null;
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="" data-toggle="modal" data-target="#farm-daily-report" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Farm Daily Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>General Ledger</p>
