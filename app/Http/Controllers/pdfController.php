@@ -784,6 +784,92 @@ class pdfController extends Controller
         }
 
 
+
+
+        public function expense_report(Request $request)
+        {
+                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+
+                        $account = $request->input('account');
+                        $salesOfficer = $request->input('sales_officer');
+
+                        if ($account) {
+                                $accountDetails = accounts::where('id', $account)->first();
+                        }
+                        $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
+
+if ($account) {
+        $expense_voucher->where('cash_bank', $account);
+}
+if ($salesOfficer) {
+        $expense_voucher->where('sales_officer', $salesOfficer);
+}
+
+$journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate])
+    ->where(function ($query) {
+        $query->where(function ($query) {
+            $query->whereHas('fromAccount', function ($query) {
+                $query->whereIn('account_category', [9, 10, 11]);
+            })->where('status', 'debit');
+        })
+        ->orWhere(function ($query) {
+            $query->whereHas('toAccount', function ($query) {
+                $query->whereIn('account_category', [9, 10, 11]);
+            })->where('status', 'credit');
+        });
+    })
+    ;
+
+
+if ($account) {
+        $journal_voucher->where('from_account', $account)->orWhere('to_account', $account);
+}
+if ($salesOfficer) {
+        $journal_voucher->where('sales_officer', $salesOfficer);
+}
+
+$expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
+$journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'expense_voucher' => $expense_voucher,
+                                'journal_voucher' => $journal_voucher,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'account' => $account ?? null,
+                        ];
+
+                        session()->flash('Data', $data);
+
+
+                if (session()->has('Data')) {
+
+                        $views = 'Customer Report';
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.ledger.expense_report')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+                }
+        }
+
+
+
         public function sale_report(Request $request)
         {
                 $type = $request['type'];
@@ -2553,8 +2639,6 @@ class pdfController extends Controller
 
                 session()->flash("expense_vouchers_pdf_data", $expense_vouchers);
                 session()->flash("s_expense_vouchers_pdf_data", $s_expense_vouchers);
-
-
 
 
                 $views = $id;

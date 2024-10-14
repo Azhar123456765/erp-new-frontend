@@ -444,6 +444,12 @@ $target = null;
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="" data-toggle="modal" data-target="#expense-report" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Expense Report</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="" data-toggle="modal" data-target="#sale-pur-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

@@ -258,6 +258,8 @@ Route::middleware('userAuth')->group(function () {
                 Route::get('/journal-voucher/{id?}', [pdfController::class, 'jv_pdf'])->name('journal_voucher.report');
                 // Route::get('/rv_pdf_{id?}', [pdfController::class, 'rv_pdf'])->name('farm.report');
                 // Route::get('/ev_pdf_{id?}', [pdfController::class, 'ev_pdf'])->name('farm.report');
+
+                Route::get('/expense-report', [pdfController::class, 'expense_report'])->name('expense.report');
             });
         });
 
