@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ExpenseVoucher;
+use App\Models\JournalVoucher;
 use App\Models\products;
 use Illuminate\Http\Request;
 use Dompdf\Dompdf;
@@ -105,17 +107,22 @@ class maincontroller extends Controller
 
         return redirect()->back();
     }
-
-    function account_delete(Request $request, $id)
+    function delete_account(Request $request, $id)
     {
-
-        $query = accounts::where('id', $id)->delete();
-
-        session()->flash('message', 'account has been deleted successfully');
-
-
-        return redirect()->back();
+        $check1 = p_voucher::where('cash_bank', $id)->exists();
+        $check2 = ReceiptVoucher::where('cash_bank', $id)->exists();
+        $check3 = ExpenseVoucher::where('cash_bank', $id)->orWhere('buyer', $id)->exists();
+        $check4 = JournalVoucher::where('from_account', $id)->orWhere('to_account', $id)->exists();
+        if ($check1 || $check2 || $check3 || $check4) {
+            session()->flash('something_error', 'Account exists somewhere else');
+            return redirect()->back();
+        } else {
+            $query = accounts::where('id', $id)->delete();
+            session()->flash('message', 'Account has been deleted successfully.');
+            return redirect()->back();
+        }
     }
+
 
 
 

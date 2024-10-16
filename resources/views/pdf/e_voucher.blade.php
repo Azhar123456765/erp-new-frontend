@@ -17,7 +17,7 @@
         <div class="ui left aligned grid">
             <div class="row">
                 <div class="left floated left aligned six wide column">
-                    <div class="ui"> q
+                    <div class="ui"> 
                         <h1 class = "ui header pageTitle">Expense Voucher
                         </h1>
                         <h4 class="ui sub header invDetails">NO: EV-{{ $single_data['unique_id'] }} | Date:

@@ -285,8 +285,8 @@
                                         <option value="2">Detail</option>
                                     </select>
                                 </div>
-                            </div>
-                        </div> --}}
+                            </div> --}}
+                        </div>
 
                             <div class="row"
                                 style="    justify-content: space-between;
@@ -339,7 +339,7 @@ text-align: center;
                         <div class="row" style="">
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Farm</label>
+                                    <label>Expense Account</label>
                                     <select class="form-control select-expense-account" name="account">
                                     </select>
                                 </div>

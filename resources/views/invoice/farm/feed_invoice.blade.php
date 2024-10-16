@@ -26,9 +26,6 @@
     }
 
 
-
-
-
     .container {
         transform: scale(0.78);
     }
@@ -36,6 +33,7 @@
     input[type="number" step="any"] {
         text-align: right !important;
     }
+
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -519,7 +517,8 @@ right: 15%;
     </div>
 </div>
 
-<div class="row m-5 justify-content-center align-items-center" style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
         submit
@@ -736,7 +735,7 @@ right: 15%;
                         },
                         cache: true
                     },
-                   
+
                     theme: 'classic',
                     width: '100%'
                 });
@@ -889,7 +888,7 @@ right: 15%;
                         },
                         cache: true
                     },
-                   
+
                     theme: 'classic',
                     width: '100%'
                 });

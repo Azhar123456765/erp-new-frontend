@@ -793,6 +793,10 @@ class pdfController extends Controller
 
                         $account = $request->input('account');
                         $salesOfficer = $request->input('sales_officer');
+                        
+                        $salary = accounts::where('account_category', 9)->pluck('id');
+                        $rent = accounts::where('account_category', 10)->pluck('id');
+                        $utility = accounts::where('account_category', 11)->pluck('id');
 
                         if ($account) {
                                 $accountDetails = accounts::where('id', $account)->first();
@@ -806,20 +810,7 @@ if ($salesOfficer) {
         $expense_voucher->where('sales_officer', $salesOfficer);
 }
 
-$journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate])
-    ->where(function ($query) {
-        $query->where(function ($query) {
-            $query->whereHas('fromAccount', function ($query) {
-                $query->whereIn('account_category', [9, 10, 11]);
-            })->where('status', 'debit');
-        })
-        ->orWhere(function ($query) {
-            $query->whereHas('toAccount', function ($query) {
-                $query->whereIn('account_category', [9, 10, 11]);
-            })->where('status', 'credit');
-        });
-    })
-    ;
+$journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
 
 
 if ($account) {
@@ -832,12 +823,67 @@ if ($salesOfficer) {
 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
 $journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
 
+$salary = $expense_voucher->whereIn('cash_bank', $salary);
+        $rent = $expense_voucher->whereIn('cash_bank', $rent);
+        $utility = $expense_voucher->whereIn('cash_bank', $utility);
+
+
+
+        $salaryjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
+    where(function ($query) {
+        $query->where(function ($query) {
+            $query->whereHas('fromAccount', function ($query) {
+                $query->where('account_category', [9]);
+            })->where('status', 'credit');
+        })
+        ->orWhere(function ($query) {
+            $query->whereHas('toAccount', function ($query) {
+                $query->where('account_category', [9]);
+            })->where('status', 'debit');
+        });
+    })->get()
+    ;
+$rentjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
+    where(function ($query) {
+        $query->where(function ($query) {
+            $query->whereHas('fromAccount', function ($query) {
+                $query->where('account_category', [10]);
+            })->where('status', 'credit');
+        })
+        ->orWhere(function ($query) {
+            $query->whereHas('toAccount', function ($query) {
+                $query->where('account_category', [10]);
+            })->where('status', 'debit');
+        });
+    })->get()
+    ;
+$utilityjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
+    where(function ($query) {
+        $query->where(function ($query) {
+            $query->whereHas('fromAccount', function ($query) {
+                $query->where('account_category', [11]);
+            })->where('status', 'credit');
+        })
+        ->orWhere(function ($query) {
+            $query->whereHas('toAccount', function ($query) {
+                $query->where('account_category', [11]);
+            })->where('status', 'debit');
+        });
+    })->get()
+    ;
                         $data = [
                                 'expense_voucher' => $expense_voucher,
                                 'journal_voucher' => $journal_voucher,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
                                 'account' => $account ?? null,
+                                
+                                'salary' => $salary,
+                                'rent' => $rent,
+                                'utility' => $utility,
+                                'salaryjv' => $salaryjv,
+                                'rentjv' => $rentjv,
+                                'utilityjv' => $utilityjv,
                         ];
 
                         session()->flash('Data', $data);

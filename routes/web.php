@@ -106,6 +106,7 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/get-data/account', [maincontroller::class, 'get_data_account']);
             Route::post('/add_account', [maincontroller::class, 'add_account']);
             Route::post('/edit_account{id?}', [maincontroller::class, 'edit_account']);
+            Route::get('/delete-account/{id}', [maincontroller::class, 'delete_account'])->name('account.delete');
 
             Route::get('/data-account/{head}/{sub_head}', [maincontroller::class, 'data_account'])->name('account.data');
 

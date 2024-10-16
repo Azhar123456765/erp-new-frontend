@@ -73,7 +73,7 @@ class ExpenseVoucherController extends Controller
                 ->from('expense_vouchers')
                 ->groupBy('unique_id');
         })->count();
-        
+
         $e_voucher = ExpenseVoucher::where("unique_id", $count)
             ->get();
         $se_voucher = ExpenseVoucher::where([

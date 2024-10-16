@@ -561,7 +561,7 @@
                                 <th class="text-center colfix date-th" style="text-align: center;">Date</th>
                                 <th class="text-center colfix" style="text-align: center;">Invoice No</th>
                                 <th class="text-center colfix">Description</th>
-                            <th class="text-center colfix">Amount Remaining</th>
+                                <th class="text-center colfix">Amount Remaining</th>
                             </tr>
                         </thead>
                         <h4><b>Feed Purchase</b></h4>

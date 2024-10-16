@@ -91,7 +91,8 @@
                                 <label for="username">Credit</label>
                                 <input type="number" step="any" class="form-control" name="account_credit">
                             </div>
-                            <input type="hidden" step="any" class="form-control" id="account_category" name="account_category" >
+                            <input type="hidden" step="any" class="form-control" id="account_category"
+                                name="account_category">
 
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
 
@@ -115,20 +116,21 @@
                 window.location.href = '{{ route('account.index', [':head', ':sub_head']) }}'.replace(':sub_head', sub_head_id)
                     .replace(':head', head_id);
             }
+
             function sub_head() {
-                
+
                 var head_id = $("#head_account").find('option:selected').val();
                 var sub_head_id = $("#sub_head_account").find('option:selected').val();
-                
+
                 window.location.href = '{{ route('account.index', [':head', ':sub_head']) }}'.replace(':sub_head', sub_head_id)
-                .replace(':head', head_id);
+                    .replace(':head', head_id);
             }
         </script>
         <script>
             $(document).ready(function() {
                 var head_id = $("#head_account").find('option:selected').val();
                 var sub_head_id = $("#sub_head_account").find('option:selected').val();
-                
+
                 $('#account_category').val(sub_head_id)
                 $('#table').DataTable({
                     ajax: '{{ route('account.data', [':head', ':sub_head']) }}'.replace(':sub_head',
@@ -169,6 +171,9 @@
 
 <a href="" data-toggle="modal" data-target="#edit_modal${row.id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
     <i class="fa fa-edit"></i>
+</a>
+<a href="/delete-account/${row.id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete">
+    <i class="fa fa-trash"></i>
 </a>
 
 </div>
