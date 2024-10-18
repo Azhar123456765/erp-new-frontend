@@ -61,6 +61,10 @@ class pdfController extends Controller
                 $salary = accounts::where('account_category', 9)->pluck('id');
                 $rent = accounts::where('account_category', 10)->pluck('id');
                 $utility = accounts::where('account_category', 11)->pluck('id');
+
+                $salaryAccounts = accounts::where('account_category', 9)->get();
+                $rentAccounts = accounts::where('account_category', 10)->get();
+                $utilityAccounts = accounts::where('account_category', 11)->get();
                 // $customer = $request->input('customer');
                 // $salesOfficer = $request->input('sales_officer');
                 // $warehouse = $request->input('warehouse');
@@ -163,6 +167,10 @@ class pdfController extends Controller
                         'salary' => $salary,
                         'rent' => $rent,
                         'utility' => $utility,
+
+                        'salaryAccounts' => $salaryAccounts,
+                        'rentAccounts' => $rentAccounts,
+                        'utilityAccounts' => $utilityAccounts,
 
                         'farm' => $farm,
                         'account' => $account->reference_id ?? null,

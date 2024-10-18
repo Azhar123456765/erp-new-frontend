@@ -17,6 +17,7 @@
                     @csrf
 
                     <div class="form-group">
+                        <label for="">Username</label>
                         <div class="input-group">
                             <input type="text" id="username2" name="username" placeholder="Username"
                                 class="form-control " required value="{{ $row->username }}">
@@ -27,6 +28,7 @@
                     </div>
 
                     <div class="form-group">
+                        <label for="">email</label>
                         <div class="input-group">
                             <input type="email" validate="email" id="email2" name="email" placeholder="Email"
                                 class="form-control " required value="{{ $row->email }}">
@@ -36,6 +38,7 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="">Phone Number</label>
                         <div class="input-group">
                             <input type="number" step="any" id="" name="phone_number"
                                 placeholder="phone number" class="form-control " required
@@ -46,9 +49,11 @@
                         </div>
                     </div>
                     <div class="form-group">
+                        <label for="">New Password</label>
+
                         <div class="input-group">
                             <input type="text" id="password2" name="password" placeholder="Password"
-                                class="form-control " required value="{{ $row->password }}">
+                                class="form-control">
                             <div class="input-group-addon">
                                 <i class=" -asterisk"></i>
                             </div>

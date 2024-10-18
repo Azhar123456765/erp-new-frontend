@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\chickenInvoice;
+use App\Models\ChickInvoice;
 use App\Models\ExpenseVoucher;
 use App\Models\JournalVoucher;
 use App\Models\products;
@@ -582,17 +584,17 @@ class maincontroller extends Controller
         $start_date = $request->input('start_date');
         $end_date = $request->input('end_date');
 
-        $pur_qty = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$start_date, $end_date])->whereIn('purchase_invoice.id', function ($subQuery) {
+        $pur_qty = ChickInvoice::whereBetween(DB::raw('DATE(chick_invoices.updated_at)'), [$start_date, $end_date])->whereIn('chick_invoices.id', function ($subQuery) {
             $subQuery->select(DB::raw('MIN(id)'))
-                ->from('purchase_invoice')
+                ->from('chick_invoices')
                 ->groupBy('unique_id');
-        })->sum("qty_total");
+        })->sum("qty");
 
-        $sell_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
+        $sell_qty = chickenInvoice::whereBetween(DB::raw('DATE(chicken_invoices.updated_at)'), [$start_date, $end_date])->whereIn('chicken_invoices.id', function ($subQuery) {
             $subQuery->select(DB::raw('MIN(id)'))
-                ->from('sell_invoice')
+                ->from('chicken_invoices')
                 ->groupBy('unique_id');
-        })->sum("qty_total");
+        })->sum("hen_qty");
 
         $earning = Income::whereBetween(DB::raw('DATE(incomes.updated_at)'), [$start_date, $end_date])->sum('amount');
         $expense = Expense::whereBetween(DB::raw('DATE(expenses.updated_at)'), [$start_date, $end_date])->sum('amount');
@@ -628,17 +630,17 @@ class maincontroller extends Controller
                     ->take(3)
                     ->get();
 
-                $pur_invoice_qty = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$start_date, $end_date])->whereIn('purchase_invoice.id', function ($subQuery) {
+                $pur_invoice_qty = ChickInvoice::whereBetween(DB::raw('DATE(chick_invoices.updated_at)'), [$start_date, $end_date])->whereIn('chick_invoices.id', function ($subQuery) {
                     $subQuery->select(DB::raw('MIN(id)'))
-                        ->from('purchase_invoice')
+                        ->from('chick_invoices')
                         ->groupBy('unique_id');
-                })->sum("qty_total");
+                })->sum("qty");
 
-                $sell_invoice_qty = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$start_date, $end_date])->whereIn('sell_invoice.id', function ($subQuery) {
+                $sell_invoice_qty = chickenInvoice::whereBetween(DB::raw('DATE(chicken_invoices.updated_at)'), [$start_date, $end_date])->whereIn('chicken_invoices.id', function ($subQuery) {
                     $subQuery->select(DB::raw('MIN(id)'))
-                        ->from('sell_invoice')
+                        ->from('chicken_invoices')
                         ->groupBy('unique_id');
-                })->sum("qty_total");
+                })->sum("hen_qty");
 
                 $earning_chartData = Income::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
                     return Carbon::parse($data->updated_at)->format('M');
@@ -976,7 +978,7 @@ class maincontroller extends Controller
             'username' => $request['username'],
             'email' => $request['email'],
             'phone_number' => $request['phone_number'],
-            'password' => $request['password'],
+            'password' => Hash::make($request['password']),
             'role' => $request['role'],
         ]);
 
