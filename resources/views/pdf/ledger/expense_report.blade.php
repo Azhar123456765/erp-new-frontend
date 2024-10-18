@@ -1,8 +1,5 @@
 @extends('pdf.ledger.app') @section('pdf_content')
     @php
-        $single_data = session()->get('single_pdf_data');
-        $data = session()->get('pdf_data');
-        // dd($data);
         $org = App\Models\Organization::all();
         foreach ($org as $key => $value) {
             $logo = $value->logo;
@@ -15,9 +12,9 @@
         $endDate = session()->get('Data')['endDate'] ?? null;
 
         $expense_voucher = session()->get('Data')['expense_voucher'];
-        $journal_voucher = session()->get('Data')['journal_voucher'];
 
-        $account = session()->get('Data')['company'] ?? null;
+        $accountDetails = session()->get('Data')['accountDetails'] ?? null;
+        $farmDetails = session()->get('Data')['farmDetails'] ?? null;
 
         $salary = session()->get('Data')['salary'] ?? null;
         $rent = session()->get('Data')['rent'] ?? null;
@@ -62,13 +59,23 @@
     </div>
 
     <div class="ui segment cards">
-        @if ($account)
+        @if ($accountDetails)
             <div class="ui card customercard">
                 <div class="content">
                     <div class="header">Account Details</div>
                 </div>
                 <div class="content">
-                    {{ $account->account_name }}
+                    {{ $accountDetails->account_name }}
+                </div>
+            </div>
+        @endif
+        @if ($farmDetails)
+            <div class="ui card customercard">
+                <div class="content">
+                    <div class="header">Farm Details</div>
+                </div>
+                <div class="content">
+                    {{ $farmDetails->name }}
                 </div>
             </div>
         @endif

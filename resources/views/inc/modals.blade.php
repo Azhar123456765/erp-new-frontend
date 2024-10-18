@@ -346,6 +346,13 @@ text-align: center;
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
+                                    <label>Farm</label>
+                                    <select class="form-control select-farm" name="farm">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
                                     <label>Sales Officer</label>
                                     <label for=""></label>
                                     <select class="form-control select-sales_officer" name="sales_officer">

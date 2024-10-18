@@ -43,6 +43,11 @@
         $total_amount = 0;
         $total_sale_amount = 0;
     @endphp
+    <style>
+        .invoice {
+            width: 1170px !important;
+        }
+    </style>
     <div class="invoice-header">
         <div class="ui left aligned grid">
             <div class="row">

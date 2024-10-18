@@ -792,6 +792,7 @@ class pdfController extends Controller
                         $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
                         $account = $request->input('account');
+                        $farm = $request->input('farm');
                         $salesOfficer = $request->input('sales_officer');
                         
                         $salary = accounts::where('account_category', 9)->pluck('id');
@@ -801,27 +802,84 @@ class pdfController extends Controller
                         if ($account) {
                                 $accountDetails = accounts::where('id', $account)->first();
                         }
+                        if ($farm) {
+                                $farmDetails = Farm::where('id', $farm)->first();
+                                }
                         $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
 
 if ($account) {
         $expense_voucher->where('cash_bank', $account);
 }
+if ($farm) {
+        $expense_voucher->where('farm', $farm);
+}
 if ($salesOfficer) {
         $expense_voucher->where('sales_officer', $salesOfficer);
 }
 
-$journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
+$salaryjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
+where(function ($query) {
+    $query->where(function ($query) {
+        $query->whereHas('fromAccount', function ($query) {
+            $query->where('account_category', [9]);
+        })->where('status', 'credit');
+    })
+    ->orWhere(function ($query) {
+        $query->whereHas('toAccount', function ($query) {
+            $query->where('account_category', [9]);
+        })->where('status', 'debit');
+    });
+})
+;
+$rentjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
+where(function ($query) {
+    $query->where(function ($query) {
+        $query->whereHas('fromAccount', function ($query) {
+            $query->where('account_category', [10]);
+        })->where('status', 'credit');
+    })
+    ->orWhere(function ($query) {
+        $query->whereHas('toAccount', function ($query) {
+            $query->where('account_category', [10]);
+        })->where('status', 'debit');
+    });
+})
+;
+$utilityjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
+where(function ($query) {
+    $query->where(function ($query) {
+        $query->whereHas('fromAccount', function ($query) {
+            $query->where('account_category', [11]);
+        })->where('status', 'credit');
+    })
+    ->orWhere(function ($query) {
+        $query->whereHas('toAccount', function ($query) {
+            $query->where('account_category', [11]);
+        })->where('status', 'debit');
+    });
+})
+;
 
 
 if ($account) {
-        $journal_voucher->where('from_account', $account)->orWhere('to_account', $account);
+        $salaryjv->where('from_account', $account)->orWhere('to_account', $account);
+        $rentjv->where('from_account', $account)->orWhere('to_account', $account);
+        $utilityjv->where('from_account', $account)->orWhere('to_account', $account);
+}
+if ($farm) {
+        $salaryjv->where('farm', $farm);
+        $rentjv->where('farm', $farm);
+        $utilityjv->where('farm', $farm);
 }
 if ($salesOfficer) {
         $journal_voucher->where('sales_officer', $salesOfficer);
 }
 
 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
-$journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
+
+$salaryjv = $salaryjv->orderBy('date', 'asc')->get();
+$rentjv = $rentjv->orderBy('date', 'asc')->get();
+$utilityjv = $utilityjv->orderBy('date', 'asc')->get();
 
 $salary = $expense_voucher->whereIn('cash_bank', $salary);
         $rent = $expense_voucher->whereIn('cash_bank', $rent);
@@ -829,54 +887,13 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
 
 
-        $salaryjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
-    where(function ($query) {
-        $query->where(function ($query) {
-            $query->whereHas('fromAccount', function ($query) {
-                $query->where('account_category', [9]);
-            })->where('status', 'credit');
-        })
-        ->orWhere(function ($query) {
-            $query->whereHas('toAccount', function ($query) {
-                $query->where('account_category', [9]);
-            })->where('status', 'debit');
-        });
-    })->get()
-    ;
-$rentjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
-    where(function ($query) {
-        $query->where(function ($query) {
-            $query->whereHas('fromAccount', function ($query) {
-                $query->where('account_category', [10]);
-            })->where('status', 'credit');
-        })
-        ->orWhere(function ($query) {
-            $query->whereHas('toAccount', function ($query) {
-                $query->where('account_category', [10]);
-            })->where('status', 'debit');
-        });
-    })->get()
-    ;
-$utilityjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
-    where(function ($query) {
-        $query->where(function ($query) {
-            $query->whereHas('fromAccount', function ($query) {
-                $query->where('account_category', [11]);
-            })->where('status', 'credit');
-        })
-        ->orWhere(function ($query) {
-            $query->whereHas('toAccount', function ($query) {
-                $query->where('account_category', [11]);
-            })->where('status', 'debit');
-        });
-    })->get()
-    ;
+ 
                         $data = [
                                 'expense_voucher' => $expense_voucher,
-                                'journal_voucher' => $journal_voucher,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
-                                'account' => $account ?? null,
+                                'accountDetails' => $accountDetails ?? null,
+                                'farmDetails' => $farmDetails ?? null,
                                 
                                 'salary' => $salary,
                                 'rent' => $rent,

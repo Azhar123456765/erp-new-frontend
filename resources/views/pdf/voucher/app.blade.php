@@ -125,6 +125,38 @@
         table {
             font-weight: bold;
         }
+
+        table {
+            font-weight: 1000 !important;
+        }
+
+        th {
+            font-weight: bolder !important;
+            font-size: 13px !important;
+        }
+
+
+        tfoot th {
+            font-size: 12px !important;
+        }
+
+        td {
+            font-size: 12px !important;
+        }
+
+        td span {
+            font-weight: 700 !important;
+            font-size: 11px !important;
+        }
+
+
+        .invDetails {
+            font-size: 15px !important;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
     </style>
 </head>
 

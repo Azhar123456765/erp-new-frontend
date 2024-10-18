@@ -1,4 +1,4 @@
-@extends('pdf.voucher.app') @section('pdf_content')
+@extends('pdf.ledger.app') @section('pdf_content')
     @php
         $single_data = session()->get('single_pdf_data');
         $data = session()->get('pdf_data');
