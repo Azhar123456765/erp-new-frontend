@@ -353,7 +353,7 @@
                             @endif
                         @endforeach
                     @endif
-                    @if (count($rent) > 0 || ||
+                    @if (count($rent) > 0 || 
                     ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
                         $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                         <h3><b>rent</b></h3>
