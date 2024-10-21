@@ -174,7 +174,9 @@
                                 <th colspan="1"></th>
                                 <th> Total: </th>
                                 <th colspan="1">{{ $chickenData->sum('hen_qty') }}</th>
-                                <th colspan="1">{{ $chickenData->sum('gross_weight') / $chickenData->sum('hen_qty') }}</th>
+                                <th colspan="1" style="text-align: center;">
+                                    {{ number_format($chickenData->sum('gross_weight') / $chickenData->sum('hen_qty'), 2) }}
+                                </th>
                                 <th colspan="1"></th>
                                 <th colspan="1"></th>
                                 <th colspan="1"></th>
