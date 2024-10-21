@@ -261,13 +261,14 @@
                 @endif
                 @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
                     <h3><b>Expenses</b></h3>
-                    @if (count($salary) > 0)
+                    @if (count($salary) > 0 || ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
+                                        $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
                         <h3><b>salary</b></h3>
 
                         @foreach ($salaryAccounts as $salaryRow)
                             @if (
                                 $expense_voucher->where('cash_bank', $salaryRow->id)->count() > 0 ||
-                                    ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 &&
+                                    ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
                                         $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $salaryRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
@@ -352,13 +353,15 @@
                             @endif
                         @endforeach
                     @endif
-                    @if (count($rent) > 0)
+                    @if (count($rent) > 0 || ||
+                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
+                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                         <h3><b>rent</b></h3>
 
                         @foreach ($rentAccounts as $rentRow)
                             @if (
                                 $expense_voucher->where('cash_bank', $rentRow->id)->count() > 0 ||
-                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
+                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 ||
                                         $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $rentRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
@@ -444,13 +447,15 @@
                             @endif
                         @endforeach
                     @endif
-                    @if (count($utility) > 0)
+                    @if (count($utility) > 0 ||
+                            ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 &&
+                                $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->count()))
                         <h3><b>Utility</b></h3>
 
                         @foreach ($utilityAccounts as $utilityRow)
                             @if (
                                 $expense_voucher->where('cash_bank', $utilityRow->id)->count() > 0 ||
-                                    ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 &&
+                                    ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 ||
                                         $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $utilityRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
