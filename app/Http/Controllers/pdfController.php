@@ -2818,6 +2818,7 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         $type = $request->input('type');
 
+if($type == 1){
 
                         $query = p_voucher::whereBetween('payment_voucher.date', [$startDate, $endDate]);
 
@@ -2847,6 +2848,49 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         session()->flash('Data', $data);
                 }
+elseif($type == 2){
+
+                        $query = p_voucher::whereBetween('payment_voucher.date', [$startDate, $endDate]);
+
+                        if ($contra_account) {
+                                $query->where('cash_bank', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+                        $query2 = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                        if ($contra_account) {
+                                $query2->where('from_account', $contra_account)->orWhere('to_account', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query2->where('sales_officer', $salesOfficer);
+                        }
+
+                        if ($company) {
+                                $query->where('company', $company);
+                                $company = buyer::where('buyer_id', $company)->first();
+                        }
+
+                        $p_voucher = $query->orderBy('date', 'asc')->get();
+                        $journal_voucher = $query2->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'contra_account' => $contra_account,
+                                'p_voucher' => $p_voucher,
+                                'journal_voucher' => $journal_voucher,
+                                'company' => $company,
+                                'type' => $type ?? null
+                        ];
+
+                        session()->flash('Data', $data);
+                }
+        }
 
 
                 if (session()->has('Data')) {
@@ -2874,6 +2918,7 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         $type = $request->input('type');
 
+if($type == 1){
 
                         $query = ReceiptVoucher::whereBetween('receipt_vouchers.date', [$startDate, $endDate]);
 
@@ -2890,7 +2935,7 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                         }
 
 
-                        $r_voucher = $query->get();
+                        $r_voucher = $query->orderBy('date', 'asc')->get();
 
                         $data = [
                                 'startDate' => $startDate,
@@ -2903,6 +2948,50 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         session()->flash('Data', $data);
                 }
+elseif($type == 2){
+
+                        $query = ReceiptVoucher::whereBetween('receipt_vouchers.date', [$startDate, $endDate]);
+
+                      
+                        if ($contra_account) {
+                                $query->where('cash_bank', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query->where('sales_officer', $salesOfficer);
+                        }
+
+                        $query2 = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                        if ($contra_account) {
+                                $query2->where('from_account', $contra_account)->orWhere('to_account', $contra_account);
+                        }
+
+                        if ($salesOfficer) {
+                                $query2->where('sales_officer', $salesOfficer);
+                        }
+
+
+                        if ($company) {
+                                $query->where('company', $company);
+                                $company = buyer::where('buyer_id', $company)->first();
+                        }
+                        $r_voucher = $query->orderBy('date', 'asc')->get();
+                        $journal_voucher = $query2->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'contra_account' => $contra_account,
+                                'r_voucher' => $r_voucher,
+                                'journal_voucher' => $journal_voucher,
+                                'company' => $company,
+                                'type' => $type ?? null
+                        ];
+
+                        session()->flash('Data', $data);
+                }
+        }
 
                 if (session()->has('Data')) {
                         $html = view('pdf.voucher.r_voucher_rep')->render();

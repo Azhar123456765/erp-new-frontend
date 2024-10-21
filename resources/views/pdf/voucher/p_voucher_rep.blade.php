@@ -15,6 +15,7 @@
         $endDate = session()->get('Data')['endDate'] ?? null;
 
         $p_voucher = session()->get('Data')['p_voucher'];
+        $journal_voucher = session()->get('Data')['journal_voucher'] ?? null;
         $company = session()->get('Data')['company'] ?? null;
         $total_amount = 0;
     @endphp
@@ -62,15 +63,15 @@
 
         <div class="ui segment itemscard">
             <div class="content">
-                
+
                 <table class="ui celled table" id="invoice-table">
                     <thead>
                         <tr>
                             <th class="text-center colfix date-th">Date</th>
                             <th class="text-center colfix">Voucher No</th>
-                            <th class="text-center colfix">Company</th>
+                            <th class="text-center colfix">From Account</th>
+                            <th class="text-center colfix">To Account</th>
                             <th class="text-center colfix">Narration</th>
-                            <th class="text-center colfix">Contra Acount</th>
                             <th class="text-center colfix">Amount</th>
                         </tr>
                     </thead>
@@ -84,16 +85,16 @@
                                     <span>PV-{{ $row->unique_id }}</span>
                                 </td>
                                 <td style="text-align: left
+                                        ;">
+                                    <span>{{ $row->accounts->account_name ?? null }}</span>
+                                </td>
+                                <td style="text-align: left
                 ;">
                                     <span>{{ $row->customer->company_name }}</span>
                                 </td>
                                 <td style="text-align: left
-                                        ;">
+                                ;">
                                     <span>{{ $row->narration }}</span>
-                                </td>
-                                <td style="text-align: left
-                                        ;">
-                                    <span>{{ $row->accounts->account_name ?? null }}</span>
                                 </td>
                                 <td style="text-align:right;">
                                     <span>{{ $row->amount }}</span>
@@ -101,7 +102,46 @@
                                 </td>
                             </tr>
                         @endforeach
-
+                        @if (isset($journal_voucher))
+                            @foreach ($journal_voucher as $row)
+                                <tr style="text-align: center;">
+                                    <td class="text-right" style="width: 100px;">
+                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                    </td>
+                                    <td class="text-right">
+                                        <span>JV-{{ $row->unique_id }}</span>
+                                    </td>
+                                    @if ($row->status == 'debit')
+                                        <td style="text-align: left
+                ;">
+                                            <span>{{ $row->fromAccount->account_name }}</span>
+                                        </td>
+                                        <td style="text-align: left
+                                        ;">
+                                            <span>{{ $row->toAccount->account_name }}</span>
+                                        </td>
+                                    @else
+                                        <td
+                                            style="text-align: left
+                                                            ;">
+                                            <span>{{ $row->toAccount->account_name }}</span>
+                                        </td>
+                                        <td style="text-align: left
+                                    ;">
+                                            <span>{{ $row->fromAccount->account_name }}</span>
+                                        </td>
+                                    @endif
+                                    <td style="text-align: left
+                                        ;">
+                                        <span>{{ $row->narration }}</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->amount }}</span>
+                                        @php $total_amount += $row->amount; @endphp
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @endif
                     </tbody>
                     <tfoot class="full-width">
                         <tr>

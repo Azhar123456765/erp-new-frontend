@@ -288,42 +288,42 @@
                             </div> --}}
                         </div>
 
-                            <div class="row"
-                                style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
-                                <div class="col-12-6">
-                                    <div class="form-group">
-                                        <label for="">From:</label>
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
 
-                                        <input type="date" class="date" name="start_date"
-                                            value="{{ $startDate }}" id="" required>
-                                    </div>
-
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
-                                <div class="col-12-6">
-                                    <div class="form-group">
-                                        <label for="">To:</label>
-                                        <input type="date" class="date" name="end_date"
-                                            value="{{ $endDate }}" id="" required>
-                                    </div>
+                            </div>
+
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="submit" style="
+                </div>
+                <div class="submit" style="
     text-align: center;
     margin-top: 3.5%;
 ">
-                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                            <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
-                        </div>
-                    </form>
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                 </div>
+                </form>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div>
 
 
@@ -363,7 +363,8 @@ text-align: center;
 
                         </div>
 
-                        <div class="row" style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -371,8 +372,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{ $startDate }}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -380,8 +381,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}" id=""
-                                        required>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
@@ -426,7 +427,8 @@ text-align: center;
                                 </div>
                             </div> --}}
 
-                            <div class="row" style="    justify-content: space-between;
+                            <div class="row"
+                                style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -434,8 +436,8 @@ text-align: center;
                                     <div class="form-group">
                                         <label for="">From:</label>
 
-                                        <input type="date" class="date" name="start_date" value="{{ $startDate }}" id=""
-                                            required>
+                                        <input type="date" class="date" name="start_date"
+                                            value="{{ $startDate }}" id="" required>
                                     </div>
 
                                 </div>
@@ -443,8 +445,8 @@ text-align: center;
                                 <div class="col-12-6">
                                     <div class="form-group">
                                         <label for="">To:</label>
-                                        <input type="date" class="date" name="end_date" value="{{ $endDate }}" id=""
-                                            required>
+                                        <input type="date" class="date" name="end_date"
+                                            value="{{ $endDate }}" id="" required>
                                     </div>
                                 </div>
                             </div>
@@ -576,8 +578,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
-                                        id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -819,8 +821,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
-                                        id="" required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
@@ -1597,8 +1599,8 @@ text-align: center;
                         @csrf
                         <div class="form-group">
                             <label for="username">GR No</label>
-                            <input type="number" step="any" min="1" class="form-control" id="invoice"
-                                name="limit" required value="">
+                            <input type="number" step="any" min="1" class="form-control"
+                                id="invoice" name="limit" required value="">
                         </div>
 
                         <button type="button" class="btn btn-primary" id="btn"
@@ -1679,6 +1681,15 @@ text-align: center;
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Payment Voucher Only</option>
+                                        <option value="2">With Journal Voucher</option>
                                     </select>
                                 </div>
                             </div>
@@ -1764,6 +1775,15 @@ text-align: center;
                                     <label>Select Sales Officer</label>
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-group">
+                                    <label>Select Type</label>
+                                    <select class="form-control" name="type">
+                                        <option value="1">Receipt Voucher Only</option>
+                                        <option value="2">With Journal Voucher</option>
                                     </select>
                                 </div>
                             </div>
@@ -1929,7 +1949,8 @@ text-align: center;
                             </div>
                         </div>
 
-                        <div class="row" style="    justify-content: spacj-between;
+                        <div class="row"
+                            style="    justify-content: spacj-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -1939,8 +1960,8 @@ text-align: center;
                                 <div class="form-group">
                                     <label for="">From:</label>
 
-                                    <input type="date" class="date" name="start_date" value="{{ $startDate }}" id=""
-                                        required>
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
                             </div>
@@ -1948,8 +1969,8 @@ text-align: center;
                             <div class="col-12-6">
                                 <div class="form-group">
                                     <label for="">To:</label>
-                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}" id=""
-                                        required>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
