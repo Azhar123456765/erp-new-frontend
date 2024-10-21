@@ -450,8 +450,8 @@
                         @foreach ($utilityAccounts as $utilityRow)
                             @if (
                                 $expense_voucher->where('cash_bank', $utilityRow->id)->count() > 0 ||
-                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
-                                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
+                                    ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 &&
+                                        $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $utilityRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
                                     <thead>
@@ -489,7 +489,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @foreach ($journal_voucher->where('to_account', $rentRow->id) as $row)
+                                        @foreach ($journal_voucher->where('to_account', $utilityRow->id) as $row)
                                             <tr style="text-align: center;">
                                                 <td class="text-right" style="width: 100px;">
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
@@ -527,8 +527,8 @@
                                             <th colspan="5" style="text-align:right;"> Total: </th>
                                             <th colspan="1" style="text-align:right;">
                                                 {{ $expense_voucher->where('cash_bank', $utilityRow->id)->sum('amount') +
-                                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->sum('amount') +
-                                                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->sum('amount')) }}
+                                                    ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->sum('amount') +
+                                                        $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->sum('amount')) }}
                                             </th>
                                         </tr>
                                     </tfoot>
