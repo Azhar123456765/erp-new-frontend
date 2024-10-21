@@ -599,6 +599,64 @@ text-align: center;
 </div>
 
 
+
+
+<div class="modal fade" id="bal-sheet">
+    <div class="modal-dialog">
+        <div class="modal-content gen-led">
+            <div class="modal-body">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4>Balance Sheet</h4>
+                <div class="modal-body">
+                    <form method="GET" action="{{ Route('balance_sheet.report') }}">
+                        @csrf
+                        <div class="row" style="">
+
+                        </div>
+
+                        <div class="row"
+                            style="    justify-content: space-between;
+margin-top:12%;
+text-align: center;
+">
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
+
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
+                                </div>
+
+                            </div>
+
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date"
+                                        value="{{ $endDate }}" id="" required>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                <div class="submit" style="
+    text-align: center;
+    margin-top: 3.5%;
+">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
+</div>
+
+
+
+
+
+
 <div class="modal fade" id="pur-r-report">
     <div class="modal-dialog">
         <div class="modal-content gen-led" style="height: min-content;">

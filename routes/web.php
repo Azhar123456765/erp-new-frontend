@@ -261,6 +261,7 @@ Route::middleware('userAuth')->group(function () {
                 // Route::get('/ev_pdf_{id?}', [pdfController::class, 'ev_pdf'])->name('farm.report');
 
                 Route::get('/expense-report', [pdfController::class, 'expense_report'])->name('expense.report');
+                Route::get('/test-report', [pdfController::class, 'balance_sheet'])->name('balance_sheet.report');
             });
         });
 

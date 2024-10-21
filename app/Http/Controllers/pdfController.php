@@ -10,6 +10,7 @@ use App\Models\FarmDailyReport;
 use App\Models\FarmingPeriod;
 use App\Models\feedInvoice;
 use App\Models\JournalVoucher;
+use App\Models\HeadAccount;
 use App\Models\SubHeadAccount;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -794,6 +795,90 @@ class pdfController extends Controller
         }
 
 
+     public function balance_sheet(Request $request)
+        {
+
+
+                if (!session()->exists('Data')) {
+
+                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $type = $request->input('type');
+                               
+                        $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
+
+                        $chickInvoice = chickInvoice::whereBetween('date', [$startDate, $endDate]);
+
+                        $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
+
+                        $payment_voucher = p_voucher::whereBetween('date', [$startDate, $endDate]);
+
+                        $receipt_voucher = ReceiptVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                        $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                        $journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                        $chickenInvoice = $chickenInvoice->orderBy('date', 'asc')->get();
+                        $chickInvoice = $chickInvoice->orderBy('date', 'asc')->get();
+                        $feedInvoice = $feedInvoice->orderBy('date', 'asc')->get();
+                        $payment_voucher = $payment_voucher->orderBy('date', 'asc')->get();
+                        $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
+                        $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
+                        $journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
+
+
+                        $heads = HeadAccount::all();
+                        
+                                $sub_heads = SubHeadAccount::all();
+                                $accounts = accounts::all();
+
+                                $data = [
+                                        'startDate' => $startDate,
+                                        'endDate' => $endDate,
+
+                                        'chickenInvoice' => $chickenInvoice,
+                                        'chickInvoice' => $chickInvoice,
+                                        'feedInvoice' => $feedInvoice,
+                                        'payment_voucher' => $payment_voucher,
+                                        'receipt_voucher' => $receipt_voucher,
+                                        'expense_voucher' => $expense_voucher,
+                                        'journal_voucher' => $journal_voucher,
+
+                                        'heads' => $heads,
+                                        'sub_heads' => $sub_heads,
+                                        'accounts' => $accounts,
+
+                                        'type' => $type
+                                ];
+                                session()->flash('Data', $data);
+                        }
+
+
+                if (session()->has('Data')) {
+
+
+                        $pdf = new Dompdf();
+
+                        $data = compact('pdf');
+                        $html = view('pdf.ledger.balance_sheet')->render();
+
+                        $pdf->loadHtml($html);
+
+
+                        $contentLength = strlen($html);
+                        if ($contentLength > 5000) {
+                                $pdf->setPaper('A3', 'portrait');
+                        } else {
+                                $pdf->setPaper('A4', 'portrait');
+                        }
+                        $pdf->render();
+
+                        session()->forget('Data');
+
+                        return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
+                }
+        }
 
 
         public function expense_report(Request $request)
@@ -2976,7 +3061,7 @@ elseif($type == 2){
 
                         if ($contra_account) {
                                 $query2->where('from_account', $contra_account)->orWhere('to_account', $contra_account);
-                        }
+                        } 
 
                         if ($salesOfficer) {
                                 $query2->where('sales_officer', $salesOfficer);

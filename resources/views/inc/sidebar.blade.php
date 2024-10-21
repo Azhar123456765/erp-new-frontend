@@ -445,6 +445,12 @@ $target = null;
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a href="" data-toggle="modal" data-target="#bal-sheet" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Balance Sheet</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a href="" data-toggle="modal" data-target="#expense-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>

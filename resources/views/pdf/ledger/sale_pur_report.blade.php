@@ -172,15 +172,17 @@
                         <tfoot class="full-width">
                             <tr>
                                 <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
                                 <th> Total: </th>
+                                <th colspan="1">{{ $chickenData->sum('hen_qty') }}</th>
+                                <th colspan="1">{{ $chickenData->sum('gross_weight') / $chickenData->sum('hen_qty') }}</th>
                                 <th colspan="1"></th>
                                 <th colspan="1"></th>
                                 <th colspan="1"></th>
-                                <th colspan="1">{{ $total_sale_amount }}</th>
                                 <th colspan="1"></th>
                                 <th colspan="1" style="text-align:right;"></th>
+                                <th colspan="1">{{ $total_sale_amount }}</th>
+                                <th colspan="1" style="text-align:right;"> </th>
+                                <th colspan="1" style="text-align:right;"> </th>
                                 <th colspan="1" style="text-align:right;"> </th>
                                 <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }} </th>
                             </tr>
