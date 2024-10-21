@@ -147,6 +147,7 @@ class pdfController extends Controller
 
                 $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
                 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
+                $journal_voucher = JournalVoucher::orderBy('date', 'asc')->get();
 
                 // $vc_salary = $ex_vc->whereIn('cash_bank', $salary)->get();
                 // $vc_rent = $ex_vc->whereIn('cash_bank', $rent)->get();
@@ -162,6 +163,7 @@ class pdfController extends Controller
                         'payment_voucher' => $payment_voucher,
                         'receipt_voucher' => $receipt_voucher,
                         'expense_voucher' => $expense_voucher,
+                        'journal_voucher' => $journal_voucher,
                         'daily_reports' => $daily_reports,
 
                         'salary' => $salary,
@@ -880,7 +882,9 @@ if ($farm) {
         $utilityjv->where('farm', $farm);
 }
 if ($salesOfficer) {
-        $journal_voucher->where('sales_officer', $salesOfficer);
+        $salaryjv->where('sales_officer', $salesOfficer);
+        $rentjv->where('sales_officer', $salesOfficer);
+        $utilityjv->where('sales_officer', $salesOfficer);
 }
 
 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();

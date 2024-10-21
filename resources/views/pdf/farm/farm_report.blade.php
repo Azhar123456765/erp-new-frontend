@@ -16,6 +16,7 @@
         $startDate = session()->get('Data')['startDate'] ?? null;
         $endDate = session()->get('Data')['endDate'] ?? null;
         $expense_voucher = session()->get('Data')['expense_voucher'] ?? null;
+        $journal_voucher = session()->get('Data')['journal_voucher'] ?? null;
         $chickenInvoice = session()->get('Data')['chickenInvoice'] ?? null;
         $payment_voucher = session()->get('Data')['payment_voucher'] ?? null;
         $chickInvoice = session()->get('Data')['chickInvoice'] ?? null;
@@ -264,7 +265,10 @@
                         <h3><b>salary</b></h3>
 
                         @foreach ($salaryAccounts as $salaryRow)
-                            @if ($expense_voucher->where('cash_bank', $salaryRow->id)->count() > 0)
+                            @if (
+                                $expense_voucher->where('cash_bank', $salaryRow->id)->count() > 0 ||
+                                    ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 &&
+                                        $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $salaryRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
                                     <thead>
@@ -302,14 +306,45 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-
+                                        @foreach ($journal_voucher->where('to_account', $salaryRow->id) as $row)
+                                            <tr style="text-align: center;">
+                                                <td class="text-right" style="width: 100px;">
+                                                    <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span>JV-{{ $row->unique_id }}</span>
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <span>{{ $row->narration }}</span>
+                                                </td>
+                                                @if ($row->status == 'credit')
+                                                    <td style="text-align: left
+        ;">
+                                                        <span>{{ $row->fromAccount->account_name }}</span>
+                                                    </td>
+                                                @else
+                                                    <td style="text-align: left
+                            ;">
+                                                        <span>{{ $row->toAccount->account_name }}</span>
+                                                    </td>
+                                                @endif
+                                                <td class="text-center" style="text-align: center;">
+                                                    <span>{{ $row->cheque_date }}</span>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span>{{ $row->amount }}</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
                                     <tfoot class="full-width">
                                         <tr>
                                             <th colspan="5" style="text-align:right;"> Total: </th>
                                             <th colspan="1" style="text-align:right;">
-                                                {{ $expense_voucher->where('cash_bank', $salaryRow->id)->sum('amount') }}
+                                                {{ $expense_voucher->where('cash_bank', $salaryRow->id)->sum('amount') +
+                                                    ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->sum('amount') +
+                                                        $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->sum('amount')) }}
                                             </th>
                                         </tr>
                                     </tfoot>
@@ -321,7 +356,10 @@
                         <h3><b>rent</b></h3>
 
                         @foreach ($rentAccounts as $rentRow)
-                            @if ($expense_voucher->where('cash_bank', $rentRow->id)->count() > 0)
+                            @if (
+                                $expense_voucher->where('cash_bank', $rentRow->id)->count() > 0 ||
+                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
+                                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $rentRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
                                     <thead>
@@ -360,13 +398,45 @@
                                             </tr>
                                         @endforeach
 
+                                        @foreach ($journal_voucher->where('to_account', $rentRow->id) as $row)
+                                            <tr style="text-align: center;">
+                                                <td class="text-right" style="width: 100px;">
+                                                    <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span>JV-{{ $row->unique_id }}</span>
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <span>{{ $row->narration }}</span>
+                                                </td>
+                                                @if ($row->status == 'credit')
+                                                    <td style="text-align: left
+    ;">
+                                                        <span>{{ $row->fromAccount->account_name }}</span>
+                                                    </td>
+                                                @else
+                                                    <td style="text-align: left
+                        ;">
+                                                        <span>{{ $row->toAccount->account_name }}</span>
+                                                    </td>
+                                                @endif
+                                                <td class="text-center" style="text-align: center;">
+                                                    <span>{{ $row->cheque_date }}</span>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span>{{ $row->amount }}</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
                                     </tbody>
                                     <tfoot class="full-width">
                                         <tr>
                                             <th colspan="5" style="text-align:right;"> Total: </th>
                                             <th colspan="1" style="text-align:right;">
-                                                {{ $expense_voucher->where('cash_bank', $rentRow->id)->sum('amount') }}
+                                                {{ $expense_voucher->where('cash_bank', $rentRow->id)->sum('amount') +
+                                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->sum('amount') +
+                                                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->sum('amount')) }}
                                             </th>
                                         </tr>
                                     </tfoot>
@@ -378,7 +448,10 @@
                         <h3><b>Utility</b></h3>
 
                         @foreach ($utilityAccounts as $utilityRow)
-                            @if ($expense_voucher->where('cash_bank', $utilityRow->id)->count() > 0)
+                            @if (
+                                $expense_voucher->where('cash_bank', $utilityRow->id)->count() > 0 ||
+                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
+                                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $utilityRow->account_name }}</b></h6>
                                 <table class="ui celled table" id="invoice-table">
                                     <thead>
@@ -416,6 +489,36 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        @foreach ($journal_voucher->where('to_account', $rentRow->id) as $row)
+                                            <tr style="text-align: center;">
+                                                <td class="text-right" style="width: 100px;">
+                                                    <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <span>JV-{{ $row->unique_id }}</span>
+                                                </td>
+                                                <td style="text-align: left;">
+                                                    <span>{{ $row->narration }}</span>
+                                                </td>
+                                                @if ($row->status == 'credit')
+                                                    <td style="text-align: left
+    ;">
+                                                        <span>{{ $row->fromAccount->account_name }}</span>
+                                                    </td>
+                                                @else
+                                                    <td style="text-align: left
+                        ;">
+                                                        <span>{{ $row->toAccount->account_name }}</span>
+                                                    </td>
+                                                @endif
+                                                <td class="text-center" style="text-align: center;">
+                                                    <span>{{ $row->cheque_date }}</span>
+                                                </td>
+                                                <td style="text-align: right;">
+                                                    <span>{{ $row->amount }}</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
 
 
                                     </tbody>
@@ -423,7 +526,9 @@
                                         <tr>
                                             <th colspan="5" style="text-align:right;"> Total: </th>
                                             <th colspan="1" style="text-align:right;">
-                                                {{ $expense_voucher->where('cash_bank', $utilityRow->id)->sum('amount') }}
+                                                {{ $expense_voucher->where('cash_bank', $utilityRow->id)->sum('amount') +
+                                                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->sum('amount') +
+                                                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->sum('amount')) }}
                                             </th>
                                         </tr>
                                     </tfoot>
