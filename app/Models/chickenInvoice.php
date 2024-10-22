@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
+use DB;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class chickenInvoice extends Model
 {
     use HasFactory;
+    public function scopeGrouped($query){
+        return $query->whereIn('chicken_invoices.id', function ($query2) {
+            $query2->select(DB::raw('MIN(id)'))
+                ->from('chicken_invoices')
+                ->groupBy('unique_id');
+        });
+    }
     function product()
     {
         return $this->hasOne(products::class, 'product_id', 'item');

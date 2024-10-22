@@ -792,7 +792,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Supplier</label>
-                                    <select class="form-control select-buyer" name="customer">
+                                    <select class="form-control select-buyer" name="supplier">
                                     </select>
                                 </div>
                             </div>
@@ -855,13 +855,13 @@ text-align: center;
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
-                                    <option value="1">Invoice Wise</option>
-                                    <option value="2">Prodcut Wise</option>
+                                    <option value="1">All</option>
+                                    <option value="2">Chicken Only</option>
+                                    <option value="3">Chick Only</option>
+                                    <option value="4">Feed Only</option>
                                 </select>
                             </div>
                         </div>
-
-                        <br>
 
                         <div class="row"
                             style="justify-content: space-between;
@@ -1102,9 +1102,10 @@ text-align: center;
                             <div class="form-group">
                                 <label>Select Type</label>
                                 <select class="form-control" name="type">
-                                    <option value="1">Summary</option>
-                                    <option value="2">invoice Wise</option>
-                                    <option value="3">Prodcut Wise</option>
+                                    <option value="1">All</option>
+                                    <option value="2">Chicken Only</option>
+                                    <option value="3">Chick Only</option>
+                                    <option value="4">Feed Only</option>
                                 </select>
                             </div>
                         </div>

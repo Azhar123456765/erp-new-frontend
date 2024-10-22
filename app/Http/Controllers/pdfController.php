@@ -1033,18 +1033,17 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
         public function sale_report(Request $request)
         {
                 $type = $request['type'];
-                if ($type == 1) {
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
-                        // Retrieve form data
-                        $customer = $request->input('customer');
-                        $salesOfficer = $request->input('sales_officer');
-                        $warehouse = $request->input('warehouse');
-                        $product_category = $request->input('product_category');
-                        $product_company = $request->input('product_company');
-                        $product = $request->input('product');
-                        $product_id = null;
+                $customer = $request->input('customer');
+                $salesOfficer = $request->input('sales_officer');
+                $warehouse = $request->input('warehouse');
+                $product_category = $request->input('product_category');
+                $product_company = $request->input('product_company');
+                $product = $request->input('product');
+                $product_id = null;
+                if ($type == 1) {
 
                         if ($customer) {
                                 $company = buyer::where('buyer_id', $customer)->first();
@@ -1130,131 +1129,120 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                         session()->flash('Data', $data);
                 } elseif ($type == 2) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
-
-                        // Retrieve form data
-                        $customer = $request->input('customer');
-                        $salesOfficer = $request->input('sales_officer');
-                        $warehouse = $request->input('warehouse');
-                        $product_category = $request->input('product_category');
-                        $product_company = $request->input('product_company');
-                        $product = $request->input('product');
-                        $product_id = null;
-
-                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate]);
-
                         if ($customer) {
-                                $query->where('company', $customer);
+                                $company = buyer::where('buyer_id', $customer)->first();
+                        }
+
+                        $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($customer) {
+                                $chickenInvoice->where('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
-                                $query->where('sales_officer', $salesOfficer);
+                                $chickenInvoice->where('sales_officer', $salesOfficer);
                         }
-
-                        if ($warehouse) {
-                                $query->where('warehouse', $warehouse);
-                        }
-
                         if ($product_category) {
                                 $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
+                                $chickenInvoice->whereIn('item', $productIds);
                         }
 
                         if ($product_company) {
                                 $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds);
+                                $chickenInvoice->whereIn('item', $productIds);
                         }
                         if ($product) {
-                                $query->where('item', $product);
+                                $chickenInvoice->where('item', $product);
                         }
 
-                        $query->orderBy('created_at'); // Order by date within each group
+                     
 
-
-                        $ledgerDatasi = $query->get();
-                        foreach ($ledgerDatasi as $key => $row) {
-
-                                $columnValues[] = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])->where('unique_id', $row->unique_id)->pluck('unique_id');
-                        }
+                        $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
 
                         $data = [
-                                'invoice' => $ledgerDatasi,
-                                'credit' => $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' => $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
-                                'qty_total' => $ledgerDatasi->sum('qty_total'),
-                                'dis_total' => $ledgerDatasi->sum('dis_total'),
-                                'amount_total' => $ledgerDatasi->sum('amount_total'),
+                                'chickenData' => $chickenData,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
+                                'company' => $company ?? null,
                                 'type' => $type,
                         ];
-
                         session()->flash('Data', $data);
+
                 } elseif ($type == 3) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
-
-                        // Retrieve form data
-                        $customer = $request->input('customer');
-                        $salesOfficer = $request->input('sales_officer');
-                        $warehouse = $request->input('warehouse');
-                        $product_category = $request->input('product_category');
-                        $product_company = $request->input('product_company');
-                        $product = $request->input('product');
-                        $product_id = null;
-
-                        $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate]);
-
                         if ($customer) {
-                                $query->where('sell_invoice.company', $customer);
+                                $company = buyer::where('buyer_id', $customer)->first();
+                        }
+                        $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($customer) {
+                                $chickInvoice->where('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
-                                $query->where('sales_officer', $salesOfficer);
+                                $chickInvoice->where('sales_officer', $salesOfficer);
                         }
-
-                        if ($warehouse) {
-                                $query->where('warehouse', $warehouse);
-                        }
-
                         if ($product_category) {
                                 $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                $product_data = Products::where('category', $product_category)->get();
-                                $query->whereIn('item', $productIds)->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id');
+                                $chickInvoice->whereIn('item', $productIds);
                         }
 
                         if ($product_company) {
                                 $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                $query->whereIn('item', $productIds)->leftJoin('products', 'sell_invoice.item', '=', 'products.product_id');
+                                $chickInvoice->whereIn('item', $productIds);
                         }
                         if ($product) {
-                                $query->where('item', $product);
+                                $chickInvoice->where('item', $product);
                         }
 
-                        $query->orderBy('products.product_id'); // Order by date within each group
-
-
-                        $ledgerDatasi = $query->get();
+                        $chickData = $chickInvoice->orderBy('date', 'asc')->get();
 
                         $data = [
-                                'invoice' => $ledgerDatasi,
-                                'credit' => $ledgerDatasi->sum('amount_paid'),
-                                'total_amount' => $ledgerDatasi->sum('amount_total'),
-                                'balance_amount' => $ledgerDatasi->sum('amount_total'),
-                                'qty_total' => $ledgerDatasi->sum('qty_total'),
-                                'dis_total' => $ledgerDatasi->sum('dis_total'),
-                                'amount_total' => $ledgerDatasi->sum('amount_total'),
+                                'chickData' => $chickData,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
+                                'company' => $company ?? null,
                                 'type' => $type,
                         ];
+                        session()->flash('Data', $data);
 
+                }
+               elseif ($type == 4) {
+
+                        if ($customer) {
+                                $company = buyer::where('buyer_id', $customer)->first();
+                        }
+                        $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($customer) {
+                                $feedInvoice->where('buyer', $customer);
+                        }
+
+                        if ($salesOfficer) {
+                                $feedInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $feedInvoice->where('item', $product);
+                        }
+
+                        $feedData = $feedInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'feedData' => $feedData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
                         session()->flash('Data', $data);
                 }
-
+        
 
                 if (session()->has('Data')) {
 
@@ -1438,173 +1426,223 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                         return view('pdf.pdf_view', ['pdf' => $pdf->output()]);
                 }
         }
-
         public function pur_report(Request $request)
         {
+                $type = $request['type'];
+                $startDate = Carbon::parse($request->input('start_date'))->subDay();
+                $endDate = Carbon::parse($request->input('end_date'))->addDay();
 
-                if (!session()->exists('Data')) {
-                        $type = $request['type'];
-                        if ($type == 1) {
-                                # code...
+                $supplier = $request->input('supplier');
+                $salesOfficer = $request->input('sales_officer');
+                $warehouse = $request->input('warehouse');
+                $product_category = $request->input('product_category');
+                $product_company = $request->input('product_company');
+                $product = $request->input('product');
+                $product_id = null;
+                if ($type == 1) {
 
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
-
-                                // Retrieve form data
-                                $supplier = $request->input('customer');
-                                $salesOfficer = $request->input('sales_officer');
-                                $warehouse = $request->input('warehouse');
-                                $product_category = $request->input('product_category');
-                                $product_company = $request->input('product_company');
-                                $product = $request->input('product');
-                                $product_id = [];
-
-                                if ($supplier) {
-                                        $company = buyer::where('buyer_id', $supplier)->first();
-                                }
-
-                                $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
-                                if ($supplier) {
-                                        $chickenInvoice->where('seller', $supplier);
-                                }
-
-                                if ($salesOfficer) {
-                                        $chickenInvoice->where('sales_officer', $salesOfficer);
-                                }
-                                if ($product_category) {
-                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                        $chickenInvoice->whereIn('item', $productIds);
-                                }
-
-                                if ($product_company) {
-                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                        $chickenInvoice->whereIn('item', $productIds);
-                                }
-                                if ($product) {
-                                        $chickenInvoice->where('item', $product);
-                                }
-
-                                $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
-                                if ($supplier) {
-                                        $chickInvoice->where('seller', $supplier);
-                                }
-
-                                if ($salesOfficer) {
-                                        $chickInvoice->where('sales_officer', $salesOfficer);
-                                }
-                                if ($product_category) {
-                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                        $chickInvoice->whereIn('item', $productIds);
-                                }
-
-                                if ($product_company) {
-                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                        $chickInvoice->whereIn('item', $productIds);
-                                }
-                                if ($product) {
-                                        $chickInvoice->where('item', $product);
-                                }
-
-                                $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
-                                if ($supplier) {
-                                        $feedInvoice->where('seller', $supplier);
-                                }
-
-                                if ($salesOfficer) {
-                                        $feedInvoice->where('sales_officer', $salesOfficer);
-                                }
-                                if ($product_category) {
-                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                        $feedInvoice->whereIn('item', $productIds);
-                                }
-
-                                if ($product_company) {
-                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                        $feedInvoice->whereIn('item', $productIds);
-                                }
-                                if ($product) {
-                                        $feedInvoice->where('item', $product);
-                                }
-
-                                $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
-                                $chickData = $chickInvoice->orderBy('date', 'asc')->get();
-                                $feedData = $feedInvoice->orderBy('date', 'asc')->get();
-
-                                $data = [
-                                        'chickenData' => $chickenData,
-                                        'chickData' => $chickData,
-                                        'feedData' => $feedData,
-                                        'startDate' => $startDate,
-                                        'endDate' => $endDate,
-                                        'company' => $company ?? null,
-                                        'type' => $type,
-                                ];
-
-                                session()->flash('Data', $data);
-                        } elseif ($type == 2) {
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
-
-                                // Retrieve form data
-                                $supplier = $request->input('supplier');
-                                $salesOfficer = $request->input('sales_officer');
-                                $warehouse = $request->input('warehouse');
-                                $product_category = $request->input('product_category');
-                                $product_company = $request->input('product_company');
-                                $product = $request->input('product');
-                                $product_id = [];
-
-
-
-
-                                $query = purchase_invoice::whereBetween(DB::raw('DATE(purchase_invoice.updated_at)'), [$startDate, $endDate]);
-
-                                if ($supplier) {
-                                        $query->where('company', $supplier);
-                                }
-
-                                if ($salesOfficer) {
-                                        $query->where('sales_officer', $salesOfficer);
-                                }
-
-                                if ($warehouse) {
-                                        $query->where('warehouse', $warehouse);
-                                }
-
-                                if ($product_category) {
-                                        $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
-                                        $query->whereIn('item', $productIds);
-                                }
-
-                                if ($product_company) {
-                                        $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
-                                        $query->whereIn('item', $productIds);
-                                }
-                                if ($product) {
-                                        $query->where('item', $product);
-                                }
-
-                                $query->orderBy('created_at');
-                                $ledgerDatasi = $query->get();
-
-                                $data = [
-                                        'invoice' => $ledgerDatasi,
-                                        'credit' => $ledgerDatasi->sum('amount_paid'),
-                                        'total_amount' => $ledgerDatasi->sum('amount_total'),
-                                        'balance_amount' => $ledgerDatasi->sum('amount_total'),
-                                        'startDate' => $startDate,
-                                        'endDate' => $endDate,
-                                        'type' => $type,
-                                ];
-
-                                session()->flash('Data', $data);
+                        if ($supplier) {
+                                $company = buyer::where('buyer_id', $supplier)->first();
                         }
-                }
 
+                        $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($supplier) {
+                                $chickenInvoice->where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickenInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickenInvoice->where('item', $product);
+                        }
+
+                        $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($supplier) {
+                                $chickInvoice->where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickInvoice->where('item', $product);
+                        }
+
+                        $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($supplier) {
+                                $feedInvoice->where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $feedInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $feedInvoice->where('item', $product);
+                        }
+
+                        $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
+                        $chickData = $chickInvoice->orderBy('date', 'asc')->get();
+                        $feedData = $feedInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'chickenData' => $chickenData,
+                                'chickData' => $chickData,
+                                'feedData' => $feedData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+
+                        session()->flash('Data', $data);
+                } elseif ($type == 2) {
+
+                        if ($supplier) {
+                                $company = buyer::where('buyer_id', $supplier)->first();
+                        }
+
+                        $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($supplier) {
+                                $chickenInvoice->where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickenInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickenInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickenInvoice->where('item', $product);
+                        }
+
+                     
+
+                        $chickenData = $chickenInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'chickenData' => $chickenData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+                        session()->flash('Data', $data);
+
+                } elseif ($type == 3) {
+
+                        if ($supplier) {
+                                $company = buyer::where('buyer_id', $supplier)->first();
+                        }
+                        $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($supplier) {
+                                $chickInvoice->where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $chickInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $chickInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $chickInvoice->where('item', $product);
+                        }
+
+                        $chickData = $chickInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'chickData' => $chickData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+                        session()->flash('Data', $data);
+
+                }
+               elseif ($type == 4) {
+
+                        if ($supplier) {
+                                $company = buyer::where('buyer_id', $supplier)->first();
+                        }
+                        $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
+                        if ($supplier) {
+                                $feedInvoice->where('seller', $supplier);
+                        }
+
+                        if ($salesOfficer) {
+                                $feedInvoice->where('sales_officer', $salesOfficer);
+                        }
+                        if ($product_category) {
+                                $productIds = Products::where('category', $product_category)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+
+                        if ($product_company) {
+                                $productIds = Products::where('company', $product_company)->pluck('product_id')->toArray();
+                                $feedInvoice->whereIn('item', $productIds);
+                        }
+                        if ($product) {
+                                $feedInvoice->where('item', $product);
+                        }
+
+                        $feedData = $feedInvoice->orderBy('date', 'asc')->get();
+
+                        $data = [
+                                'feedData' => $feedData,
+                                'startDate' => $startDate,
+                                'endDate' => $endDate,
+                                'company' => $company ?? null,
+                                'type' => $type,
+                        ];
+                        session()->flash('Data', $data);
+                }
+        
 
                 if (session()->has('Data')) {
 
-                        $views = 'Supplier Report';
+                        $views = 'Customer Report';
 
                         $pdf = new Dompdf();
 
@@ -1621,13 +1659,11 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                                 $pdf->setPaper('A4', 'portrait');
                         }
                         $pdf->render();
-                        ;
                         session()->forget('Data');
 
                         return view('pdf.pdf_view_bootstrap', ['pdf' => $html]);
                 }
         }
-
 
         public function pur_r_report(Request $request)
         {

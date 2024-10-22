@@ -20,9 +20,21 @@
         // $qty_total = session()->get('Data')['qty_total'] ?? null;
         // $dis_total = session()->get('Data')['dis_total'] ?? null;
         // $amount_total = session()->get('Data')['amount_total'] ?? null;
-        $chickenData = session()->get('Data')['chickenData'];
-        $chickData = session()->get('Data')['chickData'];
-        $feedData = session()->get('Data')['feedData'];
+        if (isset(session()->get('Data')['chickenData'])) {
+            $chickenData = session()->get('Data')['chickenData'];
+        } else {
+            $chickenData = [];
+        }
+        if (isset(session()->get('Data')['chickData'])) {
+            $chickData = session()->get('Data')['chickData'];
+        } else {
+            $chickData = [];
+        }
+        if (isset(session()->get('Data')['feedData'])) {
+            $feedData = session()->get('Data')['feedData'];
+        } else {
+            $feedData = [];
+        }
 
         $company = session()->get('Data')['company'] ?? null;
 
@@ -87,7 +99,6 @@
 
         <div class="ui segment itemscard">
             <div class="content">
-                @if ($type == 1)
                     @if (count($chickenData) > 0)
                         <h4><b>Chickens</b></h4>
                         <table class="ui celled table" id="invoice-table">
@@ -282,8 +293,6 @@
                                 </tr>
                             </tfoot>
                         </table>
-                    @endif
-
                 @endif
             </div>
         </div>

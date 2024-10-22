@@ -28,11 +28,7 @@ class ChickenInvoiceController extends Controller
     public function create()
     {
 
-        $count = chickenInvoice::whereIn('chicken_invoices.id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('chicken_invoices')
-                ->groupBy('unique_id');
-        })->count();
+        $count = chickenInvoice::grouped()->count();
 
         $data = compact('count');
         return view('invoice.farm.chicken_invoice')->with($data);
@@ -51,11 +47,7 @@ class ChickenInvoiceController extends Controller
     }
     public function create_last(Request $request)
     {
-        $count = chickenInvoice::whereIn('chicken_invoices.id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('chicken_invoices')
-                ->groupBy('unique_id');
-        })->count();
+        $count = chickenInvoice::grouped()->count();
 
         $invoice = chickenInvoice::where('unique_id', $count)->get();
         $single_invoice = chickenInvoice::where('unique_id', $count)->first();
@@ -178,11 +170,7 @@ class ChickenInvoiceController extends Controller
      */
     public function edit(Request $request, $id)
     {
-        $last_count = chickenInvoice::whereIn('chicken_invoices.id', function ($query2) {
-            $query2->select(DB::raw('MIN(id)'))
-                ->from('chicken_invoices')
-                ->groupBy('unique_id');
-        })->count();
+        $last_count = chickenInvoice::grouped()->count();
         $invoice = chickenInvoice::where('unique_id', $id)->get();
         $single_invoice = chickenInvoice::where('unique_id', $id)->first();
         if (count($invoice) > 0) {
