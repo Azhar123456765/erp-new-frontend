@@ -288,8 +288,8 @@
                                 <th> Total: </th>
 
                                 <th colspan="1" style="text-align:right;">
-                                    {{ number_format($feedData->sum('sale_qty'), 2) }}</th>
-                                <th colspan="1" style="text-align:right;">{{ number_format($total_sale_amount, 2) }}
+                                    {{ number_format($feedData->sum('qty'), 2) }}</th>
+                                <th colspan="1" style="text-align:right;">{{ number_format($total_amount, 2) }}
                                 </th>
                             </tr>
                         </tfoot>
