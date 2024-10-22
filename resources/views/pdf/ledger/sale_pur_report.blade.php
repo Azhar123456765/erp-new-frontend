@@ -368,6 +368,33 @@
                                 </th>
                             </tr>
                         </tfoot>
+                        <h4><b>Feed (In Details)</b></h4>
+                        <table class="ui celled table" id="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center colfix">Product</th>
+                                    <th class="text-center colfix">Purchase Quantity</th>
+                                    <th class="text-center colfix">Sale Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($feedData->groupBy('item') as $row)
+                                    <tr style="text-align: center;">
+                                        <td style="text-align: left
+                ;">
+                                            <span>{{ $row->first()->product->product_name }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->sum('qty') }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->sum('sale_qty') }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+                            </tbody>
+                        </table>
                     </table>
                 @endif
             </div>
