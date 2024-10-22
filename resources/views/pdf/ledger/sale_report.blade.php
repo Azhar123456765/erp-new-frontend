@@ -13,9 +13,9 @@
         }
         $startDate = session()->get('Data')['startDate'] ?? null;
         $endDate = session()->get('Data')['endDate'] ?? null;
-        
+
         $type = session()->get('Data')['type'] ?? null;
-     
+
         if (isset(session()->get('Data')['chickenData'])) {
             $chickenData = session()->get('Data')['chickenData'];
         } else {
@@ -272,8 +272,10 @@
                                 <th colspan="1"></th>
                                 <th> Total: </th>
                                 <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1">{{ $total_sale_amount }}</th>
+                                <th colspan="1" style="text-align:right;">
+                                    {{ number_format($feedData->sum('sale_qty'), 2) }}</th>
+                                <th colspan="1" style="text-align:right;">{{ number_format($total_sale_amount, 2) }}
+                                </th>
 
                                 </th>
                             </tr>

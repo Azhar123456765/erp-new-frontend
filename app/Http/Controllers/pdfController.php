@@ -131,6 +131,11 @@ class pdfController extends Controller
                 if ($farm) {
                         $expense_voucher->where('farm', $farm_id);
                 }
+                $journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
+
+                if ($farm) {
+                        $journal_voucher->where('farm', $farm_id);
+                }
                
 
                 $daily_reports = $daily_reports->orderBy('date', 'asc')->get();
@@ -148,7 +153,7 @@ class pdfController extends Controller
 
                 $receipt_voucher = $receipt_voucher->orderBy('date', 'asc')->get();
                 $expense_voucher = $expense_voucher->orderBy('date', 'asc')->get();
-                $journal_voucher = JournalVoucher::orderBy('date', 'asc')->get();
+                $journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
 
                 // $vc_salary = $ex_vc->whereIn('cash_bank', $salary)->get();
                 // $vc_rent = $ex_vc->whereIn('cash_bank', $rent)->get();

@@ -258,11 +258,59 @@
                             </tfoot>
                         </table>
                     @endif
+                    @if (count($feedInvoice) > 0)
+                        <table class="ui celled table" id="invoice-table">
+                            <thead>
+                                <tr>
+                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
+                                    <th class="text-center colfix" style="text-align: center;">Invoice No</th>
+                                    <th class="text-center colfix">Description</th>
+                                    <th class="text-center colfix">Parties</th>
+                                    <th class="text-center colfix">Amount</th>
+                                </tr>
+                            </thead>
+                            <h4><b>Feed Sale (Temporary Only)</b></h4>
+
+                            <tbody>
+                                @foreach ($feedInvoice as $row)
+                                    <tr style="text-align: center;">
+                                        <td class="text-right" style="width: 100px;">
+                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <span>F-{{ $row->unique_id }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->product->product_name }}</span>
+                                        </td>
+                                        <td style="text-align: left
+;">
+                                            <span>{{ $row->supplier->company_name }}&nbsp;&nbsp; TO
+                                                &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->sale_amount_total }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                            <tfoot class="full-width">
+                                <tr>
+                                    <th colspan="4" style="text-align:right;"> Total: </th>
+                                    <th colspan="1" style="text-align:right;">
+                                        {{ $feedInvoice->sum('sale_amount_total') }}
+                                    </th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    @endif
                 @endif
                 @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
                     <h3><b>Expenses</b></h3>
-                    @if (count($salary) > 0 || ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
-                                        $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
+                    @if (count($salary) > 0 ||
+                            ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
+                                $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
                         <h3><b>salary</b></h3>
 
                         @foreach ($salaryAccounts as $salaryRow)
@@ -307,7 +355,9 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @foreach ($journal_voucher->where('to_account', $salaryRow->id) as $row)
+                                        @foreach ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0
+            ? $journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')
+            : $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit') as $row)
                                             <tr style="text-align: center;">
                                                 <td class="text-right" style="width: 100px;">
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
@@ -353,9 +403,9 @@
                             @endif
                         @endforeach
                     @endif
-                    @if (count($rent) > 0 || 
-                    ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
-                        $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
+                    @if (count($rent) > 0 ||
+                            ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
+                                $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                         <h3><b>rent</b></h3>
 
                         @foreach ($rentAccounts as $rentRow)
@@ -401,7 +451,9 @@
                                             </tr>
                                         @endforeach
 
-                                        @foreach ($journal_voucher->where('to_account', $rentRow->id) as $row)
+                                        @foreach ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0
+            ? $journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')
+            : $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit') as $row)
                                             <tr style="text-align: center;">
                                                 <td class="text-right" style="width: 100px;">
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
@@ -494,7 +546,9 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @foreach ($journal_voucher->where('to_account', $utilityRow->id) as $row)
+                                        @foreach ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0
+            ? $journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')
+            : $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit') as $row)
                                             <tr style="text-align: center;">
                                                 <td class="text-right" style="width: 100px;">
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
