@@ -355,12 +355,16 @@
                                 <th colspan="1"></th>
                                 <th> Total: </th>
                                 <th colspan="1"></th>
+                                <th colspan="1" style="text-align:right;">
+                                    {{ number_format($feedData->sum('sale_qty'), 2) }}</th>
+                                <th colspan="1" style="text-align:right;">{{ number_format($total_sale_amount, 2) }}
+                                </th>
                                 <th colspan="1"></th>
-                                <th colspan="1">{{ $total_sale_amount }}</th>
                                 <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1" style="text-align:right;"></th>
-                                <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }}
+                                <th colspan="1" style="text-align:right;">
+                                    {{ number_format($feedData->sum('qty'), 2) }}</th>
+                                <th colspan="1" style="text-align:right;">{{ number_format($total_amount, 2) }}
+                                </th>
                                 </th>
                             </tr>
                         </tfoot>
