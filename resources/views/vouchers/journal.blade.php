@@ -260,6 +260,11 @@
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
+                <div class="one  remark">
+                    <label for="farm">Farm</label>
+                    <select name="farm" class="select-farm" style="justify-content: space-around">
+                    </select>
+                </div>
             </div>
         </div>
 
@@ -281,12 +286,6 @@
                     </datalist>
                 </div>
 
-                <div class="div">
-                    <label for="dis">Farm</label>
-                    <select class="farm select-farm" name="farm[]" style="height: 28px">
-                        <option></option>
-                    </select>
-                </div>
                 <div class="div">
                     <label for="dis">Invoice</label>
                     <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
