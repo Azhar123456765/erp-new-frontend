@@ -202,14 +202,14 @@ text-align:right !important;
     }
 
 
-    .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
+      /* .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
         width: 219px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
         padding-top: 2px;
-    }
+    } */
 
     .cash .select2-container--classic .select2-selection--single .select2-selection__rendered {
         width: 159px !important;

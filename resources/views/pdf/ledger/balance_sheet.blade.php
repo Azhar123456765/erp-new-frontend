@@ -272,37 +272,74 @@
                                             $accountDetails = $accounts->where('account_category', $subRow->id);
 
                                             foreach ($accountDetails as $accountDetailsRow) {
+                                                $chickenInvoiceAmount = $chickenInvoice
+                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
+                                                    ->sum('amount');
+                                                if ($chickenInvoiceAmount <= 0) {
+                                                    $chickenInvoiceAmount = $chickenInvoice
+                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
+                                                        ->sum('amount');
+                                                }
+                                                $chickInvoiceAmount = $chickInvoice
+                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
+                                                    ->sum('amount');
+                                                if ($chickInvoiceAmount <= 0) {
+                                                    $chickInvoiceAmount = $chickInvoice
+                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
+                                                        ->sum('amount');
+                                                }
+                                                $feedInvoiceAmount = $feedInvoice
+                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
+                                                    ->sum('amount');
+                                                if ($feedInvoiceAmount <= 0) {
+                                                    $feedInvoiceAmount = $feedInvoice
+                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
+                                                        ->sum('amount');
+                                                }
 
-                                                $amount = $chickenInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
+                                                $PVAmount = $payment_voucher
+                                                    ->where('cash_bank', $accountDetailsRow->id)
                                                     ->sum('amount');
-                                                if ($amount <= 0) {
-                                                    $amount = $chickenInvoice
-                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
+                                                if ($PVAmount <= 0) {
+                                                    $PVAmount = $payment_voucher
+                                                        ->where('company', $accountDetailsRow->id)
                                                         ->sum('amount');
                                                 }
-                                                $amount += $chickInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
+                                                $RVAmount = $receipt_voucher
+                                                    ->where('cash_bank', $accountDetailsRow->id)
                                                     ->sum('amount');
-                                                if ($amount <= 0) {
-                                                    $amount += $chickInvoice
-                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
+                                                if ($RVAmount <= 0) {
+                                                    $RVAmount = $receipt_voucher
+                                                        ->where('company', $accountDetailsRow->id)
                                                         ->sum('amount');
                                                 }
-                                                $amount += $feedInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
+                                                $EVAmount = $expense_voucher
+                                                    ->where('cash_bank', $accountDetailsRow->id)
                                                     ->sum('amount');
-                                                if ($amount <= 0) {
-                                                    $amount += $feedInvoice
-                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
+                                                if ($EVAmount <= 0) {
+                                                    $EVAmount = $expense_voucher
+                                                        ->where('buyer', $accountDetailsRow->id)
+                                                        ->sum('amount');
+                                                }
+                                                $JVAmount = $journal_voucher
+                                                    ->where('from_account', $accountDetailsRow->id)
+                                                    ->sum('amount');
+                                                if ($JVAmount <= 0) {
+                                                    $JVAmount = $journal_voucher
+                                                        ->where('to_account', $accountDetailsRow->id)
                                                         ->sum('amount');
                                                 }
 
-                                                $amount += $feedInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
-                                                    ->sum('amount');
-                                                $totalAmount += $amount;
+                                                $totalAmount +=
+                                                    $chickenInvoiceAmount +
+                                                    $chickInvoiceAmount +
+                                                    $feedInvoiceAmount +
+                                                    $PVAmount +
+                                                    $RVAmount +
+                                                    $EVAmount +
+                                                    $JVAmount;
                                             }
+
                                         @endphp
                                         {{ number_format($totalAmount, 2) }}
                                     </th>

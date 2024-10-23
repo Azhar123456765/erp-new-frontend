@@ -201,6 +201,7 @@ class FeedInvoiceController extends Controller
             $invoice->seller = $request['seller'];
             $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
+            $invoice->supply_farm = $request['supply_farm'] ?? null;
             $invoice->farm = $request['farm'] ?? null;
             $invoice->remark = $request['remark'] ?? 000;
 

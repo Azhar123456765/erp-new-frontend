@@ -342,7 +342,7 @@
                 <label for="item" style="padding-right: 91px;">Narration</label>
                 <label for="unit">Cheque No</label>
                 <label for="batch_no">Cheque Date</label>
-                <label>Cash/Bank Account</label>
+                <label>Expense Account</label>
                 <label for="amount">Amount</label>
 
 

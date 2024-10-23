@@ -272,7 +272,7 @@
                             <h4><b>Feed Sale (Temporary Only)</b></h4>
 
                             <tbody>
-                                @foreach ($feedInvoice as $row)
+                                @foreach ($feedInvoice->where('supply_farm', 2) as $row)
                                     <tr style="text-align: center;">
                                         <td class="text-right" style="width: 100px;">
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
