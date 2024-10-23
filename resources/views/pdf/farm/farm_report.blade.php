@@ -259,53 +259,7 @@
                             </tfoot>
                         </table>
                     @endif
-                    @if (count($feedInvoice) > 0)
-                        <table class="ui celled table" id="invoice-table">
-                            <thead>
-                                <tr>
-                                    <th class="text-center colfix date-th" style="text-align: center;">Date</th>
-                                    <th class="text-center colfix" style="text-align: center;">Invoice No</th>
-                                    <th class="text-center colfix">Description</th>
-                                    <th class="text-center colfix">Parties</th>
-                                    <th class="text-center colfix">Amount</th>
-                                </tr>
-                            </thead>
-                            <h4><b>Feed Sale (Temporary Only)</b></h4>
-
-                            <tbody>
-                                @foreach ($feedInvoice->where('supply_farm', 2) as $row)
-                                    <tr style="text-align: center;">
-                                        <td class="text-right" style="width: 100px;">
-                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                        </td>
-                                        <td class="text-right">
-                                            <span>F-{{ $row->unique_id }}</span>
-                                        </td>
-                                        <td style="text-align: left
-;">
-                                            <span>{{ $row->product->product_name }}</span>
-                                        </td>
-                                        <td style="text-align: left
-;">
-                                            <span>{{ $row->supplier->company_name }}&nbsp;&nbsp; TO
-                                                &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
-                                        </td>
-                                        <td style="text-align:right;">
-                                            <span>{{ $row->sale_amount_total }}</span>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                            <tfoot class="full-width">
-                                <tr>
-                                    <th colspan="4" style="text-align:right;"> Total: </th>
-                                    <th colspan="1" style="text-align:right;">
-                                        {{ $feedInvoice->sum('sale_amount_total') }}
-                                    </th>
-                                </tr>
-                            </tfoot>
-                        </table>
-                    @endif
+                  
                 @endif
                 @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
                     <h3><b>Expenses</b></h3>
@@ -636,7 +590,7 @@
                         </table>
                     @endif
                 @endif
-                @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
+                {{-- @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
                     <h3><b>Liablities</b></h3>
                     @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
                         {{-- <table class="ui celled table" id="invoice-table">
@@ -683,7 +637,7 @@
                             </tfoot>
                         </table> --}}
 
-                        <table class="ui celled table" id="invoice-table">
+                        {{-- <table class="ui celled table" id="invoice-table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -723,7 +677,7 @@
                             </tfoot>
                         </table>
 @endif
-                    @if (count($feedInvoiceLiab->where('amount_total', '>=', 0)) > 0)
+                    @if (count($feedInvoiceLiab->where('amount_total', '>=', 0)) > 0) --}}
 {{-- <table class="ui celled table" id="invoice-table">
                         <thead>
                             <tr>
@@ -768,7 +722,7 @@
                         </tfoot>
                     </table> --}}
 
-                    <table class="ui celled table" id="invoice-table">
+                    {{-- <table class="ui celled table" id="invoice-table">
                         <thead>
                             <tr>
                                 <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -807,8 +761,8 @@
                                 </tr>
                             </tfoot>
                         </table>
-                    @endif
-                @endif
+                    @endif 
+                @endif --}}
                 @if (count($chickenInvoice) > 0)
                     <h3><b>Income</b></h3>
                     @if (count($chickenInvoice) > 0)
