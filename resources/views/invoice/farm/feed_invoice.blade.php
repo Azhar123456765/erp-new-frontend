@@ -204,7 +204,7 @@
     }
 
 
-      /* .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
+    /* .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
         width: 219px !important;
         height: 27px !important;
 
@@ -302,6 +302,18 @@ right: 15%;
                     <label for="sales_officer">Farm</label>
                     <select name="sales_officer" class="select-farm">
                     </select>
+                </div>
+                <div class="one  remark">
+                    <label for="sales_officer">Farm Status</label>
+                    <select name="farm_status" class="form-group">
+                        <option value="0" selected>
+                            Feed In
+                        </option>
+                        <option value="1" selected>
+                            Feed In
+                        </option>
+                    </select>
+
                 </div>
             </div>
             <div class="fields">

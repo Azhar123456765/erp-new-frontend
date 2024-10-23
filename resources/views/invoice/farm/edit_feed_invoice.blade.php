@@ -36,6 +36,7 @@
     input[type="number" step="any"] {
         text-align: right !important;
     }
+
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -43,7 +44,7 @@
     }
 
     * input,
-   #invoiceForm select {
+    #invoiceForm select {
         font-weight: 500;
     }
 
@@ -136,8 +137,8 @@
         height: 27px !important;
     }
 
-   #invoiceForm select {
-        width: 131px !important;
+    #invoiceForm select {
+        width: 171px !important;
         height: 27px !important;
     }
 
@@ -260,7 +261,7 @@
 </style>
 <h5 style="text-align: center;">feed Invoice (EDIT)</h5>
 
-<div class="container"  id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
+<div class="container" id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
 ">
     <h6 style="
 position: absolute;
@@ -292,19 +293,31 @@ right: 15%;
                 <div class="one  remark">
                     <label for="seller">Supplier</label>
                     <select name="seller" class="company select-buyer" required>
-                        <option value="{{ $single_invoice->supplier->buyer_id ??null }}" selected>
-                            {{ $single_invoice->supplier->company_name ??null  }}</option>
+                        <option value="{{ $single_invoice->supplier->buyer_id ?? null }}" selected>
+                            {{ $single_invoice->supplier->company_name ?? null }}</option>
                     </select>
                 </div>
 
             </div>
-            
+
             <div class="fields">
                 <div class="one  remark">
                     <label for="sales_officer">Farm</label>
                     <select name="farm" class="select-farm">
-                       <option value="{{ $single_invoice->farms->id ?? null ??null}}" selected>
-                            {{ $single_invoice->farms->name ?? null ??null}}</option>
+                        <option value="{{ $single_invoice->farms->id ?? (null ?? null) }}" selected>
+                            {{ $single_invoice->farms->name ?? (null ?? null) }}</option>
+                    </select>
+
+                </div>
+                <div class="one  remark">
+                    <label for="sales_officer">Farm Status</label>
+                    <select name="farm_status" class="form-group">
+                        <option value="0" {{ $single_invoice->farm_status == 0 ? 'selected' : '' }}>
+                            Feed In
+                        </option>
+                        <option value="1" {{ $single_invoice->farm_status == 1 ? 'selected' : '' }}>
+                            Feed Out
+                        </option>
                     </select>
 
                 </div>
@@ -610,7 +623,8 @@ right: 15%;
         </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center" style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
+<div class="row m-5 justify-content-center align-items-center"
+    style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
 
     <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
         Update
@@ -795,7 +809,7 @@ right: 15%;
                         },
                         cache: true
                     },
-                   
+
                     theme: 'classic',
                     width: '100%'
                 });
@@ -831,7 +845,7 @@ right: 15%;
                         },
                         cache: true
                     },
-                   
+
                     theme: 'classic',
                     width: '100%'
                 });
@@ -986,7 +1000,7 @@ right: 15%;
                     },
                     cache: true
                 },
-               
+
                 theme: 'classic',
                 width: '100%'
             });
@@ -1153,30 +1167,30 @@ right: 15%;
             }
         });
     </script>
-        <div class="modal fade" id="iv-search">
-            <div class="modal-dialog">
-                <div class="modal-content">
+    <div class="modal fade" id="iv-search">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4>Search Invoice</h4>
                     <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4>Search Invoice</h4>
-                        <div class="modal-body">
-                            <form method="GET" action="/saleInvoice-search">
-                                @csrf
-                                <div class="form-group">
-                                    <label for="">Invoice No</label>
-                                    <input type="text" class="form-control" id="search-input"
-                                        style="width: 100% !important;">
-                                </div>
-    
-                                <button type="submit" data-url="{{ Route('edit_invoice_feed') }}" class="btn btn-primary"
-                                    id="search-btn">Search</button>
-    
-                            </form>
-                        </div>
+                        <form method="GET" action="/saleInvoice-search">
+                            @csrf
+                            <div class="form-group">
+                                <label for="">Invoice No</label>
+                                <input type="text" class="form-control" id="search-input"
+                                    style="width: 100% !important;">
+                            </div>
+
+                            <button type="submit" data-url="{{ Route('edit_invoice_feed') }}" class="btn btn-primary"
+                                id="search-btn">Search</button>
+
+                        </form>
                     </div>
-                </div><!-- /.modal-content -->
-            </div><!-- /.modal-dialog -->
-        </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

@@ -21,6 +21,7 @@ class CreateFeedInvoicesTable extends Migration
             $table->date('date');
             $table->unsignedBigInteger('sales_officer')->nullable();
             $table->unsignedBigInteger('farm')->nullable();
+            $table->tinyInteger('farm_status')->default(0);
             $table->unsignedBigInteger('buyer');
             $table->unsignedBigInteger('seller');
             $table->text('remark')->nullable();

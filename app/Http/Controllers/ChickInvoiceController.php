@@ -104,7 +104,7 @@ class ChickInvoiceController extends Controller
             $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->farm = $request['farm'] ?? null;
-            $invoice->remark = $request['remark'] ?? 000;
+            $invoice->remark = $request['remark'] ?? null;
 
             $invoice->rate = $request['rate']["$i"] ?? 000;
             $invoice->qty = $request['qty']["$i"] ?? 000;
@@ -207,7 +207,7 @@ class ChickInvoiceController extends Controller
             $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
             $invoice->farm = $request['farm'] ?? null;
-            $invoice->remark = $request['remark'] ?? 000;
+            $invoice->remark = $request['remark'] ?? null;
 
             $invoice->rate = $request['rate']["$i"] ?? 000;
             $invoice->qty = $request['qty']["$i"] ?? 000;

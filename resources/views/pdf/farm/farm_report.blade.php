@@ -244,7 +244,7 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount_total }}</span>
+                                            <span>{{ $row->farm_status == 0 ? $row->amount_total : '-' . $row->sale_amount_total }}</span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -252,7 +252,8 @@
                             <tfoot class="full-width">
                                 <tr>
                                     <th colspan="4" style="text-align:right;"> Total: </th>
-                                    <th colspan="1" style="text-align:right;"> {{ $feedInvoice->sum('amount_total') }}
+                                    <th colspan="1" style="text-align:right;">
+                                        {{ $feedInvoice->where('farm_status', 0)->sum('amount') - $feedInvoice->where('farm_status', 1)->sum('sale_amount') }}
                                     </th>
                                 </tr>
                             </tfoot>
@@ -308,7 +309,8 @@
                 @endif
                 @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
                     <h3><b>Expenses</b></h3>
-                    @if (count($salary) > 0 ||
+                    @if (
+                        (count($salary) > 0 && count($salaryAccounts) > 0) ||
                             ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
                                 $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
                         <h3><b>salary</b></h3>
@@ -403,7 +405,8 @@
                             @endif
                         @endforeach
                     @endif
-                    @if (count($rent) > 0 ||
+                    @if (
+                        (count($rent) > 0 && count($rentAccounts) > 0) ||
                             ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
                                 $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                         <h3><b>rent</b></h3>
@@ -499,7 +502,8 @@
                             @endif
                         @endforeach
                     @endif
-                    @if (count($utility) > 0 ||
+                    @if (
+                        (count($utility) > 0 && count($utilityAccounts) > 0) ||
                             ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 &&
                                 $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->count()))
                         <h3><b>Utility</b></h3>
@@ -887,9 +891,8 @@
             </div>
             <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Total Chicks Purchase: </strong>{{ $chickInvoice->sum('sale_qty') }} </p>
-                <p> <strong> Total Deaths: </strong>{{ $daily_reports->sum('hen_deaths') }} </p>
-                <p> <strong> Remaining Hens:
-                    </strong>{{ $chickInvoice->sum('sale_qty') - $daily_reports->sum('hen_deaths') }} </p>
+                <p> <strong> Total Feed In: </strong>{{ $feedInvoice->where('farm_status', 0)->sum('qty') }} </p>
+                <p> <strong> Total Feed Out: </strong>{{ $feedInvoice->where('farm_status', 1)->sum('sale_qty') }} </p>
                 <p> <strong> Chickens Sale (QTY):
                     </strong>{{ $chickenInvoice->sum('hen_qty') }} </p>
                 <p> <strong> Chickens Sale (Net Weight):
