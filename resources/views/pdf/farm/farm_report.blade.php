@@ -244,7 +244,6 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-
                                             @if ($farm)
                                                 <span>{{ $row->farm == $farm->id ? $row->amount_total : '-' . $row->sale_amount_total }}</span>
                                             @else
