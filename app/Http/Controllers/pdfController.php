@@ -110,7 +110,7 @@ class pdfController extends Controller
                 $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
 
                 if ($farm) {
-                        $feedInvoice->where('farm', $farm_id);
+                        $feedInvoice->where('farm', $farm_id)->orWhere('supply_farm', $farm_id);
                 }
 
                 $payment_voucher = p_voucher::whereBetween('date', [$startDate, $endDate]);
