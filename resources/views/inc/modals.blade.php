@@ -558,6 +558,38 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
+                            <label for="">Customize Report</label>
+
+                            <div class="col-12 d-flex justify-content-around">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="jv"  />
+                                    <label class="form-check-label"> JV </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="pv"  />
+                                    <label class="form-check-label"> PV </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="rv"  />
+                                    <label class="form-check-label"> RV </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="ev"  />
+                                    <label class="form-check-label"> EV </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="chi"  />
+                                    <label class="form-check-label"> CHI </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="ci" />
+                                    <label class="form-check-label"> CI </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" checked name="fi"  />
+                                    <label class="form-check-label"> FI </label>
+                                </div>
+                            </div>
                         </div>
 
                         <div class="row"

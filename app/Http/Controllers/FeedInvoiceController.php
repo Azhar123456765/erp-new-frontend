@@ -99,6 +99,7 @@ class FeedInvoiceController extends Controller
             $invoice->seller = $request['seller'];
             $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
+            $invoice->supply_farm = $request['supply_farm'] ?? null;
             $invoice->farm = $request['farm'] ?? null;
             $invoice->farm_status = $request['farm_status'] ?? 0;
             $invoice->remark = $request['remark'] ?? null;
@@ -202,6 +203,7 @@ class FeedInvoiceController extends Controller
             $invoice->seller = $request['seller'];
             $invoice->buyer = $request['buyer'];
             $invoice->sales_officer = $request['sales_officer'] ?? null;
+            $invoice->supply_farm = $request['supply_farm'] ?? null;
             $invoice->farm = $request['farm'] ?? null;
             $invoice->farm_status = $request['farm_status'] ?? 0;
             $invoice->remark = $request['remark'] ?? null;

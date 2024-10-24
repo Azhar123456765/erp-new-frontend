@@ -28,6 +28,10 @@ class feedInvoice extends Model
     {
         return $this->hasOne(Farm::class, 'id', "farm");
     }
+    function SupplyFarms()
+    {
+        return $this->hasOne(Farm::class, 'id', "supply_farm");
+    }
     function user()
     {
         return $this->hasMany(User::class, 'user_id', "user_id");

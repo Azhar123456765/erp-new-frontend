@@ -244,8 +244,14 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->farm_status == 0 ? $row->amount_total : '-' . $row->sale_amount_total }}</span>
+
+                                            @if ($farm)
+                                                <span>{{ $row->farm == $farm->id ? $row->amount_total : '-' . $row->sale_amount_total }}</span>
+                                            @else
+                                                <span>{{ $row->amount_total }}</span>
+                                            @endif
                                         </td>
+
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -253,13 +259,18 @@
                                 <tr>
                                     <th colspan="4" style="text-align:right;"> Total: </th>
                                     <th colspan="1" style="text-align:right;">
-                                        {{ $feedInvoice->where('farm_status', 0)->sum('amount') - $feedInvoice->where('farm_status', 1)->sum('sale_amount') }}
+                                        @if ($farm)
+                                            {{ $feedInvoice->where('farm_status', 0)->sum('amount') - $feedInvoice->where('farm_status', 1)->sum('sale_amount') }}
+                                        @else
+                                            {{ $feedInvoice->where('farm_status', 0)->sum('amount') }}
+                                        @endif
+
                                     </th>
                                 </tr>
                             </tfoot>
                         </table>
                     @endif
-                  
+
                 @endif
                 @if (count($salary) > 0 || count($rent) > 0 || count($utility) > 0)
                     <h3><b>Expenses</b></h3>
@@ -637,7 +648,7 @@
                             </tfoot>
                         </table> --}}
 
-                        {{-- <table class="ui celled table" id="invoice-table">
+                {{-- <table class="ui celled table" id="invoice-table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -678,7 +689,7 @@
                         </table>
 @endif
                     @if (count($feedInvoiceLiab->where('amount_total', '>=', 0)) > 0) --}}
-{{-- <table class="ui celled table" id="invoice-table">
+                {{-- <table class="ui celled table" id="invoice-table">
                         <thead>
                             <tr>
                                 <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -722,7 +733,7 @@
                         </tfoot>
                     </table> --}}
 
-                    {{-- <table class="ui celled table" id="invoice-table">
+                {{-- <table class="ui celled table" id="invoice-table">
                         <thead>
                             <tr>
                                 <th class="text-center colfix date-th" style="text-align: center;">Date</th>

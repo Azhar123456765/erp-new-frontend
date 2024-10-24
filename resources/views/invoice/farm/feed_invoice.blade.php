@@ -295,27 +295,13 @@ right: 15%;
 
                     </select>
                 </div>
-
-            </div>
-            <div class="fields">
                 <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="sales_officer" class="select-farm">
+                    <label>Farm</label>
+                    <select name="supply_farm" class="select-farm">
                     </select>
                 </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm Status</label>
-                    <select name="farm_status" class="form-group">
-                        <option value="0" selected>
-                            Feed In
-                        </option>
-                        <option value="1" selected>
-                            Feed In
-                        </option>
-                    </select>
-
-                </div>
             </div>
+
             <div class="fields">
                 <div class="one  remark">
                     <label for="sales_officer">Sales Officer</label>
@@ -331,6 +317,11 @@ right: 15%;
                     <label for="seller">Customer</label>
                     <select name="buyer" class="select-buyer" required>
 
+                    </select>
+                </div>
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
                     </select>
                 </div>
             </div>

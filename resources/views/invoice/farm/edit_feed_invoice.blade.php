@@ -297,30 +297,19 @@ right: 15%;
                             {{ $single_invoice->supplier->company_name ?? null }}</option>
                     </select>
                 </div>
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="supply_farm" class="select-farm">
+                        <option value="{{ $single_invoice->SupplyFarms->id ?? (null ?? null) }}" selected>
+                            {{ $single_invoice->SupplyFarms->name ?? (null ?? null) }}</option>
+                    </select>
 
+                </div>
             </div>
 
             <div class="fields">
-                <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="farm" class="select-farm">
-                        <option value="{{ $single_invoice->farms->id ?? (null ?? null) }}" selected>
-                            {{ $single_invoice->farms->name ?? (null ?? null) }}</option>
-                    </select>
 
-                </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm Status</label>
-                    <select name="farm_status" class="form-group">
-                        <option value="0" {{ $single_invoice->farm_status == 0 ? 'selected' : '' }}>
-                            Feed In
-                        </option>
-                        <option value="1" {{ $single_invoice->farm_status == 1 ? 'selected' : '' }}>
-                            Feed Out
-                        </option>
-                    </select>
 
-                </div>
             </div>
             <div class="fields">
                 <div class="one  remark">
@@ -343,6 +332,14 @@ right: 15%;
                         <option value="{{ $single_invoice->customer->buyer_id }}" selected>
                             {{ $single_invoice->customer->company_name }}</option>
                     </select>
+                </div>
+                <div class="one  remark">
+                    <label for="sales_officer">Farm</label>
+                    <select name="farm" class="select-farm">
+                        <option value="{{ $single_invoice->farms->id ?? (null ?? null) }}" selected>
+                            {{ $single_invoice->farms->name ?? (null ?? null) }}</option>
+                    </select>
+
                 </div>
             </div>
         </div>
