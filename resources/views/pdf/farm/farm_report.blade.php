@@ -836,10 +836,23 @@
             </div>
             <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Purchases: </strong>PKR
-                    {{ $chickInvoice->sum('amount_total') + $feedInvoice->sum('amount_total') }} </p>
+                    @if ($farm)
+                        {{ $chickInvoice->sum('amount_total') + $feedInvoice->where('farm', $farm->id)->sum('amount') - $feedInvoice->where('supply_farm', $farm->id)->sum('sale_amount') }}
+                    @else
+                        {{ $chickInvoice->sum('amount_total') + $feedInvoice->sum('amount') }}
+                    @endif
                 </p>
                 <p> <strong> Expenses: </strong>
-                    PKR {{ $expense_voucher->sum('amount') }}
+                    PKR
+                    {{ $expense_voucher->whereIn('cash_bank', $salaryAccounts->pluck('id'))->sum('amount') +
+                        ($journal_voucher->whereIn('to_account', $salaryAccounts->pluck('id'))->where('status', 'debit')->sum('amount') +
+                            $journal_voucher->whereIn('from_account', $salaryAccounts->pluck('id'))->where('status', 'credit')->sum('amount')) +
+                        $expense_voucher->whereIn('cash_bank', $rentAccounts->pluck('id'))->sum('amount') +
+                        ($journal_voucher->whereIn('to_account', $rentAccounts->pluck('id'))->where('status', 'debit')->sum('amount') +
+                            $journal_voucher->whereIn('from_account', $rentAccounts->pluck('id'))->where('status', 'credit')->sum('amount')) +
+                        $expense_voucher->whereIn('cash_bank', $utilityAccounts->pluck('id'))->sum('amount') +
+                        ($journal_voucher->whereIn('to_account', $utilityAccounts->pluck('id'))->where('status', 'debit')->sum('amount') +
+                            $journal_voucher->whereIn('from_account', $utilityAccounts->pluck('id'))->where('status', 'credit')->sum('amount')) }}
                 </p>
                 <p> <strong> Income: </strong>PKR {{ $chickenInvoice->sum('amount') }} </p>
                 <p> <strong> Net Income: </strong>PKR
