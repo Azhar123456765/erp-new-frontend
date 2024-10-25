@@ -259,9 +259,9 @@
                                     <th colspan="4" style="text-align:right;"> Total: </th>
                                     <th colspan="1" style="text-align:right;">
                                         @if ($farm)
-                                            {{ $feedInvoice->where('farm_status', 0)->sum('amount') - $feedInvoice->where('farm_status', 1)->sum('sale_amount') }}
+                                            {{ $feedInvoice->where('farm', $farm->id)->sum('amount') - $feedInvoice->where('supply_farm', $farm->id)->sum('sale_amount') }}
                                         @else
-                                            {{ $feedInvoice->where('farm_status', 0)->sum('amount') }}
+                                            {{ $feedInvoice->sum('amount') }}
                                         @endif
 
                                     </th>
@@ -837,8 +837,6 @@
             <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Purchases: </strong>PKR
                     {{ $chickInvoice->sum('amount_total') + $feedInvoice->sum('amount_total') }} </p>
-                <p> <strong> Liablities: </strong>PKR
-                    {{ $chickInvoiceLiab->where('amount_total', '>=', 0)->sum('amount_total') + $feedInvoiceLiab->where('amount_total', '>=', 0)->sum('amount_total') }}
                 </p>
                 <p> <strong> Expenses: </strong>
                     PKR {{ $expense_voucher->sum('amount') }}
@@ -855,8 +853,13 @@
             </div>
             <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Total Chicks Purchase: </strong>{{ $chickInvoice->sum('sale_qty') }} </p>
-                <p> <strong> Total Feed In: </strong>{{ $feedInvoice->where('farm_status', 0)->sum('qty') }} </p>
-                <p> <strong> Total Feed Out: </strong>{{ $feedInvoice->where('farm_status', 1)->sum('sale_qty') }} </p>
+                @if ($farm)
+                    <p> <strong> Total Feed In: </strong>{{ $feedInvoice->where('farm', $farm->id)->sum('qty') }} </p>
+                    <p> <strong> Total Feed Out:
+                        </strong>{{ $feedInvoice->where('supply_farm', $farm->id)->sum('sale_qty') }} </p>
+                @else
+                    <p> <strong> Total Feed: </strong>{{ $feedInvoice->sum('qty') }} </p>
+                @endif
                 <p> <strong> Chickens Sale (QTY):
                     </strong>{{ $chickenInvoice->sum('hen_qty') }} </p>
                 <p> <strong> Chickens Sale (Net Weight):
@@ -868,10 +871,21 @@
                 <div class="header">Expense Summary</div>
             </div>
             <div class="content" style="border-top:1px solid #363636 !important;height: 160px;">
-                <p> <strong> Salary: </strong>{{ $salary->sum('amount') }} </p>
-                <p> <strong> Rent: </strong>{{ $rent->sum('amount') }} </p>
+                <p> <strong> Salary:
+                    </strong>{{ $expense_voucher->whereIn('cash_bank', $salaryAccounts->pluck('id'))->sum('amount') +
+                        ($journal_voucher->whereIn('to_account', $salaryAccounts->pluck('id'))->where('status', 'debit')->sum('amount') +
+                            $journal_voucher->whereIn('from_account', $salaryAccounts->pluck('id'))->where('status', 'credit')->sum('amount')) }}
+                </p>
+                <p> <strong> Rent:
+                    </strong>{{ $expense_voucher->whereIn('cash_bank', $rentAccounts->pluck('id'))->sum('amount') +
+                        ($journal_voucher->whereIn('to_account', $rentAccounts->pluck('id'))->where('status', 'debit')->sum('amount') +
+                            $journal_voucher->whereIn('from_account', $rentAccounts->pluck('id'))->where('status', 'credit')->sum('amount')) }}
+                </p>
                 <p> <strong> Utility:
-                    </strong>{{ $utility->sum('amount') }} </p>
+                    </strong>{{ $expense_voucher->whereIn('cash_bank', $utilityAccounts->pluck('id'))->sum('amount') +
+                        ($journal_voucher->whereIn('to_account', $utilityAccounts->pluck('id'))->where('status', 'debit')->sum('amount') +
+                            $journal_voucher->whereIn('from_account', $utilityAccounts->pluck('id'))->where('status', 'credit')->sum('amount')) }}
+                </p>
 
             </div>
         </div>
