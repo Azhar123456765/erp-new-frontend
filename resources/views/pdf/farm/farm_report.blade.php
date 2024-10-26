@@ -166,7 +166,7 @@
                 @if (count($chickInvoice) > 0 || count($feedInvoice) > 0)
                     <h3><b>Purchase</b></h3>
                     @if (count($chickInvoice) > 0)
-                        <table class="ui celled table" id="invoice-table">
+                        <table class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -213,7 +213,7 @@
                         </table>
                     @endif
                     @if (count($feedInvoice) > 0)
-                        <table class="ui celled table" id="invoice-table">
+                        <table class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -285,7 +285,7 @@
                                     ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
                                         $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $salaryRow->account_name }}</b></h6>
-                                <table class="ui celled table" id="invoice-table">
+                                <table class="ui celled table">
                                     <thead>
                                         <tr>
                                             <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -381,7 +381,7 @@
                                     ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 ||
                                         $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $rentRow->account_name }}</b></h6>
-                                <table class="ui celled table" id="invoice-table">
+                                <table class="ui celled table">
                                     <thead>
                                         <tr>
                                             <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -478,7 +478,7 @@
                                     ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 ||
                                         $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->count()))
                                 <h6><b>{{ $utilityRow->account_name }}</b></h6>
-                                <table class="ui celled table" id="invoice-table">
+                                <table class="ui celled table">
                                     <thead>
                                         <tr>
                                             <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -565,7 +565,7 @@
                     @endif
 
                     @if (count($daily_reports) > 0)
-                        <table class="ui celled table" id="invoice-table">
+                        <table class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix" style="text-align: center;">Hean Deaths</th>
@@ -603,7 +603,7 @@
                 {{-- @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
                     <h3><b>Liablities</b></h3>
                     @if (count($chickInvoiceLiab->where('amount_total', '>=', 0)) > 0)
-                        {{-- <table class="ui celled table" id="invoice-table">
+                        {{-- <table class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -647,7 +647,7 @@
                             </tfoot>
                         </table> --}}
 
-                {{-- <table class="ui celled table" id="invoice-table">
+                {{-- <table class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -688,7 +688,7 @@
                         </table>
 @endif
                     @if (count($feedInvoiceLiab->where('amount_total', '>=', 0)) > 0) --}}
-                {{-- <table class="ui celled table" id="invoice-table">
+                {{-- <table class="ui celled table">
                         <thead>
                             <tr>
                                 <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -732,7 +732,7 @@
                         </tfoot>
                     </table> --}}
 
-                {{-- <table class="ui celled table" id="invoice-table">
+                {{-- <table class="ui celled table">
                         <thead>
                             <tr>
                                 <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -776,7 +776,7 @@
                 @if (count($chickenInvoice) > 0)
                     <h3><b>Income</b></h3>
                     @if (count($chickenInvoice) > 0)
-                        <table class="ui celled table" id="invoice-table">
+                        <table class="ui celled table">
                             <thead>
                                 <tr>
                                     <th class="text-center colfix date-th" style="text-align: center;">Date</th>
@@ -905,4 +905,5 @@
         </div>
     </div>
     </div>
+ 
 @endsection

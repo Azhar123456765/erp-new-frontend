@@ -184,6 +184,33 @@
         <!-- partial -->
         <script src='https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.2.9/semantic.min.js'></script>
         <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                sortAllTablesByDate(); // Sort all tables on document ready
+            });
+
+            function sortAllTablesByDate() {
+                const tables = document.querySelectorAll('table'); // Select all <table> elements
+
+                tables.forEach(table => {
+                    const tbody = table.querySelector('tbody');
+                    const rows = Array.from(tbody.querySelectorAll('tr'));
+
+                    rows.sort((rowA, rowB) => {
+                        const dateA = parseDate(rowA.cells[0].textContent.trim());
+                        const dateB = parseDate(rowB.cells[0].textContent.trim());
+                        return dateA - dateB; // For ascending order
+                    });
+
+                    rows.forEach(row => tbody.appendChild(row)); // Reorder rows in each table
+                });
+            }
+
+            function parseDate(dateStr) {
+                const [day, month, year] = dateStr.split('-').map(Number);
+                return new Date(year, month - 1, day); // JavaScript Date object uses 0-based month
+            }
+        </script>
 </body>
 
 </html>
