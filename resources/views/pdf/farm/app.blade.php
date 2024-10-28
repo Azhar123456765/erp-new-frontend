@@ -118,6 +118,9 @@
         td {
             font-weight: bolder;
         }
+        a{
+            color: black !important;
+        }
     </style>
 </head>
 

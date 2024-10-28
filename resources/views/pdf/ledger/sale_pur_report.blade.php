@@ -121,7 +121,10 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                        <span>CK-{{ $row->unique_id }}</span>
+                                         <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
+                                            target="__blank"><span>CH-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td class="text-right">
                                         <span>{{ $row->hen_qty }}</span>
@@ -221,7 +224,10 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                        <span>C-{{ $row->unique_id }}</span>
+                                         <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                            target="__blank"><span>C-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td style="text-align: left
                 ;">
@@ -309,7 +315,10 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                        <span>F-{{ $row->unique_id }}</span>
+                                         <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                            target="__blank"><span>F-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                     </td>
                                     <td style="text-align: left
                 ;">

@@ -185,7 +185,10 @@
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
-                                            <span>C-{{ $row->unique_id }}</span>
+                                             <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                            target="__blank"><span>C-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                         </td>
                                         <td style="text-align: left
 ;">
@@ -232,7 +235,10 @@
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
-                                            <span>F-{{ $row->unique_id }}</span>
+                                             <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                            target="__blank"><span>F-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                         </td>
                                         <td style="text-align: left
 ;">
@@ -305,7 +311,10 @@
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span>EV-{{ $row->unique_id }}</span>
+                                                     <a href="{{ Route('expense_voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>EV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                                 </td>
                                                 <td style="text-align: left;">
                                                     <span>{{ $row->narration }}</span>
@@ -329,7 +338,10 @@
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span>JV-{{ $row->unique_id }}</span>
+                                                     <a href="{{ Route('journal-voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>JV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                                 </td>
                                                 <td style="text-align: left;">
                                                     <span>{{ $row->narration }}</span>
@@ -401,7 +413,10 @@
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span>EV-{{ $row->unique_id }}</span>
+                                                     <a href="{{ Route('expense_voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>EV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                                 </td>
                                                 <td style="text-align: left;">
                                                     <span>{{ $row->narration }}</span>
@@ -426,7 +441,10 @@
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span>JV-{{ $row->unique_id }}</span>
+                                                     <a href="{{ Route('journal-voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>JV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                                 </td>
                                                 <td style="text-align: left;">
                                                     <span>{{ $row->narration }}</span>
@@ -499,7 +517,10 @@
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span>EV-{{ $row->unique_id }}</span>
+                                                     <a href="{{ Route('expense_voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>EV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                                 </td>
                                                 <td style="text-align: left;">
                                                     <span>{{ $row->narration }}</span>
@@ -523,7 +544,10 @@
                                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                                 </td>
                                                 <td class="text-right">
-                                                    <span>JV-{{ $row->unique_id }}</span>
+                                                     <a href="{{ Route('journal-voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>JV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                                 </td>
                                                 <td style="text-align: left;">
                                                     <span>{{ $row->narration }}</span>
@@ -666,7 +690,10 @@
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
-                                            <span>C-{{ $row->unique_id }}</span>
+                                             <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                            target="__blank"><span>C-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                         </td>
                                         <td style="text-align: left
 ;">
@@ -751,7 +778,10 @@
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
-                                            <span>F-{{ $row->unique_id }}</span>
+                                             <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                            target="__blank"><span>F-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                         </td>
                                         <td style="text-align: left
 ;">
@@ -796,7 +826,10 @@
                                             <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                         </td>
                                         <td class="text-right">
-                                            <span>CH-{{ $row->unique_id }}</span>
+                                             <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
+                                            target="__blank"><span>CH-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                         </td>
                                         <td style="text-align: left
 ;">

@@ -172,6 +172,9 @@
         .text-center {
             text-align: center !important;
         }
+        a{
+            color: black !important;
+        }
     </style>
 </head>
 

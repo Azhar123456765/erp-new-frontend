@@ -93,7 +93,10 @@
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
-                                    <span>JV-{{ $row->unique_id }}</span>
+                                     <a href="{{ Route('journal-voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>JV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                 </td>
                                 <td style="text-align: left
                                 ;">

@@ -19,7 +19,7 @@
                     <div class="ui">
                         <h1 class = "ui header pageTitle">{{ $method == 0 ? 'Sale' : 'Purchase' }} Invoice
                         </h1>
-                        <h4 class="ui sub header invDetails">NO: CK-{{ $single_data['unique_id'] }} | Date:
+                        <h4 class="ui sub header invDetails">NO: CH-{{ $single_data['unique_id'] }} | Date:
                              {{ (new DateTime($single_data['date']))->format('d-m-Y') }}</h4>
                     </div>
                 </div>

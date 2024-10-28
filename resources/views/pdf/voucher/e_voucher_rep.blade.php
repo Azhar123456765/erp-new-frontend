@@ -80,7 +80,10 @@
                                     <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                 </td>
                                 <td class="text-right">
-                                    <span>EV-{{ $row->unique_id }}</span>
+                                     <a href="{{ Route('expense_voucher.edit', $row->unique_id) }}"
+                                            target="__blank"><span>EV-{{ $row->unique_id }}
+                                            </span>
+                                        </a>
                                 </td>
                                 <td style="text-align: left
                 ;">
