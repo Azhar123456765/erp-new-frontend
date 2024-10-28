@@ -923,6 +923,10 @@ class pdfController extends Controller
                         $account = $request->input('account');
                         $farm = $request->input('farm');
                         $salesOfficer = $request->input('sales_officer');
+
+                        $salaryAccounts = accounts::where('account_category', 9)->get();
+                        $rentAccounts = accounts::where('account_category', 10)->get();
+                        $utilityAccounts = accounts::where('account_category', 11)->get();
                         
                         $salary = accounts::where('account_category', 9)->pluck('id');
                         $rent = accounts::where('account_category', 10)->pluck('id');
@@ -946,6 +950,7 @@ if ($salesOfficer) {
         $expense_voucher->where('sales_officer', $salesOfficer);
 }
 
+$journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
 $salaryjv = JournalVoucher::whereBetween('date', [$startDate, $endDate])->
 where(function ($query) {
     $query->where(function ($query) {
@@ -991,16 +996,19 @@ where(function ($query) {
 
 
 if ($account) {
+        $journal_voucher->where('from_account', $account)->orWhere('to_account', $account);
         $salaryjv->where('from_account', $account)->orWhere('to_account', $account);
         $rentjv->where('from_account', $account)->orWhere('to_account', $account);
         $utilityjv->where('from_account', $account)->orWhere('to_account', $account);
 }
 if ($farm) {
+        $journal_voucher->where('farm', $farm);
         $salaryjv->where('farm', $farm);
         $rentjv->where('farm', $farm);
         $utilityjv->where('farm', $farm);
 }
 if ($salesOfficer) {
+        $journal_voucher->where('sales_officer', $salesOfficer);
         $salaryjv->where('sales_officer', $salesOfficer);
         $rentjv->where('sales_officer', $salesOfficer);
         $utilityjv->where('sales_officer', $salesOfficer);
@@ -1025,6 +1033,12 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                                 'endDate' => $endDate,
                                 'accountDetails' => $accountDetails ?? null,
                                 'farmDetails' => $farmDetails ?? null,
+                                
+                                'journal_voucher' => $journal_voucher,
+
+                                'salaryAccounts' => $salaryAccounts,
+                        'rentAccounts' => $rentAccounts,
+                        'utilityAccounts' => $utilityAccounts,
                                 
                                 'salary' => $salary,
                                 'rent' => $rent,

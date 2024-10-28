@@ -107,7 +107,7 @@
 
             return $groupedData;
         });
-        // dd($chickInvoice);
+        // dd($salaryAccounts);
         $total_amount = 0;
         $total_sale_amount = 0;
     @endphp
@@ -275,8 +275,8 @@
                     <h3><b>Expenses</b></h3>
                     @if (
                         (count($salary) > 0 && count($salaryAccounts) > 0) ||
-                            ($journal_voucher->where('to_account', $salaryRow->id)->where('status', 'debit')->count() > 0 ||
-                                $journal_voucher->where('from_account', $salaryRow->id)->where('status', 'credit')->count()))
+                            ($journal_voucher->whereIn('to_account', $salaryAccounts->pluck('id'))->where('status', 'debit')->count() > 0 ||
+                                $journal_voucher->whereIn('from_account', $salaryAccounts->pluck('id'))->where('status', 'credit')->count()))
                         <h3><b>salary</b></h3>
 
                         @foreach ($salaryAccounts as $salaryRow)
@@ -371,8 +371,8 @@
                     @endif
                     @if (
                         (count($rent) > 0 && count($rentAccounts) > 0) ||
-                            ($journal_voucher->where('to_account', $rentRow->id)->where('status', 'debit')->count() > 0 &&
-                                $journal_voucher->where('from_account', $rentRow->id)->where('status', 'credit')->count()))
+                            ($journal_voucher->whereIn('to_account', $rentAccounts->pluck('id'))->where('status', 'debit')->count() > 0 ||
+                                $journal_voucher->whereIn('from_account', $rentAccounts->pluck('id'))->where('status', 'credit')->count()))
                         <h3><b>rent</b></h3>
 
                         @foreach ($rentAccounts as $rentRow)
@@ -468,8 +468,9 @@
                     @endif
                     @if (
                         (count($utility) > 0 && count($utilityAccounts) > 0) ||
-                            ($journal_voucher->where('to_account', $utilityRow->id)->where('status', 'debit')->count() > 0 &&
-                                $journal_voucher->where('from_account', $utilityRow->id)->where('status', 'credit')->count()))
+                            ($journal_voucher->whereIn('to_account', $utilityAccounts->pluck('id'))->where('status', 'debit')->count() >
+                                0 ||
+                                $journal_voucher->whereIn('from_account', $utilityAccounts->pluck('id'))->where('status', 'credit')->count()))
                         <h3><b>Utility</b></h3>
 
                         @foreach ($utilityAccounts as $utilityRow)
@@ -905,5 +906,5 @@
         </div>
     </div>
     </div>
- 
+
 @endsection

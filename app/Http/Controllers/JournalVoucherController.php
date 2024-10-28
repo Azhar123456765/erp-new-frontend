@@ -102,7 +102,7 @@ class JournalVoucherController extends Controller
         if (count($j_voucher) > 0) {
             $data = compact('account', 'j_voucher', 'sj_voucher', 'combinedInvoices');
             return view('vouchers.e_journal')->with($data);
-        }else{
+        } else {
             // return redirect
         }
     }
@@ -191,7 +191,6 @@ class JournalVoucherController extends Controller
             $invoice = new JournalVoucher;
 
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $invoice->farm = $invoiceData['farm'] ?? null;
             $invoice->buyer = $company ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
@@ -203,6 +202,7 @@ class JournalVoucherController extends Controller
 
             $invoice->amount_total = $invoiceData['amount_total'] ?? null;
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
+            $invoice->farm = $invoiceData['farm']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
             $invoice->from_account = $invoiceData['from_account']["$i"] ?? null;
@@ -320,11 +320,11 @@ class JournalVoucherController extends Controller
 
             $invoice->unique_id = $invoiceData['unique_id'] ?? null;
             $invoice->sales_officer = $invoiceData['sales_officer'] ?? null;
-            $invoice->farm = $invoiceData['farm'] ?? null;
             $invoice->buyer = $company ?? null;
             $invoice->remark = $invoiceData['remark'] ?? null;
             $invoice->date = $invoiceData['date'] ?? null;
             $invoice->narration = $invoiceData['narration']["$i"] ?? null;
+            $invoice->farm = $invoiceData['farm']["$i"] ?? null;
             $invoice->cheque_no = $invoiceData['cheque_no']["$i"] ?? null;
             $invoice->cheque_date = $invoiceData['cheque_date']["$i"] ?? null;
             $invoice->from_account = $invoiceData['from_account']["$i"] ?? null;

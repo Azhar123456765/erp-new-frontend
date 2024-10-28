@@ -167,7 +167,7 @@
     }
 
     input {
-        width: 181px !important;
+        width: 141px !important;
         height: 27px !important;
     }
 
@@ -182,7 +182,7 @@
     }
 
     #invoiceForm .select2-container--classic {
-        width: 191px !important;
+        width: 171px !important;
         height: 27px !important;
 
         line-height: 25px !important;
@@ -321,14 +321,7 @@
                     <input style="width: 219px !important;" type="text" id="remark" name="remark"
                         value="{{ $sj_voucher->remark }}" />
                 </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="farm" class="select-farm">
-                        <option value="{{ $sj_voucher->farms->id ?? null }}" selected>
-                            {{ $sj_voucher->farms->name ?? null }}</option>
-                    </select>
 
-                </div>
             </div>
         </div>
 
@@ -338,6 +331,7 @@
             @csrf
             <div class="label">
                 <label for="item" style="padding-right: 91px;">Narration</label>
+                <label for="unit">Farm</label>
                 <label for="unit">Invoice No</label>
                 <label for="unit">Cheque No</label>
                 <label for="batch_no">Cheque Date</label>
@@ -357,8 +351,14 @@
 
 
                     <div class="div">
-                        <input style="width: 289px !important;" type="text" id="narration" name="narration[]"
+                        <input style="width: 249px !important;" type="text" id="narration" name="narration[]"
                             value="{{ $invoice_row->narration }}" />
+                    </div>
+                    <div class="div">
+                        <select name="farm[]" class="select-farm">
+                            <option value="{{ $invoice_row->farms->id ?? null }}" selected>
+                                {{ $invoice_row->farms->name ?? null }}</option>
+                        </select>
                     </div>
                     <div class="div">
 
@@ -419,7 +419,13 @@
 
 
                 <div class="div">
-                    <input style="width: 289px !important;" type="text" id="narration" name="narration[]" />
+                    <input style="width: 249px !important;" type="text" id="narration" name="narration[]" />
+                </div>
+                <div class="div">
+                    <div class="div">
+                        <select name="farm[]" class="select-farm">
+                        </select>
+                    </div>
                 </div>
                 <div class="div">
                     <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
@@ -765,10 +771,15 @@ text-align:end;
 
 
 <div class="div">
-    <input style="width: 289px !important;"  type="text" id="narration` + counter +
+    <input style="width: 249px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
-
+ <div class="div">
+                        <select name="farm[]" class="select-farm">
+                            <option value="{{ $sj_voucher->farms->id ?? null }}" selected>
+                                {{ $sj_voucher->farms->name ?? null }}</option>
+                        </select>
+                    </div>
  <div class="div">
                     <select class="invoice_no select-all-invoice-no"  name="invoice_no[]"
                         style="height: 28px">
@@ -813,7 +824,7 @@ text-align:end;
 
             }
 
-            let amount = $("#cheque_no").val()
+            let amount = $("#narration").val()
             let narration = $("#narration").val()
             if (!$("#narration").hasClass('check')) {
 
@@ -858,7 +869,35 @@ text-align:end;
                         theme: 'classic',
                         width: '100%',
                     });
-
+                    $('.select-farm').select2({
+                        ajax: {
+                            url: '{{ route('select2.farm') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
@@ -906,9 +945,15 @@ text-align:end;
 
 
 <div class="div">
-<input style="width: 289px !important;"  type="text" id="narration` + counter +
+<input style="width: 249px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
+ <div class="div">
+                        <select name="farm[]" class="select-farm">
+                            <option value="{{ $sj_voucher->farms->id ?? null }}" selected>
+                                {{ $sj_voucher->farms->name ?? null }}</option>
+                        </select>
+                    </div>
  <div class="div">
                     <select class="invoice_no select-all-invoice-no"  name="invoice_no[]"
                         style="height: 28px">
@@ -952,7 +997,7 @@ text-align:end;
             }
 
             counter = counter - 1
-            let amount2 = $("#cheque_no" + counter).val()
+            let amount2 = $("#narration" + counter).val()
             console.log(counter);
             let narration2 = $("#narration" + counter).val()
             if (!$("#narration" + counter).hasClass('check')) {
@@ -997,7 +1042,35 @@ text-align:end;
                         theme: 'classic',
                         width: '100%',
                     });
-
+                    $('.select-farm').select2({
+                        ajax: {
+                            url: '{{ route('select2.farm') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
@@ -1103,8 +1176,8 @@ text-align:end;
                                     style="width: 100% !important;">
                             </div>
 
-                            <button type="submit" data-url="{{ Route('journal-voucher.edit') }}" class="btn btn-primary"
-                                id="search-btn">Search</button>
+                            <button type="submit" data-url="{{ Route('journal-voucher.edit') }}"
+                                class="btn btn-primary" id="search-btn">Search</button>
 
                         </form>
                     </div>

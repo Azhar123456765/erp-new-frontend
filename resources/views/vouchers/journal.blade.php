@@ -118,7 +118,7 @@
     }
 
     input {
-        width: 181px !important;
+        width: 141px !important;
         height: 27px !important;
     }
 
@@ -133,7 +133,7 @@
     }
 
     #invoiceForm .select2-container--classic {
-        width: 191px !important;
+        width: 171px !important;
         height: 27px !important;
 
         line-height: 25px !important;
@@ -260,11 +260,11 @@
                     <label for="remark">Remarks</label>
                     <input style="width: 219px !important;" type="text" id="remark" name="remark" />
                 </div>
-                <div class="one  remark">
+                {{-- <div class="one  remark">
                     <label for="farm">Farm</label>
                     <select name="farm" class="select-farm" style="justify-content: space-around">
                     </select>
-                </div>
+                </div> --}}
             </div>
         </div>
 
@@ -277,7 +277,7 @@
 
                 <div class="div">
                     <label for="unit">Narration</label>
-                    <input style="width: 289px !important;" type="text" list="narrations" id="narration"
+                    <input style="width: 249px !important;" type="text" list="narrations" id="narration"
                         name="narration[]" />
                     <datalist id="narrations">
                         @foreach ($narrations as $row)
@@ -286,6 +286,11 @@
                     </datalist>
                 </div>
 
+                <div class="div">
+                    <label for="dis">Farm</label>
+                    <select name="farm[]" class="select-farm" style="justify-content: space-around">
+                    </select>
+                </div>
                 <div class="div">
                     <label for="dis">Invoice</label>
                     <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
@@ -599,10 +604,15 @@
 
 
 <div class="div">
-    <input style="width: 289px !important;"  type="text" id="narration` + counter +
+    <input style="width: 249px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
 
+ <div class="div">
+                    <select class="farm select-farm" name="farm[]" style="height: 28px">
+                        <option></option>
+                    </select>
+                </div>
  <div class="div">
                     <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
                         <option></option>
@@ -648,7 +658,7 @@
 
             }
 
-            let amount = $("#cheque_no").val()
+            let amount = $("#narration").val()
             let narration = $("#narration").val()
             if (!$("#narration").hasClass('check')) {
 
@@ -693,7 +703,35 @@
                         theme: 'classic',
                         width: '100%',
                     });
-
+                    $('.select-farm').select2({
+                        ajax: {
+                            url: '{{ route('select2.farm') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
@@ -741,10 +779,14 @@
 
 
 <div class="div">
-<input style="width: 289px !important;"  type="text" id="narration` + counter +
+<input style="width: 249px !important;"  type="text" id="narration` + counter +
                     `" name="narration[]" onchange="addInvoice2(` + counter + `)"/>
 </div>
-
+ <div class="div">
+                    <select class="farm select-farm" name="farm[]" style="height: 28px">
+                        <option></option>
+                    </select>
+                </div>
  <div class="div">
                     <select class="invoice_no select-all-invoice-no" name="invoice_no[]" style="height: 28px">
                         <option></option>
@@ -794,7 +836,7 @@
 
 
             counter = counter - 1
-            let amount2 = $("#cheque_no" + counter).val()
+            let amount2 = $("#narration" + counter).val()
             console.log(counter);
             let narration2 = $("#narration" + counter).val()
             if (!$("#narration" + counter).hasClass('check')) {
@@ -839,7 +881,35 @@
                         theme: 'classic',
                         width: '100%',
                     });
-
+                    $('.select-farm').select2({
+                        ajax: {
+                            url: '{{ route('select2.farm') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.name,
+                                            id: item.id
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+                        theme: 'classic',
+                        width: '100%',
+                        allowClear: true,
+                        placeholder: '',
+                        allowClear: true,
+                        placeholder: '',
+                    });
                 }
             }
 
