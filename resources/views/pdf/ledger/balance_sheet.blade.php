@@ -259,99 +259,79 @@
             <div class="table-wrap">
                 <!--Liabilities -->
                 @foreach ($heads as $headRow)
-                    <table>
-                        <caption>{{ $headRow->name }}</caption>
-
-                        <tbody>
-                            @foreach ($sub_heads->where('head', $headRow->id) as $subRow)
-                                <tr class="data">
-                                    <th>{{ $subRow->name }}</th>
-                                    <th style="text-align: end;">
-                                        @php
-                                            $totalAmount = 0;
-                                            $accountDetails = $accounts->where('account_category', $subRow->id);
-
-                                            foreach ($accountDetails as $accountDetailsRow) {
-                                                $chickenInvoiceAmount = $chickenInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
-                                                    ->sum('amount');
-                                                if ($chickenInvoiceAmount <= 0) {
-                                                    $chickenInvoiceAmount = $chickenInvoice
-                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
-                                                        ->sum('amount');
-                                                }
-                                                $chickInvoiceAmount = $chickInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
-                                                    ->sum('amount');
-                                                if ($chickInvoiceAmount <= 0) {
-                                                    $chickInvoiceAmount = $chickInvoice
-                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
-                                                        ->sum('amount');
-                                                }
-                                                $feedInvoiceAmount = $feedInvoice
-                                                    ->where('buyer', $accountDetailsRow->reference_id ?? null)
-                                                    ->sum('amount');
-                                                if ($feedInvoiceAmount <= 0) {
-                                                    $feedInvoiceAmount = $feedInvoice
-                                                        ->where('seller', $accountDetailsRow->reference_id ?? null)
-                                                        ->sum('amount');
-                                                }
-
-                                                $PVAmount = $payment_voucher
-                                                    ->where('cash_bank', $accountDetailsRow->id)
-                                                    ->sum('amount');
-                                                if ($PVAmount <= 0) {
-                                                    $PVAmount = $payment_voucher
-                                                        ->where('company', $accountDetailsRow->id)
-                                                        ->sum('amount');
-                                                }
-                                                $RVAmount = $receipt_voucher
-                                                    ->where('cash_bank', $accountDetailsRow->id)
-                                                    ->sum('amount');
-                                                if ($RVAmount <= 0) {
-                                                    $RVAmount = $receipt_voucher
-                                                        ->where('company', $accountDetailsRow->id)
-                                                        ->sum('amount');
-                                                }
-                                                $EVAmount = $expense_voucher
-                                                    ->where('cash_bank', $accountDetailsRow->id)
-                                                    ->sum('amount');
-                                                if ($EVAmount <= 0) {
-                                                    $EVAmount = $expense_voucher
-                                                        ->where('buyer', $accountDetailsRow->id)
-                                                        ->sum('amount');
-                                                }
-                                                $JVAmount = $journal_voucher
-                                                    ->where('from_account', $accountDetailsRow->id)
-                                                    ->sum('amount');
-                                                if ($JVAmount <= 0) {
-                                                    $JVAmount = $journal_voucher
-                                                        ->where('to_account', $accountDetailsRow->id)
-                                                        ->sum('amount');
-                                                }
-
-                                                $totalAmount +=
-                                                    $chickenInvoiceAmount +
-                                                    $chickInvoiceAmount +
-                                                    $feedInvoiceAmount +
-                                                    $PVAmount +
-                                                    $RVAmount +
-                                                    $EVAmount +
-                                                    $JVAmount;
-                                            }
-
-                                        @endphp
-                                        {{ number_format($totalAmount, 2) }}
-                                    </th>
-                                </tr>
-                            @endforeach
-                            <tr class="total">
-                                <th>Total <span class="sr-only">Liabilities</span></th>
-                                <td> {{ number_format($totalAmount, 2) }}</td>
+                <table>
+                    <caption>{{ $headRow->name }}</caption>
+            
+                    <tbody>
+                        @php $totalHeadAmount = 0; @endphp
+            
+                        @foreach ($sub_heads->where('head', $headRow->id) as $subRow)
+                            <tr class="data">
+                                <th>{{ $subRow->name }}</th>
+                                <th style="text-align: end;">
+                                    @php
+                                        $totalDebit = 0;
+                                        $totalCredit = 0;
+                                        $accountDetails = $accounts->where('account_category', $subRow->id);
+            
+                                        foreach ($accountDetails as $accountDetailsRow) {
+                                            // Reset individual transaction amounts
+                                            $chickenInvoiceAmount = $chickInvoiceAmount = $feedInvoiceAmount = 0;
+                                            $PVAmount = $RVAmount = $EVAmount = $JVAmount = 0;
+            
+                                            // Chicken Invoice
+                                            $chickenInvoiceAmount = $chickenInvoice->where('buyer', $accountDetailsRow->reference_id)->sum('amount');
+                                            $totalCredit += max($chickenInvoiceAmount, 0);
+                                            $totalDebit += $chickenInvoiceAmount < 0 ? abs($chickenInvoiceAmount) : 0;
+            
+                                            // Chick Invoice
+                                            $chickInvoiceAmount = $chickInvoice->where('buyer', $accountDetailsRow->reference_id)->sum('amount');
+                                            $totalCredit += max($chickInvoiceAmount, 0);
+                                            $totalDebit += $chickInvoiceAmount < 0 ? abs($chickInvoiceAmount) : 0;
+            
+                                            // Feed Invoice
+                                            $feedInvoiceAmount = $feedInvoice->where('buyer', $accountDetailsRow->reference_id)->sum('amount');
+                                            $totalCredit += max($feedInvoiceAmount, 0);
+                                            $totalDebit += $feedInvoiceAmount < 0 ? abs($feedInvoiceAmount) : 0;
+            
+                                            // Payment Vouchers
+                                            $PVAmount = $payment_voucher->where('cash_bank', $accountDetailsRow->id)->sum('amount');
+                                            $totalCredit += max($PVAmount, 0);
+                                            $totalDebit += $PVAmount < 0 ? abs($PVAmount) : 0;
+            
+                                            // Receipt Vouchers
+                                            $RVAmount = $receipt_voucher->where('cash_bank', $accountDetailsRow->id)->sum('amount');
+                                            $totalDebit += max($RVAmount, 0);
+                                            $totalCredit += $RVAmount < 0 ? abs($RVAmount) : 0;
+            
+                                            // Expense Vouchers
+                                            $EVAmount = $expense_voucher->where('cash_bank', $accountDetailsRow->id)->sum('amount');
+                                            $totalCredit += max($EVAmount, 0);
+                                            $totalDebit += $EVAmount < 0 ? abs($EVAmount) : 0;
+            
+                                            // Journal Vouchers (conditional status checks)
+                                            $JVAmount = $journal_voucher->where('from_account', $accountDetailsRow->id)->where('status', 'credit')->sum('amount');
+                                            $totalDebit += max($JVAmount, 0);
+                                            $totalCredit += $JVAmount < 0 ? abs($JVAmount) : 0;
+            
+                                            // Summing all amounts for the current account detail
+                                            $totalAmount = $totalCredit - $totalDebit;
+                                        }
+                                        $totalHeadAmount += $totalAmount;
+                                    @endphp
+                                    {{ number_format($totalAmount, 2) }}
+                                </th>
                             </tr>
-                        </tbody>
-                    </table>
-                @endforeach
+                        @endforeach
+            
+                        <tr class="total">
+                            <th>Total <span class="sr-only">{{ $headRow->name }}</span></th>
+                            <td> {{ number_format($totalHeadAmount, 2) }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            @endforeach
+            
                 <!--Net Worth -->
                 <table>
                     <caption>Net Worth</caption>

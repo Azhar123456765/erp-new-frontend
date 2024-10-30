@@ -87,7 +87,7 @@
                                         {{-- <small class="text-muted">18 Units</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">-{{ $row->sale_discount }}%</span>
+                                        <span class="mono">{{ $row->sale_discount }}%</span>
                                         <br>
                                         {{-- <small class="text-muted">Special -10%</small> --}}
                                     </td>
@@ -103,20 +103,24 @@
                             <tr>
                                 <th> Total: </th>
                                 <th colspan="1"></th>
-                                <th colspan = "1"> {{ $single_data['sale_qty_total'] }} </th>
+                                <th colspan = "1" class="text-right"> {{ $single_data['sale_qty_total'] }} </th>
                                 <th colspan = "1"></th>
-                                <th colspan = "1"> {{ $single_data['sale_amount_total'] }} </th>
+                                <th colspan = "1" class="text-right"> {{ $single_data['sale_amount_total'] }} </th>
                             </tr>
                         </tfoot>
                     </table>
 
                 </div>
             </div>
+            <h4 class="my-5 fw-bolder" style="width: 100%">
+                Inwords: &nbsp;&nbsp;&nbsp;
+                {{ (new NumberToWords\NumberToWords())->getNumberTransformer('en')->toWords($single_data['sale_amount_total']) }}
+            </h4>
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
                 <img class="img-fluid"
-                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;height:100%;justify-content: center;align-items: center;"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;max-height: 550px;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
@@ -181,7 +185,7 @@
                                         {{-- <small class="text-muted">18 Units</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">-{{ $row->discount }}%</span>
+                                        <span class="mono">{{ $row->discount }}%</span>
                                         <br>
                                         {{-- <small class="text-muted">Special -10%</small> --}}
                                     </td>
@@ -197,20 +201,24 @@
                             <tr>
                                 <th> Total: </th>
                                 <th colspan="1"></th>
-                                <th colspan = "1"> {{ $single_data['qty_total'] }} </th>
+                                <th colspan = "1" class="text-right"> {{ $single_data['qty_total'] }} </th>
                                 <th colspan = "1"></th>
-                                <th colspan = "1"> {{ $single_data['amount_total'] }} </th>
+                                <th colspan = "1" class="text-right"> {{ $single_data['amount_total'] }} </th>
                             </tr>
                         </tfoot>
                     </table>
 
                 </div>
             </div>
+            <h4 class="my-5 fw-bolder" style="width: 100%">
+                Inwords: &nbsp;&nbsp;&nbsp;
+                {{ (new NumberToWords\NumberToWords())->getNumberTransformer('en')->toWords($single_data['amount_total']) }}
+            </h4>
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
                 <img class="img-fluid"
-                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;height:100%;justify-content: center;align-items: center;"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;max-height: 550px;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>

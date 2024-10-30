@@ -118,8 +118,20 @@
         td {
             font-weight: bolder;
         }
-        a{
+
+        a {
             color: black !important;
+        }
+
+        h4 {
+            text-transform: capitalize;
+        }
+
+        .text-center {
+            text-align: center !important;
+        }
+        .text-right {
+            text-align: right !important;
         }
     </style>
 </head>

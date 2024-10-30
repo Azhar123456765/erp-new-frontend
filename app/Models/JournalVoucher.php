@@ -24,4 +24,8 @@ class JournalVoucher extends Model
     {
         return $this->hasOne(accounts::class, 'id', "to_account");
     }
+    // public function getAmountAttribute($value)
+    // {
+    //     return number_format($value, 2);
+    // }
 }

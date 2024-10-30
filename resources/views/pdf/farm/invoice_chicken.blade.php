@@ -152,11 +152,15 @@
 
                 </div>
             </div>
+            <h4 class="my-5 fw-bolder" style="width: 100%">
+                Inwords: &nbsp;&nbsp;&nbsp;
+                {{ (new NumberToWords\NumberToWords())->getNumberTransformer('en')->toWords($single_data['sale_amount_total']) }}
+            </h4>
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
                 <img class="img-fluid"
-                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;height:100%;justify-content: center;align-items: center;"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;max-height: 550px;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
@@ -286,11 +290,15 @@
 
                 </div>
             </div>
+            <h4 class="my-5 fw-bolder" style="width: 100%">
+                Inwords: &nbsp;&nbsp;&nbsp;
+                {{ (new NumberToWords\NumberToWords())->getNumberTransformer('en')->toWords($single_data['amount_total']) }}
+            </h4>
             <h5 class="my-5 fw-bold" style="width: 100%">Remarks: &nbsp;&nbsp;&nbsp; {{ $single_data['remark'] }}</h5>
             <h5 class="my-5 fw-bold">Attachment:</h5>
             <div class="box w-100" style="border: 1px solid;width: 100%;padding: 30px;">
                 <img class="img-fluid"
-                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;height:100%;justify-content: center;align-items: center;"
+                    style="object-fit: contain;margin: auto;display: flex;width: 100%;max-width: 550px;max-height: 550px;height:100%;justify-content: center;align-items: center;"
                     src="{{ asset($single_data['attachment']) }}">
             </div>
         </div>
