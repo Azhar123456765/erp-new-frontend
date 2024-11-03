@@ -419,7 +419,8 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            {{-- <div class="col-12">
+                        </div>
+                        {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>farming period</label>
                                     <select class="form-control select-farming-period" name="farming_period">
@@ -427,42 +428,42 @@ text-align: center;
                                 </div>
                             </div> --}}
 
-                            <div class="row"
-                                style="    justify-content: space-between;
+                        <div class="row"
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
-                                <div class="col-12-6">
-                                    <div class="form-group">
-                                        <label for="">From:</label>
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">From:</label>
 
-                                        <input type="date" class="date" name="start_date"
-                                            value="{{ $startDate }}" id="" required>
-                                    </div>
-
+                                    <input type="date" class="date" name="start_date"
+                                        value="{{ $startDate }}" id="" required>
                                 </div>
 
-                                <div class="col-12-6">
-                                    <div class="form-group">
-                                        <label for="">To:</label>
-                                        <input type="date" class="date" name="end_date"
-                                            value="{{ $endDate }}" id="" required>
-                                    </div>
+                            </div>
+
+                            <div class="col-12-6">
+                                <div class="form-group">
+                                    <label for="">To:</label>
+                                    <input type="date" class="date" name="end_date" value="{{ $endDate }}"
+                                        id="" required>
                                 </div>
                             </div>
                         </div>
-                        <div class="submit" style="
+                </div>
+                <div class="submit" style="
     text-align: center;
     margin-top: 3.5%;
 ">
-                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                            <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
-                        </div>
-                    </form>
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                 </div>
+                </form>
             </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
+        </div>
+    </div><!-- /.modal-content -->
+</div><!-- /.modal-dialog -->
 </div>
 
 
@@ -562,23 +563,23 @@ text-align: center;
 
                             <div class="col-12 d-flex justify-content-around">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked name="jv"  />
+                                    <input class="form-check-input" type="checkbox" checked name="jv" />
                                     <label class="form-check-label"> JV </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked name="pv"  />
+                                    <input class="form-check-input" type="checkbox" checked name="pv" />
                                     <label class="form-check-label"> PV </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked name="rv"  />
+                                    <input class="form-check-input" type="checkbox" checked name="rv" />
                                     <label class="form-check-label"> RV </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked name="ev"  />
+                                    <input class="form-check-input" type="checkbox" checked name="ev" />
                                     <label class="form-check-label"> EV </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked name="chi"  />
+                                    <input class="form-check-input" type="checkbox" checked name="chi" />
                                     <label class="form-check-label"> CHI </label>
                                 </div>
                                 <div class="form-check">
@@ -586,7 +587,7 @@ text-align: center;
                                     <label class="form-check-label"> CI </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" checked name="fi"  />
+                                    <input class="form-check-input" type="checkbox" checked name="fi" />
                                     <label class="form-check-label"> FI </label>
                                 </div>
                             </div>

@@ -46,6 +46,7 @@ class FarmDailyReportController extends Controller
         } elseif ($role == 'farm_user') {
             $user_id = session()->get('user_id')['user_id'];
             $farming_period = FarmingPeriod::where('assign_user_id', $user_id)->first();
+            $farming_period_count = FarmingPeriod::where('assign_user_id', $user_id)->count();
             $farm = Farm::where('user_id', $user_id)->first();
             $all_farms = FarmingPeriod::where('assign_user_id', $user_id)->get();
 
@@ -57,7 +58,7 @@ class FarmDailyReportController extends Controller
                 $startDate = Carbon::createFromFormat('Y-m-d', $farming_period->start_date)->subDay();
                 $endDate = Carbon::createFromFormat('Y-m-d', $farming_period->end_date)->addDay();
 
-                if (Carbon::createFromFormat('Y-m-d', $today)->between($startDate, $endDate)) {
+                if (Carbon::createFromFormat('Y-m-d', $today)->between($startDate, $endDate && $farming_period_count == 1)) {
                     $all_farm_daily_reports = FarmDailyReport::where('user_id', $user_id)
                         ->where('farm', $farm_id)
                         ->where('status', 1)
@@ -224,7 +225,6 @@ class FarmDailyReportController extends Controller
             $report->extra_expense_narration = $request->input('extra_expense_narration');
             $report->extra_expense_amount = $request->input('extra_expense_amount');
             $report->user_id = $request->input('user_id');
-            $report->farm = $request->input('farm');
             $report->save();
         }
 

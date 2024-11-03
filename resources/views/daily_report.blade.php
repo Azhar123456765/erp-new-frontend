@@ -146,7 +146,12 @@
         </div>
     @endif
 
-    @if (isset($farm_daily_report->date) && Carbon::parse($farm_daily_report->date)->equalTo(Carbon::parse($today)))
+    @if (isset($farm_daily_report->date) &&
+            Carbon::parse($farm_daily_report->date)->subDay()->equalTo(Carbon::parse($today)))
+        @php
+            $today_report = $farm_daily_report->where('date', Carbon::parse($farm_daily_report->date)->subDay())->first();
+            // dd($today_report);
+        @endphp
         <div class="modal fade" id="edit_modal{{ $farm_daily_report->id }}">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
@@ -154,7 +159,7 @@
                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                         <h4>Edit Report</h4>
                         <div class="modal-body">
-                            <form method="POST" action="{{ Route('update_daily_report', $farm_daily_report->id) }}">
+                            <form method="POST" action="{{ Route('update_daily_report', $today_report->id) }}">
                                 @csrf
                                 @method('put')
                                 <div class="form-group">
@@ -162,7 +167,7 @@
                                         / مرغي جو موت</label>
                                     <input type="number" step="any" class="form-control" id="hen_deaths"
                                         name="hen_deaths" placeholder="" required
-                                        value="{{ $farm_daily_report->hen_deaths }}">
+                                        value="{{ $today_report->hen_deaths }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="username">Feed consumed (Bags) / استعمال شدہ فیڈ (بیگ) / کاڌ خوراڪ
@@ -170,14 +175,14 @@
                                     </label>
                                     <input type="number" step="any" class="form-control" id="feed_consumed"
                                         name="feed_consumed" placeholder="" required
-                                        value="{{ $farm_daily_report->feed_consumed }}">
+                                        value="{{ $today_report->feed_consumed }}">
                                 </div>
                                 <div class="form-group">
                                     <label for="username">Water consumed (liters) / استعمال شدہ پانی (لیٹر) / استعمال ٿيل
                                         پاڻي (ليٽر)</label>
                                     <input type="number" step="any" class="form-control" id="water_consumed"
                                         name="water_consumed" placeholder="" required
-                                        value="{{ $farm_daily_report->water_consumed }}">
+                                        value="{{ $today_report->water_consumed }}">
                                 </div>
                                 <div class="form-group">
                                     <h4 class="text-center">Extra expense(optional)</h4>
@@ -186,16 +191,16 @@
                                             <label for="username fs-5">Narration / بیانیہ / داستان</label>
                                             <input type="text" step="any" class="form-control"
                                                 id="extra_expense_narration" name="extra_expense_narration"
-                                                value="{{ $farm_daily_report->extra_expense_narration }}">
+                                                value="{{ $today_report->extra_expense_narration }}">
                                         </div>
                                         <div class="col-6">
                                             <label for="username">Amount / رقم</label>
                                             <input type="number" step="any" class="form-control"
                                                 id="extra_expense_amount" name="extra_expense_amount"
-                                                value="{{ $farm_daily_report->extra_expense_amount }}">
+                                                value="{{ $today_report->extra_expense_amount }}">
                                         </div>
-                                        <input type="hidden" name="user_id" value="{{ $farm_daily_report->user_id }}">
-                                        <input type="hidden" name="date" value="{{ $farm_daily_report->date }}">
+                                        <input type="hidden" name="user_id" value="{{ $today_report->user_id }}">
+                                        <input type="hidden" name="date" value="{{ $today_report->date }}">
                                         <input type="hidden" name="farm" value="{{ $farm->id }}">
                                     </div>
                                 </div>
