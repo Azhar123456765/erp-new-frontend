@@ -518,6 +518,8 @@ class pdfController extends Controller
                                         $groupedData->description = $description;
                                         $groupedData->seller = $group->first()->seller;
                                         $groupedData->buyer = $group->first()->buyer;
+                                        $groupedData->qty_total = $group->first()->qty_total;
+                                        $groupedData->sale_qty_total = $group->first()->sale_qty_total;
                                         $groupedData->sale_amount_total = $group->first()->sale_amount_total;
                                         $groupedData->amount_total = $group->first()->amount_total;
 

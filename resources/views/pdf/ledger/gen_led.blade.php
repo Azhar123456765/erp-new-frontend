@@ -175,7 +175,9 @@
                                     </td>
                                     <td style="text-align: left
             ;">
-                                        <span>{{ $row->description }}</span>
+                                       <span>{{ $row->description }},
+                                        {{ $row->seller == $company ? str_replace('.00', '', $row->qty_total) : str_replace('.00', '', $row->sale_qty_total) }}
+                                        Chicks</span>
                                     </td>
                                     <td style="text-align:right;">
                                         <span>
