@@ -296,7 +296,7 @@
                                         <span>{{ $row->narration }}</span>
                                     </td>
                                     <td style="text-align:right;">
-                                        <span>0.000</span>
+                                        <span>0.00</span>
                                     </td>
 
                                     <td style="text-align:right;">
@@ -306,7 +306,7 @@
                                         <span>{{ $balance += $row->amount }}</span>
                                     </td>
                                 </tr>
-                                @php $credit += $row->amount_total; @endphp
+                                @php $credit += $row->amount; @endphp
                             @endforeach
                             @foreach ($receipt_voucher as $row)
                                 <tr style="text-align: center;">
@@ -328,13 +328,13 @@
                                     </td>
 
                                     <td style="text-align:right;">
-                                        <span>0.000</span>
+                                        <span>0.00</span>
                                     </td>
                                     <td style="text-align:right;">
                                         <span>{{ $balance -= $row->amount }}</span>
                                     </td>
                                 </tr>
-                                @php $debit += $row->amount_total; @endphp
+                                @php $debit += $row->amount; @endphp
                             @endforeach
                             @foreach ($expense_voucher as $row)
                                 <tr style="text-align: center;">
@@ -351,18 +351,19 @@
             ;">
                                         <span>{{ $row->narration }}</span>
                                     </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->amount }}</span>
-                                    </td>
+
 
                                     <td style="text-align:right;">
-                                        <span>0.000</span>
+                                        <span>0.00</span>
+                                    </td>
+                                    <td style="text-align:right;">
+                                        <span>{{ $row->amount }}</span>
                                     </td>
                                     <td style="text-align:right;">
                                         <span>{{ $balance += $row->amount }}</span>
                                     </td>
                                 </tr>
-                                @php $debit += $row->amount_total; @endphp
+                                @php $credit += $row->amount; @endphp
                             @endforeach
                             @foreach ($journal_voucher as $row)
                                 <tr style="text-align: center;">
@@ -538,7 +539,7 @@
                                             <span>{{ $row2->narration }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>0.000</span>
+                                            <span>0.00</span>
                                         </td>
                                         <td style="text-align:right;">
                                             <span>{{ $row2->amount }}</span>
@@ -567,7 +568,7 @@
                                         </td>
 
                                         <td style="text-align:right;">
-                                            <span>0.000</span>
+                                            <span>0.00</span>
                                         </td>
                                     </tr>
                                     @php
@@ -652,7 +653,7 @@
                         <span>{{ $row2->narration }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>0.000</span>
+                        <span>0.00</span>
                     </td>
                     <td style="text-align:right;">
                         <span>{{ $row2->amount }}</span>
@@ -681,7 +682,7 @@
                     </td>
 
                     <td style="text-align:right;">
-                        <span>0.000</span>
+                        <span>0.00</span>
                     </td>
                 </tr>
                 @php
@@ -852,7 +853,7 @@
                         <span>{{ $row2->narration }}</span>
                     </td>
                     <td style="text-align:right;">
-                        <span>0.000</span>
+                        <span>0.00</span>
                     </td>
                     <td style="text-align:right;">
                         <span>{{ $row2->amount }}</span>
@@ -881,7 +882,7 @@
                     </td>
 
                     <td style="text-align:right;">
-                        <span>0.000</span>
+                        <span>0.00</span>
                     </td>
                 </tr>
                 @php
@@ -917,16 +918,15 @@
             ;">
                     <span>{{ $row->narration }}</span>
                 </td>
+
                 <td style="text-align:right;">
                     <span>{{ $row->amount }}</span>
                 </td>
-
                 <td style="text-align:right;">
-                    <span>0.000</span>
+                    <span>0.00</span>
                 </td>
-
             </tr>
-            @php $credit += $row->amount_total; @endphp
+            @php $credit += $row->amount; @endphp
         @endforeach
         </tbody>
         <tfoot class="full-width">
