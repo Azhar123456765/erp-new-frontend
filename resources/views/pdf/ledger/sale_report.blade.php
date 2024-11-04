@@ -66,257 +66,261 @@
             </div>
         </div>
     </div>
+    @if ($company)
+        @foreach ($company as $companyRow)
+            <div class="ui segment cards">
 
-    <div class="ui segment cards">
-        @if ($company)
-            <div class="ui card customercard">
-                <div class="content">
-                    <div class="header">Customer Details</div>
+                <div class="ui card customercard">
+                    <div class="content">
+                        <div class="header">Customer Details</div>
+                    </div>
+                    <div class="content">
+                        {{ $companyRow->company_name }}
+                        {{ $companyRow->buyer_id }}
+                    </div>
                 </div>
-                <div class="content">
-                    {{ $company->company_name }}
+
+
+                <div class="ui segment itemscard">
+                    <div class="content">
+                        @if (count($chickenData->where('buyer', $companyRow->buyer_id)) > 0)
+                            <h4><b>Chickens</b></h4>
+                            <table class="ui celled table" id="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center colfix date-th">Date</th>
+                                        <th class="text-center colfix">Invoice No</th>
+                                        <th class="text-center colfix">Hen Qty</th>
+                                        <th class="text-center colfix">Avg Weight</th>
+                                        <th class="text-center colfix">Customer Name</th>
+                                        <th class="text-center colfix">Crate Qty</th>
+                                        <th class="text-center colfix">Gross Weight</th>
+                                        <th class="text-center colfix">Net Weight</th>
+                                        <th class="text-center colfix">Rate</th>
+                                        <th class="text-center colfix">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($chickenData->where('buyer', $companyRow->buyer_id) as $row)
+                                        <tr style="text-align: center;">
+                                            <td class="text-right" style="width: 100px;">
+                                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
+                                                    target="__blank"><span>CH-{{ $row->unique_id }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td class="text-right">
+                                                <span>{{ $row->hen_qty }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span>{{ $row->avg }}</span>
+                                            </td>
+                                            <td style="text-align: left
+                ;">
+                                                <span>{{ $row->customer->company_name }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span>{{ $row->crate_qty }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span>{{ $row->gross_weight }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_net_weight }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_rate }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_amount }}</span>
+                                                @php $total_sale_amount += $row->sale_amount; @endphp
+                                            </td>
+
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                                <tfoot class="full-width">
+                                    <tr>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th> Total: </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1">{{ $total_sale_amount }}</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        @endif
+                        @php
+                            $total_amount = 0;
+                            $total_sale_amount = 0;
+                        @endphp
+                        @if (count($chickData->where('buyer', $companyRow->buyer_id)) > 0)
+                            <h4><b>Chicks</b></h4>
+                            <table class="ui celled table" id="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center colfix date-th">Date</th>
+                                        <th class="text-center colfix">Invoice No</th>
+                                        <th class="text-center colfix">Customer Name</th>
+                                        <th class="text-center colfix">Product</th>
+                                        <th class="text-center colfix">Rate</th>
+                                        <th class="text-center colfix">Quantity</th>
+                                        <th class="text-center colfix">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($chickData->where('buyer', $companyRow->buyer_id) as $row)
+                                        <tr style="text-align: center;">
+                                            <td class="text-right" style="width: 100px;">
+                                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                                    target="__blank"><span>C-{{ $row->unique_id }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: left
+                ;">
+                                                <span>{{ $row->customer->company_name }}</span>
+                                            </td>
+                                            <td style="text-align: left
+                ;">
+                                                <span>{{ $row->product->product_name }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span>{{ $row->sale_rate }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_qty }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_amount }}</span>
+                                                @php $total_sale_amount += $row->sale_amount; @endphp
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                                <tfoot class="full-width">
+                                    <tr>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th> Total: </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1">{{ $total_sale_amount }}</th>
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        @endif
+                        @php
+                            $total_amount = 0;
+                            $total_sale_amount = 0;
+                        @endphp
+                        @if (count($feedData->where('buyer', $companyRow->buyer_id)) > 0)
+                            <h4><b>Feed</b></h4>
+                            <table class="ui celled table" id="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center colfix date-th">Date</th>
+                                        <th class="text-center colfix">Invoice No</th>
+                                        <th class="text-center colfix">Customer Name</th>
+                                        <th class="text-center colfix">Product</th>
+
+                                        <th class="text-center colfix">Rate</th>
+                                        <th class="text-center colfix">Quantity</th>
+                                        <th class="text-center colfix">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($feedData->where('buyer', $companyRow->buyer_id) as $row)
+                                        <tr style="text-align: center;">
+                                            <td class="text-right" style="width: 100px;">
+                                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                                    target="__blank"><span>F-{{ $row->unique_id }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: left
+                ;">
+                                                <span>{{ $row->customer->company_name }}</span>
+                                            </td>
+                                            <td style="text-align: left
+                ;">
+                                                <span>{{ $row->product->product_name }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <span>{{ $row->sale_rate }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_qty }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sale_amount }}</span>
+                                                @php $total_sale_amount += $row->sale_amount; @endphp
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                                <tfoot class="full-width">
+                                    <tr>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
+                                        <th> Total: </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1" style="text-align:right;">
+                                            {{ number_format($feedData->sum('sale_qty'), 2) }}</th>
+                                        <th colspan="1" style="text-align:right;">
+                                            {{ number_format($total_sale_amount, 2) }}
+                                        </th>
+
+                                        </th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                            <h4><b>Feed (In Details)</b></h4>
+                            <table class="ui celled table" id="invoice-table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center colfix">Product</th>
+                                        <th class="text-center colfix">Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($feedData->groupBy('item') as $row)
+                                        <tr style="text-align: center;">
+                                            <td style="text-align: left
+                ;">
+                                                <span>{{ $row->first()->product->product_name }}</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>{{ $row->sum('sale_qty') }}</span>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+
+                                </tbody>
+                            </table>
+                        @endif
+                    </div>
                 </div>
             </div>
-        @endif
-
-        <div class="ui segment itemscard">
-            <div class="content">
-                @if (count($chickenData) > 0)
-                    <h4><b>Chickens</b></h4>
-                    <table class="ui celled table" id="invoice-table">
-                        <thead>
-                            <tr>
-                                <th class="text-center colfix date-th">Date</th>
-                                <th class="text-center colfix">Invoice No</th>
-                                <th class="text-center colfix">Hen Qty</th>
-                                <th class="text-center colfix">Avg Weight</th>
-                                <th class="text-center colfix">Customer Name</th>
-                                <th class="text-center colfix">Crate Qty</th>
-                                <th class="text-center colfix">Gross Weight</th>
-                                <th class="text-center colfix">Net Weight</th>
-                                <th class="text-center colfix">Rate</th>
-                                <th class="text-center colfix">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($chickenData as $row)
-                                <tr style="text-align: center;">
-                                    <td class="text-right" style="width: 100px;">
-                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
-                                            target="__blank"><span>CH-{{ $row->unique_id }}
-                                            </span>
-                                        </a>
-                                    </td>
-                                    <td class="text-right">
-                                        <span>{{ $row->hen_qty }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <span>{{ $row->avg }}</span>
-                                    </td>
-                                    <td style="text-align: left
-                ;">
-                                        <span>{{ $row->customer->company_name }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <span>{{ $row->crate_qty }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <span>{{ $row->gross_weight }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_net_weight }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_rate }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_amount }}</span>
-                                        @php $total_sale_amount += $row->sale_amount; @endphp
-                                    </td>
-
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                        <tfoot class="full-width">
-                            <tr>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th> Total: </th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1">{{ $total_sale_amount }}</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                @endif
-                @php
-                    $total_amount = 0;
-                    $total_sale_amount = 0;
-                @endphp
-                @if (count($chickData) > 0)
-                    <h4><b>Chicks</b></h4>
-                    <table class="ui celled table" id="invoice-table">
-                        <thead>
-                            <tr>
-                                <th class="text-center colfix date-th">Date</th>
-                                <th class="text-center colfix">Invoice No</th>
-                                <th class="text-center colfix">Customer Name</th>
-                                <th class="text-center colfix">Product</th>
-                                <th class="text-center colfix">Rate</th>
-                                <th class="text-center colfix">Quantity</th>
-                                <th class="text-center colfix">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($chickData as $row)
-                                <tr style="text-align: center;">
-                                    <td class="text-right" style="width: 100px;">
-                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
-                                            target="__blank"><span>C-{{ $row->unique_id }}
-                                            </span>
-                                        </a>
-                                    </td>
-                                    <td style="text-align: left
-                ;">
-                                        <span>{{ $row->customer->company_name }}</span>
-                                    </td>
-                                    <td style="text-align: left
-                ;">
-                                        <span>{{ $row->product->product_name }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <span>{{ $row->sale_rate }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_qty }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_amount }}</span>
-                                        @php $total_sale_amount += $row->sale_amount; @endphp
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                        <tfoot class="full-width">
-                            <tr>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th> Total: </th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1">{{ $total_sale_amount }}</th>
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                @endif
-                @php
-                    $total_amount = 0;
-                    $total_sale_amount = 0;
-                @endphp
-                @if (count($feedData) > 0)
-                    <h4><b>Feed</b></h4>
-                    <table class="ui celled table" id="invoice-table">
-                        <thead>
-                            <tr>
-                                <th class="text-center colfix date-th">Date</th>
-                                <th class="text-center colfix">Invoice No</th>
-                                <th class="text-center colfix">Customer Name</th>
-                                <th class="text-center colfix">Product</th>
-
-                                <th class="text-center colfix">Rate</th>
-                                <th class="text-center colfix">Quantity</th>
-                                <th class="text-center colfix">Amount</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($feedData as $row)
-                                <tr style="text-align: center;">
-                                    <td class="text-right" style="width: 100px;">
-                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
-                                            target="__blank"><span>F-{{ $row->unique_id }}
-                                            </span>
-                                        </a>
-                                    </td>
-                                    <td style="text-align: left
-                ;">
-                                        <span>{{ $row->customer->company_name }}</span>
-                                    </td>
-                                    <td style="text-align: left
-                ;">
-                                        <span>{{ $row->product->product_name }}</span>
-                                    </td>
-                                    <td class="text-right">
-                                        <span>{{ $row->sale_rate }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_qty }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sale_amount }}</span>
-                                        @php $total_sale_amount += $row->sale_amount; @endphp
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                        <tfoot class="full-width">
-                            <tr>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th> Total: </th>
-                                <th colspan="1"></th>
-                                <th colspan="1" style="text-align:right;">
-                                    {{ number_format($feedData->sum('sale_qty'), 2) }}</th>
-                                <th colspan="1" style="text-align:right;">{{ number_format($total_sale_amount, 2) }}
-                                </th>
-
-                                </th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <h4><b>Feed (In Details)</b></h4>
-                    <table class="ui celled table" id="invoice-table">
-                        <thead>
-                            <tr>
-                                <th class="text-center colfix">Product</th>
-                                <th class="text-center colfix">Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($feedData->groupBy('item') as $row)
-                                <tr style="text-align: center;">
-                                    <td style="text-align: left
-                ;">
-                                        <span>{{ $row->first()->product->product_name }}</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->sum('sale_qty') }}</span>
-                                    </td>
-                                </tr>
-                            @endforeach
-
-                        </tbody>
-                    </table>
-                @endif
-            </div>
-        </div>
-
-    </div>
+        @endforeach
+    @endif
     </div>
 @endsection

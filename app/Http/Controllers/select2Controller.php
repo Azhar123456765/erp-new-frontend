@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\accounts;
 use App\Models\Farm;
 use App\Models\FarmingPeriod;
+use App\Models\HeadAccount;
 use App\Models\product_category;
 use App\Models\product_company;
 use App\Models\sales_officer;
@@ -36,6 +37,25 @@ class select2Controller extends Controller
         $results = FarmingPeriod::where('start_date', 'LIKE', "%{$search}%")
             ->where('end_date', 'LIKE', "%{$search}%")
             ->limit(10)->get(['id', 'start_date', 'end_date']);
+
+        return response()->json($results);
+    }
+    function head_account(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = HeadAccount::where('name', 'LIKE', "%{$search}%")
+            ->limit(10)->get(['id', 'name']);
+
+        return response()->json($results);
+    }
+    function sub_head_account(Request $request)
+    {
+        $search = $request->get('q');
+        $head = $request->get('head');
+
+        $results = HeadAccount::where('head', $head)->where('name', 'LIKE', "%{$search}%")
+            ->limit(10)->get(['id', 'name']);
 
         return response()->json($results);
     }

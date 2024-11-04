@@ -1096,12 +1096,12 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                 if ($type == 1) {
 
                         if ($customer) {
-                                $company = buyer::where('buyer_id', $customer)->first();
+                                $company = buyer::whereIn('buyer_id', $customer)->get();
                         }
 
                         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $chickenInvoice->where('buyer', $customer);
+                                $chickenInvoice->whereIn('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
@@ -1122,7 +1122,7 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $chickInvoice->where('buyer', $customer);
+                                $chickInvoice->whereIn('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
@@ -1143,7 +1143,7 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $feedInvoice->where('buyer', $customer);
+                                $feedInvoice->whereIn('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
@@ -1180,12 +1180,12 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                 } elseif ($type == 2) {
 
                         if ($customer) {
-                                $company = buyer::where('buyer_id', $customer)->first();
+                                $company = buyer::whereIn('buyer_id', $customer)->get();
                         }
 
                         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $chickenInvoice->where('buyer', $customer);
+                                $chickenInvoice->whereIn('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
@@ -1220,11 +1220,11 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                 } elseif ($type == 3) {
 
                         if ($customer) {
-                                $company = buyer::where('buyer_id', $customer)->first();
+                                $company = buyer::whereIn('buyer_id', $customer)->get();
                         }
                         $chickInvoice = ChickInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $chickInvoice->where('buyer', $customer);
+                                $chickInvoice->whereIn('buyer', $customer);
                         }
 
                         if ($salesOfficer) {
@@ -1258,11 +1258,11 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                elseif ($type == 4) {
 
                         if ($customer) {
-                                $company = buyer::where('buyer_id', $customer)->first();
+                                $company = buyer::whereIn('buyer_id', $customer)->get();
                         }
                         $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
                         if ($customer) {
-                                $feedInvoice->where('buyer', $customer);
+                                $feedInvoice->whereIn('buyer', $customer);
                         }
 
                         if ($salesOfficer) {

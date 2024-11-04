@@ -691,4 +691,36 @@
         let url = $(this).data('url');
         window.location.href = url + '/' + searchTerm;
     })
+
+    function subAccountFunc(head) {
+        $('.select-sub-head-account').select2({
+            ajax: {
+                url: '{{ route('select2.sub_head_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                        head: head
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+        });
+    }
 </script>

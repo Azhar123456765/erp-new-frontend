@@ -271,7 +271,7 @@
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Sales Officer</label>
-                                    <label for=""></label>
+                                    
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
                                     </select>
@@ -354,7 +354,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Sales Officer</label>
-                                    <label for=""></label>
+                                    
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
                                     </select>
@@ -503,8 +503,35 @@ text-align: center;
                             <div class="col-12">
 
                                 <div class="form-group">
+                                    <label>Head Of Accounst</label>
+                                    
+                                    <select class="form-control select-head-account" name="head_account" onchange="subAccountFunc(this)">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="form-group">
+                                    <label>Sub Head Of Accounts</label>
+                                    
+                                    <select class="form-control select-sub-head-account" name="sub_head_account" onchange="account">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12 d-none">
+
+                                <div class="form-group">
                                     <label>Account</label>
-                                    <label for=""></label>
+                                    
+                                    <select class="form-control" name="account">
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-12">
+
+                                <div class="form-group">
+                                    <label>Account</label>
+                                    
                                     <select class="form-control select-account" name="account" id="gen-led-account">
                                     </select>
                                 </div>
@@ -513,7 +540,7 @@ text-align: center;
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Party</label>
-                                    <label for=""></label>
+                                    
                                     <select class="form-control select-buyer" name="company">
 
                                     </select>
@@ -522,7 +549,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Sales Officer</label>
-                                    <label for=""></label>
+                                    
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
                                     </select>
@@ -533,7 +560,7 @@ text-align: center;
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Company Type</label>
-                                    <label for=""></label>
+                                    
                                     <select class="form-control" name="company_type">
                                         <option></option>
 
@@ -543,7 +570,7 @@ text-align: center;
                             {{-- <div class="col-12">
                                 <div class="form-group">
                                     <label>Zone</label>
-                                    <label for=""></label>
+                                    
                                     <select class="select-warehouse js-example-basic-multiple js-states form-control"
                                         name="warehouse">
                                     </select>
@@ -1070,7 +1097,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Select Customer</label>
-                                    <select class="form-control select-buyer" name="customer">
+                                    <select class="form-control select-buyer" name="customer[]" multiple>
 
 
                                     </select>

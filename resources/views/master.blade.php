@@ -103,6 +103,34 @@
             allowClear: true,
             placeholder: '',
         });
+        $('.select-head-account').select2({
+            ajax: {
+                url: '{{ route('select2.head_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+        });
         $('.select-account').select2({
             ajax: {
                 url: '{{ route('select2.account') }}',
