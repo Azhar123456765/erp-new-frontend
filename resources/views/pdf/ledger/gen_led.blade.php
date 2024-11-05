@@ -352,18 +352,28 @@
                                         <span>{{ $row->narration }}</span>
                                     </td>
 
+                                    @if ($single_data->account_category == 9 || $single_data->account_category == 10 || $single_data->account_category == 11)
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>0.00</span>
+                                        </td>
+                                        @php $debit += $row->amount; @endphp
+                                    @else
+                                        <td style="text-align:right;">
+                                            <span>0.00</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>{{ $row->amount }}</span>
+                                        </td>
+                                        @php $credit += $row->amount; @endphp
+                                    @endif
 
-                                    <td style="text-align:right;">
-                                        <span>0.00</span>
-                                    </td>
-                                    <td style="text-align:right;">
-                                        <span>{{ $row->amount }}</span>
-                                    </td>
                                     <td style="text-align:right;">
                                         <span>{{ $balance += $row->amount }}</span>
                                     </td>
                                 </tr>
-                                @php $credit += $row->amount; @endphp
                             @endforeach
                             @foreach ($journal_voucher as $row)
                                 <tr style="text-align: center;">
