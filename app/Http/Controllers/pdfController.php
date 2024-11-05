@@ -3056,10 +3056,11 @@ elseif($type == 2){
                         }
 
                         $query2 = JournalVoucher::whereBetween('journal_vouchers.date', [$startDate, $endDate]);
-
+                        if ($company) {
+                                $query2->where('from_account', $contra_account)->where('status', 'credit')->orWhere('to_account', $contra_account)->where('status', 'debit');
+                        }
                         if ($contra_account) {
                                 $query2->where('from_account', $contra_account)->where('status', 'debit')->orWhere('to_account', $contra_account)->where('status', 'credit');
-
                         }
 
                         if ($salesOfficer) {
