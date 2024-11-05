@@ -505,7 +505,7 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Head Of Accounst</label>
                                     
-                                    <select class="form-control select-head-account" name="head_account" onchange="subAccountFunc(this)">
+                                    <select class="form-control select-head-account" name="head_account" onchange="subAccountFunc(this.value)">
                                     </select>
                                 </div>
                             </div>
@@ -514,20 +514,19 @@ text-align: center;
                                 <div class="form-group">
                                     <label>Sub Head Of Accounts</label>
                                     
-                                    <select class="form-control select-sub-head-account" name="sub_head_account" onchange="account">
+                                    <select class="form-control select-sub-head-account" name="sub_head_account" onchange="accountFunc(this.value)">
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12 d-none">
-
+                            <div class="col-12 d-none dynamic-accounts">
                                 <div class="form-group">
                                     <label>Account</label>
                                     
-                                    <select class="form-control" name="account">
+                                    <select class="form-control select-dynamic-account" name="account">
                                     </select>
                                 </div>
                             </div>
-                            <div class="col-12">
+                            <div class="col-12 normal-accounts">
 
                                 <div class="form-group">
                                     <label>Account</label>

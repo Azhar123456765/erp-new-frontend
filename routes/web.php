@@ -271,6 +271,7 @@ Route::middleware('userAuth')->group(function () {
             Route::get('/select-farming-period', [select2Controller::class, 'farming_period'])->name('select2.farming_period');
             Route::get('/select-head-account', [select2Controller::class, 'head_account'])->name('select2.head_account');
             Route::get('/select-sub-head-account', [select2Controller::class, 'sub_head_account'])->name('select2.sub_head_account');
+            Route::get('/select-dynamic-account', [select2Controller::class, 'dynamic_account'])->name('select2.dynamic_account');
             Route::get('/select-account', [select2Controller::class, 'account'])->name('select2.account');
             Route::get('/select-assets-account', [select2Controller::class, 'assets_account'])->name('select2.assets_account');
             Route::get('/select-liability-account', [select2Controller::class, 'liability_account'])->name('select2.liability_account');

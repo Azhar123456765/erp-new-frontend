@@ -700,7 +700,7 @@
                 delay: 250,
                 data: function(params) {
                     return {
-                        q: params.term
+                        q: params.term,
                         head: head
                     };
                 },
@@ -709,6 +709,39 @@
                         results: $.map(data, function(item) {
                             return {
                                 text: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'classic',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+        });
+    }
+    function accountFunc(sub_head) {
+        $('.normal-accounts').addClass('d-none');
+        $('.dynamic-accounts').removeClass('d-none');
+        $('.select-dynamic-account').select2({
+            ajax: {
+                url: '{{ route('select2.dynamic_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        sub_head: sub_head
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
                                 id: item.id
                             };
                         })

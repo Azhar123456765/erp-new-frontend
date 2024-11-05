@@ -444,6 +444,18 @@ class pdfController extends Controller
                         $end_date = Carbon::parse($request->input('end_date'))->addDay();
                         $type = $request->input('type');
 
+                        $accounts = accounts::all();
+                        $head_account = $request->input('head_account');
+                        $sub_head_account = $request->input('sub_head_account');
+
+                        if($head_account){
+                                $head_account = HeadAccount::where('id', $head_account)->get();
+                        }
+                        if($sub_head_account){
+                                $sub_head_account = SubHeadAccount::where('id', $sub_head_account)->get();
+                        }else{
+                                $sub_head_account = SubHeadAccount::where('head', $head_account)->get();
+                        }
                         $jv_check = $request->input('jv');
                         $pv_check = $request->input('pv');
                         $rv_check = $request->input('rv');
@@ -646,7 +658,10 @@ class pdfController extends Controller
                                         'expense_voucher' => $expense_voucher ?? [],
                                         'journal_voucher' => $journal_voucher ?? [],
                                         'account' => $account->reference_id ?? null,
-                                        'type' => $type
+                                        'type' => $type,
+
+                                        'head_account' => $head_account,
+                                        'sub_head_account' => $sub_head_account,
                                 ];
                                 session()->flash('Data', $data);
                         }
@@ -3146,7 +3161,7 @@ elseif($type == 2){
                         $query2 = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
 
                         if ($contra_account) {
-                                $query2->where('from_account', $contra_account)->orWhere('to_account', $contra_account);
+                                $query2->where('from_account', $contra_account)->where('status', 'credit')->orWhere('to_account', $contra_account)->where('status', 'debit');
                         } 
 
                         if ($salesOfficer) {

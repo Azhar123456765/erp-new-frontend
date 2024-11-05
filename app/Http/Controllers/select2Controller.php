@@ -9,6 +9,7 @@ use App\Models\HeadAccount;
 use App\Models\product_category;
 use App\Models\product_company;
 use App\Models\sales_officer;
+use App\Models\SubHeadAccount;
 use App\Models\warehouse;
 use App\Models\seller;
 use App\Models\buyer;
@@ -54,8 +55,18 @@ class select2Controller extends Controller
         $search = $request->get('q');
         $head = $request->get('head');
 
-        $results = HeadAccount::where('head', $head)->where('name', 'LIKE', "%{$search}%")
+        $results = SubHeadAccount::where('head', $head)->where('name', 'LIKE', "%{$search}%")
             ->limit(10)->get(['id', 'name']);
+
+        return response()->json($results);
+    }
+    function dynamic_account(Request $request)
+    {
+        $search = $request->get('q');
+        $sub_head = $request->get('sub_head');
+
+        $results = accounts::where('account_category', $sub_head)->where('account_name', 'LIKE', "%{$search}%")
+            ->limit(10)->get(['id', 'account_name']);
 
         return response()->json($results);
     }
