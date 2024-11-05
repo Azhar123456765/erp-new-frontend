@@ -73,7 +73,7 @@
             </div>
         @endif
         @if ($type == 1)
-            @if ($head_account)
+            {{-- @if ($head_account)
                 @foreach ($head_account as $HeadRow)
                     @foreach ($sub_head_account->where('head', $HeadRow->id) as $SubHeadRow)
                     @foreach ($account->where('head', $HeadRow->id) as $SubHeadRow)
@@ -470,7 +470,7 @@
                         </div>
                     @endforeach
                 @endforeach
-            @else
+            @else --}}
                 <div class="ui segment itemscard">
                     <div class="content">
                         <table class="ui celled table" id="invoice-table">
@@ -859,7 +859,7 @@
 
                     </div>
                 </div>
-            @endif
+            {{-- @endif --}}
         @elseif($type == 2)
             <div class="ui segment itemscard">
                 <div class="content">
