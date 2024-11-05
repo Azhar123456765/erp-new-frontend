@@ -3041,10 +3041,12 @@ if($type == 1){
 elseif($type == 2){
 
                         $query = p_voucher::whereBetween('payment_voucher.date', [$startDate, $endDate]);
+                        $query2 = JournalVoucher::whereBetween('journal_vouchers.date', [$startDate, $endDate]);
+
                         if ($company) {
                                 $query->where('company', $company);
+                                $query2->where('from_account', $company)->where('status', 'credit')->orWhere('to_account', $company)->where('status', 'debit');
                                 $company = buyer::where('buyer_id', $company)->first();
-                                
                         }
 
                         if ($contra_account) {
@@ -3055,10 +3057,6 @@ elseif($type == 2){
                                 $query->where('sales_officer', $salesOfficer);
                         }
 
-                        $query2 = JournalVoucher::whereBetween('journal_vouchers.date', [$startDate, $endDate]);
-                        if ($company) {
-                                $query2->where('from_account', $contra_account)->where('status', 'credit')->orWhere('to_account', $contra_account)->where('status', 'debit');
-                        }
                         if ($contra_account) {
                                 $query2->where('from_account', $contra_account)->where('status', 'debit')->orWhere('to_account', $contra_account)->where('status', 'credit');
                         }
