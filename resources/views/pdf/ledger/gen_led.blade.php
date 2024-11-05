@@ -701,7 +701,7 @@
                                     </td>
                                     <td style="text-align:right;">
                                         <span>
-                                            @if (!isset($company) || empty($single_data))
+                                            @if (!isset($company) && empty($single_data))
                                                 {{ $row->company ? $row->amount : 0.0 }}
                                                 @php $debit += $row->amount; @endphp
                                             @elseif($row->company == $company)
@@ -714,7 +714,7 @@
                                     </td>
                                     <td style="text-align:right;">
                                         <span>
-                                            @if (!isset($company) || empty($single_data))
+                                            @if (!isset($company) && empty($single_data))
                                                 {{ $row->cash_bank ? $row->amount : 0.0 }}
                                                 @php $credit += $row->amount; @endphp
                                             @elseif($row->cash_bank == $single_data->id)
@@ -750,7 +750,7 @@
 
                                     <td style="text-align:right;">
                                         <span>
-                                            @if (!isset($company) || empty($single_data))
+                                            @if (!isset($company) && empty($single_data))
                                                 {{ $row->cash_bank ? $row->amount : 0.0 }}
                                                 @php $debit += $row->amount; @endphp
                                             @elseif($row->cash_bank == $single_data->id)
