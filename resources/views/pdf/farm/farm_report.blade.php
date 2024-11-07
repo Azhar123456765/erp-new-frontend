@@ -125,8 +125,8 @@
                         <h1 class="ui header pageTitle">Farm Report
                         </h1>
                         <h4 class="ui sub header invDetails">FROM:
-                            {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                            {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
+                            {{ (new DateTime($startDate))->modify('+1 day')->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                            {{ (new DateTime($endDate))->modify('-1 day')->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">
@@ -200,7 +200,7 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount_total }}</span>
+                                            <span>{{ $row->amount }}</span>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -253,7 +253,7 @@
                                             @if ($farm)
                                                 <span>{{ $row->farm == $farm->id ? $row->amount_total : '-' . $row->sale_amount_total }}</span>
                                             @else
-                                                <span>{{ $row->amount_total }}</span>
+                                                <span>{{ $row->amount }}</span>
                                             @endif
                                         </td>
 
@@ -601,8 +601,8 @@
                             </thead>
                             <h4><b>Farm Daily Reports</b></h4>
                             <h3 class="ui sub header invDetails">FROM:
-                                {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                                {{ (new DateTime($endDate))->format('d-m-Y') }}</h3>
+                                {{ (new DateTime($startDate))->modify('+1 day')->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                                {{ (new DateTime($endDate))->modify('-1 day')->format('d-m-Y') }}</h3>
                             <tbody>
                                 <tr style="text-align: center;">
 
@@ -700,7 +700,7 @@
                                             <span>{{ $row->description }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount_total }}</span>
+                                            <span>{{ $row->amount }}</span>
                                         </td>
                                     </tr>
 @endforeach
@@ -788,7 +788,7 @@
                                             <span>{{ $row->description }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount_total }}</span>
+                                            <span>{{ $row->amount }}</span>
                                         </td>
                                     </tr>
                                 @endforeach

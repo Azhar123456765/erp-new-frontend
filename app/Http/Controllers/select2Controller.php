@@ -218,6 +218,8 @@ class select2Controller extends Controller
 
     function buyer_invoice_no(Request $request)
     {
+        $search = $request->get('q');
+
         $id = $request->input('id');
         $combinedInvoices = chickenInvoice::select(
             DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
@@ -252,13 +254,17 @@ class select2Controller extends Controller
                             ->groupBy('unique_id');
                     })
             )
-            ->get();
+            ->get()>filter(function ($invoice) use ($search) {
+                return stripos($invoice->unique_id_name, $search) !== false;
+            });
 
 
         return response()->json($combinedInvoices);
     }
     function seller_invoice_no(Request $request)
     {
+        $search = $request->get('q');
+
         $id = $request->input('id');
         $combinedInvoices = chickenInvoice::select(
             DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
@@ -293,13 +299,18 @@ class select2Controller extends Controller
                             ->groupBy('unique_id');
                     })
             )
-            ->get();
+            ->get()>filter(function ($invoice) use ($search) {
+                return stripos($invoice->unique_id_name, $search) !== false;
+            });
 
 
         return response()->json($combinedInvoices);
     }
     function all_invoice_no(Request $request)
     {
+        // dd(1);
+        $search = $request->get('q');
+
         $id = $request->input('id');
         $combinedInvoices = chickenInvoice::select(
             DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
@@ -331,7 +342,10 @@ class select2Controller extends Controller
                             ->groupBy('unique_id');
                     })
             )
-            ->get();
+       
+            ->get()->filter(function ($invoice) use ($search) {
+                return stripos($invoice->unique_id_name, $search) !== false;
+            });
 
 
         return response()->json($combinedInvoices);

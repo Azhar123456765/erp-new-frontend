@@ -534,37 +534,6 @@
         })
     </script>
     <script>
-        $(document).change(function() {
-            $('.select-all-invoice-no').select2({
-                ajax: {
-                    url: '{{ route('select2.all_invoice_no') }}',
-                    dataType: 'json',
-                    delay: 250,
-                    data: function(params) {
-                        return {
-                            q: params.term,
-                            id: $("#company").find('option:selected').val(),
-                        };
-                    },
-                    processResults: function(data) {
-                        return {
-                            results: $.map(data, function(item) {
-                                return {
-                                    text: item.unique_id_name,
-                                    id: item.unique_id_name
-                                };
-                            })
-                        };
-                    },
-                    cache: true
-                },
-
-                theme: 'classic',
-                width: '100%',
-                allowClear: true,
-                placeholder: '',
-            });
-        });
         document.getElementById('attachment').addEventListener('change', function(event) {
             const file = event.target.files[0]; // Get the uploaded file
             const reader = new FileReader();
@@ -588,7 +557,9 @@
                 reader.readAsDataURL(file);
             }
         });
+        $(document).change(function() {
 
+        });
 
         var counter = 1
         var countera = 0
@@ -729,6 +700,35 @@
                         width: '100%',
                         allowClear: true,
                         placeholder: '',
+                        allowClear: true,
+                        placeholder: '',
+                    });
+                    $('.select-all-invoice-no').select2({
+                        ajax: {
+                            url: '{{ route('select2.all_invoice_no') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term,
+                                    id: $("#company").find('option:selected').val(),
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.unique_id_name,
+                                            id: item.unique_id_name
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+
+                        theme: 'classic',
+                        width: '100%',
                         allowClear: true,
                         placeholder: '',
                     });
@@ -907,6 +907,35 @@
                         width: '100%',
                         allowClear: true,
                         placeholder: '',
+                        allowClear: true,
+                        placeholder: '',
+                    });
+                    $('.select-all-invoice-no').select2({
+                        ajax: {
+                            url: '{{ route('select2.all_invoice_no') }}',
+                            dataType: 'json',
+                            delay: 250,
+                            data: function(params) {
+                                return {
+                                    q: params.term,
+                                    id: $("#company").find('option:selected').val(),
+                                };
+                            },
+                            processResults: function(data) {
+                                return {
+                                    results: $.map(data, function(item) {
+                                        return {
+                                            text: item.unique_id_name,
+                                            id: item.unique_id_name
+                                        };
+                                    })
+                                };
+                            },
+                            cache: true
+                        },
+
+                        theme: 'classic',
+                        width: '100%',
                         allowClear: true,
                         placeholder: '',
                     });

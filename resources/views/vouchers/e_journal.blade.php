@@ -698,7 +698,6 @@ text-align:end;
             }
         });
         $(document).change(function() {
-            total_amount();
             $('.select-all-invoice-no').select2({
                 ajax: {
                     url: '{{ route('select2.all_invoice_no') }}',
@@ -730,30 +729,6 @@ text-align:end;
             });
 
         })
-
-
-
-
-
-
-
-
-
-
-
-
-
-        function handleKeyPress(event) {
-            if (event.key === "Enter") {
-                event.preventDefault(); // Prevent the default behavior (e.g., form submission)
-                const currentElement = event.target;
-                const focusableElements = getFocusableElements();
-                const currentIndex = focusableElements.indexOf(currentElement);
-                const nextIndex = (currentIndex + 1) % focusableElements.length;
-                focusableElements[nextIndex].focus();
-            }
-        }
-
 
 
 
