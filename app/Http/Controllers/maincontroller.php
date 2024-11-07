@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\chickenInvoice;
 use App\Models\ChickInvoice;
 use App\Models\ExpenseVoucher;
+use App\Models\feedInvoice;
 use App\Models\JournalVoucher;
 use App\Models\products;
 use Illuminate\Http\Request;
@@ -642,19 +643,24 @@ class maincontroller extends Controller
                         ->groupBy('unique_id');
                 })->sum("hen_qty");
 
-                $earning_chartData = Income::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
+                // $earningQuery = chickenInvoice::select('id', 'sale_amount', 'updated_at')
+                // ->union(ChickInvoice::select('id', 'amount', 'updated_at'))
+                // ->union(feedInvoice::select('id', 'amount', 'updated_at'))
+                // ->union();
+
+                $earning_chartData = ReceiptVoucher::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
                     return Carbon::parse($data->updated_at)->format('M');
                 });
-
                 $earning_chart = [];
                 foreach ($earning_chartData as $month => $value) {
                     $earning_chart[] = $value->sum('amount');
                 }
 
-                $expense_chartData = Expense::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
+                $expense_chartData = p_voucher::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
                     return Carbon::parse($data->updated_at)->format('M');
                 });
-
+                
+                // dd($expense_chartData);
                 $months = [];
                 $expense_chart = [];
                 foreach ($expense_chartData as $month => $value) {
