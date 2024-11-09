@@ -660,7 +660,7 @@ class pdfController extends Controller
                                         'receipt_voucher' => $receipt_voucher ?? [],
                                         'expense_voucher' => $expense_voucher ?? [],
                                         'journal_voucher' => $journal_voucher ?? [],
-                                        'account' => $account ?? null,
+                                        'account' => $account->reference_id ?? null,
                                         'type' => $type,
 
                                         'head_account' => $head_account,

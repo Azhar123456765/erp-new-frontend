@@ -26,7 +26,7 @@
 
         $head_account = session()->get('Data')['head_account'];
         $sub_head_account = session()->get('Data')['sub_head_account'];
-
+// dd($company);
         $credit = 0;
         $debit = 0;
         $balance = 0;
