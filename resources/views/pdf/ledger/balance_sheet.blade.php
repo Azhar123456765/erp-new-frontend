@@ -349,14 +349,23 @@
                                                         ->where('from_account', $accountDetailsRow->id)
                                                         ->where('status', 'credit')
                                                         ->sum('amount');
+
+                                                    $JVAmount += $journal_voucher
+                                                        ->where('to_account', $accountDetailsRow->id)
+                                                        ->where('status', 'debit')
+                                                        ->sum('amount');
                                                     $totalDebit += max($JVAmount, 0);
+
                                                     $totalCredit +=
                                                         $JVAmount < 0
                                                             ? ($JVAmount = $journal_voucher
                                                                 ->where('to_account', $accountDetailsRow->id)
-                                                                ->where('status', 'debit')
+                                                                ->where('status', 'credit')
                                                                 ->sum('amount'))
-                                                            : 0;
+                                                            : ($JVAmount = $journal_voucher
+                                                                ->where('from_account', $accountDetailsRow->id)
+                                                                ->where('status', 'debit')
+                                                                ->sum('amount'));
 
                                                     $totalAmount = $totalCredit - $totalDebit;
                                                 }
@@ -438,25 +447,34 @@
                                                                 ->sum('amount'))
                                                             : 0;
 
-                                                    $JVAmount = $journal_voucher
+                                                   $JVAmount = $journal_voucher
                                                         ->where('from_account', $accountDetailsRow->id)
                                                         ->where('status', 'credit')
                                                         ->sum('amount');
+
+                                                    $JVAmount += $journal_voucher
+                                                        ->where('to_account', $accountDetailsRow->id)
+                                                        ->where('status', 'debit')
+                                                        ->sum('amount');
                                                     $totalDebit += max($JVAmount, 0);
-                                                    $totalDebit +=
+                                                    
+                                                    $totalCredit +=
                                                         $JVAmount < 0
                                                             ? ($JVAmount = $journal_voucher
                                                                 ->where('to_account', $accountDetailsRow->id)
-                                                                ->where('status', 'debit')
+                                                                ->where('status', 'credit')
                                                                 ->sum('amount'))
-                                                            : 0;
+                                                            : ($JVAmount = $journal_voucher
+                                                                ->where('from_account', $accountDetailsRow->id)
+                                                                ->where('status', 'debit')
+                                                                ->sum('amount'));
 
-                                                    $totalAmount = $totalCredit - $totalDebit;
+                                                    $totalAmount =  $totalDebit -$totalCredit;
                                                 }
                                                 $totalHeadAmount += $totalAmount;
                                             @endphp
                                         @endif
-                                        {{ number_format($totalDebit, 2) }}
+                                        {{ number_format($totalAmount, 2) }}
                                     </th>
                                 </tr>
                             @endforeach

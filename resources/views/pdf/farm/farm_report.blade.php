@@ -251,7 +251,7 @@
                                         </td>
                                         <td style="text-align:right;">
                                             @if ($farm)
-                                                <span>{{ $row->farm == $farm->id ? $row->amount_total : '-' . $row->sale_amount_total }}</span>
+                                                <span>{{ $row->farm == $farm->id ? $row->amount : '-' . $row->sale_amount }}</span>
                                             @else
                                                 <span>{{ $row->amount }}</span>
                                             @endif
@@ -871,9 +871,9 @@
             <div class="content" style="border-top:1px solid #363636 !important;">
                 <p> <strong> Purchases: </strong>PKR
                     @if ($farm)
-                        {{ $total_purchase = $chickInvoice->sum('amount_total') + $feedInvoice->where('farm', $farm->id)->sum('amount') - $feedInvoice->where('supply_farm', $farm->id)->sum('sale_amount') }}
+                        {{ $total_purchase = $chickInvoice->sum('amount') + $feedInvoice->where('farm', $farm->id)->sum('amount') - $feedInvoice->where('supply_farm', $farm->id)->sum('sale_amount') }}
                     @else
-                        {{ $total_purchase = $chickInvoice->sum('amount_total') + $feedInvoice->sum('amount') }}
+                        {{ $total_purchase = $chickInvoice->sum('amount') + $feedInvoice->sum('amount') }}
                     @endif
                 </p>
                 <p> <strong> Expenses: </strong>
