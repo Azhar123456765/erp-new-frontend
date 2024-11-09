@@ -1970,8 +1970,8 @@ text-align: center;
 
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label>Select Contra Account</label>
-                                    <select class="form-control select-account" name="contra_account">
+                                    <label>Select Expense Account</label>
+                                    <select class="form-control select-expense-account" name="expense_account">
 
                                     </select>
                                 </div>
@@ -2068,7 +2068,7 @@ text-align: center;
                         </div>
 
                         <div class="row"
-                            style="    justify-content: spacj-between;
+                            style="    justify-content: space-between;
 margin-top:12%;
 text-align: center;
 ">
@@ -2092,7 +2092,6 @@ text-align: center;
                                 </div>
                             </div>
                         </div>
-                </div>
                 <div class="submit" style="
     text-align: center;
 ">

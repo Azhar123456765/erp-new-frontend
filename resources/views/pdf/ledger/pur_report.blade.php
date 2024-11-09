@@ -63,8 +63,8 @@
                         <h1 class="ui header pageTitle">Supplier Report
                         </h1>
                         <h4 class="ui sub header invDetails">FROM:
-                            {{ (new DateTime($startDate))->modify('+1 day')->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                            {{ (new DateTime($endDate))->modify('-1 day')->format('d-m-Y') }}</h4>
+                            {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                            {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">
@@ -124,7 +124,7 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
+                                        <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
                                             target="__blank"><span>CH-{{ $row->unique_id }}
                                             </span>
                                         </a>
@@ -162,13 +162,17 @@
                         <tfoot class="full-width">
                             <tr>
                                 <th colspan="1"></th>
-                                <th colspan="1"></th>
-                                <th colspan="1"></th>
                                 <th> Total: </th>
+                                <th colspan="1" style="text-align: center;">{{ $chickenData->sum('hen_qty') }}</th>
+                                <th colspan="1" style="text-align: center;">
+                                    {{ number_format($chickenData->sum('gross_weight') / $chickenData->sum('hen_qty'), 2) }}
+                                </th>
                                 <th colspan="1"></th>
-                                <th colspan="1" style="text-align:right;"></th>
-                                <th colspan="1" style="text-align:right;"> </th>
-                                <th colspan="1" style="text-align:right;" id="balance"> {{ $total_amount }} </th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1"></th>
+                                <th colspan="1">{{ $total_amount }}</th>
                             </tr>
                         </tfoot>
                     </table>
@@ -199,7 +203,7 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                        <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
                                             target="__blank"><span>C-{{ $row->unique_id }}
                                             </span>
                                         </a>
@@ -265,7 +269,7 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                        <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
                                             target="__blank"><span>F-{{ $row->unique_id }}
                                             </span>
                                         </a>

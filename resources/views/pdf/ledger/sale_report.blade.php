@@ -45,8 +45,8 @@
                         <h1 class="ui header pageTitle">Customer Report
                         </h1>
                         <h4 class="ui sub header invDetails">FROM:
-                            {{ (new DateTime($startDate))->modify('+1 day')->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                            {{ (new DateTime($endDate))->modify('-1 day')->format('d-m-Y') }}</h4>
+                            {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                            {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">
@@ -83,7 +83,7 @@
 
                 <div class="ui segment itemscard">
                     <div class="content">
-                        @if (count($chickenData->where('buyer', $companyRow->buyer_id)) > 0)
+                        @if ((count($chickenData) > 0 ? count($chickenData->where('buyer', $companyRow->buyer_id)) : 0) > 0)
                             <h4><b>Chickens</b></h4>
                             <table class="ui celled table" id="invoice-table">
                                 <thead>
@@ -146,9 +146,13 @@
                                 <tfoot class="full-width">
                                     <tr>
                                         <th colspan="1"></th>
-                                        <th colspan="1"></th>
-                                        <th colspan="1"></th>
                                         <th> Total: </th>
+                                        <th colspan="1" style="text-align: center;">{{ $chickenData->sum('hen_qty') }}</th>
+                                <th colspan="1" style="text-align: center;">
+                                    {{ number_format($chickenData->sum('gross_weight') / $chickenData->sum('hen_qty'), 2) }}
+                                </th>
+                                        <th colspan="1"></th>
+                                        <th colspan="1"></th>
                                         <th colspan="1"></th>
                                         <th colspan="1"></th>
                                         <th colspan="1"></th>
@@ -161,7 +165,8 @@
                             $total_amount = 0;
                             $total_sale_amount = 0;
                         @endphp
-                        @if (count($chickData->where('buyer', $companyRow->buyer_id)) > 0)
+                        @if ((count($chickData) > 0 ? count($chickData->where('buyer', $companyRow->buyer_id)) : 0) > 0)
+
                             <h4><b>Chicks</b></h4>
                             <table class="ui celled table" id="invoice-table">
                                 <thead>
@@ -227,7 +232,8 @@
                             $total_amount = 0;
                             $total_sale_amount = 0;
                         @endphp
-                        @if (count($feedData->where('buyer', $companyRow->buyer_id)) > 0)
+                        @if ((count($feedData) > 0 ? count($feedData->where('buyer', $companyRow->buyer_id)) : 0) > 0)
+
                             <h4><b>Feed</b></h4>
                             <table class="ui celled table" id="invoice-table">
                                 <thead>

@@ -426,108 +426,180 @@ $target = null;
                             </ul>
                         </li> --}}
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#farm-report" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Farm Report</p>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        Farm Reports
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#farm-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Farm Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#farm-daily-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Farm Daily Report</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#farm-daily-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Farm Daily Report</p>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        Ledger Reports
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#gen-led"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>General Ledger</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#bal-sheet"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Balance Sheet</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#profit-led"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Profit Report</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>General Ledger</p>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        Voucher Reports
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#p-voucher-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Payment Voucher Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#r-voucher-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Receipt Voucher Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#e-voucher-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Expense Voucher Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#j-voucher-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Journal Voucher Report</p>
+                                        </a>
+                                    </li>
+
+                                </ul>
                             </li>
+
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#bal-sheet" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Balance Sheet</p>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        Company Reports
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#sale-pur-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Customer+Supplier Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#sale-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Customer Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#pur-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Supplier Report</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
+
+
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#expense-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Expense Report</p>
+                                <a href="#" class="nav-link">
+                                    <i class="nav-icon fas fa-file"></i>
+                                    <p>
+                                        Other Reports
+                                        <i class="right fas fa-angle-left"></i>
+                                    </p>
                                 </a>
+                                <ul class="nav nav-treeview">
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#expense-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Expense Report</p>
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="" data-toggle="modal" data-target="#stock-report"
+                                            class="nav-link">
+                                            <i class="far fa-circle nav-icon"></i>
+                                            <p>Stock Report</p>
+                                        </a>
+                                    </li>
+                                </ul>
                             </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#sale-pur-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Customer+Supplier Report</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#sale-report" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Customer Report</p>
-                                </a>
-                            </li>
+
+
                             {{-- <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#sale-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sale Return Report</p>
                             </a>
                         </li> --}}
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#pur-report" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Supplier Report</p>
-                                </a>
-                            </li>
+
                             {{-- <li class="nav-item">
                             <a href="" data-toggle="modal" data-target="#pur-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Purchase Return Report</p>
                             </a>
                         </li> --}}
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#p-voucher-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Payment Voucher Report</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#r-voucher-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Receipt Voucher Report</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#e-voucher-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Expense Voucher Report</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#j-voucher-report"
-                                    class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Journal Voucher Report</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#profit-led" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Profit Report</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#stock-report" class="nav-link">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Stock Report</p>
-                                </a>
-                            </li>
+
+
                         </ul>
                     </li>
 

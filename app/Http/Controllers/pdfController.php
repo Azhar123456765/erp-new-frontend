@@ -51,8 +51,8 @@ class pdfController extends Controller
 
         public function farm_report(Request $request)
         {
-                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $startDate = Carbon::parse($request->input('start_date'));
+                $endDate = Carbon::parse($request->input('end_date'));
                 $farm_id = $request->input('farm');
                 if ($farm_id) {
                         $farm = Farm::where('id', $farm_id)->first();
@@ -218,8 +218,8 @@ class pdfController extends Controller
 
         public function farm_daily_report(Request $request)
         {
-                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $startDate = Carbon::parse($request->input('start_date'));
+                $endDate = Carbon::parse($request->input('end_date'));
                 $farm_id = $request->input('farm');
                 if ($farm_id) {
                         $farm = Farm::where('id', $farm_id)->first();
@@ -275,8 +275,8 @@ class pdfController extends Controller
         //                 } else {
         //                         $farm = null;
         //                 }
-        //                 $startDate = Carbon::parse($request->input('start_date'))->subDay();
-        //                 $endDate =Carbon::parse($request->input('end_date'))->addDay();
+        //                 $startDate = Carbon::parse($request->input('start_date'));
+        //                 $endDate =Carbon::parse($request->input('end_date'))-
 
         //                 $expense_sub_heads = SubHeadAccount::where('head', 5)->get();
         //                 $expense_sub_heads_ids = SubHeadAccount::where('head', 5)->pluck('id');
@@ -443,8 +443,8 @@ class pdfController extends Controller
 
                 if (!session()->exists('Data')) {
 // dd($request->all());
-                        $start_date = Carbon::parse($request->input('start_date'))->subDay();
-                        $end_date = Carbon::parse($request->input('end_date'))->addDay();
+                        $start_date = Carbon::parse($request->input('start_date'));
+                        $end_date = Carbon::parse($request->input('end_date'));
                         $type = $request->input('type');
 
                         $accounts = accounts::all();
@@ -477,8 +477,8 @@ class pdfController extends Controller
                         $salesOfficer = $request->input('sales_officer');
                         // $accountType = $request->input('account_type');
                         // $zone = $request->input('warehouse');
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
 
                         if ($type == 1 || $type == 2) {
@@ -856,8 +856,8 @@ class pdfController extends Controller
 
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
                         $type = $request->input('type');
                                
                         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
@@ -938,8 +938,8 @@ class pdfController extends Controller
 
         public function expense_report(Request $request)
         {
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         $account = $request->input('account');
                         $farm = $request->input('farm');
@@ -1103,8 +1103,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
         public function sale_report(Request $request)
         {
                 $type = $request['type'];
-                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $startDate = Carbon::parse($request->input('start_date'));
+                $endDate = Carbon::parse($request->input('end_date'));
 
                 $customer = $request->input('customer');
                 $salesOfficer = $request->input('sales_officer');
@@ -1350,8 +1350,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                 $type = $request['type'];
                 if ($type == 1) {
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -1411,8 +1411,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                         session()->flash('Data', $data);
                 } elseif ($type == 2) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         // Retrieve form data
                         $customer = $request->input('customer');
@@ -1499,8 +1499,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
         public function pur_report(Request $request)
         {
                 $type = $request['type'];
-                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $startDate = Carbon::parse($request->input('start_date'));
+                $endDate = Carbon::parse($request->input('end_date'));
 
                 $supplier = $request->input('supplier');
                 $salesOfficer = $request->input('sales_officer');
@@ -1743,8 +1743,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                         if ($type == 1) {
                                 # code...
 
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                                $startDate = Carbon::parse($request->input('start_date'));
+                                $endDate = Carbon::parse($request->input('end_date'));
 
                                 // Retrieve form data
                                 $supplier = $request->input('supplier');
@@ -1805,8 +1805,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                                 session()->flash('Data', $data);
                         } elseif ($type == 2) {
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                                $startDate = Carbon::parse($request->input('start_date'));
+                                $endDate = Carbon::parse($request->input('end_date'));
 
                                 // Retrieve form data
                                 $supplier = $request->input('supplier');
@@ -1899,8 +1899,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                                 # code...
 
 
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                                $startDate = Carbon::parse($request->input('start_date'));
+                                $endDate = Carbon::parse($request->input('end_date'));
 
                                 // Retrieve form data
                                 $customer = $request->input('customer');
@@ -2008,8 +2008,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                         if ($type == 2) {
 
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                                $startDate = Carbon::parse($request->input('start_date'));
+                                $endDate = Carbon::parse($request->input('end_date'));
 
                                 // Retrieve form data
                                 $customer = $request->input('customer');
@@ -2080,8 +2080,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                         $type = $request->input('type');
                         if ($type == 3) {
 
-                                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                                $startDate = Carbon::parse($request->input('start_date'));
+                                $endDate = Carbon::parse($request->input('end_date'));
                                 $customer = $request->input('customer');
 
                                 $query = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])
@@ -2199,8 +2199,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
                 if (!session()->exists('Data')) {
                         $type = $request->input('type');
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         // Retrieve form data
                         $supplier = $request->input('supplier');
@@ -2455,8 +2455,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         // Start building the query
                         $query1 = sell_invoice::whereBetween(DB::raw('DATE(sell_invoice.updated_at)'), [$startDate, $endDate])->whereIn('sell_invoice.id', function ($subQuery) {
@@ -2533,8 +2533,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
                         $product = $request->input('product');
                         $warehouse = $request->input('warehouse');
                         $product_category = $request->input('product_category');
@@ -2637,8 +2637,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
 
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
                         $warehouse = $request->input('warehouse');
 
                         $query = purchase_invoice::whereBetween('date', [$startDate, $endDate]);
@@ -3003,8 +3003,8 @@ $salary = $expense_voucher->whereIn('cash_bank', $salary);
         {
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
@@ -3105,8 +3105,8 @@ elseif($type == 2){
         {
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         $contra_account = $request->input('contra_account');
                         $salesOfficer = $request->input('sales_officer');
@@ -3206,10 +3206,10 @@ elseif($type == 2){
         {
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
-                        $contra_account = $request->input('contra_account');
+                        $expense_account = $request->input('expense_account');
                         $salesOfficer = $request->input('sales_officer');
 
                         $company = $request->input('company');
@@ -3228,8 +3228,8 @@ elseif($type == 2){
                                 $query->where('buyer', $company);
                                 $company = buyer::where('buyer_id', $company)->first();
                         }
-                        if ($contra_account) {
-                                $query->where('cash_bank', $contra_account);
+                        if ($expense_account) {
+                                $query->where('cash_bank', $expense_account);
                         }
 
                         if ($salesOfficer) {
@@ -3242,7 +3242,7 @@ elseif($type == 2){
                         $data = [
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
-                                'contra_account' => $contra_account,
+                                'expense_account' => $expense_account,
                                 'e_voucher' => $e_voucher,
                                 'company' => $company,
                                 'type' => $type ?? null
@@ -3262,8 +3262,8 @@ elseif($type == 2){
         {
                 if (!session()->exists('Data')) {
 
-                        $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                        $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                        $startDate = Carbon::parse($request->input('start_date'));
+                        $endDate = Carbon::parse($request->input('end_date'));
 
                         $from_account = $request->input('from_account');
                         $to_account = $request->input('to_account');
@@ -3387,8 +3387,8 @@ elseif($type == 2){
         public function sale_pur_report(Request $request)
         {
                 $type = $request['type'];
-                $startDate = Carbon::parse($request->input('start_date'))->subDay();
-                $endDate = Carbon::parse($request->input('end_date'))->addDay();
+                $startDate = Carbon::parse($request->input('start_date'));
+                $endDate = Carbon::parse($request->input('end_date'));
 
                 // Retrieve form data
                 $customer = $request->input('customer');

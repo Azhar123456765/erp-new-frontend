@@ -26,8 +26,8 @@
                         <h1 class="ui header pageTitle">Expense Voucher Report
                         </h1>
                         <h4 class="ui sub header invDetails">FROM:
-                            {{ (new DateTime($startDate))->modify('+1 day')->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
-                            {{ (new DateTime($endDate))->modify('-1 day')->format('d-m-Y') }}</h4>
+                            {{ (new DateTime($startDate))->format('d-m-Y') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;TO:
+                            {{ (new DateTime($endDate))->format('d-m-Y') }}</h4>
                     </div>
                 </div>
                 <div class="right floated left aligned six wide column">
@@ -69,7 +69,7 @@
                             <th class="text-center colfix">Voucher No</th>
                             <th class="text-center colfix">Company</th>
                             <th class="text-center colfix">Narration</th>
-                            <th class="text-center colfix">Contra Acount</th>
+                            <th class="text-center colfix">Expense Acount</th>
                             <th class="text-center colfix">Amount</th>
                         </tr>
                     </thead>
