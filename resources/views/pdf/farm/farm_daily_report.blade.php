@@ -79,8 +79,10 @@
                                     <th class="text-center colfix" style="text-align: center;">Extra Expense</th>
                                 </tr>
                             </thead>
-                            <h4><b>{{ (new DateTime($FarmingPeriodRow->start_date))->format('d-m-Y') }} TO
-                                    {{ (new DateTime($FarmingPeriodRow->end_date))->format('d-m-Y') }} &nbsp;&nbsp; Fillable
+                            <h4><b>{{ !isset($farm) ? 'Farm: ' . $FarmingPeriodRow->farm->name : '' }} &nbsp;&nbsp;
+                                    {{ (new DateTime($FarmingPeriodRow->start_date))->format('d-m-Y') }} TO
+                                    {{ (new DateTime($FarmingPeriodRow->end_date))->format('d-m-Y') }} &nbsp;&nbsp;
+                                    Fillable
                                     Entries:
                                     {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 0)->count() }}</b>
                             </h4>
@@ -111,10 +113,18 @@
                             <tfoot class="full-width">
                                 <tr>
                                     <th colspan="1" style="text-align:center;"> Total: </th>
-                                    <th colspan="1" style="text-align:center;"> {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('hen_deaths') }} </th>
-                                    <th colspan="1" style="text-align:center;"> {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('feed_consumed') }} </th>
-                                    <th colspan="1" style="text-align:center;"> {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('water_consumed') }} </th>
-                                    <th colspan="1" style="text-align:center;"> {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('extra_expense_amount') ?? 0 }} </th>
+                                    <th colspan="1" style="text-align:center;">
+                                        {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('hen_deaths') }}
+                                    </th>
+                                    <th colspan="1" style="text-align:center;">
+                                        {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('feed_consumed') }}
+                                    </th>
+                                    <th colspan="1" style="text-align:center;">
+                                        {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('water_consumed') }}
+                                    </th>
+                                    <th colspan="1" style="text-align:center;">
+                                        {{ $FarmingDailyReport->where('farming_period', $FarmingPeriodRow->id)->where('status', 1)->sum('extra_expense_amount') ?? 0 }}
+                                    </th>
                                 </tr>
                             </tfoot>
                         </table>

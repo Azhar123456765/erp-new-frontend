@@ -35,10 +35,11 @@
         } else {
             $feedData = [];
         }
+
+        $customerCompany = session()->get('Data')['customerCompany'] ?? null;
+        $supplierCompany = session()->get('Data')['supplierCompany'] ?? null;
+
         // dd($chickenData);
-
-        $company = session()->get('Data')['company'] ?? null;
-
         // $grand_total = 0;
         $total_amount = 0;
         $total_sale_amount = 0;
@@ -79,14 +80,27 @@
     </div>
 
     <div class="ui segment cards">
-        @if ($company)
+        @if ($customerCompany || $supplierCompany)
             <div class="ui card customercard">
                 <div class="content">
                     <div class="header">Party Details</div>
                 </div>
-                <div class="content">
-                    {{ $company->company_name }}
-                </div>
+                @if ($customerCompany && $supplierCompany)
+                    <div class="content">
+                      <strong>Customer:</strong>  {{ $customerCompany->company_name }}
+                    </div>
+                    <div class="content">
+                        <strong>Supplier:</strong> {{ $supplierCompany->company_name }}
+                    </div>
+                @elseif ($customerCompany)
+                    <div class="content">
+                        <strong>Customer:</strong>  {{ $customerCompany->company_name }}
+                    </div>
+                @elseif($supplierCompany)
+                    <div class="content">
+                        <strong>Supplier:</strong>   {{ $supplierCompany->company_name }}
+                    </div>
+                @endif
             </div>
         @endif
 
@@ -121,7 +135,7 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
+                                        <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
                                             target="__blank"><span>CH-{{ $row->unique_id }}
                                             </span>
                                         </a>
@@ -224,7 +238,7 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                        <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
                                             target="__blank"><span>C-{{ $row->unique_id }}
                                             </span>
                                         </a>
@@ -315,7 +329,7 @@
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
                                     </td>
                                     <td class="text-right">
-                                         <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                        <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
                                             target="__blank"><span>F-{{ $row->unique_id }}
                                             </span>
                                         </a>

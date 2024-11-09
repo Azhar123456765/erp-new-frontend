@@ -110,9 +110,12 @@ class pdfController extends Controller
                 $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
 
                 if ($farm) {
-                        $feedInvoice->where('farm', $farm_id)->orWhere('supply_farm', $farm_id);
+                    $feedInvoice->where(function ($query) use ($farm_id) {
+                        $query->where('farm', $farm_id)
+                              ->orWhere('supply_farm', $farm_id);
+                    });
                 }
-
+                
                 $payment_voucher = p_voucher::whereBetween('date', [$startDate, $endDate]);
 
                 if ($farm) {
@@ -956,6 +959,7 @@ class pdfController extends Controller
                         if ($farm) {
                                 $farmDetails = Farm::where('id', $farm)->first();
                                 }
+
                         $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
 
 if ($account) {
@@ -3395,10 +3399,13 @@ elseif($type == 2){
                 $product_company = $request->input('product_company');
                 $product = $request->input('product');
                 $product_id = null;
-                if ($customer) {
-                        $company = buyer::where('buyer_id', $customer)->first();
+                if ($customer && $supplier) {
+                    $customerCompany = buyer::where('buyer_id', $customer)->first();
+                        $supplierCompany = buyer::where('buyer_id', $customer)->first();
+                }elseif ($customer) {
+                        $customerCompany = buyer::where('buyer_id', $customer)->first();
                 } elseif ($supplier) {
-                        $company = buyer::where('buyer_id', $supplier)->first();
+                        $supplierCompany = buyer::where('buyer_id', $supplier)->first();
                 }
                 if ($type == 1) {
 
@@ -3488,7 +3495,8 @@ elseif($type == 2){
                                 'feedData' => $feedData,
                                 'startDate' => $startDate,
                                 'endDate' => $endDate,
-                                'company' => $company ?? null,
+                                'customerCompany' => $customerCompany ?? null,
+                                'supplierCompany' => $supplierCompany ?? null,
                                 'type' => $type,
                         ];
 
