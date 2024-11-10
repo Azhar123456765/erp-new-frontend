@@ -579,7 +579,7 @@ class pdfController extends Controller
                                 $payment_voucher = p_voucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $payment_voucher->where('cash_bank', $id)->orWhere('company', $account);
+                                        $payment_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $payment_voucher->where('sales_officer', $salesOfficer);
@@ -592,7 +592,7 @@ class pdfController extends Controller
                                 $receipt_voucher = ReceiptVoucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $receipt_voucher->where('cash_bank', $id)->orWhere('company', $account);
+                                        $receipt_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $receipt_voucher->where('sales_officer', $salesOfficer);
@@ -605,7 +605,7 @@ class pdfController extends Controller
                                 $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account);
+                                        $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account->reference_id);
                                 }
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
