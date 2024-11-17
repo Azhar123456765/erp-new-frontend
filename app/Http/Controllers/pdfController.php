@@ -443,22 +443,27 @@ class pdfController extends Controller
 
                 if (!session()->exists('Data')) {
 // dd($request->all());
-                        $start_date = Carbon::parse($request->input('start_date'));
-                        $end_date = Carbon::parse($request->input('end_date'));
+$startDate = Carbon::parse($request->input('start_date'))->startOfDay()->format('Y-m-d');
+$endDate = Carbon::parse($request->input('end_date'))->endOfDay()->format('Y-m-d');
+
                         $type = $request->input('type');
 
-                        $accounts = accounts::all();
+                        // dd($all_accounts);
                         $head_account = $request->input('head_account');
                         $sub_head_account = $request->input('sub_head_account');
-
+                        $all_accounts = [];
                         if($head_account){
-                                $head_account = HeadAccount::where('id', $head_account)->get();
+                                $head_account = HeadAccount::where('id', $head_account)->first();
                         }
+
                         if($sub_head_account){
                                 $sub_head_account = SubHeadAccount::where('id', $sub_head_account)->get();
+                                $all_accounts = accounts::where('account_category', $sub_head_account)->get();
+
                         }else{
                                 $sub_head_account = SubHeadAccount::where('head', $head_account)->get();
                         }
+                        
                         $jv_check = $request->input('jv');
                         $pv_check = $request->input('pv');
                         $rv_check = $request->input('rv');
@@ -486,7 +491,9 @@ class pdfController extends Controller
                                         $chickenInvoice = chickenInvoice::whereBetween('date', [$startDate, $endDate]);
                                         
                                         if ($account) {
-                                            $chickenInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
+                                            $chickenInvoice->where(function($query)use($account){
+                                                $query->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
+                                        });
                                         }
                                         if ($salesOfficer) {
                                                 $chickenInvoice->where('sales_officer', $salesOfficer);
@@ -515,7 +522,9 @@ class pdfController extends Controller
                                         $chickInvoice = chickInvoice::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $chickInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
+                                        $chickInvoice->where(function($query)use($account){
+                                                $query->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
+                                        });
                                 }
                                 if ($salesOfficer) {
                                         $chickInvoice->where('sales_officer', $salesOfficer);
@@ -547,7 +556,9 @@ class pdfController extends Controller
                                 $feedInvoice = feedInvoice::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $feedInvoice->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
+                                        $feedInvoice->where(function($query)use($account){
+                                                $query->where('buyer', $account->reference_id)->orWhere('seller', $account->reference_id);
+                                        });
                                 }
                                 if ($salesOfficer) {
                                         $feedInvoice->where('sales_officer', $salesOfficer);
@@ -579,7 +590,9 @@ class pdfController extends Controller
                                 $payment_voucher = p_voucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $payment_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
+                                        $payment_voucher->where(function($query)use($id, $account){
+                                                $query->where('cash_bank', $id)->orWhere('company', $account->reference_id);
+                                        });
                                 }
                                 if ($salesOfficer) {
                                         $payment_voucher->where('sales_officer', $salesOfficer);
@@ -592,7 +605,9 @@ class pdfController extends Controller
                                 $receipt_voucher = ReceiptVoucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $receipt_voucher->where('cash_bank', $id)->orWhere('company', $account->reference_id);
+                                        $receipt_voucher->where(function($query)use($id, $account){
+                                                $query->where('cash_bank', $id)->orWhere('company', $account->reference_id);
+                                        });
                                 }
                                 if ($salesOfficer) {
                                         $receipt_voucher->where('sales_officer', $salesOfficer);
@@ -605,7 +620,9 @@ class pdfController extends Controller
                                 $expense_voucher = ExpenseVoucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $expense_voucher->where('cash_bank', $id)->orWhere('buyer', $account->reference_id);
+                                        $expense_voucher->where(function ($query) use ($id, $account) {
+                                                $query->where('cash_bank', $id)->orWhere('buyer', $account->reference_id);
+                                            });
                                 }
                                 if ($salesOfficer) {
                                         $expense_voucher->where('sales_officer', $salesOfficer);
@@ -618,16 +635,21 @@ class pdfController extends Controller
                                 $journal_voucher = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
 
                                 if ($account) {
-                                        $journal_voucher->where('from_account', $id)->orWhere('to_account', $id);
+                                    $journal_voucher->where(function ($query) use ($id) {
+                                        $query->where('from_account', $id)
+                                              ->orWhere('to_account', $id);
+                                    });
                                 }
+                                
                                 if ($salesOfficer) {
-                                        $journal_voucher->where('sales_officer', $salesOfficer);
+                                    $journal_voucher->where('sales_officer', $salesOfficer);
                                 }
+                                
+                                
                                 $journal_voucher = $journal_voucher->orderBy('date', 'asc')->get();
 
                         }
 
-                             
                                
                                
                                 // $payment_voucher = $payment_voucher->groupBy('unique_id')->map(function ($group) {
@@ -649,6 +671,8 @@ class pdfController extends Controller
                                 if ($id) {
                                         $single_data = accounts::where('id', $id)->first();
                                 }
+                                
+
                                 $data = [
                                         'startDate' => $startDate,
                                         'endDate' => $endDate,
@@ -665,7 +689,9 @@ class pdfController extends Controller
 
                                         'head_account' => $head_account,
                                         'sub_head_account' => $sub_head_account,
+                                        'accounts' => $all_accounts,
                                 ];
+
                                 session()->flash('Data', $data);
                         }
                         //    elseif ($type == 2) {
