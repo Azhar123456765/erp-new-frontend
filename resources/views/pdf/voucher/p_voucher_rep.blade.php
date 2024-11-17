@@ -100,7 +100,7 @@
                                     <span>{{ $row->narration }}</span>
                                 </td>
                                 <td style="text-align:right;">
-                                    <span>{{ $row->amount }}</span>
+                                    <span>{{ number_format($row->amount,2) }}</span>
                                     @php $total_amount += $row->amount; @endphp
                                 </td>
                             </tr>
@@ -142,7 +142,7 @@
                                         <span>{{ $row->narration }}</span>
                                     </td>
                                     <td style="text-align:right;">
-                                        <span>{{ $row->amount }}</span>
+                                        <span>{{ number_format($row->amount,2) }}</span>
                                         @php $total_amount += $row->amount; @endphp
                                     </td>
                                 </tr>

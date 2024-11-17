@@ -91,7 +91,7 @@
                                     {{-- <small class="text-muted">VAT 20%</small> --}}
                                 </td>
                                 <td class="text-right" style="text-align: right;">
-                                    <span class="mono">{{ $row->amount }}</span>
+                                    <span class="mono">{{ number_format($row->amount,2) }}</span>
                                     <br>
                                     {{-- <small class="text-muted">VAT 20%</small> --}}
                                 </td>

@@ -112,7 +112,7 @@
                                 </td>
                                 @if ($row->status == 'debit')
                                     <td style="text-align:right;">
-                                        <span>{{ $row->amount }}</span>
+                                        <span>{{ number_format($row->amount,2) }}</span>
                                         @php $total_amount_dr += $row->amount; @endphp
                                     </td>
                                     <td style="text-align:right;">
@@ -123,7 +123,7 @@
                                         <span>0.00</span>
                                     </td>
                                     <td style="text-align:right;">
-                                        <span>{{ $row->amount }}</span>
+                                        <span>{{ number_format($row->amount,2) }}</span>
                                         @php $total_amount_cr += $row->amount; @endphp
                                     </td>
                                 @endif

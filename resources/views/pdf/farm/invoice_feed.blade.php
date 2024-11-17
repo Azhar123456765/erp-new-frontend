@@ -92,7 +92,7 @@
                                         {{-- <small class="text-muted">Special -10%</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">{{ $row->sale_amount }}</span>
+                                        <span class="mono">{{ number_format($row->sale_amount,2) }}</span>
                                         <br>
                                         {{-- <small class="text-muted">VAT 20%</small> --}}
                                     </td>
@@ -190,7 +190,7 @@
                                         {{-- <small class="text-muted">Special -10%</small> --}}
                                     </td>
                                     <td class="text-right">
-                                        <span class="mono">{{ $row->amount }}</span>
+                                        <span class="mono">{{ number_format($row->amount,2) }}</span>
                                         <br>
                                         {{-- <small class="text-muted">VAT 20%</small> --}}
                                     </td>

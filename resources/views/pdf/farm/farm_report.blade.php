@@ -200,7 +200,7 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            {{ number_format($row->amount,2) }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -251,9 +251,9 @@
                                         </td>
                                         <td style="text-align:right;">
                                             @if ($farm)
-                                                <span>{{ $row->farm == $farm->id ? $row->amount : '-' . $row->sale_amount }}</span>
+                                                {{ $row->farm == $farm->id ? $row->amount : '-' . $row->sale_amount }}
                                             @else
-                                                <span>{{ $row->amount }}</span>
+                                                {{ number_format($row->amount,2) }}
                                             @endif
                                         </td>
 
@@ -326,7 +326,7 @@
                                                     <span>{{ $row->cheque_date }}</span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <span>{{ $row->amount }}</span>
+                                                    {{ number_format($row->amount,2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -361,7 +361,7 @@
                                                     <span>{{ $row->cheque_date }}</span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <span>{{ $row->amount }}</span>
+                                                    {{ number_format($row->amount,2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -428,7 +428,7 @@
                                                     <span>{{ $row->cheque_date }}</span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <span>{{ $row->amount }}</span>
+                                                    {{ number_format($row->amount,2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -464,7 +464,7 @@
                                                     <span>{{ $row->cheque_date }}</span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <span>{{ $row->amount }}</span>
+                                                    {{ number_format($row->amount,2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -532,7 +532,7 @@
                                                     <span>{{ $row->cheque_date }}</span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <span>{{ $row->amount }}</span>
+                                                    {{ number_format($row->amount,2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -567,7 +567,7 @@
                                                     <span>{{ $row->cheque_date }}</span>
                                                 </td>
                                                 <td style="text-align: right;">
-                                                    <span>{{ $row->amount }}</span>
+                                                    {{ number_format($row->amount,2) }}
                                                 </td>
                                             </tr>
                                         @endforeach
@@ -658,7 +658,7 @@
                                             <span>{{ $row->accounts->account_name ?? null }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            {{ number_format($row->amount,2) }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -700,7 +700,7 @@
                                             <span>{{ $row->description }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            {{ number_format($row->amount,2) }}
                                         </td>
                                     </tr>
 @endforeach
@@ -746,7 +746,7 @@
                                         <span>{{ $row->accounts->account_name ?? null }}</span>
                                     </td>
                                     <td style="text-align:right;">
-                                        <span>{{ $row->amount }}</span>
+                                        {{ number_format($row->amount,2) }}
                                     </td>
                                 </tr>
                             @endforeach
@@ -788,7 +788,7 @@
                                             <span>{{ $row->description }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            {{ number_format($row->amount,2) }}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -841,7 +841,7 @@
                                                 &nbsp;&nbsp;{{ $row->customer->company_name }}</span>
                                         </td>
                                         <td style="text-align:right;">
-                                            <span>{{ $row->amount }}</span>
+                                            {{ number_format($row->amount,2) }}
                                         </td>
                                     </tr>
                                 @endforeach

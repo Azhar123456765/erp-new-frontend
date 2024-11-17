@@ -457,13 +457,12 @@ $endDate = Carbon::parse($request->input('end_date'))->endOfDay()->format('Y-m-d
                         }
 
                         if($sub_head_account){
-                                $sub_head_account = SubHeadAccount::where('id', $sub_head_account)->get();
                                 $all_accounts = accounts::where('account_category', $sub_head_account)->get();
-
-                        }else{
-                                $sub_head_account = SubHeadAccount::where('head', $head_account)->get();
+                                $sub_head_account = SubHeadAccount::where('id', $sub_head_account)->get();
+                        }elseif($head_account){
+                                $sub_head_account = SubHeadAccount::whereIn('head', $head_account)->get();
+                                $all_accounts = accounts::whereIn('account_category', $sub_head_account->pluck('id'))->get();
                         }
-                        
                         $jv_check = $request->input('jv');
                         $pv_check = $request->input('pv');
                         $rv_check = $request->input('rv');
@@ -621,7 +620,7 @@ $endDate = Carbon::parse($request->input('end_date'))->endOfDay()->format('Y-m-d
 
                                 if ($account) {
                                         $expense_voucher->where(function ($query) use ($id, $account) {
-                                                $query->where('cash_bank', $id)->orWhere('buyer', $account->reference_id);
+                                                $query->where('cash_bank', $id)->orWhere('buyer', $account->id);
                                             });
                                 }
                                 if ($salesOfficer) {
@@ -1043,10 +1042,18 @@ where(function ($query) {
 
 
 if ($account) {
-        $journal_voucher->where('from_account', $account)->orWhere('to_account', $account);
-        $salaryjv->where('from_account', $account)->orWhere('to_account', $account);
-        $rentjv->where('from_account', $account)->orWhere('to_account', $account);
-        $utilityjv->where('from_account', $account)->orWhere('to_account', $account);
+        $journal_voucher->where(function($query)use($account){
+                $query->where('from_account', $account)->orWhere('to_account', $account);
+        });
+        $salaryjv->where(function($query)use($account){
+                $query->where('from_account', $account)->orWhere('to_account', $account);
+        });
+        $rentjv->where(function($query)use($account){
+                $query->where('from_account', $account)->orWhere('to_account', $account);
+        });
+        $utilityjv->where(function($query)use($account){
+                $query->where('from_account', $account)->orWhere('to_account', $account);
+        });
 }
 if ($farm) {
         $journal_voucher->where('farm', $farm);
@@ -3075,7 +3082,14 @@ elseif($type == 2){
 
                         if ($company) {
                                 $query->where('company', $company);
-                                $query2->where('from_account', $company)->where('status', 'credit')->orWhere('to_account', $company)->where('status', 'debit');
+                                $query2->where(function ($query) use ($company) {
+                                        $query->where('from_account', $company)
+                                              ->where('status', 'credit');
+                                    })->orWhere(function ($query) use ($company) {
+                                        $query->where('to_account', $company)
+                                              ->where('status', 'debit');
+                                    });
+                                    
                                 $company = buyer::where('buyer_id', $company)->first();
                         }
 
@@ -3088,8 +3102,13 @@ elseif($type == 2){
                         }
 
                         if ($contra_account) {
-                                $query2->where('from_account', $contra_account)->where('status', 'debit')->orWhere('to_account', $contra_account)->where('status', 'credit');
-                        }
+                                $query2->where(function ($query) use ($contra_account) {
+                                        $query->where('from_account', $contra_account)
+                                              ->where('status', 'debit');
+                                    })->orWhere(function ($query) use ($contra_account) {
+                                        $query->where('to_account', $contra_account)
+                                              ->where('status', 'credit');
+                                    });                        }
 
                         if ($salesOfficer) {
                                 $query2->where('sales_officer', $salesOfficer);
@@ -3097,7 +3116,9 @@ elseif($type == 2){
 
                         if ($company) {
                                 $account = accounts::where('reference_id', $company->buyer_id)->pluck('id');
-                                $query2->where('from_account', $account)->orWhere('to_account', $account);
+                                $query2->where(function($query)use($account){
+$query->where('from_account', $account)->orWhere('to_account', $account);
+                                });
                         }
 
                         $p_voucher = $query->orderBy('date', 'asc')->get();
@@ -3191,7 +3212,14 @@ elseif($type == 2){
                         $query2 = JournalVoucher::whereBetween('date', [$startDate, $endDate]);
 
                         if ($contra_account) {
-                                $query2->where('from_account', $contra_account)->where('status', 'credit')->orWhere('to_account', $contra_account)->where('status', 'debit');
+                                $query2->where(function ($query) use ($company) {
+                                        $query->where('from_account', $company)
+                                              ->where('status', 'credit');
+                                    })->orWhere(function ($query) use ($company) {
+                                        $query->where('to_account', $company)
+                                              ->where('status', 'debit');
+                                    });
+                                    
                         } 
 
                         if ($salesOfficer) {
@@ -3200,7 +3228,9 @@ elseif($type == 2){
 
                         if ($company) {
                                 $account = accounts::where('reference_id', $company->buyer_id)->pluck('id');
-                                $query2->where('from_account', $account)->orWhere('to_account', $account);
+                                $query2->where(function ($query) use ($account) {
+                                        $query->where('from_account', $account)->orWhere('to_account', $account);;
+                                    });
                         }
                        
                         $r_voucher = $query->orderBy('date', 'asc')->get();

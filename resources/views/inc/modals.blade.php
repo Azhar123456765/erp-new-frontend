@@ -587,7 +587,10 @@ text-align: center;
                             </div>
                             <label for="">Customize Report</label>
 
+                            
+                            
                             <div class="col-12 d-flex justify-content-around">
+                                <!-- Individual Checkboxes -->
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" checked name="jv" />
                                     <label class="form-check-label"> JV </label>
@@ -617,8 +620,15 @@ text-align: center;
                                     <label class="form-check-label"> FI </label>
                                 </div>
                             </div>
+                            
                         </div>
-
+                        <div class="col-12 d-flex justify-content-around">
+                            <!-- Master Checkbox -->
+                            <div class="form-check">
+                                <input id="selectAll" class="form-check-input" type="checkbox" />
+                                <label class="form-check-label" for="selectAll">Select All</label>
+                            </div>
+                        </div>
                         <div class="row"
                             style="    justify-content: space-between;
 margin-top:12%;
@@ -2104,3 +2114,24 @@ text-align: center;
     </div><!-- /.modal-content -->
 </div><!-- /.modal-dialog -->
 </div>
+@push('s_script')
+<script>
+const selectAllCheckbox = document.getElementById('selectAll');
+const checkboxes = document.querySelectorAll('.form-check-input:not(#selectAll)');
+
+selectAllCheckbox.addEventListener('change', function () {
+    const isChecked = this.checked;
+    checkboxes.forEach((checkbox) => {
+        checkbox.checked = isChecked;
+    });
+});
+
+checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener('change', function () {
+        selectAllCheckbox.checked = Array.from(checkboxes).every(
+            (checkbox) => checkbox.checked
+        );
+    });
+});
+</script>    
+@endpush
