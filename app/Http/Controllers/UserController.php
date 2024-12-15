@@ -50,13 +50,7 @@ class UserController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-
-            'email' => 'required|unique:users,email,' .  $request['user_id'] . ',user_id',
-
-            'username' => 'required|unique:users,username,' .  $request['user_id'] . ',user_id',
-
-            'phone_number' => 'required|unique:users,phone_number,' .  $request['user_id'] . ',user_id',
-
+            'username' => 'required|unique:users,username,' . $request['user_id'] . ',user_id',
         ]);
 
         $user = new users();
@@ -95,9 +89,9 @@ class UserController extends Controller
         foreach ($users as $key => $value) {
             $role2 = $value->role;
         }
-        if ($role == 'admin' && $role2 == 'admin'  && $user_id != 1) {
+        if ($role == 'admin' && $role2 == 'admin' && $user_id != 1) {
             return redirect('/403');
-        } elseif ($role2 != 'admin'|| $user_id == 1) {
+        } elseif ($role2 != 'admin' || $user_id == 1) {
             $user = users::where([
 
                 'user_id' => $id
@@ -120,13 +114,7 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-
-            'email' => 'required|unique:users,email,' .  $request['user_id'] . ',user_id',
-
-            'username' => 'required|unique:users,username,' .  $request['user_id'] . ',user_id',
-
-            'phone_number' => 'required|unique:users,phone_number,' .  $request['user_id'] . ',user_id',
-
+            'username' => 'required|unique:users,username,' . $request['user_id'] . ',user_id',
         ]);
 
         users::where('user_id', $request['user_id'])->update([

@@ -59,7 +59,7 @@ class ExpenseVoucherController extends Controller
         $se_voucher = ExpenseVoucher::where([
 
             "unique_id" => 1
-        ])->limit(1)->get();
+        ])->first();
 
         $account = accounts::all();
 
@@ -79,7 +79,7 @@ class ExpenseVoucherController extends Controller
         $se_voucher = ExpenseVoucher::where([
 
             "unique_id" => $count
-        ])->limit(1)->get();
+        ])->first();
 
         $account = accounts::all();
 
@@ -173,7 +173,7 @@ class ExpenseVoucherController extends Controller
         $se_voucher = ExpenseVoucher::where([
 
             "unique_id" => $id
-        ])->limit(1)->get();
+        ])->first();
 
         $account = accounts::all();
 

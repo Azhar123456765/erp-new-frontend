@@ -45,10 +45,10 @@ class search extends Controller
                 $newRow .= '<td>' . $data->buyer_type . '</td>';
                 $newRow .= '<td>';
                 $newRow .= '<div class="table-data-feature">';
-                $newRow .= '<a href="/edit_buyer' . $data->buyer_id . '" class="item" data-toggle="tooltip" data-placement="top" title="Edit">';
+                $newRow .= '<a href="/edit_buyer' . $data->buyer_id . '" class="item" data-bs-toggle="tooltip" data-placement="top" title="Edit">';
                 $newRow .= '<i class="fa fa-edit"></i>';
                 $newRow .= '</a>';
-                $newRow .= '<a href="/view_single_buyer' . $data->buyer_id . '" class="item" data-toggle="tooltip" data-placement="top" title="View">';
+                $newRow .= '<a href="/view_single_buyer' . $data->buyer_id . '" class="item" data-bs-toggle="tooltip" data-placement="top" title="View">';
                 $newRow .= '<i class="fa fa-light fa-eye"></i>';
                 $newRow .= '</a>';
                 $newRow .= '</div>';
@@ -87,10 +87,10 @@ class search extends Controller
                 $newRow .= '<td>' . $data->buyer_type . '</td>';
                 $newRow .= '<td>';
                 $newRow .= '<div class="table-data-feature">';
-                $newRow .= '<a href="/edit_buyer' . $data->buyer_id . '" class="item" data-toggle="tooltip" data-placement="top" title="Edit">';
+                $newRow .= '<a href="/edit_buyer' . $data->buyer_id . '" class="item" data-bs-toggle="tooltip" data-placement="top" title="Edit">';
                 $newRow .= '<i class="fa fa-edit"></i>';
                 $newRow .= '</a>';
-                $newRow .= '<a href="/view_single_buyer' . $data->buyer_id . '" class="item" data-toggle="tooltip" data-placement="top" title="View">';
+                $newRow .= '<a href="/view_single_buyer' . $data->buyer_id . '" class="item" data-bs-toggle="tooltip" data-placement="top" title="View">';
                 $newRow .= '<i class="fa fa-light fa-eye"></i>';
                 $newRow .= '</a>';
                 $newRow .= '</div>';
@@ -139,10 +139,10 @@ public function seller_search(Request $post)
                 $newRow .= '<td>' . $data->seller_type . '</td>';
                 $newRow .= '<td>';
                 $newRow .= '<div class="table-data-feature">';
-                $newRow .= '<a href="/edit_seller' . $data->seller_id . '" class="item" data-toggle="tooltip" data-placement="top" title="Edit">';
+                $newRow .= '<a href="/edit_seller' . $data->seller_id . '" class="item" data-bs-toggle="tooltip" data-placement="top" title="Edit">';
                 $newRow .= '<i class="fa fa-edit"></i>';
                 $newRow .= '</a>';
-                $newRow .= '<a href="/view_single_seller' . $data->seller_id . '" class="item" data-toggle="tooltip" data-placement="top" title="View">';
+                $newRow .= '<a href="/view_single_seller' . $data->seller_id . '" class="item" data-bs-toggle="tooltip" data-placement="top" title="View">';
                 $newRow .= '<i class="fa fa-light fa-eye"></i>';
                 $newRow .= '</a>';
                 $newRow .= '</div>';

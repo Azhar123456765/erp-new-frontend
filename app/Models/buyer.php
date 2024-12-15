@@ -11,6 +11,9 @@ class buyer extends Model
     protected $table = 'buyer';
     protected $id = 'buyer_id';
 
-
+    function zone()
+    {
+        return $this->hasOne(zone::class, 'zone_id', 'city');
+    }
 
 }

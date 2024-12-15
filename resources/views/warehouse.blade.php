@@ -1,12 +1,14 @@
-@extends('master')  @section('title','Warehouse Table')  @section('content')
+@extends('layout.app') @section('title', 'Warehouse Table') @section('content')
 
 <br>
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Warehouse Table</h3>
-            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
-                <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Warehouse</a>
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title">Warehouse Table</h3>
+                <a href="" data-bs-toggle="modal" data-bs-target="#add-modal" class="btn btn-success float-right">
+                    <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Warehouse</a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -14,17 +16,17 @@
                 <thead>
                     <tr>
 
-                    <th>S.NO</th>
-                            <th>Warehouse Name</th>
-                            <th>Zone</th>
-                            <th>Created At</th>
-                            <th>Updated At</th>
+                        <th>S.NO</th>
+                        <th>Warehouse Name</th>
+                        <th>Zone</th>
+                        <th>Created At</th>
+                        <th>Updated At</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody>
                     @php
-                    $serial = 1
+                        $serial = 1;
                     @endphp
                     @foreach ($users as $row)
                         <tr class="tr-shadow">
@@ -35,13 +37,16 @@
                             <td>{{ $row->updated_at }}</td>
                             <td>
                                 <div class="table-data-feature">
-                                    <a href="#" data-toggle="modal" data-target="#edit_modal{{$row->warehouse_id}}" class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="#" data-bs-toggle="modal"
+                                        data-bs-target="#edit_modal{{ $row->warehouse_id }}" class="item"
+                                        data-bs-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="/warehouse_delete{{ $row->warehouse_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                    {{-- <a href="/warehouse_delete{{ $row->warehouse_id }}" class="item"
+                                        data-bs-toggle="tooltip" data-placement="top" title="Delete">
                                         <i class="fa fa-trash"></i>
-                                    </a>
-                                    <!-- <a href="/del_user/{{ $row->user_id }}" class="item" data-toggle="tooltip" data-placement="top" title="Delete User">
+                                    </a> --}}
+                                    <!-- <a href="/del_user/{{ $row->user_id }}" class="item" data-bs-toggle="tooltip" data-placement="top" title="Delete User">
                                             <i class="fa fa-trash"></i>
                                         </a> -->
                                 </div>
@@ -49,9 +54,9 @@
                         </tr>
                         <!-- <tr class="spacer"></tr> -->
                         @php
-                        $serial++;
+                            $serial++;
                         @endphp
-                        @endforeach
+                    @endforeach
                 </tbody>
 
             </table>
@@ -68,67 +73,75 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Add warehouse</h4>
+                <div class="modal-header">
+                    <h4>Add warehouse</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <div class="modal-body">
-                    <form method="POST" action="/add_warehouse">
+                    <form method="POST" action="/add_warehouse" class="needs-validation"
+                    novalidate>
                         @csrf
                         <div class="form-group">
                             <label for="username">Warehouse Name</label>
-                            <input type="text" class="form-control " id="warehouse_name" name="warehouse_name" placeholder="Warehouse" required>
+                            <input type="text" class="form-control " id="warehouse_name" name="warehouse_name"
+                                placeholder="Warehouse" required>
                         </div>
                         <div class="form-group">
                             <label for="username">Zone</label>
                             <select name="zone" class="form-control">
                                 @foreach ($category as $row)
-
-
-                                <option value="{{$row->zone_id}}">{{$row->zone_name}}</option>
-
+                                    <option value="{{ $row->zone_id }}">{{ $row->zone_name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-
-                    </form>
-                </div>
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
-</div>@foreach ($users as $row)
-
-
-<div class="modal fade" id="edit_modal{{$row->warehouse_id}}">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-body">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Edit warehouse</h4>
-                <div class="modal-body">
-                    <form method="POST" action="/edit_warehouse{{$row->warehouse_id}}">
-                        @csrf
                         <div class="form-group">
-                            <label for="username">Warehouse Name</label>
-                            <input type="text" class="form-control " id="warehouse_name" name="warehouse_name" placeholder="Category" required value="{{$row->warehouse_name}}">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
                         </div>
-                        <div class="form-group">
-                            <label for="username">Zone</label>
-                            <select name="zone" class="form-control">
-                                @foreach ($category as $row2)
-                                <option value="{{$row2->zone_id}}" {{$row->zone_id === $row2->zone_id ? 'selected' : ''}}>{{$row2->zone_name}}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
                     </form>
                 </div>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
 </div>
-
-
+@foreach ($users as $row)
+    <div class="modal fade" id="edit_modal{{ $row->warehouse_id }}" class="needs-validation"
+        novalidate>
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="modal-header">
+                        <h4>Edit warehouse</h4>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="POST" action="/edit_warehouse{{ $row->warehouse_id }}">
+                            @csrf
+                            <div class="form-group">
+                                <label for="username">Warehouse Name</label>
+                                <input type="text" class="form-control " id="warehouse_name" name="warehouse_name"
+                                    placeholder="Category" required value="{{ $row->warehouse_name }}">
+                            </div>
+                            <div class="form-group">
+                                <label for="username">Zone</label>
+                                <select name="zone" class="form-control">
+                                    @foreach ($category as $row2)
+                                        <option value="{{ $row2->zone_id }}"
+                                            {{ $row->zone_id === $row2->zone_id ? 'selected' : '' }}>
+                                            {{ $row2->zone_name }}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div>
 @endforeach
 
 @endsection

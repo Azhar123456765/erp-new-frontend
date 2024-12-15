@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Purchase Invoice')  @section('content')
+@extends('layout.app')  @section('title','Purchase Invoice')  @section('content')
 
 <head>
 
@@ -585,16 +585,20 @@ window.location.href = newUrl
 ">
     Next
 </button>
-    <a href="/ep_med_invoice_id={{ $rand }}" class="edit edit-btn btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
-        Edit
+    <a href="/ep_med_invoice_id={{ $rand }}" class="edit edit-btn btn btn-secondary btn-sm" style="margin-left: 19px; display:none;" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + E">
+            Edit
     </a>
 
 
 
 
 
-    <a href="/p_med_invoice" class="edit add-more  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
-        Add More
+    <a href="/p_med_invoice" class="edit add-more  btn btn-secondary btn-sm" style="margin-left: 19px; display:none;"id="add_more_btn" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + M">
+            Add More
     </a>
 
     <a href="/purchase_invoice_pdf_{{$rand}}" class="edit pdf btn btn-secondary btn-sm" style="margin-left: 19px; display:none;">
@@ -837,7 +841,7 @@ window.location.href = newUrl
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select2').select2({
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: 'resolve',
             });
 
@@ -972,7 +976,7 @@ window.location.href = newUrl
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select2').select2({
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: 'resolve',
             });
 

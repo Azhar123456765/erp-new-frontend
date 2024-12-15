@@ -1,4 +1,4 @@
-@extends('master')  @section('title', 'Purchase Invoice Table')  @section('content')
+@extends('layout.app')  @section('title', 'Purchase Invoice Table')  @section('content')
 
 <br>
 <div class="container">
@@ -38,13 +38,13 @@ $serial = 1
                             <td>{{$row->created_at}}</td>
                             <td>
                                 <div class="table-data-feature">
-                                    <a href="/ep_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                    <a href="/ep_med_invoice_id={{$row->unique_id}}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
-                                    <a href="/rp_med_invoice_id={{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+                                    <a href="/rp_med_invoice_id={{$row->unique_id}}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                                         <i class="fa fa-retweet"></i>
                                     </a>
-                                    <a href="/purchase_invoice_pdf_{{$row->unique_id}}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
+                                    <a href="/purchase_invoice_pdf_{{$row->unique_id}}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                                         <i class="fa fa-solid fa-file-pdf"></i>
                                     </a>
                                 </div>

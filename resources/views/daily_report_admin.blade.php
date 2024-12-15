@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Daily Report') @section('content')
+@extends('layout.app') @section('title', 'Daily Report') @section('content')
 <br>
 <div class="container">
     <div class="card">
@@ -39,8 +39,8 @@
                                 {{ $row->extra_expense_narration }}, {{ $row->extra_expense_amount }}Rs</td>
                             <td>
                                 <div class="table-data-feature">
-                                    <a href="#" data-toggle="modal" data-target="#edit_modal{{ $row->id }}"
-                                        class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#edit_modal{{ $row->id }}"
+                                        class="item" data-bs-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </div>
@@ -118,7 +118,9 @@
 
 
 
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
 
                 </form>
             </div>
@@ -190,7 +192,9 @@
                             </div>
 
 
+                            <div class="form-group">
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
 
                         </form>
                     </div>

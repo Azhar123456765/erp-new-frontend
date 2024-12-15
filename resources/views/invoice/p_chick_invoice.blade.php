@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Panel')  @section('content')
+@extends('layout.app')  @section('title','Panel')  @section('content')
 <style>
   * input {
     border: 1px solid;
@@ -91,9 +91,9 @@
 
 
     <div class="fields">
-      <label for="">Date</label>
+      <label>Date</label>
       <input type="date" id="date">
-      <label for="">Sales Officer</label>
+      <label>Sales Officer</label>
       <select name="sales_officer" id="sales_officer" data-live-search="true">
 
         @foreach ($sales_officer as $row)
@@ -104,7 +104,7 @@
 
       </select>
 
-      <label for="">Supplier</label>
+      <label>Supplier</label>
       <select name="seller" id="seller" class="company">
 
         @foreach ($seller as $row)
@@ -120,7 +120,7 @@
 
     <div class="fields">
 
-      <label for="">Remarks</label>
+      <label>Remarks</label>
       <input type="text" id="remark">
     </div>
     <div class="fields"></div>

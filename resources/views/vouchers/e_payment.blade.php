@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Payment Voucher (EDIT)') @section('content')
+@extends('layout.app') @section('title', 'Payment Voucher (EDIT)') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -22,61 +22,12 @@
     }
 
 
-    @media (max-width: 755px) {
-        body {
-            overflow: scroll !important;
-            width: max-content;
-
-        }
-
-        .img {
-            position: absolute;
-            top: 70% !important;
-            left: 80.5% !important;
-            width: 217px;
-            height: 191px;
-        }
-
-        .options {
-            width: 23% !important;
-        }
-
-    }
-
-
-
-    @media (max-width: 755px) {
-        body {
-            overflow: scroll !important;
-            width: max-content;
-
-        }
-
-        .img {
-            position: absolute;
-            top: 70% !important;
-            left: 80.5% !important;
-            width: 217px;
-            height: 191px;
-        }
-
-        .options {
-            width: 23% !important;
-        }
-
-    }
-
-
-
-
-
-    .container {
+    .finance-layout {
         transform: scale(0.75);
     }
 
-    input[type="number" step="any"] {
-        text-align: right !important;
-    }
+
+
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
         -webkit-appearance: none;
@@ -91,14 +42,21 @@
     label {
         margin: 3px;
         font-weight: bolder;
+        font-size: larger !important;
     }
 
-    .top label {
-        margin: 5px;
+    h6 {
+        margin: 3px;
+        font-weight: bolder;
+        font-size: large;
     }
+
+    /* .top label {
+        margin: 5px;
+    } */
 
     .dup_invoice label {
-        width: 71px;
+        width: 55px;
         text-align: center;
         height: 55px;
         padding: 15px auto 15px 15px;
@@ -107,14 +65,11 @@
     }
 
 
-    .dup_invoice input {
-        border: 1px solid;
-        width: 71px;
-    }
+
 
     .dup input {
         border: 1px solid;
-        width: 71px;
+        width: 131px;
     }
 
     .total input {
@@ -136,7 +91,10 @@
         justify-content: center;
     }
 
-
+    .invoice input {
+        border: 1px solid;
+        width: 131px;
+    }
 
     .invoice label {
         text-align: center;
@@ -166,36 +124,40 @@
     }
 
     input {
-        width: 181px !important;
+        width: 131px !important;
         height: 27px !important;
     }
 
-    #invoiceForm select {
-        width: 181px !important;
+    /* #invoiceForm select {
+        width: 131px !important;
         height: 27px !important;
-    }
+    } */
 
-    #form {
-        width: 140%;
-        margin-left: -22%;
-    }
-
-    #invoiceForm .select2-container--classic {
-        width: 191px !important;
-        height: 27px !important;
-
+    #invoiceForm .select2-container--bootstrap4 {
+        width: 210px !important;
         line-height: 25px !important;
-        height: 25px !important;
     }
 
     .select2-dropdown {
         width: 200px !important;
     }
 
-    .select2-container--classic .select2-search--dropdown .select2-search__field {
+    .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
         width: 100% !important;
     }
 
+    .select2-dropdown {
+        width: 200px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
+        width: 100% !important;
+    }
+
+    #form {
+        width: 140%;
+        margin-left: -22%;
+    }
 
     .fields {
 
@@ -222,36 +184,35 @@
         color: black;
         /* Change this to your desired text color */
         outline: none;
-        /* Remove the default focus outline */
+        /* Remove the classic focus outline */
+    }
+
+    .select2:focus {
+        border: 100px solid;
+        background-color: lightgray;
+        /* Change this to your desired dark background color */
+        color: black;
+        /* Change this to your desired text color */
+        outline: 50px;
+        /* Remove the classic focus outline */
     }
 
 
-
-    .remark .select2-container--default .select2-selection--single .select2-selection__rendered {
+    /* .remark .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
         width: 219px !important;
         height: 27px !important;
 
         line-height: 25px !important;
         height: 25px !important;
         padding-top: 2px;
+    } */
+
+    .cash .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+        width: 139px !important;
     }
 
-
-
-    .label {
-        text-align: center;
-        height: 50px;
-        padding: 15px auto 15px 15px;
-        border: 1px solid none;
-        display: flex;
-        width: 67%;
-        justify-content: space-evenly;
-        margin-left: 300px;
-    }
-
-    .label label {
-        width: 71px;
-
+    .items #invoiceForm .select2-container--bootstrap4 {
+        width: 115px !important;
     }
 
     /* .fields input{
@@ -260,73 +221,143 @@
   .one select{
     padding-left: 25%;
       } */
+
+
+    .dup_invoice #invoiceForm select {
+        border: 1px solid;
+        width: 83px !important;
+    }
+
+    .dup_invoice input {
+        border: 1px solid;
+        width: 200px !important;
+    }
+
+    .total input {
+        width: 260px !important;
+    }
+
+    .xl-width-inp {
+        width: 90px !important;
+    }
+
+    .dup_invoice .div {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .dup_invoice .div label {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+
+    #invoiceForm .dup_invoice .select2-container--bootstrap4 {
+        width: 120px !important;
+    }
+
+
+    .label {
+        text-align: center;
+    height: 50px;
+    padding: 15px auto 15px 15px;
+    border: 1px solid none;
+    display: flex
+;
+    width: 66%;
+    justify-content: space-evenly;
+    margin-left: 300px;
+    }
+
+    .label label {
+        width: 100px;
+
+    }
 </style>
-<div class="container" id="invoiceForm" style="margin-top: -37px; padding-top: 5px;        overflow-x: visible;
+<div class="container">
+    <h3 style="text-align: center;">Payment Voucher (EDIT)</h3>
+    <div class="finance-layout" id="invoiceForm" style="overflow-x: visible;
 ">
     <form id="form">
-        <h3 style="text-align: center;">Payment Voucher (EDIT)</h3>
-
-        <h5 style="text-align: end;">Medician</h5>
-        <div class="top">
-            <div class="fields">
-                <div class="one">
-                    <label for="Invoice">GR#</label>
-                    <input style="border: none !important;" type="text" id="invoice#" readonly
-                        value="<?php $year = date('Y');
-                        $lastTwoWords = substr($year, -2);
-                        echo $rand = 'PV' . '-' . $year . '-' . $sp_voucher->unique_id; ?>" />
-                    <input type="hidden" id="unique_id" name="unique_id"
+        <div class="row justify-content-around mt-0">
+            <div class="col-3">
+                <div class="row mb-3">
+                    <div class="col-8">
+                        <input style="border: none !important;" style="border: none !important;" readonly
+                            type="date" id="date" value="<?php
+                            $currentDate = date('Y-m-d');
+                            echo $currentDate;
+                            ?>" />
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label" for="Invoice">GR#</label>
+                    <div class="col-8">
+                        <input class="form-control" style="border: none !important;width: 219px !important;"
+                            type="text" id="invoice#" value="<?php $year = date('Y');
+                            $lastTwoWords = substr($year, -2);
+                            echo $rand = 'PV' . '-' . $year . '-' . $sp_voucher->unique_id; ?>" />
+                        <input type="hidden" id="unique_id" name="unique_id"
                         value="{{ $rand = $sp_voucher->unique_id }}" />
-
+                    </div>
                 </div>
-                <div class="one">
-                    <label for="date">Date</label>
-                    <input style="border: none !important;" type="date" id="date" name="date"
-                        value="{{ $sp_voucher->date }}" />
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label" for="date">Date</label>
+                    <div class="col-8">
+                        <input class="form-control"
+                            style="border: none !important; width: 219px !important; text-align:center;        "
+                            type="date" id="date" name="date" value="{{ $sp_voucher->date }}" />
+                    </div>
                 </div>
-
-
 
             </div>
-
-
-            <div class="fields">
-                <div class="one  remark">
-                    <label for="seller">Company</label>
-                    <select name="company" id="company" class="company select-buyer" required>
-                        <option value="{{ $sp_voucher->customer->buyer_id }}" selected>
-                            {{ $sp_voucher->customer->company_name }}</option>
-                    </select>
+            <div class="col-3">
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label">Company</label>
+                    <div class="col-8">
+                        <select name="company" id="company" class="company select-buyer" required>
+                            <option value="{{ $sp_voucher->customer->buyer_id }}" selected>
+                                {{ $sp_voucher->customer->company_name }}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label">Sales Officer</label>
+                    <div class="col-8">
+                        <select name="sales_officer" id="sales_officer" class="select-sales_officer">
+                            <option value="{{ $sp_voucher->officer->sales_officer_id ?? null }}" selected>
+                                {{ $sp_voucher->officer->sales_officer_name ?? null }}</option>
+                        </select>
+                    </div>
                 </div>
 
-                <div class="one  remark">
-                    <label for="seller">Sales Ofiicer</label>
-                    <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                        <option value="{{ $sp_voucher->officer->sales_officer_id ?? null }}" selected>
-                            {{ $sp_voucher->officer->sales_officer_name ?? null }}</option>
-                    </select>
-                </div>
             </div>
-
-            <div class="fields">
-
-
-                <div class="one">
-                    <label for="Invoice">Ref No</label>
-                    <input type="text" id="ref_no" name="ref_no" value="{{ $sp_voucher->ref_no }}" />
+            <div class="col-3">
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label" for="remark">Ref No</label>
+                    <div class="col-8">
+                        <input class="form-control" type="text" id="ref_no" name="ref_no"
+                            style="width: 219px !important;"  value="{{ $sp_voucher->ref_no }}" />
+                    </div>
                 </div>
-                <div class="one  remark">
-                    <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" type="text" id="remark" name="remark"
-                        value="{{ $sp_voucher->remark }}" />
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label" for="remark">Remarks</label>
+                    <div class="col-8">
+                        <input class="form-control" style="width: 219px !important;" type="text" id="remark"
+                            name="remark" value="{{ $sp_voucher->remark }}"/>
+                    </div>
                 </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="farm" class="select-farm">
-                        <option value="{{ $sp_voucher->farms->id ?? null }}" selected>
-                            {{ $sp_voucher->farms->name ?? null }}</option>
-                    </select>
-
+                <div class="row mb-3">
+                    <label class="col-3 col-form-label">Farm</label>
+                    <div class="col-8">
+                        <select name="farm" class="select-farm">
+                            <option value="{{ $sp_voucher->farms->id ?? null }}" selected>
+                                {{ $sp_voucher->farms->name ?? null }}</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -337,21 +368,17 @@
             @csrf
             <div class="label">
                 <label for="item" style="padding-right: 91px;">Narration</label>
+                <label for="unit">Invoice</label>
                 <label for="unit">Cheque No</label>
                 <label for="batch_no">Cheque Date</label>
                 <label>Cash/Bank Account</label>
                 <label for="amount">Amount</label>
-
-
-
             </div>
             @php
                 $counter = 1;
             @endphp
             @foreach ($p_voucher as $invoice_row)
                 <div class="dup_invoice" onchange="addInvoice()">
-
-
                     <div class="div">
                         <input style="width: 289px !important;" type="text" id="narration" name="narration[]"
                             value="{{ $invoice_row->narration }}" />
@@ -487,93 +514,98 @@ text-align:end;
 
 </div>
 
-<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
-    data-bs-target="#imageModal"style="
-">
-    Attachment
+<button type="button" class="me-5 px-3 p-1 btn btn-secondary btn-md" style="position: fixed; top: 75%; left:7%;"
+data-bs-toggle="modal" data-bs-target="#imageModal">
+Attachment
 </button>
 <!-- Modal -->
 <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row p-2">
-                    <div class="col-lg-9 col-md-12 p-2">
-                        <a href="#" id="imageAnchor" target="_blank"><img
-                                src="{{ asset($sp_voucher->attachment) }}" alt="img" class="img-fluid"
-                                id="imagePreview" style="object-fit: fill;">
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="row justify-content-start">
-                            <div class="mb-3">
-                                <input type="file" class="form-control" name="attachment" id="attachment"
-                                    value="{{ $sp_voucher->attachment }}"
-                                    style="
-    height: max-content !important;
-" />
-                                <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
-                                    value="{{ $sp_voucher->attachment }}" />
-                            </div>
-                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
-                                onclick=" 
-                  document.getElementById('attachment').value = '';
-                 document.getElementById('imagePreview').style.display = 'none';
-                 document.getElementById('imagePreview').src = '';
-                 document.getElementById('imageAnchor').href = '';">
-                                REMOVE
-                            </button>
-
-                        </div>
-                    </div>
+<div class="modal-dialog modal-lg">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div class="row p-2">
+                <div class="col-lg-12 col-md-12 p-5">
+                    <a href="#" id="imageAnchor" target="_blank"><img
+                            src="{{ asset($sp_voucher->attachment) }}" alt="img" class="img-fluid"
+                            id="imagePreview" style="object-fit: fill;">
+                    </a>
                 </div>
             </div>
         </div>
+        <div class="modal-footer d-flex justify-content-between">
+            <div class="mb-3">
+                <input type="file" class="form-control w-100" name="attachment" id="attachment"
+                    value="{{ $sp_voucher->attachment }}" style="
+height: max-content !important;
+" />
+                <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
+                    value="{{ $sp_voucher->attachment }}" />
+            </div>
+            <button type="button" class="btn px-3 p-1 btn-secondary btn-md"
+                onclick=" 
+document.getElementById('attachment').value = '';
+document.getElementById('imagePreview').style.display = 'none';
+document.getElementById('imagePreview').src = '';
+document.getElementById('imageAnchor').href = '';">
+                REMOVE
+            </button>
+        </div>
     </div>
 </div>
-<div class="row m-5 justify-content-center align-items-center"
-    style="position: relative;gap: 30px;margin-top: -110px !important;top: 20%;right: 0%;">
+</div>
+<div class="d-flex justify-content-center align-items-center"
+style="width: 90%; position: absolute; top:90%; gap: 30px !important;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
+<button type="submit" class="btn px-3 p-1 btn-secondary btn-md submit" id="submit" disabled>
         Update
     </button>
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
-        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
-        Edit
+    <button type="button" class="btn px-3 p-1 btn-secondary btn-md submit" id="edit"
+        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + E">
+            Edit
     </button>
 
-    <a href="{{ Route('payment_voucher.create_first') }}" class="btn px-3 p-1 btn-secondary btn-sm ">
-        First
+    <a href="{{ Route('payment_voucher.create_first') }}" class="btn px-3 p-1 btn-secondary btn-md " id="first_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + A">
+            First
     </a>
-    <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
-        Previous
+    <a href="{{ Route('payment_voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-md "id="previous_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + B">
+            Previous
     </a>
-    <a href="{{ Route('payment_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm ">
-        Next
+    <a href="{{ Route('payment_voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-md " id="next_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + N">
+            Next
     </a>
-    <a href="{{ Route('payment_voucher.create_last') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Last
+    <a href="{{ Route('payment_voucher.create_last') }}" class="btn px-3 p-1 btn-secondary btn-md  submit"id="last_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + L">
+            Last
     </a>
 
-    <a href="{{ Route('payment_voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
-        id="add_more">
-        Add More
+    <a href="{{ Route('payment_voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md"
+        id="add_more_btn" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + M">
+            Add More
     </a>
 
-    <a href="{{ Route('payment_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm"
+    <a href="{{ Route('payment_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-md"
         target="__blank" id="pdf">
         PDF
     </a>
 
 
 
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+    <button class="btn px-3 p-1 btn-secondary btn-md  submit" style=""
         onclick="
         
         window.location.reload()
@@ -586,8 +618,7 @@ text-align:end;
 
 </form>
 </div>
-
-
+</div>
 
 
 <div class="flex justify-center items-center" style="display: none">
@@ -690,7 +721,7 @@ text-align:end;
                     cache: true
                 },
 
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: '100%',
                 allowClear: true,
                 placeholder: '',
@@ -817,7 +848,7 @@ text-align:end;
                             cache: true
                         },
                        
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                     });
 
@@ -945,7 +976,7 @@ text-align:end;
                             cache: true
                         },
                        
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                     });
 
@@ -1042,14 +1073,15 @@ text-align:end;
     <div class="modal fade" id="iv-search">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4>Search Voucher</h4>
-                    <div class="modal-body">
+                 <div class="modal-header">
+                <h1 class="modal-title fs-5">Search Voucher</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                         <form method="GET" action="/saleInvoice-search">
                             @csrf
                             <div class="form-group">
-                                <label for="">Voucher No</label>
+                                <label>Voucher No</label>
                                 <input type="text" class="form-control" id="search-input"
                                     style="width: 100% !important;">
                             </div>

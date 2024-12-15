@@ -167,7 +167,7 @@ $target = null;
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" data-toggle="modal" data-target="#si-search" class="nav-link">
+                  <a href="" data-bs-toggle="modal" data-bs-target="#si-search" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Search Sale Invoice</p>
                   </a>
@@ -202,7 +202,7 @@ $target = null;
                   </a>
                 </li>
                 <li class="nav-item">
-                  <a href="" data-toggle="modal" data-target="#pi-search" class="nav-link">
+                  <a href="" data-bs-toggle="modal" data-bs-target="#pi-search" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>Search Pur Invoice</p>
                   </a>
@@ -328,39 +328,39 @@ $target = null;
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p-user" class="nav-link">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p-user" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Users</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p-supplier"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p-supplier"
                                         class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>supplier</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p-buyer" class="nav-link">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p-buyer" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Buyer</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p-zone" class="nav-link">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p-zone" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>zone</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p-warehouse"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p-warehouse"
                                         class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>warehouse</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p-sales_officer"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p-sales_officer"
                                         class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>sales officer</p>
@@ -379,19 +379,19 @@ $target = null;
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#gen-led" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>General Ledger</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#cus-led" class="nav-link">
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#cus-led" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Customer Ledger</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#supplier-led"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#supplier-led"
                                         class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Supllier Ledger</p>
@@ -410,14 +410,14 @@ $target = null;
                             </a>
                             <ul class="nav nav-treeview">
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#p_voucher_report"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#p_voucher_report"
                                         class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Payment Voucher</p>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="" data-toggle="modal" data-target="#r_voucher_report"
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#r_voucher_report"
                                         class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Receipt Voucher</p>
@@ -435,14 +435,14 @@ $target = null;
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#farm-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#farm-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Farm Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#farm-daily-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#farm-daily-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Farm Daily Report</p>
@@ -460,21 +460,21 @@ $target = null;
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#gen-led"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#gen-led"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>General Ledger</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#bal-sheet"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#bal-sheet"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Balance Sheet</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#profit-led"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#profit-led"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Profit Report</p>
@@ -493,28 +493,28 @@ $target = null;
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#p-voucher-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#p-voucher-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Payment Voucher Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#r-voucher-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#r-voucher-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Receipt Voucher Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#e-voucher-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#e-voucher-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Expense Voucher Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#j-voucher-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#j-voucher-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Journal Voucher Report</p>
@@ -534,21 +534,21 @@ $target = null;
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#sale-pur-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#sale-pur-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Customer+Supplier Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#sale-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#sale-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Customer Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#pur-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#pur-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Supplier Report</p>
@@ -568,14 +568,14 @@ $target = null;
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#expense-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#expense-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Expense Report</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" data-toggle="modal" data-target="#stock-report"
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#stock-report"
                                             class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Stock Report</p>
@@ -586,14 +586,14 @@ $target = null;
 
 
                             {{-- <li class="nav-item">
-                            <a href="" data-toggle="modal" data-target="#sale-r-report" class="nav-link">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#sale-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sale Return Report</p>
                             </a>
                         </li> --}}
 
                             {{-- <li class="nav-item">
-                            <a href="" data-toggle="modal" data-target="#pur-r-report" class="nav-link">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#pur-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Purchase Return Report</p>
                             </a>

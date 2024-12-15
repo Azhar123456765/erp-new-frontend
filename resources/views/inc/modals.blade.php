@@ -13,13 +13,15 @@
 <head>
     <!-- Include other necessary scripts and stylesheets -->
     <!-- Include Select2 CSS -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
+    {{-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" /> --}}
 
     <!-- Include jQuery library -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script> --}}
 
     <!-- Include Select2 JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script> --}}
+
+
 </head>
 <div class="modal fade" id="p-user">
     <div class="modal-dialog">
@@ -66,7 +68,9 @@
                                 name="limit" required value="">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
                         <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=supplier">PDF All</a>
@@ -97,7 +101,9 @@
                                 name="limit" required value="">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
                         <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=buyer">PDF All</a>
@@ -127,7 +133,9 @@
                                 name="limit" required value="">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
                         <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=zone">PDF All</a>
@@ -157,7 +165,9 @@
                                 name="limit" required value="">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
                         <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=warehouse">PDF All</a>
@@ -190,7 +200,9 @@
                                 name="limit" required value="">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
                         <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
                         <a type="button" class="btn btn-primary" style="background-color:black;" id="btn"
                             href="/pdf_field=sales_officer">PDF All</a>
@@ -228,8 +240,10 @@
                                 value="{{ $theme_color }}">
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                            <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                        </div>
 
                     </form>
                 </div>
@@ -295,7 +309,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -305,7 +319,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date" value="{{ $endDate }}"
                                         id="" required>
                                 </div>
@@ -316,8 +330,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -354,7 +370,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Sales Officer</label>
-                                    
+
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
                                     </select>
@@ -370,7 +386,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -380,7 +396,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date" value="{{ $endDate }}"
                                         id="" required>
                                 </div>
@@ -391,8 +407,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -435,7 +453,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -445,7 +463,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date" value="{{ $endDate }}"
                                         id="" required>
                                 </div>
@@ -456,8 +474,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -500,7 +520,7 @@ text-align: center;
                                 </div>
                             </div> --}}
 
-                            <div class="col-12">
+                            {{-- <div class="col-12">
 
                                 <div class="form-group">
                                     <label>Head Of Accounst</label>
@@ -525,12 +545,12 @@ text-align: center;
                                     <select class="form-control select-dynamic-account" name="account">
                                     </select>
                                 </div>
-                            </div>
+                            </div> --}}
                             <div class="col-12 normal-accounts">
 
                                 <div class="form-group">
                                     <label>Account</label>
-                                    
+
                                     <select class="form-control select-account" name="account" id="gen-led-account">
                                     </select>
                                 </div>
@@ -548,7 +568,7 @@ text-align: center;
                             <div class="col-12">
                                 <div class="form-group">
                                     <label>Sales Officer</label>
-                                    
+
                                     <select class="form-control select-sales_officer" name="sales_officer">
 
                                     </select>
@@ -585,10 +605,10 @@ text-align: center;
                                     </select>
                                 </div>
                             </div>
-                            <label for="">Customize Report</label>
+                            <label>Customize Report</label>
 
-                            
-                            
+
+
                             <div class="col-12 d-flex justify-content-around">
                                 <!-- Individual Checkboxes -->
                                 <div class="form-check">
@@ -620,7 +640,7 @@ text-align: center;
                                     <label class="form-check-label"> FI </label>
                                 </div>
                             </div>
-                            
+
                         </div>
                         <div class="col-12 d-flex justify-content-around">
                             <!-- Master Checkbox -->
@@ -636,7 +656,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -646,7 +666,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -657,8 +677,11 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -675,7 +698,7 @@ text-align: center;
         <div class="modal-content gen-led">
             <div class="modal-body">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4>Balance Sheet</h4>
+                <h4>Balance Sheet (Still In Testing)</h4>
                 <div class="modal-body">
                     <form method="GET" action="{{ Route('balance_sheet.report') }}">
                         @csrf
@@ -690,7 +713,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -700,7 +723,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -711,8 +734,11 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -817,7 +843,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -825,7 +851,7 @@ text-align: center;
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date" value=""
                                         id="" required>
                                 </div>
@@ -837,8 +863,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
             </div>
             </form>
         </div>
@@ -939,7 +967,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -947,7 +975,7 @@ text-align: center;
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -959,8 +987,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
             </div>
             </form>
         </div>
@@ -1062,7 +1092,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1070,7 +1100,7 @@ text-align: center;
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1082,8 +1112,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
             </div>
             </form>
         </div>
@@ -1188,7 +1220,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1196,7 +1228,7 @@ text-align: center;
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1208,8 +1240,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
             </div>
             </form>
         </div>
@@ -1322,7 +1356,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1330,7 +1364,7 @@ text-align: center;
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1342,8 +1376,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
             </div>
             </form>
         </div>
@@ -1373,7 +1409,7 @@ text-align: center;
                             </div>
                             <div class="col-12">
                                 <div class="form-group">
-                                    <label for="">Type</label>
+                                    <label>Type</label>
                                     <select name="type" id="type">
                                         <option value="1">Sale Invoice Wise</option>
                                         <option value="2">Receipt Voucher Wise</option>
@@ -1394,7 +1430,7 @@ text-align: center;
 ">
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1402,7 +1438,7 @@ text-align: center;
                             </div>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1414,8 +1450,10 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                </div>
             </div>
             </form>
         </div>
@@ -1455,7 +1493,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1465,7 +1503,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1476,8 +1514,11 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -1506,7 +1547,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1516,7 +1557,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1527,8 +1568,11 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -1596,7 +1640,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1606,7 +1650,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1617,8 +1661,11 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -1656,7 +1703,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1666,7 +1713,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1677,8 +1724,11 @@ text-align: center;
     text-align: center;
     margin-top: 3.5%;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -1760,7 +1810,7 @@ text-align: center;
                     <form method="GET" action="/purchaseInvoice-search">
                         @csrf
                         <div class="form-group">
-                            <label for="">Invoice No</label>
+                            <label>Invoice No</label>
                             <input type="text" class="form-control" name="invoice_no" required>
                         </div>
 
@@ -1832,7 +1882,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1842,7 +1892,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1852,8 +1902,11 @@ text-align: center;
                 <div class="submit" style="
     text-align: center;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -1926,7 +1979,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -1936,7 +1989,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -1946,8 +1999,11 @@ text-align: center;
                 <div class="submit" style="
     text-align: center;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -2006,7 +2062,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -2016,7 +2072,7 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
@@ -2026,8 +2082,11 @@ text-align: center;
                 <div class="submit" style="
     text-align: center;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+
+                        <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                    </div>
                 </div>
                 </form>
             </div>
@@ -2086,7 +2145,7 @@ text-align: center;
                             <br>
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">From:</label>
+                                    <label>From:</label>
 
                                     <input type="date" class="date" name="start_date"
                                         value="{{ $startDate }}" id="" required>
@@ -2096,42 +2155,794 @@ text-align: center;
 
                             <div class="col-12-6">
                                 <div class="form-group">
-                                    <label for="">To:</label>
+                                    <label>To:</label>
                                     <input type="date" class="date" name="end_date"
                                         value="{{ $endDate }}" id="" required>
                                 </div>
                             </div>
                         </div>
-                <div class="submit" style="
+                        <div class="submit" style="
     text-align: center;
 ">
-                    <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-                    <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                                <button type="button" class="btn btn-danger clear-btn">Clear Fields</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                </form>
             </div>
-        </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 @push('s_script')
-<script>
-const selectAllCheckbox = document.getElementById('selectAll');
-const checkboxes = document.querySelectorAll('.form-check-input:not(#selectAll)');
+    <script>
+        $(document).ready(function() {
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+        });
+        $('body').on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+        });
 
-selectAllCheckbox.addEventListener('change', function () {
-    const isChecked = this.checked;
-    checkboxes.forEach((checkbox) => {
-        checkbox.checked = isChecked;
-    });
-});
+        const selectAllCheckbox = document.getElementById('selectAll');
+        const checkboxes = document.querySelectorAll('.form-check-input:not(#selectAll)');
 
-checkboxes.forEach((checkbox) => {
-    checkbox.addEventListener('change', function () {
-        selectAllCheckbox.checked = Array.from(checkboxes).every(
-            (checkbox) => checkbox.checked
-        );
-    });
-});
-</script>    
+        selectAllCheckbox.addEventListener('change', function() {
+            const isChecked = this.checked;
+            checkboxes.forEach((checkbox) => {
+                checkbox.checked = isChecked;
+            });
+        });
+
+        checkboxes.forEach((checkbox) => {
+            checkbox.addEventListener('change', function() {
+                selectAllCheckbox.checked = Array.from(checkboxes).every(
+                    (checkbox) => checkbox.checked
+                );
+            });
+        });
+        
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        });
+        $('.select-farm').select2({
+            ajax: {
+                url: '{{ route('select2.farm') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-farming-period').select2({
+            ajax: {
+                url: '{{ route('select2.farming_period') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.start_date + ' - ' + item.end_date,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            // maximumSelectionLength:1,
+        });
+        $('.select-head-account').select2({
+            ajax: {
+                url: '{{ route('select2.head_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-account').select2({
+            ajax: {
+                url: '{{ route('select2.account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-assets-account').select2({
+            ajax: {
+                url: '{{ route('select2.assets_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-liability-account').select2({
+            ajax: {
+                url: '{{ route('select2.liability_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-expense-account').select2({
+            ajax: {
+                url: '{{ route('select2.expense_account') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.account_name,
+                                id: item.id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-warehouse').select2({
+            ajax: {
+                url: '{{ route('select2.warehouse') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.warehouse_name,
+                                id: item.warehouse_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-zone').select2({
+            ajax: {
+                url: '{{ route('select2.zone') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.zone_name,
+                                id: item.zone_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+        $('.select-sales_officer').select2({
+            ajax: {
+                url: '{{ route('select2.sales_officer') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.sales_officer_name,
+                                id: item.sales_officer_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-product_category').select2({
+            ajax: {
+                url: '{{ route('select2.product_category') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.category_name,
+                                id: item.product_category_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+        $('.select-product_company').select2({
+            ajax: {
+                url: '{{ route('select2.product_company') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.company_name,
+                                id: item.product_company_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+
+        $('.select-buyer').select2({
+            ajax: {
+                url: '{{ route('select2.buyer') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.company_name,
+                                id: item.buyer_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+
+        $('.select-seller').select2({
+            ajax: {
+                url: '{{ route('select2.seller') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.company_name,
+                                id: item.seller_id
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+
+        $('.select-products').select2({
+            ajax: {
+                url: '{{ route('select2.products') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.product_name,
+                                id: item.product_id,
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%'
+        });
+
+        $('.select-fin-products').select2({
+            ajax: {
+                url: '{{ route('select2.products') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.product_name,
+                                id: item.product_id,
+                                data_unit: item.unit,
+                                data_stock: item.opening_quantity,
+                                data_img: item.image,
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+        $('.select-fin-products').on('select2:select', function(e) {
+            let selectedItem = e.params.data;
+            let selectedOption = $(this).find('option:selected');
+            selectedOption.attr('data-unit', selectedItem.data_unit);
+            selectedOption.attr('data-stock', selectedItem.data_stock);
+            selectedOption.attr('data-img', selectedItem.data_img);
+        });
+
+
+        $('.select-seller-buyer').select2({
+            ajax: {
+                url: '{{ route('select2.seller-buyer') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            let ref = '';
+                            if (item.comp_ref === "S") {
+                                ref = " (SELLER)";
+                            } else if (item.comp_ref === "B") {
+                                ref = " (BUYER)";
+                            }
+                            return {
+                                text: item.company_name + ref,
+                                id: item.id + item.comp_ref
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-seller-buyer-sec').select2({
+            ajax: {
+                url: '{{ route('select2.seller-buyer') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            let ref = '';
+                            if (item.comp_ref === "S") {
+                                ref = " (SELLER)";
+                            } else if (item.comp_ref === "B") {
+                                ref = " (BUYER)";
+                            }
+                            return {
+                                text: item.company_name + ref,
+                                id: item.id + item.comp_ref
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+
+        $('.select-buyer-invoice-no').select2({
+            ajax: {
+                url: '{{ route('select2.buyer_invoice_no') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        id: $("#company").find('option:selected').val(),
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.unique_id_name,
+                                id: item.unique_id_name
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+
+        $('.select-seller-invoice-no').select2({
+            ajax: {
+                url: '{{ route('select2.seller_invoice_no') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        id: $("#company").find('option:selected').val(),
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.unique_id_name,
+                                id: item.unique_id_name
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+        $('.select-all-invoice-no').select2({
+            ajax: {
+                url: '{{ route('select2.all_invoice_no') }}',
+                dataType: 'json',
+                delay: 250,
+                data: function(params) {
+                    return {
+                        q: params.term,
+                        id: $("#company").find('option:selected').val(),
+                    };
+                },
+                processResults: function(data) {
+                    return {
+                        results: $.map(data, function(item) {
+                            return {
+                                text: item.unique_id_name,
+                                id: item.unique_id_name
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+
+            theme: 'bootstrap4',
+            width: '100%',
+            allowClear: true,
+            placeholder: '',
+            // maximumSelectionLength:1,
+        });
+
+        $("#company").on('change', function() {
+            let invoice = $(".invoice_no").val('');
+            let invoiceText = $(".invoice_no").text('');
+        })
+        // function companyInvoiceBuyer() {
+        //     var company = $("#company").find('option:selected');
+        //     var id = company.val()
+        // $("#company").on('change', function() {
+
+        //     let invoice = $("#invoice_no").val('');
+        //     let invoiceText = $("#invoice_no").text('');
+
+        //     let invoice2 = $("#invoice_no2").val('');
+        //     let invoiceText2 = $("#invoice_no2").text('');
+        // })
+        //     $('.select-invoice-no').select2({
+        //         ajax: {
+        //             url: '{{ route('select2.buyer_invoice_no') }}',
+        //             dataType: 'json',
+        //             delay: 250,
+        //             data: function(params) {
+        //                 return {
+        //                     q: params.term,
+        //                     id: $("#company").find('option:selected').val(),
+        //                 };
+        //             },
+        //             processResults: function(data) {
+        //                 return {
+        //                     results: $.map(data, function(item) {
+        //                         return {
+        //                             text: item.unique_id_name,
+        //                             id: item.unique_id_name
+        //                         };
+        //                     })
+        //                 };
+        //             },
+        //             cache: true
+        //         },
+
+        //         theme: 'bootstrap4',
+        //         width: '100%',
+        //         allowClear: true,
+        //         placeholder: '',
+        //     });
+        // }
+
+        // function companyInvoiceSeller() {
+        //     var company = $("#company").find('option:selected');
+        //     var id = company.val()
+        //     $("#company").on('change', function() {
+
+        //         let invoice = $("#invoice_no").val('');
+        //         let invoiceText = $("#invoice_no").text('');
+
+        //         let invoice2 = $("#invoice_no2").val('');
+        //         let invoiceText2 = $("#invoice_no2").text('');
+        //     })
+        //     $('.select-invoice-no').select2({
+        //         ajax: {
+        //             url: '{{ route('select2.seller_invoice_no') }}',
+        //             dataType: 'json',
+        //             delay: 250,
+        //             data: function(params) {
+        //                 return {
+        //                     q: params.term,
+        //                     id: $("#company").find('option:selected').val(),
+        //                 };
+        //             },
+        //             processResults: function(data) {
+        //                 return {
+        //                     results: $.map(data, function(item) {
+        //                         return {
+        //                             text: item.unique_id_name,
+        //                             id: item.unique_id_name
+        //                         };
+        //                     })
+        //                 };
+        //             },
+        //             cache: true
+        //         },
+
+        //         theme: 'bootstrap4',
+        //         width: '100%',
+        //         allowClear: true,
+        //         placeholder: '',
+        //     });
+
+
+
+        $(document).ready(function() {
+            $.fn.modal.Constructor.prototype.enforceFocus = function() {};
+        });
+    </script>
 @endpush

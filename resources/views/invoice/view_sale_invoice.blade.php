@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layout.app')
 @section('title', 'Sale Invoice Table')
 @section('content')
 
@@ -65,13 +65,13 @@
                 render: function(data, type, row) {
     return `
         <div class="table-data-feature">
-            <a href="/es_med_invoice_id=${row.unique_id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+            <a href="/es_med_invoice_id=${row.unique_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
                 <i class="fa fa-edit"></i>
             </a>
-            <a href="/rs_med_invoice_id=${row.unique_id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
+            <a href="/rs_med_invoice_id=${row.unique_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                 <i class="fa fa-solid fa-retweet"></i>
             </a>
-            <a href="/sale_invoice_pdf_${row.unique_id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
+            <a href="/sale_invoice_pdf_${row.unique_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="PDF">
                 <i class="fa fa-solid fa-file-pdf"></i>
             </a>
         </div>

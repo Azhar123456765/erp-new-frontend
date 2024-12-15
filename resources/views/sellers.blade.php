@@ -1,11 +1,11 @@
-@extends('master') @section('title', 'Supplier Table') @section('content')
+@extends('layout.app') @section('title', 'Supplier Table') @section('content')
 
 <br>
 <div class="container">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Supplier table</h3>
-            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
+            <a href="" data-bs-toggle="modal" data-bs-target="#add-modal" class="btn btn-success float-right">
                 <i class="fa fa-plus"></i>&nbsp;&nbsp; Supplier supplier</a>
         </div>
         {{-- <div class="row justify-content-center align-items-center my-3">
@@ -120,7 +120,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">Seller Type</label>
+                            <label>Seller Type</label>
                             <select name="seller_type" id="" style="text-transform: capitalize;"
                                 class="form-control ">
                                 <option value="supplier">supplier</option>
@@ -139,7 +139,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">Debit</label>
+                            <label>Debit</label>
                             <div class="input-group">
                                 <input type="number" step="any" id="username2" name="debit" placeholder="debit"
                                     class="form-control " value="0.00">
@@ -150,7 +150,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">Credit</label>
+                            <label>Credit</label>
                             <div class="input-group">
                                 <input type="number" step="any" id="username2" name="credit" placeholder="Credit"
                                     class="form-control " value="0.00">
@@ -161,7 +161,7 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="">Address</label>
+                            <label>Address</label>
                             <div class="input-group">
                                 <textarea name="address" id="" cols="30" rows="10"
                                     style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="Supplier Address"></textarea>
@@ -290,7 +290,7 @@
                 {
                     data: null,
                     render: function(data, type, row) {
-                        return `<a href="" data-toggle="modal" data-target="#view_modal${row.seller_id}"> <span id="company_name" class="block-email">${row.company_name}</span></a>`;
+                        return `<a href="" data-bs-toggle="modal" data-bs-target="#view_modal${row.seller_id}"> <span id="company_name" class="block-email">${row.company_name}</span></a>`;
                     }
                 },
                 {
@@ -326,10 +326,10 @@
                         return `
     <div class="table-data-feature">
 
-<a href="" data-toggle="modal" data-target="#edit_modal${row.seller_id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+<a href="" data-bs-toggle="modal" data-bs-target="#edit_modal${row.seller_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
     <i class="fa fa-edit"></i>
 </a>
-<a href="" data-toggle="modal" data-target="#view_modal${row.seller_id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="View">
+<a href="" data-bs-toggle="modal" data-bs-target="#view_modal${row.seller_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="View">
     <i class="fa fa-light fa-eye"></i>
 </a>
 
@@ -359,7 +359,7 @@
                         @csrf
                         <div class="row">
                             <div class="form-group col">
-                                <label for="">supplier</label>
+                                <label>supplier</label>
                                 <div class="input-group">
                                     <input type="text" id="username2" name="company_name" placeholder="supplier" class="form-control " value="${row.company_name}" required>
                                     <div class="input-group-addon">
@@ -371,7 +371,7 @@
 
 
                             <div class="form-group col">
-                                <label for="">supplier Email</label>
+                                <label>supplier Email</label>
                                 <div class="input-group">
                                     <input type="email" validate="email" id="email2" name="company_email" placeholder="supplier Email" class="form-control " value="${row.company_email}">
                                     <div class="input-group-addon">
@@ -382,7 +382,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <label for="">supplier Phone Number</label>
+                                <label>supplier Phone Number</label>
                                 <div class="input-group">
                                     <input type="text" id="email2" name="company_phone_number" class="form-control " value="${row.company_phone_number}">
                                     <div class="input-group-addon">
@@ -392,7 +392,7 @@
                             </div>
 
                             <div class="form-group col">
-                                <label for="">contact person</label>
+                                <label>contact person</label>
                                 <div class="input-group">
                                     <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control " value="${row.contact_person}">
                                     <div class="input-group-addon">
@@ -403,7 +403,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <label for="">contact person number</label>
+                                <label>contact person number</label>
                                 <div class="input-group">
                                     <input type="text" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="${row.contact_person_number}">
                                     <div class="input-group-addon">
@@ -414,7 +414,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <label for="">City</label>
+                                <label>City</label>
                                 <select name="city" id="" style="text-transform: capitalize;" class="form-control ">
                                     <option value=""></option>
                                     @foreach ($zone as $row2)
@@ -442,7 +442,7 @@
                         </div>
                         <div class="row">
                             <div class="form-group col">
-                                <label for="">Debit</label>
+                                <label>Debit</label>
                                 <div class="input-group">
                                     <input type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control " value="${row.debit}">
                                     <div class="input-group-addon">
@@ -452,7 +452,7 @@
                             </div>
                             <input type="hidden" name="user_id" value="${row.seller_id}">
                             <div class="form-group col">
-                                <label for="">Credit</label>
+                                <label>Credit</label>
                                 <div class="input-group">
                                     <input type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control " value="${row.credit}">
                                     <div class="input-group-addon">
@@ -462,7 +462,7 @@
                             </div>
                         </div>
                         <div class="form-group col">
-                            <label for="">Address</label>
+                            <label>Address</label>
                             <div class="input-group">
                                 <textarea name="address" class="form-control" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="supplier Address">${row.address}</textarea>
 
@@ -519,7 +519,7 @@
 
                         @csrf
                         <div class="form-group col">
-                            <label for="">supplier</label>
+                            <label>supplier</label>
                             <div class="input-group">
                                 <p type="text" id="username2" name="company_name" placeholder="supplier" class="form-control " value="" required>
                                     ${row.company_name}
@@ -533,7 +533,7 @@
 
 
                         <div class="form-group col">
-                            <label for="">supplier Email</label>
+                            <label>supplier Email</label>
 
                             <div class="input-group">
                                 <p type="email" validate="email" id="email2" name="company_email" placeholder="supplier Email" class="form-control " value="${row.company_email}">
@@ -546,7 +546,7 @@
                         </div>
 
                         <div class="form-group col">
-                            <label for="">supplier Phone Number</label>
+                            <label>supplier Phone Number</label>
                             <div class="input-group">
                                 <p type="email" validate="email" id="email2" name="company_phone_number" placeholder="supplier Email" class="form-control " value="${row.company_email}">
                                     ${row.company_phone_number}
@@ -558,7 +558,7 @@
                         </div>
 
                         <div class="form-group col">
-                            <label for="">contact person</label>
+                            <label>contact person</label>
 
                             <div class="input-group">
                                 <p type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control " value="${row.contact_person}">
@@ -571,7 +571,7 @@
                         </div>
 
                         <div class="form-group col">
-                            <label for="">contact person number</label>
+                            <label>contact person number</label>
 
                             <div class="input-group">
                                 <p type="email" validate="email" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="${row.contact_person_number}">
@@ -585,7 +585,7 @@
 
 
                         <div class="form-group col">
-                            <label for="">City</label>
+                            <label>City</label>
                             <select name="city" id="" style="text-transform: capitalize;" class="form-control ">
                                 <option value=""></option>
                                 @foreach ($zone as $row2)
@@ -612,7 +612,7 @@
 
 
                         <div class="form-group col">
-                            <label for="">Debit</label>
+                            <label>Debit</label>
                             <div class="input-group">
                                 <p type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control " value="${row.debit}" value="0.00">
                                     ${row.debit}
@@ -630,7 +630,7 @@
 
 
                         <div class="form-group col">
-                            <label for="">Credit</label>
+                            <label>Credit</label>
                             <div class="input-group">
                                 <p type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
                                     ${row.credit}
@@ -642,7 +642,7 @@
                         </div>
 
                         <div class="form-group col">
-                            <label for="">Address</label>
+                            <label>Address</label>
                             <div class="input-group">
                                 <textarea readonly name="address" id="" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="supplier Address">${row.address}</textarea>
 

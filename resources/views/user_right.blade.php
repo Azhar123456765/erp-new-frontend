@@ -22,13 +22,13 @@
 
 
                 <div class="form-group col-md-6">
-                    <label for="">Setup</label>
+                    <label>Setup</label>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="setup_permission" id="readPermission" {{$row->setup_permission == 'on' ? 'checked' : ''}}>
 
-                                <label class="form-check-label" for="readPermission">
+                                <label class="form-check-label my-3" for="readPermission">
                                     Access
                                 </label>
                             </div>
@@ -38,12 +38,12 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="">Finance</label>
+                    <label>Finance</label>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="finance_permission" id="readPermission" {{$row->finance_permission == 'on' ? 'checked' : ''}}>
-                                <label class="form-check-label" for="readPermission">
+                                <label class="form-check-label my-3" for="readPermission">
                                     Access
                                 </label>
                             </div>
@@ -52,12 +52,12 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="">Products</label>
+                    <label>Products</label>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="product_permission" id="readPermission" {{$row->product_permission == 'on' ? 'checked' : ''}}>
-                                <label class="form-check-label" for="readPermission">
+                                <label class="form-check-label my-3" for="readPermission">
                                     Access
                                 </label>
                             </div>
@@ -67,12 +67,12 @@
                 </div>
 
                 <div class="form-group col-md-6">
-                    <label for="">Reports</label>
+                    <label>Reports</label>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="report_permission" id="readPermission" {{$row->report_permission == 'on' ? 'checked' : ''}}>
-                                <label class="form-check-label" for="readPermission">
+                                <label class="form-check-label my-3" for="readPermission">
                                     Access
                                 </label>
                             </div>
@@ -80,12 +80,12 @@
                     </div>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="">Select Data</label>
+                    <label>Select Data</label>
                     <div class="row">
                         <div class="col-md-4">
                             <div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="select_permission" id="select_permission" {{$row->select_permission == 'on' ? 'checked' : ''}}>
-                                <label class="form-check-label" for="readPermission">
+                                <label class="form-check-label my-3" for="readPermission">
                                     Access
                                 </label>
                             </div>
@@ -101,8 +101,8 @@
 
 
             <div class="form-group" required>
-                <label for="">Manage Access</label>
-                <select class="custom-select" name="access" id="">
+                <label>Manage Access</label>
+                <select class="form-control" name="access" id="">
                     <option <?php if ($row->access == 'access') {
                                 echo 'selected';
                             }    ?> value="access">Access</option>
@@ -114,8 +114,8 @@
             </div>
 
             <div class="form-group" required>
-                <label for="">Select Role</label>
-                <select class="custom-select" name="role" id="">
+                <label>Select Role</label>
+                <select class="form-control" name="role" id="">
                     <option <?php if ($row->role == 'admin') {
                                 echo 'selected';
                             }    ?> value="admin">admin</option>

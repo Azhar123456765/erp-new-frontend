@@ -1,4 +1,4 @@
-@extends('master') @section('title','Sale Invoice (EDIT)') @section('content')
+@extends('layout.app') @section('title','Sale Invoice (EDIT)') @section('content')
 
 <head>
 
@@ -709,8 +709,10 @@ window.location.href = newUrl
         PDF
     </a>
 
-    <a href="/s_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; ">
-        Add More
+    <a href="/s_med_invoice" class="edit add-more btn btn-secondary btn-sm" style="margin-left: 19px; "id="add_more_btn" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + M">
+            Add More
     </a>
 
 </div>
@@ -927,7 +929,7 @@ window.location.href = newUrl
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select2').select2({
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: 'resolve',
             });
 
@@ -1098,7 +1100,7 @@ window.location.href = newUrl
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select2').select2({
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: 'resolve',
             });
 
@@ -1410,7 +1412,7 @@ window.location.href = newUrl
     $(document).ready(function() {
         // Initialize Select2 for the desired select elements
         $('.select2').select2({
-            theme: 'classic',
+            theme: 'bootstrap4',
             width: 'resolve',
         });
 

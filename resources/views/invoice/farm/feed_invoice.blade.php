@@ -1,8 +1,6 @@
-@extends('master') @section('title', 'Sale Invoice') @section('content')
+@extends('layout.app') @section('title', 'Feed Invoice') @section('content')
 
-<head>
 
-</head>
 <style>
     @media (max-width: 755px) {
         body {
@@ -26,13 +24,11 @@
     }
 
 
-    .container {
-        transform: scale(0.78);
+    .finance-layout {
+        transform: scale(0.75);
     }
 
-    input[type="number" step="any"] {
-        text-align: right !important;
-    }
+    
 
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -48,7 +44,7 @@
     label {
         margin: 3px;
         font-weight: bolder;
-        font-size: large;
+        font-size: larger !important;
     }
 
     h6 {
@@ -57,9 +53,9 @@
         font-size: large;
     }
 
-    .top label {
+    /* .top label {
         margin: 5px;
-    }
+    } */
 
     .dup_invoice label {
         width: 55px;
@@ -134,30 +130,30 @@
         height: 27px !important;
     }
 
-    #invoiceForm select {
+    /* #invoiceForm select {
         width: 131px !important;
         height: 27px !important;
-    }
+    } */
 
-
-    #invoiceForm .select2-container--classic {
-        width: 191px !important;
-        height: 27px !important;
-
+    #invoiceForm .select2-container--bootstrap4 {
+        width: 210px !important;
         line-height: 25px !important;
-        height: 25px !important;
     }
 
     .select2-dropdown {
         width: 200px !important;
     }
 
-    .select2-container--classic .select2-search--dropdown .select2-search__field {
+    .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
         width: 100% !important;
     }
 
     .select2-dropdown {
         width: 200px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
+        width: 100% !important;
     }
 
     #form {
@@ -204,7 +200,7 @@
     }
 
 
-    /* .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
+    /* .remark .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
         width: 219px !important;
         height: 27px !important;
 
@@ -213,8 +209,12 @@
         padding-top: 2px;
     } */
 
-    .cash .select2-container--classic .select2-selection--single .select2-selection__rendered {
-        width: 159px !important;
+    .cash .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+        width: 139px !important;
+    }
+
+    .items #invoiceForm .select2-container--bootstrap4 {
+        width: 115px !important;
     }
 
     /* .fields input{
@@ -224,10 +224,15 @@
     padding-left: 25%;
       } */
 
+
+    .dup_invoice #invoiceForm select {
+        border: 1px solid;
+        width: 83px !important;
+    }
+
     .dup_invoice input {
         border: 1px solid;
-        width: 120px !important;
-        text-align: right !important;
+        width: 108px !important;
     }
 
     .dup_invoice input[id="amount"] {
@@ -235,7 +240,7 @@
     }
 
     .total input {
-        width: 120px !important;
+        width: 108px !important;
     }
 
     .xl-width-inp {
@@ -255,205 +260,230 @@
         align-items: center;
         justify-content: center;
     }
-</style>
-<h5 style="text-align: center;">Feed Invoice (FARM MODULE)</h5>
 
-<div class="container" id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
+    #invoiceForm .dup_invoice .select2-container--bootstrap4 {
+        width: 120px !important;
+
+        line-height: 25px !important;
+        height: 30px !important;
+    }
+</style>
+<div class="container">
+    <h5 class="text-center my-2">Feed Invoice (Purchase+Sale)</h5>
+    <div class="finance-layout" id="invoiceForm" style="overflow-x: visible;
 ">
-    <h6 style="
+        <h6 style="
 position: absolute;
 top: 35%;
 left: 15%;
 ">Supplier</h6>
-    <h6 style="
+        <h6 style="
 position: absolute;
 top: 35%;
 right: 15%;
 ">Customer</h6>
-    <form id="form">
-        <div class="top">
-            <div class="fields">
-                <div class="one">
-                    <label for="Invoice">Invoice#</label>
-                    <input style="border: none !important; width: 219px !important;" type="text" id=""
-                        name="" value="<?php $year = date('Y');
-                        $lastTwoWords = substr($year, -2);
-                        echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
-                    <input type="hidden" id="unique_id" name="unique_id" value="{{ $rand = $count + 1 }}" />
+        <form id="form">
+            <div class="row justify-content-around" style="margin-top: -50px !important;">
+                <div class="col-3">
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
+                        <div class="col-8">
+                            <input class="form-control" style="border: none !important; width: 219px !important;"
+                                type="text" id="" name="" value="<?php $year = date('Y');
+                                $lastTwoWords = substr($year, -2);
+                                echo $rand = 'SI' . '-' . $year . '-' . $count + 1; ?>" />
+                            <input class="form-control" type="hidden" id="unique_id" name="unique_id"
+                                value="{{ $rand = $count + 1 }}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="date">Date</label>
+                        <div class="col-8">
+                            <input class="form-control"
+                                style="border: none !important; width: 219px !important; text-align:center;        "
+                                type="date" id="date" name="date" value="<?php
+                                $currentDate = date('Y-m-d');
+                                echo $currentDate;
+                                ?>" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="seller">Supplier</label>
+                        <div class="col-8">
+                            <select name="seller" class="form-control company select-buyer" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="sales_officer">Farm</label>
+                        <div class="col-8">
+                            <select name="supply_farm" class="select-farm">
+                            </select>
+                        </div>
+                    </div>
                 </div>
-                <div class="one">
-                    <label for="date">Date</label>
-                    <input style="border: none !important; width: 219px !important; text-align:center;        "
-                        type="date" id="date" name="date" value="<?php
-                        $currentDate = date('Y-m-d');
-                        echo $currentDate;
-                        ?>" />
-                </div>
-                <div class="one  remark">
-                    <label for="seller">Supplier</label>
-                    <select name="seller" class="company select-buyer" required>
+                <div class="col-3">
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="sales_officer">Sales Officer</label>
+                        <div class="col-8">
+                            <select name="sales_officer" id="sales_officer" class="select-sales_officer">
+                            </select>
+                        </div>
+                    </div>
 
-                    </select>
                 </div>
-                <div class="one  remark">
-                    <label>Farm</label>
-                    <select name="supply_farm" class="select-farm">
-                    </select>
+                <div class="col-3">
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="remark">Remarks</label>
+                        <div class="col-8">
+                            <input class="form-control" style="width: 219px !important;" type="text" id="remark"
+                                name="remark" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="buyer">Customer</label>
+                        <div class="col-8">
+                            <select name="buyer" class="select-buyer" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="sales_officer">Farm</label>
+                        <div class="col-8">
+                            <select name="farm" class="select-farm">
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <br />
+
+            <div class="invoice">
+                @csrf
+                <div class="dup_invoice" onchange="addInvoice()">
+                    <div class="div   items">
+                        <label for="item">Item</label>
+                        <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
+                            class="item0 select-products">
+                        </select>
+                    </div>
+                    <div class="div">
+                        <label for="qty">Quantity</label>
+                        <input type="number" step="any" oninput="$('#sale_qty').val(this.value)" id="qty"
+                            name="qty[]" />
+                    </div>
+
+                    <div class="div">
+                        <label for="rate">Rate</label>
+                        <input type="number" step="any" oninput="$('#sale_rate').val(this.value)"
+                            id="rate" name="rate[]" />
+                    </div>
+
+                    <div class="div">
+                        <label for="crate_type">Discount(%)</label>
+                        <input type="number" step="any" oninput="$('#sale_discount').val(this.value)"
+                            id="discount" name="discount[]" />
+                    </div>
+                    <div class="div">
+                        <label for="bonus">Bonus</label>
+                        <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
+                            oninput="$('#sale_bonus').val(this.value)" id="bonus" name="bonus[]" required />
+                    </div>
+                    <div class="div">
+                        <label for="amount">Amount</label>
+                        <input type="number" step="any" min="0.00"
+                            style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                            onchange='count()' id="amount" name="amount[]" class="xl-width-inp" />
+                    </div>
+
+
+                    <div class="div">
+                        <label for="sale_qty">Quantity</label>
+                        <input type="number" step="any" id="sale_qty" name="sale_qty[]" />
+                    </div>
+                    <div class="div">
+                        <label for="sale_rate">Rate</label>
+                        <input type="number" step="any" id="sale_rate" name="sale_rate[]" />
+                    </div>
+                    <div class="div">
+                        <label for="sale_crate_type">Discount(%)</label>
+                        <input type="number" step="any" id="sale_discount" name="sale_discount[]" />
+                    </div>
+                    <div class="div">
+                        <label for="sale_bonus">Bonus(%)</label>
+                        <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
+                            id="sale_bonus" name="sale_bonus[]" required />
+                    </div>
+                    <div class="div">
+                        <label for="sale_amount">Amount</label>
+                        <input type="number" step="any" min="0.00"
+                            style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                            onchange='count()' id="sale_amount" name="sale_amount[]" class="xl-width-inp" />
+                    </div>
                 </div>
             </div>
 
-            <div class="fields">
-                <div class="one  remark">
-                    <label for="sales_officer">Sales Officer</label>
-                    <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                    </select>
 
-                </div>
-                <div class="one  remark">
-                    <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" type="text" id="remark" name="remark" />
-                </div>
-                <div class="one  remark">
-                    <label for="seller">Customer</label>
-                    <select name="buyer" class="select-buyer" required>
+            <style>
+                .total {
+                    justify-content: center;
+                    /* width: 50%; */
+                    /* align-items: flex-end; */
+                    display: flex;
+                }
 
-                    </select>
-                </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="farm" class="select-farm">
-                    </select>
-                </div>
-            </div>
-        </div>
+                .total .last input {
+                    margin-top: 9px !important;
 
-        <br />
+                }
 
-        <div class="invoice">
-            @csrf
-            <div class="dup_invoice" onchange="addInvoice()">
-                <div class="div   items">
-                    <label for="item">Item</label>
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice()" required
-                        class="item0 select-products">
-                    </select>
-                </div>
-                <div class="div">
-                    <label for="qty">Quantity</label>
-                    <input type="number" step="any" oninput="$('#sale_qty').val(this.value)" id="qty"
-                        name="qty[]" />
-                </div>
+                .one {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    flex-direction: row;
+                }
 
-                <div class="div">
-                    <label for="rate">Rate</label>
-                    <input type="number" step="any" oninput="$('#sale_rate').val(this.value)" id="rate"
-                        name="rate[]" />
-                </div>
+                .last {
+                    display: flex;
 
-                <div class="div">
-                    <label for="crate_type">Discount(%)</label>
-                    <input type="number" step="any" oninput="$('#sale_discount').val(this.value)" id="discount"
-                        name="discount[]" />
-                </div>
-                <div class="div">
-                    <label for="bonus">Bonus</label>
-                    <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                        oninput="$('#sale_bonus').val(this.value)" id="bonus" name="bonus[]" required />
-                </div>
-                <div class="div">
-                    <label for="amount">Amount</label>
-                    <input type="number" step="any" min="0.00"
-                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
-                        onchange='count()' id="amount" name="amount[]" class="xl-width-inp" />
-                </div>
+                    flex-direction: column;
+                }
 
+                .last .one input {
+                    margin-top: 5px;
+                }
 
-                <div class="div">
-                    <label for="sale_qty">Quantity</label>
-                    <input type="number" step="any" id="sale_qty" name="sale_qty[]" />
-                </div>
-                <div class="div">
-                    <label for="sale_rate">Rate</label>
-                    <input type="number" step="any" id="sale_rate" name="sale_rate[]" />
-                </div>
-                <div class="div">
-                    <label for="sale_crate_type">Discount(%)</label>
-                    <input type="number" step="any" id="sale_discount" name="sale_discount[]" />
-                </div>
-                <div class="div">
-                    <label for="sale_bonus">Bonus(%)</label>
-                    <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                        id="sale_bonus" name="sale_bonus[]" required />
-                </div>
-                <div class="div">
-                    <label for="sale_amount">Amount</label>
-                    <input type="number" step="any" min="0.00"
-                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
-                        onchange='count()' id="sale_amount" name="sale_amount[]" class="xl-width-inp" />
-                </div>
-            </div>
-        </div>
+                .options {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: -7%;
+                }
+            </style>
 
-
-        <style>
-            .total {
-                justify-content: center;
-                /* width: 50%; */
-                /* align-items: flex-end; */
-                display: flex;
-            }
-
-            .total .last input {
-                margin-top: 9px !important;
-
-            }
-
-            .one {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 5px;
-                flex-direction: row;
-            }
-
-            .last {
-                display: flex;
-
-                flex-direction: column;
-            }
-
-            .last .one input {
-                margin-top: 5px;
-            }
-
-            .options {
-                display: flex;
-                justify-content: center;
-                margin-top: -7%;
-            }
-        </style>
-
-        <div class="total" style="margin-top: 2.25%;">
-            <div class="first">
-                <div class="one" style="
+            <div class="total" style="margin-top: 2.25%;">
+                <div class="first">
+                    <div class="one" style="
                 margin-left: -136%;
             ">
-                    <label for="mor_cut"
-                        style="
+                        <label for="mor_cut"
+                            style="
         position: fixed;
         top: 95%;
         left: -20%;
     ">Total</label>
 
 
-                    <input type="number" step="any" step="any" name="qty_total" id="qty_total"
-                        style="
+                        <input type="number" step="any" step="any" name="qty_total" id="qty_total"
+                            style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: -11%;
             "=""="">
-                    <input type="number" step="any" step="any" name="amount_total" id="amount_total"
-                        style="
+                        <input type="number" step="any" step="any" name="amount_total" id="amount_total"
+                            style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
@@ -461,116 +491,119 @@ right: 15%;
                 width: 190px !important;
             "=""="">
 
-                    <input type="number" step="any" step="any" name="sale_qty_total" id="sale_qty_total"
-                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 47.7%;"=""="">
-                    <input type="number" step="any" step="any" name="sale_amount_total"
-                        id="sale_amount_total"
-                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 89.55%;width: 190px !important;"=""="">
+                        <input type="number" step="any" step="any" name="sale_qty_total"
+                            id="sale_qty_total"
+                            style="/* margin-left: 30%; */position: fixed;top: 95%;left: 47.7%;"=""="">
+                        <input type="number" step="any" step="any" name="sale_amount_total"
+                            id="sale_amount_total"
+                            style="/* margin-left: 30%; */position: fixed;top: 95%;left: 89.55%;width: 190px !important;"=""="">
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
 
-</div>
-<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
-    data-bs-target="#imageModal">
-    Attachment
-</button>
+    </div>
+    <button type="button" class="me-5 px-3 p-1 btn btn-secondary btn-md" style="position: fixed; top: 75%; left:7%;"
+        data-bs-toggle="modal" data-bs-target="#imageModal">
+        Attachment
+    </button>
 
-<!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row p-2">
-                    <div class="col-lg-9 col-md-12 p-2">
-                        <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
-                                class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="row justify-content-start">
-                            <div class="mb-3">
-                                <input type="file" class="form-control" name="attachment" id="attachment"
-                                    style="
-    height: max-content !important;
-" />
-                            </div>
-                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
-                                onclick="document.getElementById('attachment').value = ''; 
-                  document.getElementById('attachment').value = 'none';
-                 document.getElementById('imagePreview').style.display = 'none';
-                 document.getElementById('imagePreview').src = '';
-                 document.getElementById('imageAnchor').href = '';">
-                                REMOVE
-                            </button>
-
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row p-2">
+                        <div class="col-lg-12 col-md-12 p-5">
+                            <a href="#" id="imageAnchor" target="_blank"><img src="" alt="img"
+                                    class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
+                            </a>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="mb-3">
+                        <input type="file" class="form-control w-100" name="attachment" id="attachment"
+                            style="
+height: max-content !important;
+" />
+                    </div>
+                    <button type="button" class="btn px-3 p-1 btn-secondary btn-md"
+                        onclick="
+    const fileInput = document.getElementById('attachment');
+    fileInput.value = '';
+    const imagePreview = document.getElementById('imagePreview');
+    const imageAnchor = document.getElementById('imageAnchor');
+    imagePreview.style.display = 'none'; 
+    imagePreview.src = ''; 
+    imageAnchor.href = '';
+">
+                        REMOVE
+                    </button>
+
                 </div>
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center align-items-center"
+        style="width: 90%; position: absolute; top:90%; gap: 30px !important;">
+
+        <button type="submit" class="btn px-3 p-1 btn-secondary btn-md submit" id="submit"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Enter">
+            submit
+        </button>
+        <a href="{{ Route('invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-md submit" id="first_btn"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + A">
+            First
+        </a>
+        <a href="{{ Route('edit_invoice_feed', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-md submit"
+            id="previous_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + B">
+            Previous
+        </a>
+        <a href="{{ Route('edit_invoice_feed', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-md  submit"
+            id="next_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + N">
+            Next
+        </a>
+        <a href="{{ Route('last_invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-md  submit" id="last_btn"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + L">
+            Last
+        </a>
+        <a href="{{ Route('edit_invoice_feed', $rand) }}"
+            class="edit edit-btn  btn px-3 p-1 btn-secondary btn-md disabled" id="edit" data-bs-toggle="tooltip"
+            data-bs-placement="top" title="Shortcut: Shift + E">
+            Edit
+        </a>
+        <a href="{{ Route('new_invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md disabled"
+            id="add_more_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + M">
+            Add More
+        </a>
+
+        <button type="button" class="btn px-3 p-1 btn-secondary btn-md disabled" id="sale_pdf">
+            SALE PDF
+        </button>
+
+        <button type="button" class="btn px-3 p-1 btn-secondary btn-md disabled" id="purchase_pdf">
+            PURCHASE PDF
+        </button>
+
+
+
+        <button class="btn px-3 p-1 btn-secondary btn-md submit" onclick="
+
+window.location.reload()
+">
+            Revert
+        </button>
+    </div>
+
+
+    </form>
 </div>
-
-<div class="row m-5 justify-content-center align-items-center"
-    style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
-
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
-        submit
-    </button>
-
-    <a href="{{ Route('invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        First
-    </a>
-    <a href="{{ Route('edit_invoice_feed', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Previous
-    </a>
-    <a href="{{ Route('edit_invoice_feed', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Next
-    </a>
-    <a href="{{ Route('last_invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Last
-    </a>
-
-
-    <a href="{{ Route('edit_invoice_feed', $rand) }}"
-        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
-        Edit
-    </a>
-    <a href="{{ Route('new_invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm disabled"
-        id="add_more">
-        Add More
-    </a>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="sale_pdf">
-        SALE PDF
-    </button>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm disabled" id="purchase_pdf">
-        PURCHASE PDF
-    </button>
-
-
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
-        onclick="
-        
-        window.location.reload()
-        ">
-        Revert
-    </button>
-</div>
-
-
-</form>
 </div>
 
 
@@ -739,7 +772,7 @@ right: 15%;
                         cache: true
                     },
 
-                    theme: 'classic',
+                    theme: 'bootstrap4',
                     width: '100%'
                 });
                 $(".select2-container--open .select2-search__field").focus();
@@ -892,7 +925,7 @@ right: 15%;
                         cache: true
                     },
 
-                    theme: 'classic',
+                    theme: 'bootstrap4',
                     width: '100%'
                 });
             });
@@ -1084,30 +1117,32 @@ right: 15%;
             }
         });
     </script>
-    <div class="modal fade" id="iv-search">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4>Search Invoice</h4>
-                    <div class="modal-body">
-                        <form method="GET" action="/saleInvoice-search">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">Invoice No</label>
-                                <input type="text" class="form-control" id="search-input"
-                                    style="width: 100% !important;">
-                            </div>
-
-                            <button type="submit" data-url="{{ Route('edit_invoice_feed') }}" class="btn btn-primary"
-                                id="search-btn">Search</button>
-
-                        </form>
+   <div class="modal fade" id="iv-search">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Search Invoice</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form method="GET" action="/saleInvoice-search">
+                    @csrf
+                    <div class="form-group">
+                        <label>Invoice No</label>
+                        <input type="text" class="form-control" id="search-input"
+                            style="width: 100% !important;">
                     </div>
-                </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div>
+
+                    <div class="form-group">
+
+                    <button type="submit" data-url="{{ Route('edit_invoice_feed') }}" class="btn btn-primary"
+                        id="search-btn">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div>
 @endpush
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+" crossorigin="anonymous">

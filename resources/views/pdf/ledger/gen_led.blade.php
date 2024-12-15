@@ -27,7 +27,7 @@
         $head_account = session()->get('Data')['head_account'];
         $sub_head_account = session()->get('Data')['sub_head_account'];
         $accounts = session()->get('Data')['accounts'];
-        // dd($accounts);
+        // dd($head_account);
         $credit = 0;
         $debit = 0;
         $balance = 0;
@@ -77,7 +77,7 @@
 
             <div class="ui segment itemscard">
                 <div class="content">
-                    @if ($head_account && $sub_head_account && $accounts && $expense_voucher)
+                    @if ($head_account && isset($sub_head_account) && $accounts && $expense_voucher)
                         @foreach ($sub_head_account as $SubHeadRow)
                             <h4><b>{{ $SubHeadRow->name }}</b></h4>
 
@@ -103,70 +103,297 @@
                                         });
                                     @endphp
 
-                                    @if ($filteredVouchers->count() > 0)
-                                        <tbody>
-                                            @foreach ($filteredVouchers as $row)
-                                                <tr style="text-align: center;">
-                                                    <td class="text-right" style="width: 100px;">
-                                                        <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <a href="{{ Route('expense_voucher.edit', $row->unique_id) }}"
-                                                            target="__blank"><span>EV-{{ $row->unique_id }}
-                                                            </span>
-                                                        </a>
-                                                    </td>
-                                                    <td style="text-align: left
-                         ;">
-                                                        <span>{{ $row->narration }}</span>
-                                                    </td>
-
-                                                    @if ($single_data)
-                                                        @if ($single_data->account_category == 9 || $single_data->account_category == 10 || $single_data->account_category == 11)
-                                                            <td style="text-align:right;">
-                                                                <span>{{ number_format($row->amount, 2) }}</span>
-                                                            </td>
-                                                            <td style="text-align:right;">
-                                                                <span>0.00</span>
-                                                            </td>
-                                                            @php $debit += $row->amount; @endphp
+                                    <tbody>
+                                        @foreach ($chickenInvoice as $row)
+                                            <tr style="text-align: center;">
+                                                <td class="text-right" style="width: 100px;">
+                                                    <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="{{ Route('edit_invoice_chicken', $row->unique_id) }}"
+                                                        target="__blank"><span>CH-{{ $row->unique_id }}
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                                <td style="text-align: left
+                                 ;">
+                                                    <span>{{ $row->description }}</span>
+                                                </td>
+                                                <td style="text-align:right;">
+                                                    <span>
+                                                        @if (!isset($company) || empty($company))
+                                                            {{ $row->buyer ? $row->sale_amount_total : 0.0 }}
                                                         @else
-                                                            <td style="text-align:right;">
-                                                                <span>0.00</span>
-                                                            </td>
-                                                            <td style="text-align:right;">
-                                                                <span>{{ number_format($row->amount, 2) }}</span>
-                                                            </td>
-                                                            @php $credit += $row->amount; @endphp
+                                                            {{ $row->buyer == $company ? $row->sale_amount_total : 0.0 }}
                                                         @endif
-                                                    @else
-                                                        <td style="text-align:right;">
-                                                            <span>{{ number_format($row->amount, 2) }}</span>
-                                                        </td>
-                                                        <td style="text-align:right;">
-                                                            <span>{{ number_format($row->amount, 2) }}</span>
-                                                        </td>
-                                                    @endif
+                                                    </span>
+                                                </td>
+                                                <td style="text-align:right;">
+                                                    <span>
+                                                        @if (!isset($company) || empty($company))
+                                                            {{ $row->seller ? $row->amount_total : 0.0 }}
+                                                        @else
+                                                            {{ $row->seller == $company ? $row->amount_total : 0.0 }}
+                                                        @endif
+                                                    </span>
+                                                </td>
 
-                                                    <td style="text-align:right;">
-                                                        <span>{{ $balance += $row->amount }}</span>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                        </tbody>
-                                        <tfoot class="full-width">
-                                            <tr>
-                                                <th colspan="1"></th>
-                                                <th colspan="1"></th>
-                                                <th> Total: </th>
-                                                <th colspan="1" style="text-align:right;"> {{ $debit }} </th>
-                                                <th colspan="1" style="text-align:right;"> {{ $credit }} </th>
-                                                <th colspan="1" style="text-align:right;" id="balance"> {{ $balance }}
-                                                </th>
+
+                                                <td style="text-align:right;">
+                                                    <span>
+                                                        @if (!isset($company) || empty($company))
+                                                            {{ $balance += $row->amount_total - $row->sale_amount_total }}
+                                                        @else
+                                                            {{ $row->seller == $company ? ($balance += $row->amount_total) : '' }}
+                                                            {{ $row->buyer == $company ? ($balance += $row->sale_amount_total) : '' }}
+                                                        @endif
+                                                    </span>
+                                                </td>
                                             </tr>
-                                        </tfoot>
-                                    @endif
+                                            @if (!isset($company) || empty($company))
+                                                @php $credit += $row->amount_total; @endphp
+                                            @elseif($row->seller == $company)
+                                                @php $credit += $row->amount_total @endphp
+                                            @endif
 
+                                            @if (!isset($company) || empty($company))
+                                                @php $debit += $row->sale_amount_total; @endphp
+                                            @elseif($row->buyer == $company)
+                                                @php $debit += $row->sale_amount_total @endphp
+                                            @endif
+                                        @endforeach
+                                        @foreach ($chickInvoice as $row)
+                                        <tr style="text-align: center;">
+                                            <td class="text-right" style="width: 100px;">
+                                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{{ Route('edit_invoice_chick', $row->unique_id) }}"
+                                                    target="__blank"><span>C-{{ $row->unique_id }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: left
+                         ;">
+                                                <span>{{ $row->description }},
+                                                    {{ $row->seller == $company ? str_replace('.00', '', $row->qty_total) : str_replace('.00', '', $row->sale_qty_total) }}
+                                                    Chicks</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>
+                                                    @if (!isset($company) || empty($company))
+                                                        {{ $row->buyer ? $row->sale_amount_total : 0.0 }}
+                                                    @else
+                                                        {{ $row->buyer == $company ? $row->sale_amount_total : 0.0 }}
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>
+                                                    @if (!isset($company) || empty($company))
+                                                        {{ $row->seller ? $row->amount_total : 0.0 }}
+                                                    @else
+                                                        {{ $row->seller == $company ? $row->amount_total : 0.0 }}
+                                                    @endif
+                                                </span>
+                                            </td>
+        
+        
+                                            <td style="text-align:right;">
+                                                <span>
+                                                    @if (!isset($company) || empty($company))
+                                                        {{ $balance += $row->amount_total - $row->sale_amount_total }}
+                                                    @else
+                                                        {{ $row->seller == $company ? ($balance += $row->amount_total) : '' }}
+                                                        {{ $row->buyer == $company ? ($balance += $row->sale_amount_total) : '' }}
+                                                    @endif
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        @if (!isset($company) || empty($company))
+                                            @php $credit += $row->amount_total; @endphp
+                                        @elseif($row->seller == $company)
+                                            @php $credit += $row->amount_total @endphp
+                                        @endif
+        
+                                        @if (!isset($company) || empty($company))
+                                            @php $debit += $row->sale_amount_total; @endphp
+                                        @elseif($row->buyer == $company)
+                                            @php $debit += $row->sale_amount_total @endphp
+                                        @endif
+                                    @endforeach
+                                    @foreach ($feedInvoice as $row)
+                                        <tr style="text-align: center;">
+                                            <td class="text-right" style="width: 100px;">
+                                                <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                            </td>
+                                            <td class="text-right">
+                                                <a href="{{ Route('edit_invoice_feed', $row->unique_id) }}"
+                                                    target="__blank"><span>F-{{ $row->unique_id }}
+                                                    </span>
+                                                </a>
+                                            </td>
+                                            <td style="text-align: left
+                         ;">
+                                                <span>{{ $row->description }},
+                                                    {{ $row->seller == $company ? str_replace('.00', '', $row->qty_total) : str_replace('.00', '', $row->sale_qty_total) }}
+                                                    Bags</span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>
+                                                    @if (!isset($company) || empty($company))
+                                                        {{ $row->buyer ? $row->sale_amount_total : 0.0 }}
+                                                    @else
+                                                        {{ $row->buyer == $company ? $row->sale_amount_total : 0.0 }}
+                                                    @endif
+                                                </span>
+                                            </td>
+                                            <td style="text-align:right;">
+                                                <span>
+                                                    @if (!isset($company) || empty($company))
+                                                        {{ $row->seller ? $row->amount_total : 0.0 }}
+                                                    @else
+                                                        {{ $row->seller == $company ? $row->amount_total : 0.0 }}
+                                                    @endif
+                                                </span>
+                                            </td>
+        
+        
+                                            <td style="text-align:right;">
+                                                <span>
+                                                    @if (!isset($company) || empty($company))
+                                                        {{ $balance += $row->amount_total - $row->sale_amount_total }}
+                                                    @else
+                                                        {{ $row->seller == $company ? ($balance += $row->amount_total) : '' }}
+                                                        {{ $row->buyer == $company ? ($balance += $row->sale_amount_total) : '' }}
+                                                    @endif
+                                                </span>
+                                            </td>
+                                        </tr>
+                                        @if (!isset($company) || empty($company))
+                                            @php $credit += $row->amount_total; @endphp
+                                        @elseif($row->seller == $company)
+                                            @php $credit += $row->amount_total @endphp
+                                        @endif
+        
+                                        @if (!isset($company) || empty($company))
+                                            @php $debit += $row->sale_amount_total; @endphp
+                                        @elseif($row->buyer == $company)
+                                            @php $debit += $row->sale_amount_total @endphp
+                                        @endif
+                                    @endforeach
+
+
+                                    @foreach ($payment_voucher as $row)
+                                    <tr style="text-align: center;">
+                                        <td class="text-right" style="width: 100px;">
+                                            <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                        </td>
+                                        <td class="text-right">
+                                            <a href="{{ Route('payment_voucher.edit', $row->unique_id) }}"
+                                                target="__blank"><span>PV-{{ $row->unique_id }}
+                                                </span>
+                                            </a>
+                                        </td>
+                                        <td style="text-align: left
+                     ;">
+                                            <span>{{ $row->narration }}</span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>
+                                                @if (!isset($company) && empty($single_data))
+                                                    {{ $row->company ? $row->amount : 0.0 }}
+                                                    @php $debit += $row->amount; @endphp
+                                                @elseif($row->company == $company)
+                                                    {{ $row->amount ?? 0.0 }}
+                                                    @php $debit += $row->amount; @endphp
+                                                @else
+                                                    0.00
+                                                @endif
+                                            </span>
+                                        </td>
+                                        <td style="text-align:right;">
+                                            <span>
+                                                @if (!isset($company) && empty($single_data))
+                                                    {{ $row->cash_bank ? $row->amount : 0.0 }}
+                                                    @php $credit += $row->amount; @endphp
+                                                @elseif($row->cash_bank == $single_data->id)
+                                                    {{ $row->amount ?? 0.0 }}
+                                                    @php $credit += $row->amount_total; @endphp
+                                                @else
+                                                    0.00
+                                                @endif
+                                            </span>
+                                        </td>
+    
+                                        <td style="text-align:right;">
+                                            <span>{{ $balance += $row->amount }}</span>
+                                        </td>
+                                    </tr>
+                                @endforeach
+
+
+                                        @foreach ($expense_voucher as $row)
+                                            <tr style="text-align: center;">
+                                                <td class="text-right" style="width: 100px;">
+                                                    <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>
+                                                </td>
+                                                <td class="text-right">
+                                                    <a href="{{ Route('expense_voucher.edit', $row->unique_id) }}"
+                                                        target="__blank"><span>EV-{{ $row->unique_id }}
+                                                        </span>
+                                                    </a>
+                                                </td>
+                                                <td style="text-align: left
+                         ;">
+                                                    <span>{{ $row->narration }}</span>
+                                                </td>
+
+                                                @if ($head_account)
+                                                    @if ($head_account->id == 5)
+                                                        <td style="text-align:right;">
+                                                            <span>{{ number_format($row->amount, 2) }}</span>
+                                                        </td>
+                                                        <td style="text-align:right;">
+                                                            <span>0.00</span>
+                                                        </td>
+                                                        @php $debit += $row->amount; @endphp
+                                                    @elseif($head_account->id == 1)
+                                                        <td style="text-align:right;">
+                                                            <span>0.00</span>
+                                                        </td>
+                                                        <td style="text-align:right;">
+                                                            <span>{{ number_format($row->amount, 2) }}</span>
+                                                        </td>
+                                                        @php $credit += $row->amount; @endphp
+                                                    @endif
+                                                @else
+                                                    <td style="text-align:right;">
+                                                        <span>{{ number_format($row->amount, 2) }}</span>
+                                                    </td>
+                                                    <td style="text-align:right;">
+                                                        <span>{{ number_format($row->amount, 2) }}</span>
+                                                    </td>
+                                                @endif
+
+                                                <td style="text-align:right;">
+                                                    <span>{{ $balance += $row->amount }}</span>
+                                                </td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                    <tfoot class="full-width">
+                                        <tr>
+                                            <th colspan="1"></th>
+                                            <th colspan="1"></th>
+                                            <th> Total: </th>
+                                            <th colspan="1" style="text-align:right;"> {{ $debit }} </th>
+                                            <th colspan="1" style="text-align:right;"> {{ $credit }} </th>
+                                            <th colspan="1" style="text-align:right;" id="balance">
+                                                {{ $balance }}
+                                            </th>
+                                        </tr>
+                                    </tfoot>
                             </table>
                         @endforeach
                     @endforeach
@@ -184,18 +411,18 @@
                         </thead>
 
                         <tbody>
-                            @php
+                            {{-- @php
                                 $unique_ids = [];
                                 $last_unique_id = null;
                                 $last_row_key = null;
-                            @endphp
+                            @endphp --}}
                             @foreach ($chickenInvoice as $row)
                                 @if (!$company)
                                     @php
                                         $company;
                                     @endphp
                                 @endif
-                                @php
+                                {{-- @php
                                     if ($last_unique_id !== $row->unique_id) {
                                         $last_unique_id = $row->unique_id;
                                         $last_row_key = $key;
@@ -205,7 +432,7 @@
                                     $next_unique_id = isset($invoice[$next_key])
                                         ? $invoice[$next_key]->unique_id
                                         : null;
-                                @endphp
+                                @endphp --}}
                                 <tr style="text-align: center;">
                                     <td class="text-right" style="width: 100px;">
                                         <span>{{ (new DateTime($row->date))->format('d-m-Y') }}</span>

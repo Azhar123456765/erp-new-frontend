@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Products') @section('content')
+@extends('layout.app') @section('title', 'Products') @section('content')
 <style>
     @media (max-width: 755px) {
         .modal-dialog {
@@ -15,9 +15,11 @@
 <div class="container">
     <div class="card">
         <div class="card-header">
-            <h3 class="card-title">Products Table</h3>
-            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
-                <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Product</a>
+            <div class="d-flex justify-content-between">
+                <h3 class="card-title">Products Table</h3>
+                <a href="{{ route('product.create') }}" class="btn btn-success float-right">
+                    <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Product</a>
+            </div>
         </div>
 
         <div class="card-body">
@@ -27,9 +29,7 @@
 
                         <th>S.NO</th>
                         <th>product Name</th>
-                        <th>product company</th>
-                        <th>product type</th>
-                        <th>product category</th>
+                        <th>Sale Price</th>
                         <th>purchase Price</th>
                         <th>Actions</th>
                     </tr>
@@ -48,6 +48,61 @@
 
 
 
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#table').DataTable({
+            processing: true,
+            ajax: '/data-product',
+            columns: [{
+                    data: null,
+                    render: function(data, type, row, meta) {
+                        return meta.row + 1;
+                    }
+                },
+                {
+                    data: 'product_name',
+                    name: 'product_name'
+                },
+                {
+                    data: 'product_sale_price',
+                    name: 'product_sale_price'
+                },
+                {
+                    data: 'purchase_price',
+                    name: 'purchase_price'
+                },
+
+                {
+                    data: null,
+                    render: function(data, type, row) {
+                        return `
+                        <div class="table-data-feature">
+                                <a href="/edit_product/${row.product_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="Edit">
+                                    <i class="fa fa-edit"></i>
+                                </a>
+                                <a href="/product_delete${row.product_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="Delete">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                                <a href="/product_pdf_id=${row.product_id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="View">
+                                    <i class="fa fa-print"></i>
+                                </a>
+
+</div>
+    `;
+                    }
+
+                },
+            ]
+        });
+    });
+</script>
+@endsection
+
+{{-- 
 <div class="modal fade" id="add-modal">
     <div class="modal-dialog" style="margin-right: 42%;">
         <div class="modal-content" style="width: 150%; ">
@@ -77,33 +132,20 @@
                                 <div class="row">
                                     <div class="col">
                                         <label for="company">Product Company</label>
-                                        <select name="company" id="company" class="form-control select">
-                                            @foreach ($company as $row)
-                                                <option value="{{ $row->product_company_id }}">{{ $row->company_name }}
-                                                </option>
-                                            @endforeach
-
+                                        <select name="company" id="company" class="form-control select-product_company">
+                                          
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label for="type">Type</label>
-                                        <select name="type" id="type" class="form-control ">
-                                            @foreach ($type as $row2)
-                                                <option value="{{ $row2->product_type_id }}">{{ $row2->type }}
-                                                </option>
-                                            @endforeach
-
+                                        <select name="type" id="type" class="form-control select-product_type">
+                                         
                                         </select>
                                     </div>
                                     <div class="col">
                                         <label for="category">Product category</label>
-                                        <select name="category" id="category" class="form-control ">
-                                            @foreach ($category as $row3)
-                                                <option value="{{ $row3->product_category_id }}">
-                                                    {{ $row3->category_name }}
-                                                </option>
-                                            @endforeach
-
+                                        <select name="category" id="category" class="form-control select-product_category">
+                                    
                                         </select>
                                     </div>
 
@@ -221,57 +263,6 @@
 </div>
 
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.0/jquery.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        $('#table').DataTable({
-            processing: true,
-            ajax: '/data-product',
-            columns: [{
-                    data: null,
-                    render: function(data, type, row, meta) {
-                        return meta.row + 1;
-                    }
-                },
-                {
-                    data: 'product_name',
-                    name: 'product_name'
-                },
-                {
-                    data: 'company_name',
-                    name: 'company_name'
-                },
-                {
-                    data: 'type',
-                    name: 'type'
-                },
-                {
-                    data: 'category_name',
-                    name: 'category_name'
-                },
-                {
-                    data: 'purchase_price',
-                    name: 'purchase_price'
-                },
-
-                {
-                    data: null,
-                    render: function(data, type, row) {
-                        return `
-                        <div class="table-data-feature">
-                                <a href="#" data-toggle="modal" data-target="#edit_modal${row.product_id}"  class="item" data-toggle="tooltip" data-placement="top" title="Edit">
-                                    <i class="fa fa-edit"></i>
-                                </a>
-                                <a href="/product_delete${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="Delete">
-                                    <i class="fa fa-trash"></i>
-                                </a>
-                                <a href="#" data-toggle="modal" data-target="#view_modal${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
-                                    <i class="fa fa-eye"></i>
-                                </a>
-                                <a href="/product_pdf_id=${row.product_id}" class="item" data-toggle="tooltip" data-placement="top" title="View">
-                                    <i class="fa fa-print"></i>
-                                </a>
 
 
 
@@ -283,9 +274,7 @@
 
 
 
-
-
-                                <div class="modal fade" id="edit_modal${row.product_id}">
+<div class="modal fade" id="edit_modal${row.product_id}">
     <div class="modal-dialog" style="margin-right: 42%;">
         <div class="modal-content" style="width: 150%; ">
             <div class="modal-body">
@@ -441,26 +430,4 @@
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    `;
-                    }
-
-                },
-            ]
-        });
-    });
-</script>
-@endsection
+</div> --}}

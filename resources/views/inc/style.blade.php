@@ -13,6 +13,7 @@
 
 <link rel="stylesheet" href="{{ asset('../../dist/css/adminlte.min2167.css?v=3.2.0') }}" />
 
+
 <script nonce="d4cfe204-cbf9-4890-8e13-ef8d0a90d985">
     (function(w, d) {
         !(function(j, k, l, m) {
@@ -181,7 +182,6 @@
         select {
             font-weight: 550 !important;
         }
-        
     </style>
 @endif
 <style>
@@ -324,5 +324,31 @@
     .remove-image:active {
         border: 0;
         transition: all .2s ease;
+    }
+
+
+    .select2-container .select2-selection--single {
+        height: calc(1.5em + 0.75rem + 2px) !important;
+        /* Matches Bootstrap's .form-control height */
+        padding: 0.375rem 0.75rem;
+        /* Matches Bootstrap's padding */
+        font-size: 1rem;
+        /* Matches Bootstrap's font size */
+        line-height: 1.5;
+        /* Matches Bootstrap's line height */
+        border: 1px solid #ced4da;
+        /* Matches Bootstrap's border */
+        border-radius: 0.375rem;
+        /* Matches Bootstrap's border-radius */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__rendered {
+        line-height: calc(1.5em + 0.75rem + 2px) !important;
+        /* Center the text */
+    }
+
+    .select2-container--default .select2-selection--single .select2-selection__arrow {
+        height: calc(1.5em + 0.75rem + 2px) !important;
+        /* Adjust the arrow height */
     }
 </style>

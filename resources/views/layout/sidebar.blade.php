@@ -25,8 +25,7 @@ $target = null;
         <!-- Logo Header -->
         <div class="logo-header" data-background-color="dark">
             <a href="{{ url('/') }}" class="logo">
-                <img src="{{ asset('../assets/img/kaiadmin/logo_light.svg') }}" alt="navbar brand" class="navbar-brand"
-                    height="20" />
+                <h4 class="text-white mt-1 fw-bold">{{ $organization }}</h4>
             </a>
             <div class="nav-toggle">
                 <button class="btn btn-toggle toggle-sidebar">
@@ -46,13 +45,13 @@ $target = null;
         <div class="sidebar-content">
             <ul class="nav nav-secondary">
                 <li
-                    class="nav-item {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'active' : '' }}">
+                    class="nav-item {{ request()->is('organization*', '*account*', '*user*', '*buyer*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'active' : '' }}">
                     <a data-bs-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
                         <i class="fas fa-user"></i>
                         <p>Main</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'show' : '' }}"
+                    <div class="collapse {{ request()->is('organization*', '*account*', '*user*', '*buyer*', '*seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'show' : '' }}"
                         id="dashboard">
                         <ul class="nav nav-collapse">
                             <li class="nav-item {{ request()->is('organization*') ? ' active' : '' }}">
@@ -61,47 +60,44 @@ $target = null;
                                     <p>Organization</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ Route('account.index', [1, 1]) }}"
-                                    class="nav-link{{ request()->is('account_account=1*') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->is('*account*') ? ' active' : '' }}">
+                                <a href="{{ Route('account.index', [1, 1]) }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Accounts</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/users" class="nav-link{{ request()->is('users*') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->is('*user*') ? ' active' : '' }}">
+                                <a href="/users" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Users</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/buyers" class="nav-link{{ request()->is('buyers*') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->is('*buyer*') ? ' active' : '' }}">
+                                <a href="/buyers" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Customers</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/sellers" class="nav-link{{ request()->is('seller*') ? ' active' : '' }}">
+                            {{-- <li class="nav-item {{ request()->is('seller*') ? ' active' : '' }}">
+                                <a href="/sellers" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/sales_officer"
-                                    class="nav-link{{ request()->is('sales_officer*') ? ' active' : '' }}">
+                            </li> --}}
+                            <li class="nav-item {{ request()->is('sales_officer*') ? ' active' : '' }}">
+                                <a href="/sales_officer" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sales Officer</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/warehouse"
-                                    class="nav-link{{ request()->is('warehouse*') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->is('warehouse*') ? ' active' : '' }}">
+                                <a href="/warehouse" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Warehouse</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/zone" class="nav-link{{ request()->is('zone*') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->is('zone*') ? ' active' : '' }}">
+                                <a href="/zone" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Zone</p>
                                 </a>
@@ -111,32 +107,28 @@ $target = null;
                 </li>
 
                 <li
-                    class="nav-item {{ request()->routeIs('payment_voucher*', 'receipt_voucher*', 'expense_voucher*') ? ' active' : '' }}">
+                    class="nav-item {{ request()->routeIs('*payment_voucher*', '*receipt_voucher*', '*expense_voucher*') ? ' active' : '' }}">
                     <a data-bs-toggle="collapse" href="#Voucher" class="collapsed" aria-expanded="false">
                         <i class="fas fa-money-check"></i>
                         <p>Voucher</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->routeIs('payment_voucher*', 'receipt_voucher*', 'expense_voucher*') ? 'show' : '' }}"
-                        id="Voucher">
+                    <div class="collapse {{ request()->routeIs('*voucher*') ? 'show' : '' }}" id="Voucher">
                         <ul class="nav nav-collapse">
-                            <li class="nav-item">
-                                <a href="{{ Route('payment_voucher.create_first') }}"
-                                    class="nav-link{{ request()->routeIs('payment_voucher*') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('payment_voucher*') ? ' active' : '' }}">
+                                <a href="{{ Route('payment_voucher.create_first') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Payment Voucher</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ Route('receipt_voucher.create_first') }}"
-                                    class="nav-link{{ request()->is('receipt_voucher*') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->routeIs('receipt_voucher*') ? ' active' : '' }}">
+                                <a href="{{ Route('receipt_voucher.create_first') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Reciept Voucher</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ Route('expense_voucher.create_first') }}"
-                                    class="nav-link{{ request()->routeIs('expense_voucher*') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->routeIs('expense_voucher*') ? ' active' : '' }}">
+                                <a href="{{ Route('expense_voucher.create_first') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Expense Voucher</p>
                                 </a>
@@ -146,48 +138,74 @@ $target = null;
                 </li>
 
 
+                <li class="nav-item {{ request()->is('*invoices*') ? 'active' : '' }}">
+                    <a data-bs-toggle="collapse" href="#Invoices" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-file-invoice"></i>
+                        <p>Invoices</p>
+                        <span class="caret"></span>
+                    </a>
+                    <div class="collapse {{ request()->is('*invoice*') ? 'show' : '' }}" id="Invoices">
+                        <ul class="nav nav-collapse">
+                            <li class="nav-item{{ request()->is('*invoice-chicken*') ? ' active' : '' }}">
+                                <a href="{{ Route('invoice_chicken') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Chicken Invoice</p>
+                                </a>
+                            </li>
+                            <li class="nav-item{{ request()->is('invoice-chick*') ? ' active' : '' }}">
+                                <a href="{{ Route('invoice_chick') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Chick Invoice</p>
+                                </a>
+                            </li>
+                            <li class="nav-item {{ request()->is('*invoice-feed*') ? 'active' : '' }}">
+                                <a href="{{ Route('invoice_feed') }}" class="nav-link">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Feed Invoice</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+
 
                 <li
-                    class="nav-item {{ request()->is('product_category*', 'product_sub_category*', 'product_company*', 'products*', 'product_type*') ? 'active' : '' }}">
+                    class="nav-item {{ request()->is('*product_category*', 'product_sub_category*', '*product_company*', '*product*', '*product_type*') ? 'active' : '' }}">
                     <a data-bs-toggle="collapse" href="#Products" class="collapsed" aria-expanded="false">
                         <i class="fas fa-prescription-bottle"></i>
                         <p>Products</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->is('product_category*', 'product_sub_category*', 'product_company*', 'products*', 'product_type*') ? 'show' : '' }}"
+                    <div class="collapse {{ request()->is('*product_category*', 'product_sub_category*', '*product_company*', '*product*', '*product_type*') ? 'show' : '' }}"
                         id="Products">
                         <ul class="nav nav-collapse">
-                            <li class="nav-item">
-                                <a href="/product_company"
-                                    class="nav-link{{ request()->is('product_company*') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->is('product_company*') ? ' active' : '' }}">
+                                <a href="/product_company" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product Company</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/product_category"
-                                    class="nav-link{{ request()->is('product_category*') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->is('*product_category*') ? ' active' : '' }}">
+                                <a href="/product_category" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product Category</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
+                            {{-- <li class="nav-item{{ request()->is('product_sub_category*') ? ' active' : '' }}">
                                 <a href="/product_sub_category"
-                                    class="nav-link{{ request()->is('product_sub_category*') ? ' active' : '' }}">
+                                    class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product Sub Category</p>
                                 </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="/product_type"
-                                    class="nav-link{{ request()->is('product_type*') ? ' active' : '' }}">
+                            </li> --}}
+                            <li class="nav-item{{ request()->is('*product_type*') ? ' active' : '' }}">
+                                <a href="/product_type" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Product Type</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="/products"
-                                    class="nav-link{{ request()->is('products*') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->is('products*') ? ' active' : '' }}">
+                                <a href="/products" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Manage Products</p>
                                 </a>
@@ -204,77 +222,82 @@ $target = null;
                     <div class="collapse" id="Reports">
                         <ul class="nav nav-collapse">
                             <li class="nav-item">
-                                <a href="#" data-toggle="modal" data-target="#farm-report" class="nav-link">
+                                <a href="#" data-bs-toggle="modal" data-bs-target="#farm-report"
+                                    class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Farm Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#gen-led" class="nav-link">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#gen-led" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>General Ledger</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#sale-pur-report"
+                                <a href="" data-bs-toggle="modal" data-bs-target="#sale-pur-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Sale+Supplier Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#sale-report" class="nav-link">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#sale-report"
+                                    class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Customer Report</p>
                                 </a>
                             </li>
                             {{-- <li class="nav-item">
-                            <a href="" data-toggle="modal" data-target="#sale-r-report" class="nav-link">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#sale-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Sale Return Report</p>
                             </a>
                         </li> --}}
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#pur-report" class="nav-link">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#pur-report"
+                                    class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Supplier Report</p>
                                 </a>
                             </li>
                             {{-- <li class="nav-item">
-                            <a href="" data-toggle="modal" data-target="#pur-r-report" class="nav-link">
+                            <a href="" data-bs-toggle="modal" data-bs-target="#pur-r-report" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Purchase Return Report</p>
                             </a>
                         </li> --}}
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#p-voucher-report"
+                                <a href="" data-bs-toggle="modal" data-bs-target="#p-voucher-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Payment Voucher Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#r-voucher-report"
+                                <a href="" data-bs-toggle="modal" data-bs-target="#r-voucher-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Receipt Voucher Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#e-voucher-report"
+                                <a href="" data-bs-toggle="modal" data-bs-target="#e-voucher-report"
                                     class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Expense Voucher Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#profit-led" class="nav-link">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#profit-led"
+                                    class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Profit Report</p>
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" data-toggle="modal" data-target="#stock-report" class="nav-link">
+                                <a href="" data-bs-toggle="modal" data-bs-target="#stock-report"
+                                    class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Stock Report</p>
                                 </a>
@@ -284,53 +307,28 @@ $target = null;
                 </li>
 
 
-                <li class="nav-item">
-                    <a data-bs-toggle="collapse" href="#Farm" class="collapsed" aria-expanded="false">
+                <li class="nav-item {{ request()->is('*farm*') ? 'active' : '' }}">
+                    <a data-bs-toggle="collapse" href="#FarmModule" class="collapsed" aria-expanded="false">
                         <i class="fas fa-user"></i>
                         <p>Farm Module</p>
                         <span class="caret"></span>
                     </a>
-                    <div class="collapse {{ request()->is('organization*', 'account_account=1*', 'users*', 'buyers*', 'seller*', 'sales_officer*', 'warehouse*', 'zone*') ? 'show' : '' }}"
-                        id="Farm">
+                    <div class="collapse {{ request()->is('*farm*') ? 'show' : '' }}" id="FarmModule">
                         <ul class="nav nav-collapse">
-                            <li class="nav-item">
-                                <a href="{{ Route('invoice_chicken') }}"
-                                    class="nav-link {{ request()->routeIs('invoice_chicken') ? ' active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Chicken Invoice</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ Route('invoice_chick') }}"
-                                    class="nav-link {{ request()->routeIs('invoice_chick') ? ' active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Chick Invoice</p>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="{{ Route('invoice_feed') }}"
-                                    class="nav-link {{ request()->routeIs('invoice_feed') ? ' active' : '' }}">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Feed Invoice</p>
-                                </a>
-                            </li>
-                            <li class="nav-item active">
-                                <a href="{{ Route('farm.index') }}"
-                                    class="nav-link{{ request()->routeIs('farm') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->is('*farm*') ? ' active' : '' }}">
+                                <a href="{{ Route('farm.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Farms</p>
                                 </a>
                             </li>
-                            <li class="nav-item active">
-                                <a href="{{ Route('farming_period.index') }}"
-                                    class="nav-link{{ request()->routeIs('farming_period') ? ' active' : '' }}">
+                            <li class="nav-item {{ request()->routeIs('farming_period') ? ' acqtive' : '' }}">
+                                <a href="{{ Route('farming_period.index') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Farming Periods</p>
                                 </a>
                             </li>
-                            <li class="nav-item">
-                                <a href="{{ Route('daily_reports') }}"
-                                    class="nav-link{{ request()->routeIs('daily_reports') ? ' active' : '' }}">
+                            <li class="nav-item{{ request()->routeIs('daily_reports') ? ' active' : '' }}">
+                                <a href="{{ Route('daily_reports') }}" class="nav-link">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Farm Daily Report</p>
                                 </a>
@@ -338,6 +336,7 @@ $target = null;
                         </ul>
                     </div>
                 </li>
+
             </ul>
         </div>
     </div>

@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layout.app')
 
 @section('title', 'Daily Report')
 
@@ -13,7 +13,7 @@
                 <h3 class="card-title">My Report Table</h3>
                 @if (isset($farm_daily_report->date) &&
                         Carbon::parse($farm_daily_report->date)->lessThanOrEqualTo(Carbon::parse($today)))
-                    <a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
+                    <a href="" data-bs-toggle="modal" data-bs-target="#add-modal" class="btn btn-success float-right">
                         <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Report for
                         {{ (new DateTime($farm_daily_report->date))->format('d-m-Y') }}
                     </a>
@@ -68,9 +68,9 @@
                                 <td>
                                     <div class="table-data-feature">
                                         @if (isset($farm_daily_report->date) && Carbon::parse($report->date)->equalTo(Carbon::parse($today)))
-                                            <a href="#" data-toggle="modal"
-                                                data-target="#edit_modal{{ $farm_daily_report->id }}" class="item"
-                                                data-toggle="tooltip" data-placement="top" title="Edit">
+                                            <a href="#" data-bs-toggle="modal"
+                                                data-bs-target="#edit_modal{{ $farm_daily_report->id }}" class="item"
+                                                data-bs-toggle="tooltip" data-placement="top" title="Edit">
                                                 <i class="fa fa-edit"></i>
                                             </a>
                                         @endif
@@ -206,7 +206,9 @@
                                 </div>
 
 
-                                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                                <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
 
                             </form>
                         </div>

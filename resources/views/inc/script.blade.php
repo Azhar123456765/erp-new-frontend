@@ -111,7 +111,7 @@
 
                     },
                     cache: true,
-                    theme: 'classic',
+                    theme: 'bootstrap4',
                     width: '100%',
                 },
             });
@@ -360,7 +360,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
     //     $('.select-warehouse').select2({
@@ -386,7 +386,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
 
@@ -413,7 +413,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
     //     $('.select-product_category').select2({
@@ -441,7 +441,7 @@
     //             }
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%'
     //     });
 
@@ -469,7 +469,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
 
@@ -497,7 +497,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
 
@@ -525,7 +525,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
 
@@ -553,7 +553,7 @@
     //             cache: true
     //         },
     //        
-    //         theme: 'classic',
+    //         theme: 'bootstrap4',
     //         width: '100%',
     //     });
 
@@ -591,7 +591,7 @@
     // cache: true
     //         },
     //
-    //     theme: 'classic',
+    //     theme: 'bootstrap4',
     //         width: '100%',
     //     });
 
@@ -717,7 +717,7 @@
                 cache: true
             },
 
-            theme: 'classic',
+            theme: 'bootstrap4',
             width: '100%',
             allowClear: true,
             placeholder: '',
@@ -750,7 +750,7 @@
                 cache: true
             },
 
-            theme: 'classic',
+            theme: 'bootstrap4',
             width: '100%',
             allowClear: true,
             placeholder: '',

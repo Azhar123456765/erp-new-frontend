@@ -264,6 +264,7 @@ class PaymentVoucherController extends Controller
 
             "unique_id" => $id
         ])->first();
+        if (count($p_voucher) > 0) {
         $account = accounts::all();
         $combinedInvoices = chickenInvoice::select(
             DB::raw("CONCAT('CH-', unique_id) as unique_id_name"),
@@ -299,7 +300,7 @@ class PaymentVoucherController extends Controller
                     })
             )
             ->get();
-        if (count($p_voucher) > 0) {
+       
             $data = compact('account', 'p_voucher', 'sp_voucher', 'combinedInvoices');
             return view('vouchers.e_payment')->with($data);
         } else {

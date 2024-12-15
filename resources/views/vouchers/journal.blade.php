@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Journal Voucher') @section('content')
+@extends('layout.app') @section('title', 'Journal Voucher') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -25,9 +25,7 @@
         transform: scale(0.75);
     }
 
-    input[type="number" step="any"] {
-        text-align: right !important;
-    }
+    
 
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -393,7 +391,7 @@
 </div>
 
 </div>
-<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
+<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-md" data-bs-toggle="modal"
     data-bs-target="#imageModal" style="
     margin-top: -17%;
 ">
@@ -416,7 +414,7 @@
                                 class="img-fluid" id="imagePreview" style="object-fit: fill; display:none;">
                         </a>
                     </div>
-                    <div class="col-lg-3 col-md-12">
+                    <div class="col-3 col-md-12">
                         <div class="row justify-content-start">
                             <div class="mb-3">
                                 <input type="file" class="form-control" name="attachment" id="attachment"
@@ -424,7 +422,7 @@
     height: max-content !important;
 " />
                             </div>
-                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
+                            <button type="button" class="btn px-3 p-1 btn-secondary btn-md"
                                 onclick="
                   document.getElementById('attachment').value = '';
                  document.getElementById('imagePreview').style.display = 'none';
@@ -443,33 +441,43 @@
 <div class="row m-5 justify-content-center align-items-center"
     style="position: relative;gap: 30px;margin-top: -110px !important;top: 60%;right: 0%;">
 
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" style="">
+    <button type="submit" class="btn px-3 p-1 btn-secondary btn-md submit" id="submit" data-bs-toggle="tooltip" 
+      data-bs-placement="top" 
+      title="Shortcut: Enter">
         submit
     </button>
-    <a href="{{ Route('journal-voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Previous
+    <a href="{{ Route('journal-voucher.edit', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-md  submit"id="previous_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + B">
+            Previous
     </a>
-    <a href="{{ Route('journal-voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Next
+    <a href="{{ Route('journal-voucher.edit', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-md  submit" id="next_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + N">
+            Next
     </a>
 
     <a href="{{ Route('journal-voucher.edit', $rand) }}"
-        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-sm disabled" id="edit">
-        Edit
+        class="edit edit-btn  btn px-3 p-1 btn-secondary btn-md disabled" id="edit" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + E">
+            Edit
     </a>
-    <a href="{{ Route('journal-voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
-        id="add_more">
-        Add More
+    <a href="{{ Route('journal-voucher.create') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md"
+        id="add_more_btn" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + M">
+            Add More
     </a>
 
 
-    <a href="{{ Route('journal_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-sm" id="pdf"
+    <a href="{{ Route('journal_voucher.report', $rand) }}" class="edit pdf btn btn-secondary btn-md" id="pdf"
         target="__blank">
         PDF
     </a>
 
 
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
+    <button class="btn px-3 p-1 btn-secondary btn-md  submit" style=""
         onclick="
         
         window.location.reload()
@@ -671,7 +679,7 @@
                             cache: true
                         },
 
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                     });
                     $('.select-farm').select2({
@@ -696,7 +704,7 @@
                             },
                             cache: true
                         },
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                         allowClear: true,
                         placeholder: '',
@@ -727,7 +735,7 @@
                             cache: true
                         },
 
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                         allowClear: true,
                         placeholder: '',
@@ -878,7 +886,7 @@
                             cache: true
                         },
 
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                     });
                     $('.select-farm').select2({
@@ -903,7 +911,7 @@
                             },
                             cache: true
                         },
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                         allowClear: true,
                         placeholder: '',
@@ -934,7 +942,7 @@
                             cache: true
                         },
 
-                        theme: 'classic',
+                        theme: 'bootstrap4',
                         width: '100%',
                         allowClear: true,
                         placeholder: '',
@@ -1043,14 +1051,15 @@
     <div class="modal fade" id="iv-search">
         <div class="modal-dialog">
             <div class="modal-content">
-                <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4>Search Voucher</h4>
-                    <div class="modal-body">
+                 <div class="modal-header">
+                <h1 class="modal-title fs-5">Search Voucher</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
                         <form method="GET" action="/saleInvoice-search">
                             @csrf
                             <div class="form-group">
-                                <label for="">Voucher No</label>
+                                <label>Voucher No</label>
                                 <input type="text" class="form-control" id="search-input"
                                     style="width: 100% !important;">
                             </div>

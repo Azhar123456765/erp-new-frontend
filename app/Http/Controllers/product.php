@@ -33,21 +33,24 @@ class product extends Controller
     }
     function add_product_category(Request $request)
     {
-
+        $request->validate([
+            'category_name' => 'required',
+        ]);
 
         $add = new product_category();
         $add->category_name = $request['category_name'];
         $add->save();
 
-
         session()->flash('message', 'category has been added successfully');
-
-
         return redirect()->back();
     }
 
     function edit_product_category(Request $request, $id)
     {
+
+        $request->validate([
+            'category_name' => 'required',
+        ]);
 
         $query = product_category::where('product_category_id', $id)->update([
 
@@ -84,58 +87,58 @@ class product extends Controller
 
 
 
-    function product_sub_category(Request $request)
-    {
+    // function product_sub_category(Request $request)
+    // {
 
-        $users = product_sub_category::leftJoin('product_category', 'main_category', '=', 'product_category.product_category_id')->get();
-        $category = product_category::all();
-        $data = compact('users', 'category');
-        return view('product_sub_category')->with($data);
-    }
-    function add_product_sub_category(Request $request)
-    {
-
-
-        $add = new product_sub_category();
-        $add->sub_category_name = $request['category_name'];
-        $add->main_category = $request['main_category'];
-
-        $add->save();
+    //     $users = product_sub_category::leftJoin('product_category', 'main_category', '=', 'product_category.product_category_id')->get();
+    //     $category = product_category::all();
+    //     $data = compact('users', 'category');
+    //     return view('product_sub_category')->with($data);
+    // }
+    // function add_product_sub_category(Request $request)
+    // {
 
 
-        session()->flash('message', 'Sub-category has been added successfully');
+    //     $add = new product_sub_category();
+    //     $add->sub_category_name = $request['category_name'];
+    //     $add->main_category = $request['main_category'];
+
+    //     $add->save();
 
 
-        return redirect()->back();
-    }
-
-    function edit_product_sub_category(Request $request, $id)
-    {
-
-        $query = product_sub_category::where('product_sub_category_id', $id)->update([
-
-            'sub_category_name' => $request['category_name'],
-            'main_category' => $request['main_category'],
+    //     session()->flash('message', 'Sub-category has been added successfully');
 
 
-        ]);
+    //     return redirect()->back();
+    // }
 
-        session()->flash('message', 'Sub-category has been updated successfully');
+    // function edit_product_sub_category(Request $request, $id)
+    // {
 
+    //     $query = product_sub_category::where('product_sub_category_id', $id)->update([
 
-        return redirect()->back();
-    }
-
-    function product_sub_category_delete(Request $request, $id)
-    {
-
-        $query = product_sub_category::where('product_sub_category_id', $id)->delete();
-
-        session()->flash('message', 'Sub-category has been deleted successfully');
+    //         'sub_category_name' => $request['category_name'],
+    //         'main_category' => $request['main_category'],
 
 
-        return redirect()->back();
-    }
+    //     ]);
+
+    //     session()->flash('message', 'Sub-category has been updated successfully');
+
+
+    //     return redirect()->back();
+    // }
+
+    // function product_sub_category_delete(Request $request, $id)
+    // {
+
+    //     $query = product_sub_category::where('product_sub_category_id', $id)->delete();
+
+    //     session()->flash('message', 'Sub-category has been deleted successfully');
+
+
+    //     return redirect()->back();
+    // }
 
 
 
@@ -242,27 +245,26 @@ class product extends Controller
     }
     function add_product_type(Request $request)
     {
-
+        $request->validate([
+            'type' => 'required',
+        ]);
 
         $add = new product_type();
         $add->type = $request['type'];
         $add->save();
 
-
         session()->flash('message', 'Product type has been added successfully');
-
-
         return redirect()->back();
     }
 
     function edit_product_type(Request $request, $id)
     {
+        $request->validate([
+            'type' => 'required',
+        ]);
 
         $query = product_type::where('product_type_id', $id)->update([
-
             'type' => $request['type'],
-
-
         ]);
 
         session()->flash('message', 'Product type has been updated successfully');
@@ -326,37 +328,20 @@ class product extends Controller
         // }
         return view('products', compact('products', 'category', 'company', 'type'));
     }
-
-    function edit(Request $request)
+   
+   
+    function create()
     {
-
-        $category = product_category::all();
-        // $sub_category = product_sub_category::all();
-        $company = product_company::all();
         $type = product_type::all();
-        // $search = $request->input('search');
+        return view('add_product', compact('type'));
+    }
 
-        // $product_code = $request['code'] ?? null;
+    function edit(Request $request, $id)
+    {
+        $type = product_type::all();
+        $product = products::where('product_id', $id)->first();
 
-
-        $products = products::orderByDesc('id');
-
-        // if ($search) {
-        //     $users = product_company::where('company_name', 'like', '%' . $search . '%')->get();
-        //     $data = compact('users');
-        //     $view = view('load.product.company', $data)->render();
-        //     return response()->json(['view' => $view]);
-        // } elseif ($request->ajax()) {
-        //     $view = view('load.product.company', $data)->render();
-        //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
-        // }
-
-
-        // if ($request->ajax()) {
-        //     $view = view('load.product.company', $data)->render();
-        //     return response()->json(['view' => $view, 'nextPageUrl' => $users->nextPageUrl()]);
-        // }
-        return view('edit_product', compact('products', 'category', 'company', 'type'));
+        return view('edit_product', compact('product', 'type'));
     }
 
     function add_product(Request $request)
@@ -459,9 +444,12 @@ class product extends Controller
     }
 
 
-    function update_product($id, Request $request)
+    function update($id, Request $request)
     {
-        // Retrieve the form data
+        $request->validate([
+            'product_name' => 'required',
+        ]);
+        
         $productName = $request->input('product_name');
         $desc = $request->input('desc');
         $company = $request->input('company');

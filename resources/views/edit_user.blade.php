@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Edit User') @section('content')
+@extends('layout.app') @section('title', 'Edit User') @section('content')
 
 
 <br>
@@ -11,16 +11,16 @@
 
 
             @foreach ($user as $row)
-                <form action="/edit_user_form-{{ $row->user_id }}" method="post">
+                <form action="/edit_user_form-{{ $row->user_id }}" method="post" class="needs-validation" novalidate>
 
 
                     @csrf
 
                     <div class="form-group">
-                        <label for="">Username</label>
+                        <label>Username</label>
                         <div class="input-group">
                             <input type="text" id="username2" name="username" placeholder="Username"
-                                class="form-control " required value="{{ $row->username }}">
+                                class="form-control" required value="{{ $row->username }}">
                             <div class="input-group-addon">
                                 <i class=" -user"></i>
                             </div>
@@ -28,20 +28,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">email</label>
+                        <label>email</label>
                         <div class="input-group">
                             <input type="email" validate="email" id="email2" name="email" placeholder="Email"
-                                class="form-control " required value="{{ $row->email }}">
+                                class="form-control" value="{{ $row->email }}">
                             <div class="input-group-addon">
                                 <i class=" -envelope"></i>
                             </div>
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">Phone Number</label>
+                        <label>Phone Number</label>
                         <div class="input-group">
                             <input type="number" step="any" id="" name="phone_number"
-                                placeholder="phone number" class="form-control " required
+                                placeholder="phone number" class="form-control" 
                                 value="{{ $row->phone_number }}">
                             <div class="input-group-addon">
                                 <i class=" -asterisk"></i>
@@ -49,10 +49,10 @@
                         </div>
                     </div>
                     <div class="form-group">
-                        <label for="">New Password</label>
+                        <label>New Password</label>
 
                         <div class="input-group">
-                            <input type="text" id="password2" name="password" placeholder="Password"
+                            <input type="text" id="password2" name="password" placeholder="Add New Password"
                                 class="form-control">
                             <div class="input-group-addon">
                                 <i class=" -asterisk"></i>
@@ -61,8 +61,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="">Select Role</label>
-                        <select class="custom-select" name="role" id="" required>
+                        <label>Select Role</label>
+                        <select class="form-control" name="role" id="" required>
                             <option value="admin" {{ $row->role == 'admin' ? 'selected' : '' }}>admin</option>
                             <option value="user" {{ $row->role == 'user' ? 'selected' : '' }}>user</option>
                             <option value="farm_user" {{ $row->role == 'farm_user' ? 'selected' : '' }}>farm user
@@ -73,35 +73,6 @@
                     <input type="hidden" name="user_id" value="{{ $row->user_id }}">
 
                     <br>
-
-                    @error('username')
-                        <div class="alert alert-danger" role="alert">
-                            {{ $message }}
-
-
-
-                        </div>
-                    @enderror
-
-                    @error('email')
-                        <div class="alert alert-danger" role="alert">
-                            {{ $message }}
-
-
-
-                        </div>
-                    @enderror
-
-
-                    @error('phone_number')
-                        <div class="alert alert-danger" role="alert">
-                            {{ $message }}
-
-
-
-                        </div>
-                    @enderror
-
 
 
                     <div class="form-actions form-group">

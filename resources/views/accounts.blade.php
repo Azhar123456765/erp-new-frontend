@@ -1,11 +1,13 @@
-@extends('master') @section('title', 'Accounts')
+@extends('layout.app') @section('title', 'Accounts')
 @section('content')
     <div class="container">
         <div class="card">
             <div class="card-header">
-                <h3 class="card-title">Accounts</h3>
-                <a href="" data-toggle="modal" data-target="#login-modal" class="btn btn-success float-right">
-                    <i class="fa fa-plus"></i> &nbsp; Add Account</a>
+                <div class="d-flex justify-content-between">
+                    <h3 class="card-title">Accounts</h3>
+                    <a href="" data-bs-toggle="modal" data-bs-target="#login-modal" class="btn btn-success float-right">
+                        <i class="fa fa-plus"></i> &nbsp; Add Account</a>
+                </div>
             </div>
             <style>
                 .card #invoiceForm .select2-container--classic {
@@ -67,10 +69,12 @@
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4>Add account</h4>
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5">Add account</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
                     <div class="modal-body">
-                        <form method="POST" action="/add_account">
+                        <form method="POST" action="/add_account" class="needs-validation" novalidate>
                             @csrf
                             <div class="form-group">
                                 <label for="username">account Name</label>
@@ -94,7 +98,9 @@
                             <input type="hidden" step="any" class="form-control" id="account_category"
                                 name="account_category">
 
+                            <div class="form-group">
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
 
                         </form>
                     </div>
@@ -169,10 +175,10 @@
                                 return `
     <div class="table-data-feature">
 
-<a href="" data-toggle="modal" data-target="#edit_modal${row.id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
+<a href="#" data-bs-toggle="modal" data-bs-target="#edit_modal${row.id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="Edit">
     <i class="fa fa-edit"></i>
 </a>
-<a href="/delete-account/${row.id}" class="item" data-toggle="tooltip" data-placement="top" title="" data-original-title="delete">
+<a href="/delete-account/${row.id}" class="item" data-bs-toggle="tooltip" data-placement="top" title="" data-original-title="delete">
     <i class="fa fa-trash"></i>
 </a>
 
@@ -181,11 +187,13 @@
         <div class="modal fade" id="edit_modal${row.id}">
             <div class="modal-dialog">
                 <div class="modal-content">
+                    <div class="modal-header">
+        <h1 class="modal-title fs-5">Edit account</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
                     <div class="modal-body">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4>Edit account</h4>
                         <div class="modal-body">
-                            <form method="POST" action="/edit_account${row.id}">
+                            <form method="POST" action="/edit_account${row.id}" class="needs-validation" novalidate>
                                 @csrf
                                 <div class="form-group">
                                     <label for="username">account Name</label>
@@ -221,10 +229,10 @@
                                         @foreach ($all_sub_head_accounts as $row)
     <option value="{{ $row->id }}">{{ $row->name }}</option>
     @endforeach
-</select>
+    </select>
+    <button type="submit" class="btn btn-primary my-3" id="btn">Submit</button>
                                 </div>
-                                <button type="submit" class="btn btn-primary" id="btn">Submit</button>
-
+                                
                             </form>
                         </div>
                     </div>

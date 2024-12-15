@@ -43,7 +43,8 @@ class OrganizationController extends Controller
         $organization = organization::find(1);
 
         $validator = Validator::make($request->all(), [
-            'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048', // Adjust the file types and size limit as needed
+            'old_logo' => 'required',
+            'logo' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -56,6 +57,8 @@ class OrganizationController extends Controller
             'phone_number' => 'required',
 
         ]);
+
+
         $image = $request->file('logo');
 
 

@@ -1,135 +1,123 @@
-@extends('master')  @section('title','Panel')  @section('content')
+@extends('layout.app') @section('title', 'Panel') @section('content')
+<div class="container m-1">
 
-
-<br><br><br>
-<div class="container" style="width: 39%; margin-top:5%;">
-    <h3>Add buyer</h3>
+    <h2>Add buyer</h2>
     <div class="card-body card-block">
-        <form action="add_buyer_form" method="post">
+        <form action="add_buyer_form" method="post"  class="needs-validation"
+        novalidate>
             @csrf
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" id="username2" name="company_name" placeholder="Company" class="form-control" required>
-                    <div class="input-group-addon">
-                        <i class="fa fa-building"></i>
+            <div class="row">
+                <div class="form-group col">
+                    <label>Customer Name</label>
+                    <div class="input-group">
+                        <input type="text" id="username2" name="company_name" placeholde="Customer"
+                            class="form-control" required>
+                    </div>
+                </div>
+                <div class="form-group col">
+                    <label>Customer Email</label>
+
+                    <div class="input-group">
+                        <input type="text" id="email2" name="company_email" placeholde="Customer Email"
+                            class="form-control">
+                        <div class="input-group-addon">
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label>Customer Phone Number</label>
 
+                    <div class="input-group">
+                        <input type="text" name="company_phone_number" placeholde="Customer Phone Number"
+                            class="form-control">
+                        <div class="input-group-addon">
 
+                        </div>
+                    </div>
+                </div>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control">
-                    <div class="input-group-addon">
-                        <i class="fa fa-envelope"></i>
+                <div class="form-group col">
+                    <label>contact person</label>
+
+                    <div class="input-group">
+                        <input type="text" id="username2" name="contact_person" placeholde="contact person"
+                            class="form-control">
+                        <div class="input-group-addon">
+
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label>contact person number</label>
 
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control">
-                    <div class="input-group-addon">
-                        <i class="fa fa-user"></i>
+                    <div class="input-group">
+                        <input type="text" id="email2" name="contact_person_number"
+                            placeholde="contact person number" class="form-control">
+                        <div class="input-group-addon">
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label>City</label>
+                    <select name="city" class="form-control select-zone">
+                        <option value=""></option>
+                    </select>
+                </div>
+                <div class="form-group col">
+                    <label>buyer Type</label>
+                    <select name="buyer_type" id="" style="text-transform: capitalize;" class="form-control ">
+                        <option value="Customer">Customer</option>
+                        <option value="medical">medical</option>
+                        <option value="layer farm">layer farm</option>
+                        <option value="control">control</option>
+                        <option value="farmer">farmer</option>
+                        <option value="doctor">doctor</option>
+                        <option value="vaccinator">vaccinator</option>
+                        <option value="customer">customer</option>
+                        <option value="corporate">corporate</option>
+                        <option value="institution">institution</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group col">
+                    <label>Debit</label>
+                    <div class="input-group">
+                        <input type="number" step="any" id="username2" name="debit" placeholde="debit"
+                            class="form-control " value="0.00">
+                        <div class="input-group-addon">
 
-            <div class="form-group">
-                <div class="input-group">
-                    <input type="text" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control">
-                    <div class="input-group-addon">
-                        <i class="fa fa-envelope"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group col">
+                    <label>Credit</label>
+                    <div class="input-group">
+                        <input type="number" step="any" id="username2" name="credit" placeholde="Credit"
+                            class="form-control " value="0.00">
+                        <div class="input-group-addon">
+
+                        </div>
                     </div>
                 </div>
             </div>
-
-
-            <div class="form-group">
+            <div class="form-group col">
+                <label>Address</label>
                 <div class="input-group">
-                    <input type="text" id="username2" name="city" placeholder="city" class="form-control">
-                    <div class="input-group-addon">
-                        <i class="fa fa-building"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-            <label for="">buyer Type</label>
-            <select name="buyer_type" id="" style="text-transform: capitalize;" class="form-control">
-                <option value="supplier">supplier</option>
-                <option value="medical">medical</option>
-                <option value="layer farm">layer farm</option>
-                <option value="control">control</option>
-                <option value="farmer">farmer</option>
-                <option value="doctor">doctor</option>
-                <option value="vaccinator">vaccinator</option>
-                <option value="customer">customer</option>
-                <option value="corporate">corporate</option>
-                <option value="institution">institution</option>
-            </select>
-              
-
-            </div>
-            
-            <div class="form-group">
-            <label for="">Debit</label>
-                <div class="input-group">
-                    <input type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control" value="0.00">
-                    <div class="input-group-addon">
-                        <i class="fa fa-building"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-            <label for="">Credit</label>
-                <div class="input-group">
-                    <input type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control" value="0.00">
-                    <div class="input-group-addon">
-                        <i class="fa fa-building"></i>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-                <label for="">Address</label>
-                <div class="input-group">
-                    <textarea name="address" id="" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="Company Address"></textarea>
-
+                    <textarea name="address" cols="30" rows="20"
+                        style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholde="Customer Address"></textarea>
                 </div>
             </div>
 
 
-
-
-
-
-            @error('company_name')
-
-            <div class="alert alert-danger" role="alert">
-                {{$message}}
-
-
-
-            </div>
-            @enderror
-
-            @error('company_email')
-
-            <div class="alert alert-danger" role="alert">
-                {{$message}}
-
-
-
-            </div>
-            @enderror
-
-
-
-
-            <div class="form-actions form-group">
+            <div class="form-actions form-group col">
                 <button type="submit" class="btn btn-secondary btn-sm">Submit</button>
             </div>
         </form>

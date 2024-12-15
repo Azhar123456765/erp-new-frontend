@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Panel')  @section('content')
+@extends('layout.app')  @section('title','Panel')  @section('content')
 
 
 <br><br><br>
@@ -11,7 +11,7 @@
 
             @csrf
             <div class="form-group">
-            <label for="">Company</label>
+            <label>Company</label>
                 <div class="input-group">
                     <p type="text" id="username2" name="company_name" placeholder="Company" class="form-control " value="" required>
            {{$row->company_name}}                  </p>                                        <div class="input-group-addon">
@@ -23,7 +23,7 @@
 
 
             <div class="form-group">
-            <label for="">Company Email</label>
+            <label>Company Email</label>
 
                 <div class="input-group">
                     <p type="email" validate="email" id="email2" name="company_email" placeholder="Company Email" class="form-control " value="{{$row->company_email}}">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="form-group">
-            <label for="">contact person</label>
+            <label>contact person</label>
 
                 <div class="input-group">
                     <p type="text" id="username2" name="contact_person" placeholder="contact person" class="form-control " value="{{$row->contact_person}}">
@@ -45,7 +45,7 @@
             </div>
 
             <div class="form-group">
-            <label for="">contact person number</label>
+            <label>contact person number</label>
 
                 <div class="input-group">
                     <p type="email" validate="email" id="email2" name="contact_person_number" placeholder="contact person number" class="form-control " value="{{$row->contact_person_number}}">
@@ -57,7 +57,7 @@
 
 
             <div class="form-group">
-            <label for="">City</label>
+            <label>City</label>
 
                 <div class="input-group">
                     <p type="text" id="username2" name="city" placeholder="city" class="form-control " value="{{$row->city}}">
@@ -68,7 +68,7 @@
             </div>
 
             <div class="form-group">
-                <label for="">Seller Type</label>
+                <label>Seller Type</label>
                 <select name="seller_type" id="" style="text-transform: capitalize;" class="form-control " value="{{$row->company_name}}">
                     <option <?php  if($row->seller_type == 'supplier'){ echo "selected"; }  ?> value="supplier">supplier</option>
                     <option <?php  if($row->seller_type == 'medical'){ echo "selected"; }  ?> value="medical">medical</option>
@@ -86,7 +86,7 @@
             </div>
 
             <div class="form-group">
-                <label for="">Debit</label>
+                <label>Debit</label>
                 <div class="input-group">
                     <p type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control " value="{{$row->debit}}" value="0.00">
            {{$row->debit}}                  </p>                                        <div class="input-group-addon">
@@ -102,7 +102,7 @@
 
 
             <div class="form-group">
-                <label for="">Credit</label>
+                <label>Credit</label>
                 <div class="input-group">
                     <p type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control " value="0.00">
            {{$row->credit}}                  </p>                                   
@@ -113,7 +113,7 @@
             </div>
 
             <div class="form-group">
-                <label for="">Address</label>
+                <label>Address</label>
                 <div class="input-group">
                     <textarea readonly name="address" id="" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="Company Address">{{$row->address}}</textarea>
 

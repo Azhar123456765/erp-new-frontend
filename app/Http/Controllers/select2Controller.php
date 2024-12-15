@@ -8,6 +8,7 @@ use App\Models\FarmingPeriod;
 use App\Models\HeadAccount;
 use App\Models\product_category;
 use App\Models\product_company;
+use App\Models\product_type;
 use App\Models\sales_officer;
 use App\Models\SubHeadAccount;
 use App\Models\warehouse;
@@ -17,6 +18,7 @@ use App\Models\products;
 use App\Models\chickenInvoice;
 use App\Models\ChickInvoice;
 use App\Models\feedInvoice;
+use App\Models\zone;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -142,6 +144,15 @@ class select2Controller extends Controller
 
         return response()->json($results);
     }
+    function zone(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = zone::where('zone_name', 'LIKE', "%{$search}%")
+            ->limit(10)->get(['zone_id', 'zone_name']);
+
+        return response()->json($results);
+    }
 
     function sales_officer(Request $request)
     {
@@ -168,6 +179,16 @@ class select2Controller extends Controller
 
         $results = product_company::where('company_name', 'LIKE', "%{$search}%")
             ->limit(10)->get(['product_company_id', 'company_name']);
+
+        return response()->json($results);
+    }
+   
+    function product_type(Request $request)
+    {
+        $search = $request->get('q');
+
+        $results = product_type::where('type', 'LIKE', "%{$search}%")
+            ->limit(10)->get(['product_type_id', 'type']);
 
         return response()->json($results);
     }
@@ -254,7 +275,7 @@ class select2Controller extends Controller
                             ->groupBy('unique_id');
                     })
             )
-            ->get()>filter(function ($invoice) use ($search) {
+            ->get() -> filter(function ($invoice) use ($search) {
                 return stripos($invoice->unique_id_name, $search) !== false;
             });
 
@@ -299,7 +320,7 @@ class select2Controller extends Controller
                             ->groupBy('unique_id');
                     })
             )
-            ->get()>filter(function ($invoice) use ($search) {
+            ->get() -> filter(function ($invoice) use ($search) {
                 return stripos($invoice->unique_id_name, $search) !== false;
             });
 
@@ -342,7 +363,7 @@ class select2Controller extends Controller
                             ->groupBy('unique_id');
                     })
             )
-       
+
             ->get()->filter(function ($invoice) use ($search) {
                 return stripos($invoice->unique_id_name, $search) !== false;
             });

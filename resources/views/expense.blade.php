@@ -1,4 +1,4 @@
-@extends('master') @section('title','Expenses') @section('content')
+@extends('layout.app') @section('title','Expenses') @section('content')
 @php
 $endDate = date('Y-m-d');
 $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
@@ -10,10 +10,10 @@ $startDate = date('Y-m-d', strtotime("-1 year", strtotime($endDate)));
             <h3 class="title-5 m-b-35">Expenses</h3>
             <form class="row float-right" style="    display: flex;
     align-items: baseline;" method="GET" action="/expense">
-                <label for="">Start Date:</label>
+                <label>Start Date:</label>
                 <input type="date" class="date" name="start_date" id="start_date" onchange="date()" value="{{$start_date ?? $startDate}}">
                 &nbsp;&nbsp;&nbsp;
-                <label for="">End Date:</label>
+                <label>End Date:</label>
                 <input type="date" class="date" name="end_date" id="end_date" onchange="date()" value="{{$end_date ?? $endDate}}">
                 &nbsp;&nbsp;&nbsp;
 

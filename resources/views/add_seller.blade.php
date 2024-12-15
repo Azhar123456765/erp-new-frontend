@@ -1,4 +1,4 @@
-@extends('master')  @section('title','Panel')  @section('content')
+@extends('layout.app')  @section('title','Panel')  @section('content')
 
 
 <br><br><br>
@@ -56,7 +56,7 @@
             </div>
 
             <div class="form-group">
-            <label for="">Seller Type</label>
+            <label>Seller Type</label>
             <select name="seller_type" id="" style="text-transform: capitalize;" class="form-control">
                 <option value="supplier">supplier</option>
                 <option value="medical">medical</option>
@@ -74,7 +74,7 @@
             </div>
             
             <div class="form-group">
-            <label for="">Debit</label>
+            <label>Debit</label>
                 <div class="input-group">
                     <input type="number" step="any" id="username2" name="debit" placeholder="debit" class="form-control" value="0.00">
                     <div class="input-group-addon">
@@ -84,7 +84,7 @@
             </div>
 
             <div class="form-group">
-            <label for="">Credit</label>
+            <label>Credit</label>
                 <div class="input-group">
                     <input type="number" step="any" id="username2" name="credit" placeholder="Credit" class="form-control" value="0.00">
                     <div class="input-group-addon">
@@ -94,7 +94,7 @@
             </div>
 
             <div class="form-group">
-                <label for="">Address</label>
+                <label>Address</label>
                 <div class="input-group">
                     <textarea name="address" id="" cols="30" rows="10" style="border: 0.5px solid lightgray; width: 100%; padding:3px 3px 3px 3px" placeholder="Company Address"></textarea>
 

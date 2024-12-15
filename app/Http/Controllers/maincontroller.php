@@ -72,6 +72,10 @@ class maincontroller extends Controller
     }
     function add_account(Request $request)
     {
+        $request->validate([
+            'account_name' => 'required',
+        ]);
+
 
         $add = new accounts();
         $add->account_name = $request['account_name'];
@@ -87,6 +91,9 @@ class maincontroller extends Controller
 
     function edit_account(Request $request, $id)
     {
+        $request->validate([
+            'account_name' => 'required',
+        ]);
         if ($request['move_account']) {
             $query = accounts::where('id', $id)->update([
 
@@ -121,9 +128,31 @@ class maincontroller extends Controller
             return redirect()->back();
         } else {
             $query = accounts::where('id', $id)->delete();
-            session()->flash('message', 'Account has been deleted successfully.');
+            session()->flash('message', 'Account has been deleted successfully');
             return redirect()->back();
         }
+
+
+
+
+        // Temporary 
+
+        // $accounts = accounts::all();
+        // foreach ($accounts as $accountRow) {
+
+        //     $check1 = p_voucher::where('cash_bank', $accountRow->id)->exists();
+        //     $check2 = ReceiptVoucher::where('cash_bank', $accountRow->id)->exists();
+        //     $check3 = ExpenseVoucher::where('cash_bank', $accountRow->id)->orWhere('buyer', $accountRow->id)->exists();
+        //     $check4 = JournalVoucher::where('from_account', $accountRow->id)->orWhere('to_account', $accountRow->id)->exists();
+
+        //     $check5 = chickenInvoice::where('buyer', $accountRow->reference_id)->orWhere('seller', $accountRow->reference_id)->exists();
+        //     $check6 = chickInvoice::where('buyer', $accountRow->reference_id)->orWhere('seller', $accountRow->reference_id)->exists();
+        //     $check7 = feedInvoice::where('buyer', $accountRow->reference_id)->orWhere('seller', $accountRow->reference_id)->exists();
+
+        //     if (!$check1 && !$check2 && !$check3 && !$check4 && !$check5 && !$check6 && !$check7) {
+        //         accounts::where('id',$accountRow->id)->delete();
+        //     } 
+        // }
     }
 
 
@@ -204,22 +233,24 @@ class maincontroller extends Controller
     }
     function add_warehouse(Request $request)
     {
+        $request->validate([
+            'warehouse_name' => 'required',
+        ]);
+
         $add = new warehouse();
         $add->warehouse_name = $request['warehouse_name'];
         $add->zone = $request['zone'];
-
         $add->save();
 
-
         session()->flash('message', 'Warehouse has been added successfully');
-
-
         return redirect()->back();
     }
 
     function edit_warehouse(Request $request, $id)
     {
-
+        $request->validate([
+            'warehouse_name' => 'required',
+        ]);
         $query = warehouse::where('warehouse_id', $id)->update([
 
             'warehouse_name' => $request['warehouse_name'],
@@ -274,21 +305,24 @@ class maincontroller extends Controller
     }
     function add_zone(Request $request)
     {
-
+        $request->validate([
+            'zone_name' => 'required',
+        ]);
 
         $add = new zone();
         $add->zone_name = $request['zone_name'];
         $add->save();
 
-
         session()->flash('message', 'Zone has been added successfully');
-
-
         return redirect()->back();
     }
 
     function edit_zone(Request $request, $id)
     {
+
+        $request->validate([
+            'zone_name' => 'required',
+        ]);
 
         $query = zone::where('zone_id', $id)->update([
 
@@ -351,7 +385,9 @@ class maincontroller extends Controller
     function add_sales_officer(Request $request)
     {
 
-
+        $request->validate([
+            'sales_officer_name' => 'required',
+        ]);
         $add = new sales_officer();
         $add->sales_officer_name = $request['sales_officer_name'];
         $add->phone_number = $request['phone_number'];
@@ -368,7 +404,9 @@ class maincontroller extends Controller
 
     function edit_sales_officer(Request $request, $id)
     {
-
+        $request->validate([
+            'sales_officer_name' => 'required',
+        ]);
         $query = sales_officer::where('sales_officer_id', $id)->update([
             'sales_officer_name' => $request['sales_officer_name'],
             'phone_number' => $request['phone_number'],
@@ -659,7 +697,7 @@ class maincontroller extends Controller
                 $expense_chartData = p_voucher::select('id', 'amount', 'updated_at')->get()->groupBy(function ($data) {
                     return Carbon::parse($data->updated_at)->format('M');
                 });
-                
+
                 // dd($expense_chartData);
                 $months = [];
                 $expense_chart = [];
@@ -861,13 +899,7 @@ class maincontroller extends Controller
     {
 
         $request->validate([
-
-            'email' => 'required|unique:users,email,' . $request['user_id'] . ',user_id',
-
             'username' => 'required|unique:users,username,' . $request['user_id'] . ',user_id',
-
-            'phone_number' => 'required|unique:users,phone_number,' . $request['user_id'] . ',user_id',
-
         ]);
 
         $user = new users();
@@ -881,9 +913,6 @@ class maincontroller extends Controller
 
         session()->flash('message', 'User has been added successfully');
         return redirect('/users');
-        // session()->flash('message','user is added');
-
-
 
     }
 
@@ -1333,51 +1362,6 @@ class maincontroller extends Controller
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     public function view_buyers(Request $request)
     {
         $search = $request->input('search');
@@ -1499,16 +1483,16 @@ class maincontroller extends Controller
 
 
 
-    public function edit_buyer_form(Request $request)
+    public function edit_buyer_form(Request $request, $id)
     {
 
         $request->validate([
 
-            'company_name' => 'required|unique:buyer,company_name,' . $request['user_id'] . ',buyer_id',
+            'company_name' => 'required|unique:buyer,company_name,' . $id . ',buyer_id',
 
         ]);
 
-        buyer::where('buyer_id', $request['user_id'])->update([
+        buyer::where('buyer_id', $id)->update([
             'company_name' => $request['company_name'],
             'company_email' => $request['company_email'],
             'company_phone_number' => $request['company_phone_number'],
@@ -1523,9 +1507,9 @@ class maincontroller extends Controller
             'credit' => $request['credit'],
         ]);
 
-        $account = accounts::where('reference_id', $request['user_id'])->first();
+        $account = accounts::where('reference_id', $id)->first();
         if ($account) {
-            accounts::where('reference_id', $request['user_id'])->update([
+            accounts::where('reference_id', $id)->update([
                 'account_name' => $request['company_name'],
             ]);
         } else {
@@ -1535,7 +1519,7 @@ class maincontroller extends Controller
             $add->account_qty = 0;
             $add->account_debit = 0.00;
             $add->account_credit = 0.00;
-            $add->reference_id = $request['user_id'];
+            $add->reference_id = $id;
             $add->save();
         }
 
@@ -1583,11 +1567,7 @@ class maincontroller extends Controller
 
     public function view_edit_buyer(Request $request, $id)
     {
-        $buyer = buyer::where([
-
-            'buyer_id' => $id
-
-        ])->get();
+        $buyer = buyer::where('buyer_id', $id)->first();
 
         $data = compact('buyer');
 
@@ -1600,11 +1580,7 @@ class maincontroller extends Controller
 
     public function view_single_buyer(Request $request, $id)
     {
-        $buyer = buyer::where([
-
-            'buyer_id' => $id
-
-        ])->get();
+        $buyer = buyer::where('buyer_id', $id)->first();
 
         $data = compact('buyer');
 

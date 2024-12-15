@@ -1,4 +1,4 @@
-@extends('master') @section('title', 'Sale Invoice') @section('content')
+@extends('layout.app') @section('title', 'Sale Invoice') @section('content')
 
 <style>
     @media (max-width: 755px) {
@@ -549,8 +549,10 @@ display: flex;
     var firstPart = parts.slice(0, -1).join('-');
     var lastPart = parts[parts.length - 1];
     var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) - 1);
-    window.location.href = newUrl">
-        Previous
+    window.location.href = newUrl"id="previous_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + B">
+            Previous
     </button>
 
     <button type="submit" class="btn btn-secondary btn-sm  submit" id="btn"
@@ -562,18 +564,24 @@ display: flex;
     var lastPart = parts[parts.length - 1];
     var newUrl = '/es_med_invoice_id=' + firstPart + '-' + (parseInt(lastPart) + 1);
     window.location.href = newUrl
-    ">
-        Next
+    " id="next_btn" data-bs-toggle="tooltip" 
+        data-bs-placement="top" 
+        title="Shortcut: Shift + N">
+            Next
     </button>
 
     <a href="/es_med_invoice_id={{ $rand }}" class="edit edit-btn  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
-        Edit
+        style="margin-left: 19px; display:none;" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + E">
+            Edit
     </a>
 
     <a href="/s_med_invoice" class="edit add-more  btn btn-secondary btn-sm"
-        style="margin-left: 19px; display:none;">
-        Add More
+        style="margin-left: 19px; display:none;"id="add_more_btn" data-bs-toggle="tooltip" 
+            data-bs-placement="top" 
+            title="Shortcut: Shift + M">
+            Add More
     </a>
 
 
@@ -814,7 +822,7 @@ display: flex;
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select').select2({
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: 'resolve',
             });
             $(".select2-container--open .select2-search__field").focus();
@@ -969,7 +977,7 @@ display: flex;
         $(document).ready(function() {
             // Initialize Select2 for the desired select elements
             $('.select').select2({
-                theme: 'classic',
+                theme: 'bootstrap4',
 
                 width: 'resolve',
             });
@@ -1287,7 +1295,7 @@ display: flex;
         // Initialize Select2 for the desired select elements
         $("select").select2();
         $('.select').select2({
-            theme: 'classic',
+            theme: 'bootstrap4',
             width: 'resolve',
         });
         // Initialize other select elements if necessary

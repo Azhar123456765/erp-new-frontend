@@ -1,8 +1,4 @@
-@extends('master') @section('title', 'feed Invoice (EDIT)') @section('content')
-
-<head>
-
-</head>
+@extends('layout.app') @section('title', 'feed Invoice (EDIT)') @section('content')
 <style>
     @media (max-width: 755px) {
         body {
@@ -26,16 +22,11 @@
     }
 
 
-
-
-
-    .container {
-        transform: scale(0.78);
+    .finance-layout {
+        transform: scale(0.75);
     }
 
-    input[type="number" step="any"] {
-        text-align: right !important;
-    }
+    
 
     input[type="number"]::-webkit-outer-spin-button,
     input[type="number"]::-webkit-inner-spin-button {
@@ -43,15 +34,15 @@
         margin: 0;
     }
 
-    * input,
-    #invoiceForm select {
-        font-weight: 500;
+    * input {
+        border: 1px solid gray !important;
+        width: 71px;
     }
 
     label {
         margin: 3px;
         font-weight: bolder;
-        font-size: large;
+        font-size: larger !important;
     }
 
     h6 {
@@ -60,9 +51,9 @@
         font-size: large;
     }
 
-    .top label {
+    /* .top label {
         margin: 5px;
-    }
+    } */
 
     .dup_invoice label {
         width: 55px;
@@ -137,30 +128,30 @@
         height: 27px !important;
     }
 
-    #invoiceForm select {
-        width: 171px !important;
+    /* #invoiceForm select {
+        width: 131px !important;
         height: 27px !important;
-    }
+    } */
 
-
-    #invoiceForm .select2-container--classic {
-        width: 191px !important;
-        height: 27px !important;
-
+    #invoiceForm .select2-container--bootstrap4 {
+        width: 210px !important;
         line-height: 25px !important;
-        height: 25px !important;
     }
 
     .select2-dropdown {
         width: 200px !important;
     }
 
-    .select2-container--classic .select2-search--dropdown .select2-search__field {
+    .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
         width: 100% !important;
     }
 
     .select2-dropdown {
         width: 200px !important;
+    }
+
+    .select2-container--bootstrap4 .select2-search--dropdown .select2-search__field {
+        width: 100% !important;
     }
 
     #form {
@@ -207,7 +198,7 @@
     }
 
 
-    /* .remark .select2-container--classic .select2-selection--single .select2-selection__rendered {
+    /* .remark .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
         width: 219px !important;
         height: 27px !important;
 
@@ -216,8 +207,12 @@
         padding-top: 2px;
     } */
 
-    .cash .select2-container--classic .select2-selection--single .select2-selection__rendered {
-        width: 159px !important;
+    .cash .select2-container--bootstrap4 .select2-selection--single .select2-selection__rendered {
+        width: 139px !important;
+    }
+
+    .items #invoiceForm .select2-container--bootstrap4 {
+        width: 115px !important;
     }
 
     /* .fields input{
@@ -227,10 +222,15 @@
     padding-left: 25%;
       } */
 
+
+    .dup_invoice #invoiceForm select {
+        border: 1px solid;
+        width: 83px !important;
+    }
+
     .dup_invoice input {
         border: 1px solid;
         width: 108px !important;
-        text-align: right !important;
     }
 
     .dup_invoice input[id="amount"] {
@@ -258,298 +258,325 @@
         align-items: center;
         justify-content: center;
     }
-</style>
-<h5 style="text-align: center;">feed Invoice (EDIT)</h5>
 
-<div class="container" id="invoiceForm" style="margin-top: -40px; padding-top: 5px;        overflow-x: visible;
+    #invoiceForm .dup_invoice .select2-container--bootstrap4 {
+        width: 120px !important;
+
+        line-height: 25px !important;
+        height: 30px !important;
+    }
+</style>
+<div class="container">
+    <h5 class="text-center my-2">Feed Invoice (Edit)</h5>
+    <div class="finance-layout" id="invoiceForm" style="overflow-x: visible;
 ">
-    <h6 style="
+        <h6 style="
 position: absolute;
 top: 35%;
 left: 15%;
 ">Supplier</h6>
-    <h6 style="
+        <h6 style="
 position: absolute;
 top: 35%;
 right: 15%;
 ">Customer</h6>
-    <form id="form" enctype="multipart/form-data">
-        <div class="top">
-            <div class="fields">
-                <div class="one">
-                    <label for="Invoice">Invoice#</label>
-                    <input style="border: none !important; width: 219px !important;" type="text" id=""
-                        name="" value="<?php $year = date('Y');
-                        $lastTwoWords = substr($year, -2);
-                        echo $rand = 'SI' . '-' . $year . '-' . $single_invoice->unique_id; ?>" />
-                    <input type="hidden" id="unique_id" name="unique_id"
-                        value="{{ $rand = $single_invoice->unique_id }}" />
-                </div>
-                <div class="one">
-                    <label for="date">Date</label>
-                    <input style="border: none !important; width: 219px !important; text-align:center;        "
-                        type="date" id="date" name="date" value="{{ $single_invoice->date }}" />
-                </div>
-                <div class="one  remark">
-                    <label for="seller">Supplier</label>
-                    <select name="seller" class="company select-buyer" required>
-                        <option value="{{ $single_invoice->supplier->buyer_id ?? null }}" selected>
-                            {{ $single_invoice->supplier->company_name ?? null }}</option>
-                    </select>
-                </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="supply_farm" class="select-farm">
-                        <option value="{{ $single_invoice->SupplyFarms->id ?? (null ?? null) }}" selected>
-                            {{ $single_invoice->SupplyFarms->name ?? (null ?? null) }}</option>
-                    </select>
+        <form id="form" enctype="multipart/form-data">
+            <div class="row justify-content-around" style="margin-top: -50px !important;">
+                <div class="col-3">
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="Invoice">Invoice#</label>
+                        <div class="col-8">
+                            <input clang="form-control" style="border: none !important; width: 219px !important;"
+                                type="text" id="" name="" value="<?php $year = date('Y');
+                                $lastTwoWords = substr($year, -2);
+                                echo $rand = 'SI' . '-' . $year . '-' . $single_invoice->unique_id; ?>" />
+                            <input clang="form-control" type="hidden" id="unique_id" name="unique_id"
+                                value="{{ $rand = $single_invoice->unique_id }}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="date">Date</label>
+                        <div class="col-8">
+                            <input clang="form-control"
+                                style="border: none !important; width: 219px !important; text-align:center;        "
+                                type="date" id="date" name="date" value="{{ $single_invoice->date }}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="seller">Supplier</label>
+                        <div class="col-8">
 
+                            <select name="seller" class="company select-buyer" required>
+                                <option value="{{ $single_invoice->supplier->buyer_id ?? null }}" selected>
+                                    {{ $single_invoice->supplier->company_name ?? null }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">Farm</label>
+                        <div class="col-8">
+                            <select name="supply_farm" class="select-farm">
+                                <option value="{{ $single_invoice->SupplyFarms->id ?? (null ?? null) }}" selected>
+                                    {{ $single_invoice->SupplyFarms->name ?? (null ?? null) }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label">Sales Officer</label>
+                        <div class="col-8">
+
+                            <select name="sales_officer" id="sales_officer" class="select-sales_officer">
+                                <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
+                                    {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+
+
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="remark">Remarks</label>
+                        <div class="col-8">
+
+                            <input clang="form-control" style="width: 219px !important;" type="text" id="remark"
+                                name="remark" value="{{ $single_invoice->remark }}" />
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="seller">Customer</label>
+                        <div class="col-8">
+
+                            <select name="buyer" class="select-buyer" required>
+                                <option value="{{ $single_invoice->customer->buyer_id }}" selected>
+                                    {{ $single_invoice->customer->company_name }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row mb-3">
+                        <label class="col-3 col-form-label" for="sales_officer">Farm</label>
+                        <div class="col-8">
+                            <select name="farm" class="select-farm">
+                                <option value="{{ $single_invoice->farms->id ?? (null ?? null) }}" selected>
+                                    {{ $single_invoice->farms->name ?? (null ?? null) }}</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div class="fields">
+            <br />
 
+            <div class="invoice">
+                @csrf
+                @php
+                    $counter = 1;
+                @endphp
+                @foreach ($invoice as $row)
+                    <div class="dup_invoice" onchange="addInvoice2()">
+                        <div class="div   items">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="item">Item</label>
+                            <select name="item[]" id="item{{ $counter }}" style="height: 28px"
+                                onchange="addInvoice2()" required class="item0 select-products">
+                                <option value="{{ $row->product->product_id }}" selected>
+                                    {{ $row->product->product_name }}</option>
+                            </select>
+                        </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="qty">Quantity</label>
+                            <input type="number" step="any"
+                                oninput="$('#sale_qty{{ $counter }}').val(this.value)"
+                                id="qty{{ $counter }}" name="qty[]" value="{{ $row->qty }}" />
+                        </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="rate">Rate</label>
+                            <input type="number" step="any"
+                                oninput="$('#sale_rate{{ $counter }}').val(this.value)"
+                                id="rate{{ $counter }}" name="rate[]" value="{{ $row->rate }}" />
+                        </div>
 
-            </div>
-            <div class="fields">
-                <div class="one  remark">
-                    <label for="sales_officer">Sales Officer</label>
-                    <select name="sales_officer" id="sales_officer" class="select-sales_officer">
-                        <option value="{{ $single_invoice->officer->sales_officer_id ?? null }}" selected>
-                            {{ $single_invoice->officer->sales_officer_name ?? null }}</option>
-                    </select>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="crate_type">Discount(%)</label>
+                            <input type="number" step="any"
+                                oninput="$('#sale_discount{{ $counter }}').val(this.value)"
+                                id="discount{{ $counter }}" name="discount[]" value="{{ $row->discount }}" />
+                        </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="bonus">Bonus</label>
+                            <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
+                                oninput="$('#sale_bonus{{ $counter }}').val(this.value)"
+                                id="bonus{{ $counter }}" name="bonus[]" value="{{ $row->bonus }}" />
+                        </div>
 
-                </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="amount">Amount</label>
+                            <input type="number" step="any" min="0.00"
+                                style="text-align: right;width: 190px !important;" step="any" onchange='count()'
+                                id="amount{{ $counter }}" name="amount[]" class="xl-width-inp"
+                                value="{{ $row->amount }}" />
+                        </div>
 
-                <div class="one  remark">
-                    <label for="remark">Remarks</label>
-                    <input style="width: 219px !important;" type="text" id="remark" name="remark"
-                        value="{{ $single_invoice->remark }}" />
-                </div>
-                <div class="one  remark">
-                    <label for="seller">Customer</label>
-                    <select name="buyer" class="select-buyer" required>
-                        <option value="{{ $single_invoice->customer->buyer_id }}" selected>
-                            {{ $single_invoice->customer->company_name }}</option>
-                    </select>
-                </div>
-                <div class="one  remark">
-                    <label for="sales_officer">Farm</label>
-                    <select name="farm" class="select-farm">
-                        <option value="{{ $single_invoice->farms->id ?? (null ?? null) }}" selected>
-                            {{ $single_invoice->farms->name ?? (null ?? null) }}</option>
-                    </select>
+                        {{-- PURCHASE --}}
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_qty">Quantity</label>
+                            <input type="number" step="any" id="sale_qty{{ $counter }}" name="sale_qty[]"
+                                value="{{ $row->sale_qty }}" />
+                        </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_rate">Rate</label>
+                            <input type="number" step="any" id="sale_rate{{ $counter }}"
+                                name="sale_rate[]" value="{{ $row->sale_rate }}" />
+                        </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_crate_type">Discount</label>
+                            <input type="number" step="any" id="sale_discount{{ $counter }}"
+                                name="sale_discount[]" value="{{ $row->sale_discount }}" />
+                        </div>
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_bonus">Bonus</label>
+                            <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
+                                id="sale_bonus{{ $counter }}" name="sale_bonus[]"
+                                value="{{ $row->sale_bonus }}" />
+                        </div>
 
-                </div>
-            </div>
-        </div>
-
-        <br />
-
-        <div class="invoice">
-            @csrf
-            @php
-                $counter = 1;
-            @endphp
-            @foreach ($invoice as $row)
+                        <div class="div">
+                            <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_amount">Amount</label>
+                            <input type="number" step="any" min="0.00"
+                                style="text-align: right;width: 190px !important;" step="any" onchange='count()'
+                                id="sale_amount{{ $counter }}" name="sale_amount[]" class="xl-width-inp"
+                                value="{{ $row->sale_amount }}" />
+                        </div>
+                    </div>
+                    @php
+                        $counter++;
+                    @endphp
+                @endforeach
                 <div class="dup_invoice" onchange="addInvoice2()">
                     <div class="div   items">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="item">Item</label>
-                        <select name="item[]" id="item{{ $counter }}" style="height: 28px"
-                            onchange="addInvoice2()" required class="item0 select-products">
-                            <option value="{{ $row->product->product_id }}" selected>
-                                {{ $row->product->product_name }}</option>
+                        <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2()"
+                            class="item0 select-products">
                         </select>
                     </div>
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="qty">Quantity</label>
                         <input type="number" step="any"
                             oninput="$('#sale_qty{{ $counter }}').val(this.value)" id="qty{{ $counter }}"
-                            name="qty[]" value="{{ $row->qty }}" />
+                            name="qty[]" />
                     </div>
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="rate">Rate</label>
                         <input type="number" step="any"
-                            oninput="$('#sale_rate{{ $counter }}').val(this.value)" id="rate{{ $counter }}"
-                            name="rate[]" value="{{ $row->rate }}" />
+                            oninput="$('#sale_rate{{ $counter }}').val(this.value)"
+                            id="rate{{ $counter }}" name="rate[]" />
                     </div>
 
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="crate_type">Discount(%)</label>
                         <input type="number" step="any"
                             oninput="$('#sale_discount{{ $counter }}').val(this.value)"
-                            id="discount{{ $counter }}" name="discount[]" value="{{ $row->discount }}" />
+                            id="discount{{ $counter }}" name="discount[]" />
                     </div>
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="bonus">Bonus</label>
                         <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
                             oninput="$('#sale_bonus{{ $counter }}').val(this.value)"
-                            id="bonus{{ $counter }}" name="bonus[]" value="{{ $row->bonus }}" />
+                            id="bonus{{ $counter }}" name="bonus[]" />
                     </div>
 
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="amount">Amount</label>
                         <input type="number" step="any" min="0.00"
-                            style="text-align: right;width: 190px !important;" step="any" onchange='count()'
-                            id="amount{{ $counter }}" name="amount[]" class="xl-width-inp"
-                            value="{{ $row->amount }}" />
+                            style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                            onchange='count()' id="amount{{ $counter }}" name="amount[]"
+                            class="xl-width-inp" />
                     </div>
 
                     {{-- PURCHASE --}}
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_qty">Quantity</label>
-                        <input type="number" step="any" id="sale_qty{{ $counter }}" name="sale_qty[]"
-                            value="{{ $row->sale_qty }}" />
+                        <input type="number" step="any" id="sale_qty{{ $counter }}" name="sale_qty[]" />
                     </div>
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_rate">Rate</label>
-                        <input type="number" step="any" id="sale_rate{{ $counter }}" name="sale_rate[]"
-                            value="{{ $row->sale_rate }}" />
+                        <input type="number" step="any" id="sale_rate{{ $counter }}"
+                            name="sale_rate[]" />
                     </div>
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_crate_type">Discount</label>
                         <input type="number" step="any" id="sale_discount{{ $counter }}"
-                            name="sale_discount[]" value="{{ $row->sale_discount }}" />
+                            name="sale_discount[]" />
                     </div>
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_bonus">Bonus</label>
                         <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                            id="sale_bonus{{ $counter }}" name="sale_bonus[]"
-                            value="{{ $row->sale_bonus }}" />
+                            id="sale_bonus{{ $counter }}" name="sale_bonus[]" />
                     </div>
 
                     <div class="div">
-                        <label class="{{ $counter > 1 ? 'd-none' : '' }}" for="sale_amount">Amount</label>
                         <input type="number" step="any" min="0.00"
-                            style="text-align: right;width: 190px !important;" step="any" onchange='count()'
-                            id="sale_amount{{ $counter }}" name="sale_amount[]" class="xl-width-inp"
-                            value="{{ $row->sale_amount }}" />
+                            style="text-align: right;width: 190px !important;" step="any" value="0.00"
+                            onchange='count()' id="sale_amount{{ $counter }}" name="sale_amount[]"
+                            class="xl-width-inp" />
                     </div>
-                </div>
-                @php
-                    $counter++;
-                @endphp
-            @endforeach
-            <div class="dup_invoice" onchange="addInvoice2()">
-                <div class="div   items">
-                    <select name="item[]" id="item" style="height: 28px" onchange="addInvoice2()"
-                        class="item0 select-products">
-                    </select>
-                </div>
-                <div class="div">
-                    <input type="number" step="any" oninput="$('#sale_qty{{ $counter }}').val(this.value)"
-                        id="qty{{ $counter }}" name="qty[]" />
-                </div>
-                <div class="div">
-                    <input type="number" step="any"
-                        oninput="$('#sale_rate{{ $counter }}').val(this.value)" id="rate{{ $counter }}"
-                        name="rate[]" />
-                </div>
-
-                <div class="div">
-                    <input type="number" step="any"
-                        oninput="$('#sale_discount{{ $counter }}').val(this.value)"
-                        id="discount{{ $counter }}" name="discount[]" />
-                </div>
-                <div class="div">
-                    <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                        oninput="$('#sale_bonus{{ $counter }}').val(this.value)" id="bonus{{ $counter }}"
-                        name="bonus[]" />
-                </div>
-
-                <div class="div">
-                    <input type="number" step="any" min="0.00"
-                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
-                        onchange='count()' id="amount{{ $counter }}" name="amount[]" class="xl-width-inp" />
-                </div>
-
-                {{-- PURCHASE --}}
-                <div class="div">
-                    <input type="number" step="any" id="sale_qty{{ $counter }}" name="sale_qty[]" />
-                </div>
-                <div class="div">
-                    <input type="number" step="any" id="sale_rate{{ $counter }}" name="sale_rate[]" />
-                </div>
-                <div class="div">
-                    <input type="number" step="any" id="sale_discount{{ $counter }}"
-                        name="sale_discount[]" />
-                </div>
-                <div class="div">
-                    <input type="number" step="any" min="0.00" step="any" placeholder="0.00"
-                        id="sale_bonus{{ $counter }}" name="sale_bonus[]" />
-                </div>
-
-                <div class="div">
-                    <input type="number" step="any" min="0.00"
-                        style="text-align: right;width: 190px !important;" step="any" value="0.00"
-                        onchange='count()' id="sale_amount{{ $counter }}" name="sale_amount[]"
-                        class="xl-width-inp" />
                 </div>
             </div>
-        </div>
 
 
-        <style>
-            .total {
-                justify-content: center;
-                /* width: 50%; */
-                /* align-items: flex-end; */
-                display: flex;
-            }
+            <style>
+                .total {
+                    justify-content: center;
+                    /* width: 50%; */
+                    /* align-items: flex-end; */
+                    display: flex;
+                }
 
-            .total .last input {
-                margin-top: 9px !important;
+                .total .last input {
+                    margin-top: 9px !important;
 
-            }
+                }
 
-            .one {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 5px;
-                flex-direction: row;
-            }
+                .one {
+                    display: flex;
+                    justify-content: space-between;
+                    margin-top: 5px;
+                    flex-direction: row;
+                }
 
-            .last {
-                display: flex;
+                .last {
+                    display: flex;
 
-                flex-direction: column;
-            }
+                    flex-direction: column;
+                }
 
-            .last .one input {
-                margin-top: 5px;
-            }
+                .last .one input {
+                    margin-top: 5px;
+                }
 
-            .options {
-                display: flex;
-                justify-content: center;
-                margin-top: -7%;
-            }
-        </style>
+                .options {
+                    display: flex;
+                    justify-content: center;
+                    margin-top: -7%;
+                }
+            </style>
 
-        <div class="total" style="margin-top: 2.25%;">
-            <div class="first">
-                <div class="one" style="
+            <div class="total" style="margin-top: 2.25%;">
+                <div class="first">
+                    <div class="one" style="
                 margin-left: -136%;
             ">
-                    <label for="mor_cut"
-                        style="
+                        <label for="mor_cut"
+                            style="
         position: fixed;
         top: 95%;
         left: -1%;
     ">Total</label>
 
 
-                    <input type="number" step="any" step="any" name="qty_total" id="qty_total"
-                        value="{{ $single_invoice->qty_total }}"
-                        style="
+                        <input type="number" step="any" step="any" name="qty_total" id="qty_total"
+                            value="{{ $single_invoice->qty_total }}"
+                            style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
                 left: 26%;
             "=""="">
-                    <input type="number" step="any" step="any" name="amount_total" id="amount_total"
-                        value="{{ $single_invoice->amount_total }}"
-                        style="
+                        <input type="number" step="any" step="any" name="amount_total" id="amount_total"
+                            value="{{ $single_invoice->amount_total }}"
+                            style="
                 /* margin-left: 30%; */
                 position: fixed;
                 top: 95%;
@@ -557,119 +584,119 @@ right: 15%;
                 width: 190px !important;
             "=""="">
 
-                    <input type="number" step="any" step="any" name="sale_qty_total" id="sale_qty_total"
-                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;"=""=""
-                        value="{{ $single_invoice->sale_qty_total }}">
-                    <input type="number" step="any" step="any" name="sale_amount_total"
-                        id="sale_amount_total"
-                        style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;"=""=""
-                        value="{{ $single_invoice->sale_amount_total }}">
+                        <input type="number" step="any" step="any" name="sale_qty_total"
+                            id="sale_qty_total"
+                            style="/* margin-left: 30%; */position: fixed;top: 95%;left: 85.7%;"=""=""
+                            value="{{ $single_invoice->sale_qty_total }}">
+                        <input type="number" step="any" step="any" name="sale_amount_total"
+                            id="sale_amount_total"
+                            style="/* margin-left: 30%; */position: fixed;top: 95%;left: 96.55%;width: 190px !important;"=""=""
+                            value="{{ $single_invoice->sale_amount_total }}">
+
+                    </div>
 
                 </div>
-
             </div>
-        </div>
 
-</div>
-<button type="button" class="mx-5 px-3 p-1 btn btn-secondary btn-sm" data-bs-toggle="modal"
-    data-bs-target="#imageModal">
-    Attachment
-</button>
-<!-- Modal -->
-<div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="row p-2">
-                    <div class="col-lg-9 col-md-12 p-2">
-                        <a href="#" id="imageAnchor" target="_blank"><img
-                                src="{{ asset($single_invoice->attachment) }}" alt="img" class="img-fluid"
-                                id="imagePreview" style="object-fit: fill;">
-                        </a>
-                    </div>
-                    <div class="col-lg-3 col-md-12">
-                        <div class="row justify-content-start">
-                            <div class="mb-3">
-                                <input type="file" class="form-control" name="attachment" id="attachment"
-                                    value="{{ $single_invoice->attachment }}"
-                                    style="
-    height: max-content !important;
-" />
-                                <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
-                                    value="{{ $single_invoice->attachment }}" />
-                            </div>
-                            <button type="button" class="btn px-3 p-1 btn-secondary btn-sm"
-                                onclick=" 
-                  document.getElementById('attachment').value = '';
-                 document.getElementById('imagePreview').style.display = 'none';
-                 document.getElementById('imagePreview').src = '';
-                 document.getElementById('imageAnchor').href = '';">
-                                REMOVE
-                            </button>
-
+    </div>
+    <button type="button" class="me-5 px-3 p-1 btn btn-secondary btn-md" style="position: fixed; top: 75%; left:7%;"
+        data-bs-toggle="modal" data-bs-target="#imageModal">
+        Attachment
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="imageModal" tabindex="-1" aria-labelledby="imageModal" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Image Preview</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <div class="row p-2">
+                        <div class="col-lg-12 col-md-12 p-5">
+                            <a href="#" id="imageAnchor" target="_blank"><img
+                                    src="{{ asset($single_invoice->attachment) }}" alt="img" class="img-fluid"
+                                    id="imagePreview" style="object-fit: fill;">
+                            </a>
                         </div>
                     </div>
+                </div>
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="mb-3">
+                        <input type="file" class="form-control w-100" name="attachment" id="attachment"
+                            value="{{ $single_invoice->attachment }}" style="
+height: max-content !important;
+" />
+                        <input type="hidden" class="form-control" name="old_attachment" id="old_attachment"
+                            value="{{ $single_invoice->attachment }}" />
+                    </div>
+                    <button type="button" class="btn px-3 p-1 btn-secondary btn-md"
+                        onclick=" 
+document.getElementById('attachment').value = '';
+document.getElementById('imagePreview').style.display = 'none';
+document.getElementById('imagePreview').src = '';
+document.getElementById('imageAnchor').href = '';">
+                        REMOVE
+                    </button>
                 </div>
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center align-items-center"
+        style="width: 90%; position: absolute; top:90%; gap: 30px !important;">
+
+        <button type="submit" class="btn px-3 p-1 btn-secondary btn-md submit" id="submit" disabled
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Enter">
+            Update
+        </button>
+        <button type="button" class="btn px-3 p-1 btn-secondary btn-md submit" id="edit"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + E"
+            onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
+            Edit
+        </button>
+
+
+
+        <a href="{{ Route('invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-md  submit" id="first_btn"
+            data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + A">
+            First
+        </a>
+        <a href="{{ Route('edit_invoice_feed', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-md  submit"
+            id="previous_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + B">
+            Previous
+        </a>
+        <a href="{{ Route('edit_invoice_feed', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-md  submit"
+            id="next_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + N">
+            Next
+        </a>
+        <a href="{{ Route('last_invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-md  submit"
+            id="last_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + L">
+            Last
+        </a>
+        <a href="{{ Route('new_invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-md"
+            id="add_more_btn" data-bs-toggle="tooltip" data-bs-placement="top" title="Shortcut: Shift + M">
+            Add More
+        </a>
+
+        <button type="button" class="btn px-3 p-1 btn-secondary btn-md" id="sale_pdf">
+            SALE PDF
+        </button>
+
+        <button type="button" class="btn px-3 p-1 btn-secondary btn-md" id="purchase_pdf">
+            PURCHASE PDF
+        </button>
+
+        <button class="btn px-3 p-1 btn-secondary btn-md  submit" onclick="
+
+window.location.reload()
+">
+            Revert
+        </button>
+    </div>
+
+
+    </form>
 </div>
-<div class="row m-5 justify-content-center align-items-center"
-    style="position: absolute;top: 60%;gap: 30px;margin-top: 140px !important;right: 5%;">
-
-    <button type="submit" class="btn px-3 p-1 btn-secondary btn-sm submit" id="submit" disabled>
-        Update
-    </button>
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm submit" id="edit"
-        onclick="$('#submit').removeAttr('disabled'); $(this).attr('disabled', 'disabled');">
-        Edit
-    </button>
-
-
-
-    <a href="{{ Route('invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        First
-    </a>
-    <a href="{{ Route('edit_invoice_feed', $rand - 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Previous
-    </a>
-    <a href="{{ Route('edit_invoice_feed', $rand + 1) }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Next
-    </a>
-    <a href="{{ Route('last_invoice_feed') }}" class="btn px-3 p-1 btn-secondary btn-sm  submit">
-        Last
-    </a>
-
-    <a href="{{ Route('new_invoice_feed') }}" class="edit add-more  btn px-3 p-1 btn-secondary btn-sm"
-        id="add_more">
-        Add More
-    </a>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="sale_pdf">
-        SALE PDF
-    </button>
-
-    <button type="button" class="btn px-3 p-1 btn-secondary btn-sm" id="purchase_pdf">
-        PURCHASE PDF
-    </button>
-
-    <button class="btn px-3 p-1 btn-secondary btn-sm  submit" style=""
-        onclick="
-        
-        window.location.reload()
-        ">
-        Revert
-    </button>
-</div>
-
-
-</form>
 </div>
 
 @push('s_script')
@@ -807,7 +834,7 @@ right: 15%;
                         cache: true
                     },
 
-                    theme: 'classic',
+                    theme: 'bootstrap4',
                     width: '100%'
                 });
             }
@@ -843,7 +870,7 @@ right: 15%;
                         cache: true
                     },
 
-                    theme: 'classic',
+                    theme: 'bootstrap4',
                     width: '100%'
                 });
                 $(".select2-container--open .select2-search__field").focus();
@@ -998,7 +1025,7 @@ right: 15%;
                     cache: true
                 },
 
-                theme: 'classic',
+                theme: 'bootstrap4',
                 width: '100%'
             });
         }
@@ -1167,23 +1194,25 @@ right: 15%;
     <div class="modal fade" id="iv-search">
         <div class="modal-dialog">
             <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5">Search Invoice</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
                 <div class="modal-body">
-                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4>Search Invoice</h4>
-                    <div class="modal-body">
-                        <form method="GET" action="/saleInvoice-search">
-                            @csrf
-                            <div class="form-group">
-                                <label for="">Invoice No</label>
-                                <input type="text" class="form-control" id="search-input"
-                                    style="width: 100% !important;">
-                            </div>
+                    <form method="GET" action="/saleInvoice-search">
+                        @csrf
+                        <div class="form-group">
+                            <label>Invoice No</label>
+                            <input type="text" class="form-control" id="search-input"
+                                style="width: 100% !important;">
+                        </div>
 
-                            <button type="submit" data-url="{{ Route('edit_invoice_feed') }}" class="btn btn-primary"
-                                id="search-btn">Search</button>
+                        <div class="form-group">
 
-                        </form>
-                    </div>
+                        <button type="submit" data-url="{{ Route('edit_invoice_feed') }}" class="btn btn-primary"
+                            id="search-btn">Search</button>
+                        </div>
+                    </form>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->

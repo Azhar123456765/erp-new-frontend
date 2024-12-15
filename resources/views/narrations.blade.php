@@ -1,10 +1,10 @@
-@extends('master') @section('title', 'Narrtions') @section('content')
+@extends('layout.app') @section('title', 'Narrtions') @section('content')
 <br>
 <div class="container">
     <div class="card">
         <div class="card-header">
             <h3 class="card-title">Narrations table</h3>
-            <a a href="" data-toggle="modal" data-target="#add-modal" class="btn btn-success float-right">
+            <a href="" data-bs-toggle="modal" data-bs-target="#add-modal" class="btn btn-success float-right">
                 <i class="fa fa-plus"></i>&nbsp;&nbsp; Add Narrations</a>
         </div>
 
@@ -28,8 +28,8 @@
                             <td>{{ $row->narration }}</td>
                             <td>
                                 <div class="table-data-feature">
-                                    <a href="#" data-toggle="modal" data-target="#edit_modal{{ $row->id }}"
-                                        class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                    <a href="#" data-bs-toggle="modal" data-bs-target="#edit_modal{{ $row->id }}"
+                                        class="item" data-bs-toggle="tooltip" data-placement="top" title="Edit">
                                         <i class="fa fa-edit"></i>
                                     </a>
                                 </div>
@@ -65,7 +65,9 @@
                                 placeholder="narration" required>
                         </div>
 
-                        <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
 
                     </form>
                 </div>
@@ -90,7 +92,9 @@
                                     placeholder="narration" required value="{{ $row->narration }}">
                             </div>
 
+                            <div class="form-group">
                             <button type="submit" class="btn btn-primary" id="btn">Submit</button>
+                        </div>
 
                         </form>
                     </div>
